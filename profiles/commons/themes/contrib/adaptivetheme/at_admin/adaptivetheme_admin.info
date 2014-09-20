@@ -349,9 +349,9 @@
   settings[custom_css] = ''
 
 
-; Information added by drush on 2014-07-25
+; Information added by drush on 2014-08-08
 version = "7.x-3.2+1-dev"
 core = "7.x"
 project = "adaptivetheme"
-datestamp = "1406328908"
+datestamp = "1407503936"
 

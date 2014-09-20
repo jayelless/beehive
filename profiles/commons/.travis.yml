@@ -10,6 +10,7 @@ mysql:
 
 env:
   - UPGRADE=none
+  - UPGRADE=7.x-3.16
   - UPGRADE=7.x-3.15
   - UPGRADE=7.x-3.14
   - UPGRADE=7.x-3.13
@@ -25,6 +26,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
+    - env: UPGRADE=7.x-3.16
     - env: UPGRADE=7.x-3.15
     - env: UPGRADE=7.x-3.14
     - env: UPGRADE=7.x-3.13
@@ -130,6 +132,10 @@ before_script:
 
   # Enabled all non-default commons modules so that they can be tested.
   - drush pm-enable commons_documents commons_notices --yes
+
+  # Forcefully rebuild the Commons Documents feature until
+  # https://drupal.org/node/1920342 is fixed.
+  - drush features-revert commons_documents --force -y
 
   - cd ../drupal
 

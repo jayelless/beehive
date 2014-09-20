@@ -8,9 +8,9 @@ files[] = oembedprovider.module
 files[] = oembedprovider.test
 
 
-; Information added by drush on 2014-07-25
+; Information added by drush on 2014-08-08
 version = "7.x-1.0-rc2+15-dev"
 core = "7.x"
 project = "oembed"
-datestamp = "1406328913"
+datestamp = "1407503941"
 

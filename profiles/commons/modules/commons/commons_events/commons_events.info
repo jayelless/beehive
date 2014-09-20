@@ -108,9 +108,9 @@ features[views_view][] = commons_events_user_upcoming_events
 features_exclude[dependencies][commons_follow] = commons_follow
 features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
 
-; Information added by Drupal.org packaging script on 2014-07-25
-version = "7.x-3.16"
+; Information added by Drupal.org packaging script on 2014-08-08
+version = "7.x-3.17"
 core = "7.x"
 project = "commons"
-datestamp = "1406328902"
+datestamp = "1407503928"
 

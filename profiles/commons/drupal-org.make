@@ -58,10 +58,7 @@ projects[apachesolr_user][patch][] = "http://drupal.org/files/2077281-apache-sol
 
 projects[breakpoints][type] = "module"
 projects[breakpoints][subdir] = "contrib"
-projects[breakpoints][download][type] = "git"
-projects[breakpoints][download][url] = "http://git.drupal.org/project/breakpoints.git"
-projects[breakpoints][download][branch] = "7.x-1.x"
-projects[breakpoints][download][revision] = "c4f3665"
+projects[breakpoints][version] = "1.2"
 
 projects[connector][type] = "module"
 projects[connector][subdir] = "contrib"
@@ -69,22 +66,11 @@ projects[connector][version] = "1.0-beta2"
 
 projects[ckeditor][type] = "module"
 projects[ckeditor][subdir] = "contrib"
-projects[ckeditor][download][type] = "git"
-projects[ckeditor][download][url] = "http://git.drupal.org/project/ckeditor.git"
-projects[ckeditor][download][branch] = "7.x-1.x"
-projects[ckeditor][download][revision] = "b69a9ac"
-
-; Only load CSS when necessary.
-; https://drupal.org/node/1370894
-projects[ckeditor][patch][] = "http://drupal.org/files/issues/attach-ckeditor-css-1370894-8.patch"
+projects[ckeditor][version] = "1.15"
 
 ; Accomodate latest Media changes.
 ; https://drupal.org/node/2159403
-projects[ckeditor][patch][] = "http://drupal.org/files/issues/ckeditor-accomodate-latest-media-changes-0.patch"
-
-; Remove redundant external plugin declarations.
-; https://drupal.org/comment/8284591#comment-8284591
-projects[ckeditor][patch][] = "http://drupal.org/files/issues/ckeditor-remove-external-plugin-declarations-1-alt.patch"
+projects[ckeditor][patch][] = "http://drupal.org/files/issues/ckeditor-accomodate-latest-media-changes-53.patch"
 
 projects[ctools][type] = "module"
 projects[ctools][subdir] = "contrib"
@@ -104,7 +90,7 @@ projects[custom_search][patch][] = "http://drupal.org/files/commons_search_js_en
 
 projects[date][type] = "module"
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.7"
+projects[date][version] = "2.8"
 
 projects[date_facets][type] = "module"
 projects[date_facets][subdir] = "contrib"
@@ -173,7 +159,7 @@ projects[facetapi][version] = "1.5"
 
 projects[features][type] = "module"
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.0"
+projects[features][version] = "2.2"
 
 projects[file_entity][type] = "module"
 projects[file_entity][subdir] = "contrib"
@@ -238,7 +224,7 @@ projects[libraries][version] = "2.2"
 
 projects[lingotek][type] = "module"
 projects[lingotek][subdir] = "contrib"
-projects[lingotek][version] = "5.09"
+projects[lingotek][version] = "5.10"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -304,11 +290,7 @@ projects[message_subscribe][patch][] = "http://drupal.org/files/issues/2184567-m
 
 projects[metatag][type] = "module"
 projects[metatag][subdir] = "contrib"
-projects[metatag][version] = "1.0-rc1"
-
-; Don't show the warnings on the status page for transliteration and imagecache_token modules.
-; https://www.drupal.org/node/2306449
-projects[metatag][patch][] = "http://drupal.org/files/issues/2306449-metatag-recommended-modules-status-2.patch"
+projects[metatag][version] = "1.0-rc2"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
@@ -363,6 +345,10 @@ projects[og][patch][] = "http://drupal.org/files/og_ui-group_node_add_theme-1800
 ; Missing permissions when installing a new site.
 ; http://drupal.org/node/2301831
 projects[og][patch][] = "http://drupal.org/files/issues/og-missing-permission-roles-2301831-1.patch"
+
+; Missing permissions when reverting features.
+; http://drupal.org/node/2021673
+projects[og][patch][] = "http://drupal.org/files/og-Do_not_export_nonexisting_roles-2021673-1.patch"
 
 projects[panelizer][type] = "module"
 projects[panelizer][subdir] = "contrib"
@@ -489,7 +475,7 @@ projects[search_facetapi][version] = "1.0-beta2"
 
 projects[sharethis][type] = "module"
 projects[sharethis][subdir] = "contrib"
-projects[sharethis][version] = "2.8"
+projects[sharethis][version] = "2.9"
 
 projects[smartcrop][type] = "module"
 projects[smartcrop][subdir] = "contrib"

@@ -62,9 +62,9 @@ features[variable][] = custom_search_type_selector_label
 features[variable][] = custom_search_type_selector_label_visibility
 features[views_view][] = group_search
 
-; Information added by Drupal.org packaging script on 2014-08-08
-version = "7.x-3.17"
+; Information added by Drupal.org packaging script on 2014-11-20
+version = "7.x-3.20"
 core = "7.x"
 project = "commons"
-datestamp = "1407503928"
+datestamp = "1416448559"
 

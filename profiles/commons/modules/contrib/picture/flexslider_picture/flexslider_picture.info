@@ -8,9 +8,9 @@ dependencies[] = flexslider (2.x)
 dependencies[] = flexslider_fields (2.x)
 
 
-; Information added by drush on 2014-08-08
+; Information added by drush on 2014-11-20
 version = "7.x-1.2+6-dev"
 core = "7.x"
 project = "picture"
-datestamp = "1407503940"
+datestamp = "1416448593"
 

@@ -326,8 +326,7 @@ function module_load_include($type, $module, $name = NULL) {
 
   if (function_exists('drupal_get_path')) {
     $file = DRUPAL_ROOT . '/' . drupal_get_path('module', $module) . "/$name.$type";
-    if (is_file($file)) {
-      require_once $file;
+    if (@include_once $file) {
       return $file;
     }
   }

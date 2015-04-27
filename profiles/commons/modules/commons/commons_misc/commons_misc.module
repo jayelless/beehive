@@ -56,17 +56,6 @@ function commons_misc_form_system_theme_settings_alter(&$form, &$form_state, $fo
     require_once(drupal_get_path('theme', 'commons_origins') . '/commons_origins.palettes.inc');
     commons_origins_palettes_form($form);
   }
-
-  // JLS 28 Sep 2014 - added the following for commons-beehive
-  if (isset($themes_list['commons_beehive'])
-    && $themes_list['commons_beehive']->status == 1
-    && !empty($form_state['build_info']['args'])
-    && $form_state['build_info']['args'][0] == 'commons_beehive') {
-    // Add the color palette selection form to the apperance settings form.
-    require_once(drupal_get_path('theme', 'commons_beehive') . '/commons_beehive.palettes.inc');
-    commons_beehive_palettes_form($form);
-  }
-
 }
 
 /**

@@ -17,44 +17,6 @@ function ckeditor_ckeditor_plugin() {
   $pattern = '#\.addButton\([\s]*[\'"](.*?)[\'"][\s]*\,[\s]*\{[\s]*(.*?)[\s]*\}#s';
 
   /*
-   * External plugins
-   */
-  if (module_exists('ckeditor_swf') && file_exists(drupal_get_path('module', 'ckeditor_swf') . '/plugins/swf/plugin.js')) {
-    $plugins['ckeditor_swf'] = array(
-      'name' => 'swf',
-      'desc' => t('Support for the CKEditor SWF module'),
-      'path' => $base_path . drupal_get_path('module', 'ckeditor_swf') . '/plugins/swf/',
-      'buttons' => FALSE,
-      'default' => 't'
-    );
-  }
-
-  if (module_exists('ckeditor_link') && file_exists(drupal_get_path('module', 'ckeditor_link') . '/plugins/link/plugin.js')) {
-    $plugins['ckeditor_link'] = array(
-      'name' => 'drupal_path',
-      'desc' => t('Support for the CKEditor Link module'),
-      'path' => $base_path . drupal_get_path('module', 'ckeditor_link') . '/plugins/link/',
-      'buttons' => FALSE,
-      'default' => 't'
-    );
-  }
-
-  if (module_exists('linkit') && file_exists(drupal_get_path('module', 'linkit') . '/editors/ckeditor/plugin.js')) {
-    $plugins['linkit'] = array(
-      'name' => 'Linkit',
-      'desc' => t('Support for the Linkit module <em>(buttons: Linkit)</em>'),
-      'path' => $base_path . drupal_get_path('module', 'linkit') . '/editors/ckeditor/',
-      'buttons' => array(
-        'Linkit' => array(
-          'title' => 'Linkit',
-          'icon' => $base_path . drupal_get_path('module', 'linkit') . '/editors/ckeditor/linkit.png'
-        )
-      ),
-      'default' => 't'
-    );
-  }
-
-  /*
    * CKEditor build-in plugins
    */
   $_editor_path = ckeditor_path('local');
@@ -223,5 +185,28 @@ function ckeditor_ckeditor_plugin_alter(&$plugins) {
 
   if (isset($plugins['drupalbreaks'])) {
     $plugins['drupalbreaks']['default'] = 't';
+  }
+
+  /*
+   * External plugins - complete hook info and adjust path
+   * Workaround, until modules have adapted their hook implementations.
+   * @see https://www.drupal.org/node/2159403#comment-9019373
+   * @see https://www.drupal.org/node/2217579
+   */
+  $base_path = '%base_path%';
+
+  if (isset($plugins['ckeditor_swf'])) {
+    $plugins['ckeditor_swf']['default'] = 't';
+    $plugins['ckeditor_swf']['path'] = '%base_path%' . $plugins['ckeditor_swf']['path'];
+  }
+
+  if (isset($plugins['ckeditor_link'])) {
+    $plugins['ckeditor_link']['default'] = 't';
+    $plugins['ckeditor_link']['path'] = '%base_path%' . $plugins['ckeditor_link']['path'];
+  }
+
+  if (isset($plugins['linkit'])) {
+    $plugins['linkit']['default'] = 't';
+    $plugins['linkit']['path'] = '%base_path%' . $plugins['linkit']['path'];
   }
 }

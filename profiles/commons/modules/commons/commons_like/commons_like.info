@@ -17,9 +17,9 @@ features[message_type][] = commons_like_user_likes_node
 features[variable][] = field_bundle_settings_message__commons_like_user_likes_node
 features[variable][] = rate_widgets
 
-; Information added by Drupal.org packaging script on 2014-08-08
-version = "7.x-3.17"
+; Information added by Drupal.org packaging script on 2014-11-20
+version = "7.x-3.20"
 core = "7.x"
 project = "commons"
-datestamp = "1407503928"
+datestamp = "1416448559"
 

@@ -10,9 +10,9 @@ dependencies[] = text
 features[features_api][] = api:2
 features[field_base][] = body
 
-; Information added by Drupal.org packaging script on 2014-08-08
-version = "7.x-3.17"
+; Information added by Drupal.org packaging script on 2014-11-20
+version = "7.x-3.20"
 core = "7.x"
 project = "commons"
-datestamp = "1407503928"
+datestamp = "1416448559"
 

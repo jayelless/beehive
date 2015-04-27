@@ -9,20 +9,22 @@ dependencies[] = filter
 dependencies[] = strongarm
 
 features[ckeditor_profile][] = Advanced
+features[ckeditor_profile][] = CKEditor Global Profile
 features[features_api][] = api:2
 features[filter][] = filtered_html
 features[filter][] = full_html
 features[user_permission][] = use text format filtered_html
 
-; Manually remove the Media: WYSIWYG submodule as a dependency until
-; https://www.drupal.org/node/766264 is fixed which causes Commons WYSIWYG to
-; appear overridden due dynamic alterations made to the text format and CKEditor
-; profiles by the Commons Media module.
-features_exclude[dependencies][media_wysiwyg] = media_wysiwyg
+; Manually remove the Entity Embed and Media: WYSIWYG modules as dependencies
+; until https://www.drupal.org/node/766264 is fixed which causes Commons WYSIWYG
+; to appear overridden due dynamic alterations made to the text format and
+; CKEditor profiles by the Commons Media module.
+features_exclude[dependencies][media_wysiwyg] = entity_embed
+features_exclude[dependencies][entity_embed] = media_wysiwyg
 
-; Information added by Drupal.org packaging script on 2014-11-20
-version = "7.x-3.20"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1416448559"
+datestamp = "1426714630"
 

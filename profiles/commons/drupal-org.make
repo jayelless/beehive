@@ -13,7 +13,7 @@ projects[acquia_connector][patch][] = "https://drupal.org/files/issues/move-mess
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0-beta5"
+projects[addressfield][version] = "1.0"
 
 projects[addressfield_tokens][type] = "module"
 projects[addressfield_tokens][subdir] = "contrib"
@@ -29,6 +29,10 @@ projects[admin_icons][download][revision] = "60d9f28801533fecc92216a60d444d89d80
 projects[apachesolr][type] = "module"
 projects[apachesolr][subdir] = "contrib"
 projects[apachesolr][version] = "1.7"
+
+; Search pages custom pages title setting does nothing.
+; https://drupal.org/node/1314664#comment-9220599
+projects[apachesolr][patch][] = "https://drupal.org/files/issues/search_pages_custom-1314664-45.patch"
 
 projects[apachesolr_og][type] = "module"
 projects[apachesolr_og][subdir] = "contrib"
@@ -70,19 +74,15 @@ projects[ckeditor][version] = "1.16"
 
 ; Accomodate latest Media changes.
 ; https://drupal.org/node/2159403
-projects[ckeditor][patch][] = "https://drupal.org/files/issues/ckeditor-accomodate-latest-media-changes-81.patch"
+projects[ckeditor][patch][] = "https://drupal.org/files/issues/make_ckeditor_plugin-2159403-141.patch"
 
 projects[ctools][type] = "module"
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.5"
+projects[ctools][version] = "1.7"
 
 projects[custom_search][type] = "module"
 projects[custom_search][subdir] = "contrib"
-projects[custom_search][version] = "1.16"
-
-; Avoid akward sanitization of user-entered search strings.
-; https://drupal.org/node/2012210
-projects[custom_search][patch][] = "https://drupal.org/files/commons_search_js_encode.patch"
+projects[custom_search][version] = "1.18"
 
 projects[date][type] = "module"
 projects[date][subdir] = "contrib"
@@ -119,7 +119,7 @@ projects[email_registration][download][revision] = "1656416"
 
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.5"
+projects[entity][version] = "1.6"
 
 projects[entitycache][type] = "module"
 projects[entitycache][subdir] = "contrib"
@@ -128,6 +128,13 @@ projects[entitycache][version] = "1.2"
 ; Fix core translation support.
 ; https://drupal.org/node/1349566#comment-7781063
 projects[entitycache][patch][] = "https://drupal.org/files/add-translation-information-on-each-request-1349566-12.patch"
+
+projects[entity_embed][version] = "1.x-dev"
+projects[entity_embed][type] = "module"
+projects[entity_embed][subdir] = "contrib"
+projects[entity_embed][download][type] = "git"
+projects[entity_embed][download][revision] = "dcd4bac"
+projects[entity_embed][download][branch] = "7.x-1.x"
 
 projects[entityreference][type] = "module"
 projects[entityreference][subdir] = "contrib"
@@ -147,7 +154,7 @@ projects[entityreference_prepopulate][patch][] = "https://drupal.org/files/issue
 
 projects[entity_translation][type] = "module"
 projects[entity_translation][subdir] = "contrib"
-projects[entity_translation][version] = "1.0-beta3"
+projects[entity_translation][version] = "1.0-beta4"
 
 projects[facetapi][type] = "module"
 projects[facetapi][subdir] = "contrib"
@@ -155,11 +162,14 @@ projects[facetapi][version] = "1.5"
 
 projects[features][type] = "module"
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.2"
+projects[features][version] = "2.4"
 
 projects[file_entity][type] = "module"
 projects[file_entity][subdir] = "contrib"
-projects[file_entity][version] = "2.0-beta1"
+projects[file_entity][download][type] = "git"
+projects[file_entity][download][url] = "http://git.drupal.org/project/file_entity.git"
+projects[file_entity][download][branch] = "7.x-2.x"
+projects[file_entity][download][revision] = "b610413"
 
 projects[flag][type] = "module"
 projects[flag][subdir] = "contrib"
@@ -190,17 +200,18 @@ projects[http_client][version] = "2.4"
 
 projects[i18n][type] = "module"
 projects[i18n][subdir] = "contrib"
-projects[i18n][download][type] = "git"
-projects[i18n][download][url] = "http://git.drupal.org/project/i18n.git"
-projects[i18n][download][branch] = "7.x-1.x"
-projects[i18n][download][revision] = "3777b86"
+projects[i18n][version] = "1.12"
 
 projects[i18nviews][type] = "module"
 projects[i18nviews][subdir] = "contrib"
 projects[i18nviews][download][type] = "git"
 projects[i18nviews][download][url] = "http://git.drupal.org/project/i18nviews.git"
 projects[i18nviews][download][branch] = "7.x-3.x"
-projects[i18nviews][download][revision] = "26bd52c"
+projects[i18nviews][download][revision] = "27e9809"
+
+projects[jquery_update][type] = "module"
+projects[jquery_update][subdir] = "contrib"
+projects[jquery_update][version] = "2.5"
 
 projects[kissmetrics][type] = "module"
 projects[kissmetrics][subdir] = "contrib"
@@ -216,7 +227,7 @@ projects[libraries][version] = "2.2"
 
 projects[lingotek][type] = "module"
 projects[lingotek][subdir] = "contrib"
-projects[lingotek][version] = "5.10"
+projects[lingotek][version] = "6.01"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -224,7 +235,10 @@ projects[link][version] = "1.3"
 
 projects[media][type] = "module"
 projects[media][subdir] = "contrib"
-projects[media][version] = "2.0-alpha4"
+projects[media][download][type] = "git"
+projects[media][download][url] = "http://git.drupal.org/project/media.git"
+projects[media][download][branch] = "7.x-2.x"
+projects[media][download][revision] = "7d9671f"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
@@ -232,7 +246,7 @@ projects[media_oembed][version] = "2.2"
 
 projects[memcache][type] = "module"
 projects[memcache][subdir] = "contrib"
-projects[memcache][version] = "1.3"
+projects[memcache][version] = "1.5"
 
 projects[menu_attributes][type] = "module"
 projects[menu_attributes][subdir] = "contrib"
@@ -279,19 +293,15 @@ projects[metatag][version] = "1.4"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
-projects[module_filter][version] = "1.8"
+projects[module_filter][version] = "2.0"
 
 projects[mollom][type] = "module"
 projects[mollom][subdir] = "contrib"
-projects[mollom][version] = "2.12"
+projects[mollom][version] = "2.13"
 
 projects[navbar][type] = "module"
 projects[navbar][subdir] = "contrib"
-projects[navbar][version] = "1.4"
-
-; Change I-beam cursors in the navbar to be a pointer instead.
-; https://drupal.org/node/2173041
-projects[navbar][patch][] = "https://drupal.org/files/issues/2173041-3-i-beam-menu-hover.patch"
+projects[navbar][version] = "1.6"
 
 projects[oauth][type] = "module"
 projects[oauth][subdir] = "contrib"
@@ -348,7 +358,7 @@ projects[panels][download][revision] = "8059bda2b"
 
 projects[paranoia][type] = "module"
 projects[paranoia][subdir] = "contrib"
-projects[paranoia][version] = "1.3"
+projects[paranoia][version] = "1.4"
 
 projects[pathauto][type] = "module"
 projects[pathauto][subdir] = "contrib"
@@ -356,30 +366,7 @@ projects[pathauto][version] = "1.2"
 
 projects[picture][type] = "module"
 projects[picture][subdir] = "contrib"
-projects[picture][download][type] = "git"
-projects[picture][download][url] = "http://git.drupal.org/project/picture.git"
-projects[picture][download][branch] = "7.x-1.x"
-projects[picture][download][revision] = "18b94b9"
-
-; Add ctools as a dependency
-; https://drupal.org/node/2173043
-projects[picture][patch][] = "https://drupal.org/files/issues/add-ctools-dependency-2173043-1.patch"
-
-; Allow filter tips to be translated
-; https://drupal.org/node/2139459
-projects[picture][patch][] = "https://drupal.org/files/issues/translate-filter-tips-2139459-1.patch"
-
-; Move hook_uninstall() to picture.install to fix issues on uninstall.
-; https://drupal.org/node/2173015
-projects[picture][patch][] = "https://drupal.org/files/issues/move-uninstall-hook-implementation-2173015-1.patch"
-
-; Remove implementation of hook_file_formatter_info() to remove duplicate file formatter.
-; https://drupal.org/node/2172841
-projects[picture][patch][] = "https://drupal.org/files/issues/remove-file-formatter-hook-implementation-2172831-1.patch"
-
-; Remove implementation of hook_ctools_plugin_api() to fix issues with features.
-; https://drupal.org/node/2172831
-projects[picture][patch][] = "https://drupal.org/files/issues/remove-ctools-hook-implementation-2172831-1.patch"
+projects[picture][version] = "1.5"
 
 projects[pm_existing_pages][type] = "module"
 projects[pm_existing_pages][subdir] = "contrib"
@@ -448,11 +435,11 @@ projects[rich_snippets][version] = "1.0-beta4"
 
 projects[rules][type] = "module"
 projects[rules][subdir] = "contrib"
-projects[rules][version] = "2.7"
+projects[rules][version] = "2.9"
 
 projects[schemaorg][type] = "module"
 projects[schemaorg][subdir] = "contrib"
-projects[schemaorg][version] = "1.0-beta4"
+projects[schemaorg][version] = "1.0-rc1"
 
 projects[search_facetapi][type] = "module"
 projects[search_facetapi][subdir] = "contrib"
@@ -460,7 +447,7 @@ projects[search_facetapi][version] = "1.0-beta2"
 
 projects[sharethis][type] = "module"
 projects[sharethis][subdir] = "contrib"
-projects[sharethis][version] = "2.9"
+projects[sharethis][version] = "2.10"
 
 projects[smartcrop][type] = "module"
 projects[smartcrop][subdir] = "contrib"
@@ -487,7 +474,7 @@ projects[title][version] = "1.0-alpha7"
 
 projects[token][type] = "module"
 projects[token][subdir] = "contrib"
-projects[token][version] = "1.5"
+projects[token][version] = "1.6"
 
 projects[translation_helpers][type] = "module"
 projects[translation_helpers][subdir] = "contrib"
@@ -499,7 +486,7 @@ projects[variable][version] = "2.5"
 
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.8"
+projects[views][version] = "3.10"
 
 ; Update Views Content access filter per core performance improvements.
 ; https://drupal.org/comment/8516039#comment-8516039
@@ -540,10 +527,7 @@ projects[adaptivetheme][download][revision] = "18693ff59db7cb3171f282a982d04fe65
 
 projects[ember][type] = "theme"
 projects[ember][subdir] = "contrib"
-projects[ember][download][type] = "git"
-projects[ember][download][url] = "http://git.drupal.org/project/ember.git"
-projects[ember][download][branch] = "7.x-2.x"
-projects[ember][download][revision] = "caf4df7"
+projects[ember][version] = "2.0-alpha3"
 
 projects[sky][type] = "theme"
 projects[sky][subdir] = "contrib"
@@ -557,17 +541,17 @@ libraries[backbone][type] = "libraries"
 libraries[backbone][download][url] = "https://github.com/jashkenas/backbone/archive/1.1.0.tar.gz"
 
 libraries[ckeditor][download][type] = "get"
-libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.3.4/ckeditor_4.3.4_full.zip"
+libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.4.7/ckeditor_4.4.7_full.zip"
 libraries[ckeditor][type] = "libraries"
 
 libraries[ckeditor_lineutils][download][type] = "get"
-libraries[ckeditor_lineutils][download][url] = "http://download.ckeditor.com/lineutils/releases/lineutils_4.3.4.zip"
+libraries[ckeditor_lineutils][download][url] = "http://download.ckeditor.com/lineutils/releases/lineutils_4.4.7.zip"
 libraries[ckeditor_lineutils][type] = "libraries"
 libraries[ckeditor_lineutils][subdir] = "ckeditor/plugins"
 libraries[ckeditor_lineutils][directory_name] = "lineutils"
 
 libraries[ckeditor_widget][download][type] = "get"
-libraries[ckeditor_widget][download][url] = "http://download.ckeditor.com/widget/releases/widget_4.3.4.zip"
+libraries[ckeditor_widget][download][url] = "http://download.ckeditor.com/widget/releases/widget_4.4.7.zip"
 libraries[ckeditor_widget][type] = "libraries"
 libraries[ckeditor_widget][subdir] = "ckeditor/plugins"
 libraries[ckeditor_widget][directory_name] = "widget"

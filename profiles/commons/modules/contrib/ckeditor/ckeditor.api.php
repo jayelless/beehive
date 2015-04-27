@@ -44,10 +44,11 @@ function hook_ckeditor_plugin() {
       'name' => 'plugin_name',
       // Description of the plugin - it would be displayed in the plugins management section of profile settings.
       'desc' => t('Plugin description'),
-      // The full path to the CKEditor plugins directory, with the trailing slash.
-      'path' => '/' . drupal_get_path('module', 'my_module') . '/plugin_dir/',
+      // The full URL to the CKEditor plugins directory, with the trailing slash.
+      'path' => base_path() . drupal_get_path('module', 'my_module') . '/plugin_dir/',
       'buttons' => array(
         'button_name' => array(
+          // Path to an icon relative to the plugins folder.
           'icon' => 'icon/plugin_name.png',
           'label' => 'Button Label',
         )

@@ -5,9 +5,9 @@ core = 7.x
 dependencies[] = oembed
 
 
-; Information added by drush on 2014-11-20
+; Information added by drush on 2015-03-18
 version = "7.x-1.0-rc2+15-dev"
 core = "7.x"
 project = "oembed"
-datestamp = "1416448595"
+datestamp = "1426714643"
 

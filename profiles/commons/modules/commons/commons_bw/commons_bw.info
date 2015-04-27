@@ -15,9 +15,9 @@ features[field_base][] = title_field
 
 files[] = includes/views/handlers/commons_bw_handler_node_partial_form.inc
 
-; Information added by Drupal.org packaging script on 2014-11-20
-version = "7.x-3.20"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1416448559"
+datestamp = "1426714630"
 

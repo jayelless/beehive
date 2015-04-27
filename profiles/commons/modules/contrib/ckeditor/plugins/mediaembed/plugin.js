@@ -4,7 +4,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 /**
- * @file Plugin for inserting Drupal embeded media
+ * @file Plugin for inserting embeded media
  */
 ( function() {
   var numberRegex = /^\d+(?:\.\d+)?$/;

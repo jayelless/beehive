@@ -33,6 +33,7 @@ dependencies[] = diff
 dependencies[] = elements
 dependencies[] = email_registration
 dependencies[] = entity
+dependencies[] = entity_embed
 dependencies[] = entityreference
 dependencies[] = entitycache
 dependencies[] = edit_profile
@@ -40,10 +41,10 @@ dependencies[] = features
 dependencies[] = file_entity
 dependencies[] = flag
 dependencies[] = http_client
+dependencies[] = jquery_update
 dependencies[] = libraries
 dependencies[] = media
 dependencies[] = media_internet
-dependencies[] = media_wysiwyg
 dependencies[] = menu_attributes
 dependencies[] = message
 dependencies[] = message_notify
@@ -121,9 +122,9 @@ dependencies[] = commons_wysiwyg
 ; System Requirements.
 php_memory_limit = 128M
 
-; Information added by Drupal.org packaging script on 2014-11-20
-version = "7.x-3.20"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1416448559"
+datestamp = "1426714630"
 

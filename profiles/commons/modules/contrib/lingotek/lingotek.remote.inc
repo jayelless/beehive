@@ -15,19 +15,41 @@ $GLOBALS['_lingotek_client'] = new LingotekSession();
  *  The language which we are dealing with
  */
 
-function lingotek_get_translated_node($node, $drupal_language_code) {
+function lingotek_get_target_node($node, $drupal_language_code) {
+
+  // Allow the source to be overwritten as the target, if applicable, and update
+  // the current language to be the same as the target.
+  if ($node->language == $drupal_language_code && !empty($node->lingotek['allow_source_overwriting'])) {
+    lingotek_keystore('node', $node->nid, 'source_language_' . Lingotek::convertDrupal2Lingotek($drupal_language_code), $drupal_language_code);
+    return $node;
+  }
+
   $tset = translation_node_get_translations($node->nid);
 
   if ($node->tnid == 0) {
     $node->tnid = $node->nid;
-    db_update('{node}')
+    db_update('node')
         ->fields(array('tnid' => $node->nid))
       ->condition('nid', $node->nid)
       ->execute();
   }
 
   if (isset($tset[$drupal_language_code])) {
-    $localized_node = node_load($tset[$drupal_language_code]->nid);
+    // If revisioning is enabled for this content type,
+    // then create a new revision of it;
+    // otherwise, just load the existing one to be updated.
+    $current_node = lingotek_node_load_default($tset[$drupal_language_code]->nid);
+    $content_type_options = variable_get('node_options_' . $current_node->type, array());
+    if (in_array('revision', $content_type_options)) {
+      $current_node->revision = TRUE;
+      $current_node->log = "Downloaded translation changes from Lingotek for language code '$drupal_language_code'.";
+      $current_node->status = 0;
+      node_save($current_node);
+      $localized_node = lingotek_node_load_default($tset[$drupal_language_code]->nid);
+    }
+    else {
+      $localized_node = $current_node;
+    }
   }
   else {
     $localized_node = new stdClass();
@@ -48,7 +70,7 @@ function lingotek_get_translated_node($node, $drupal_language_code) {
     $localized_node->comment = $node->comment;
     $localized_node->promote = $node->promote;
     $localized_node->sticky = $node->sticky;
-    $localized_node->status = $node->status;
+    $localized_node->status = 0;
     $localized_node->create_lingotek_document = FALSE;
 
     // Grandfather field settings/values from source node to target.
@@ -77,7 +99,7 @@ function lingotek_get_translated_node($node, $drupal_language_code) {
     }
         
     node_save($localized_node);
-    lingotek_keystore('node', $localized_node->nid, 'node_sync_status', 'TARGET');
+    lingotek_keystore('node', $localized_node->nid, 'upload_status', LingotekSync::STATUS_TARGET);
     // Child node should keep its parent node's profile, for rules integration.
     $parent_profile = lingotek_keystore('node', $node->nid, 'profile');
     if ($parent_profile !== FALSE) {

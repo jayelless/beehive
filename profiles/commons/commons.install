@@ -10,41 +10,56 @@
  */
 function commons_requirements($phase) {
   $requirements = array();
+
   // Ensure translations don't break during installation.
   $t = get_t();
-  if($phase == 'install') {
 
-    // Test PHP minimum execution time
+  if ($phase == 'install') {
+    // Test PHP minimum execution time.
     $requirements['php_max_execution_time'] = array(
       'title' => $t('PHP Max Execution Time'),
       'value' => ini_get('max_execution_time'),
     );
+
     $max_execution_time = (int)ini_get('max_execution_time');
+
     // Don't set the error when max_execution_time is 0 (Infinite).
     if ($max_execution_time && $max_execution_time < DRUPAL_MINIMUM_MAX_EXECUTION_TIME) {
       $requirements['php_max_execution_time']['description'] = $t('Your PHP execution time is too low, please set it greater than or equal to %time seconds.', array('%time' => DRUPAL_MINIMUM_MAX_EXECUTION_TIME));
       $requirements['php_max_execution_time']['severity'] = REQUIREMENT_ERROR;
     }
 
-    if(ini_get('apc.shm_size') != NULL) {
-      // Check for apc.shm_size = 96mb
-      $requirements['apc_shm_size'] = array(
-        'title' => $t('APC shim size'),
-        'value' => ini_get('apc.shm_size'),
+    // APC or OpCache size check.
+    if (ini_get('apc.shm_size') != NULL || ini_get('opcache.enable')) {
+      // If OpCache is enabled, assume we're using it over APC.
+      if (ini_get('opcache.enable')) {
+        $mechanism = 'OpCache';
+        $title = $t('OpCache memory');
+        $value = ini_get('opcache.memory_consumption');
+      }
+      else {
+        $mechanism = 'APC';
+        $title = $t('APC shim size');
+
+        $shm_size = preg_split('/[a-zA-Z]/', ini_get('apc.shm_size'));
+        $shm_size = $shm_size[0];
+        $value = $shm_size;
+      }
+
+      $requirements['apc_opcache_size'] = array(
+        'title' => $title,
+        'value' => $value,
       );
 
-      $shm_size = preg_split('/[a-zA-Z]/', ini_get('apc.shm_size'));
-      $shm_size = $shm_size[0];
-
-      // only check if APC var is being set somewhere (usually apc.ini).
-      // throw error if there is less than 96MB available
-      if ($shm_size && $shm_size < COMMONS_MINIMUM_APC_CACHE) {
-        $requirements['apc_shm_size']['description'] = $t('APC is installed but %shm_size is not enough APC cache to successfully install Drupal Commons.
-           Find your <em>apc.ini</em> file and change the <em>apc.shm_size</em> value to at least <em>%min_shm_size</em>.', array('%shm_size' => $shm_size . 'M', '%min_shm_size' => COMMONS_MINIMUM_APC_CACHE . 'M'));
-        $requirements['apc_shm_size']['severity'] = REQUIREMENT_ERROR;
+      // Check for sufficient APC or OpCache space.
+      // Throw error if there is less than 96MB available.
+      if ($value < COMMONS_MINIMUM_APC_CACHE) {
+        $requirements['apc_opcache_size']['description'] = $t('%mechanism is installed but %allocated_size is not enough space to successfully install Drupal Commons. Change the capacity to at least %min_shm_size.', array('%mechanism' => $mechanism, '%allocated_size' => $requirements['value'], '%min_shm_size' => COMMONS_MINIMUM_APC_CACHE ));
+        $requirements['apc_opcache_size']['severity'] = REQUIREMENT_ERROR;
       }
     }
   }
+
   return $requirements;
 }
 
@@ -544,23 +559,26 @@ Bamboo shoot green bean wattle seed okra kakadu plum peanut ricebean celtuce. Az
  */
 function commons_install() {
   // Enable the Origins theme and set it as the default.
-  theme_enable(array('adaptivetheme', 'commons_origins'));
+  theme_enable(array('commons_origins'));
 
-    // The Bartik theme is automatically enabled during installation. Disable it.
+  // The Bartik theme is automatically enabled during installation. Disable it.
   db_update('system')
     ->fields(array('status' => 0))
     ->condition('type', 'theme')
     ->condition('name', 'bartik')
     ->execute();
 
-  // Set the default and administration themes.
+  // Set Commons Origins as the default theme.
   variable_set('theme_default', 'commons_origins');
-  // Set a default administrative theme:
+
+  // Set Ember as the administration theme.
   variable_set('admin_theme', 'ember');
-  variable_set('node_admin_theme', FALSE);
 
   // Do not use the administration theme when editing or creating content.
-  variable_set('node_admin_theme', '0');
+  variable_set('node_admin_theme', FALSE);
+
+  // Set jQuery version to 1.7
+  variable_set('jquery_update_jquery_version', '1.7');
 
   // Set a default user avatar.
   commons_set_default_avatar();
@@ -596,12 +614,10 @@ function commons_install() {
   // and the resulting css files generated.
   // For more background, see http://drupal.org/node/1776730.
   module_load_include('inc', 'system', 'system.admin');
-  foreach (array('adaptivetheme', 'commons_origins') as $theme_name) {
-    $form_state = form_state_defaults();
-    $form_state['build_info']['args'][0] = $theme_name;
-    $form_state['values'] = array();
-    drupal_form_submit('system_theme_settings', $form_state);
-  }
+  $form_state = form_state_defaults();
+  $form_state['build_info']['args'][0] = 'commons_origins';
+  $form_state['values'] = array();
+  drupal_form_submit('system_theme_settings', $form_state);
 }
 
 /**
@@ -851,5 +867,25 @@ function commons_update_3118() {
  */
 function commons_update_3119() {
   variable_set('install_task', 'done');
+  return array();
+}
+
+/*
+ * Begin to use the Entity Embed module for embedded media handling if
+ * Media: WYSIWYG integration is currently enabled.
+ */
+function commons_update_3120() {
+  if (module_exists('media_wysiwyg')) {
+    module_enable(array('entity_embed'));
+
+    // Set jQuery version to 1.7
+    variable_set('jquery_update_jquery_version', '1.7');
+
+    $revert = array(
+      'commons_wysiwyg' => array('ckeditor_profile', 'filter'),
+    );
+    features_revert($revert);
+  }
+
   return array();
 }

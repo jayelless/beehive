@@ -332,6 +332,14 @@ function ckeditor_scayt_langcode($lang) {
 function ckeditor_load_plugins($render = FALSE) {
   $plugins = module_invoke_all('ckeditor_plugin');
 
+  // [#2159403] introduced a slight change in CKEditor API, expecting the path to a plugin returned by hook_ckeditor_plugin() to be a full URL.
+  // This breaks backwards compatibility for external plugins, so we're fixing it below.
+  foreach ($plugins as $i => $plugin) {
+    if (strpos($plugin['path'], '%') !== 0 && !preg_match('|^(http(s)?:)?\/?\/|i', $plugin['path'])) {
+      $plugins[$i]['path'] = '%base_path%' . $plugin['path'];
+    }
+  }
+
   drupal_alter('ckeditor_plugin', $plugins);
 
   ksort($plugins);
@@ -619,13 +627,16 @@ function ckeditor_profile_settings_compile($global_profile, $profile) {
   if (isset($conf['loadPlugins'])) {
     $settings['loadPlugins'] = ckeditor_plugins_render($conf['loadPlugins']);
 
-    // TODO This should be done by the media module, not us.
-    if (array_key_exists('media', $settings['loadPlugins']) && module_exists('media_wysiwyg')) {
-      if (module_exists('media_wysiwyg')) {
-        media_wysiwyg_include_browser_js();
-        drupal_add_js(drupal_get_path('module', 'media_wysiwyg') . '/js/media_wysiwyg.filter.js');
-        drupal_add_js(drupal_get_path('module', 'media_wysiwyg') . '/wysiwyg_plugins/media_ckeditor/library.js', array('scope' => 'footer', 'weight' => -20));
+    if (array_key_exists('media', $settings['loadPlugins']) && module_exists('media') && module_hook('media', 'filter_info')) {
+      module_load_include('inc', 'media', 'includes/media.browser');
+      $javascript = media_browser_js();
+      foreach ($javascript as $key => $definitions) {
+        foreach ($definitions as $definition) {
+          $function = 'drupal_add_' . $key;
+          call_user_func_array($function, $definition);
+        }
       }
+      drupal_add_js(drupal_get_path('module', 'ckeditor') . '/plugins/media/library.js', array('scope' => 'footer', 'weight' => -20));
     }
   }
   else {

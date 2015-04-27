@@ -22,9 +22,9 @@ features[page_manager_existing_pages][] = solr_events_search
 features[page_manager_handlers][] = pm_existing_pages_solr_events_search_panel_context
 features[variable][] = pm_existing_pages_disabled_solr_events_search
 
-; Information added by Drupal.org packaging script on 2014-11-20
-version = "7.x-3.20"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1416448559"
+datestamp = "1426714630"
 

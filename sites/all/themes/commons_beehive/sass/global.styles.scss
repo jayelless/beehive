@@ -134,6 +134,7 @@ var {
   @include box-sizing(border-box);
   color: $white;
   text-align: left;
+  padding-top: 75px;
   padding-right: $gutter_width;
   padding-left: $gutter_width;
   white-space: nowrap;
@@ -149,7 +150,8 @@ var {
 
 .header-color-row-one {
   border-top: 1.5em solid darken($dark_blue, 50%);
-  background-color: $dark_blue;
+  background: url("../images/body_bg.png") repeat-x scroll left top #336699;
+  /*background-color: $dark_blue;*/
   @include box-shadow($dark_blue 0px -1px 0px);
 
   @include respond(large) {
@@ -270,7 +272,7 @@ var {
   position: relative;
   display: block;
   float: left;
-  position: relative;
+  margin-top: -75px;
   margin-bottom: -3em;
   margin-left: -#{px-to-em(57px + $gutter_width)};
   z-index: 3;

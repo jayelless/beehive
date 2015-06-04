@@ -4,9 +4,9 @@ files[] = email_registration.test
 core = 7.x
 
 
-; Information added by drush on 2015-03-18
+; Information added by drush on 2015-05-13
 version = "7.x-1.2+1-dev"
 core = "7.x"
 project = "email_registration"
-datestamp = "1426714650"
+datestamp = "1431479061"
 

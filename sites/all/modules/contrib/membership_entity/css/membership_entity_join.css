@@ -1,0 +1,14 @@
+/**
+ * @file
+ * Styles for the join page.
+ */
+
+.membership-entity-join-column {
+  float: left;
+  width: 45%;
+}
+
+.membership-entity-join-column input[type="text"],
+.membership-entity-join-column input[type="password"] {
+  width: 95%;
+}

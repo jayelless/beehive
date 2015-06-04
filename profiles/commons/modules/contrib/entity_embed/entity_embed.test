@@ -75,7 +75,7 @@ class EntityEmbedFilterTest extends EntityEmbedTestBase {
   }
 
   public function setUp() {
-    parent::setUp();
+    parent::setUp('uuid');
   }
 
   /**
@@ -93,19 +93,19 @@ class EntityEmbedFilterTest extends EntityEmbedTestBase {
     $settings['body'] = array(LANGUAGE_NONE => array(array('value' => $content, 'format' => 'custom_format')));
     $node = $this->drupalCreateNode($settings);
     $this->drupalGet('node/' . $node->nid);
-    $this->assertText($this->node->body[LANGUAGE_NONE][0]['value'], 'Embedded node exists in page');
+    $this->assertText($this->node->body[LANGUAGE_NONE][0]['value'], 'Embedded node exists in page.');
     $this->assertNoText(strip_tags($content), 'Placeholder does not appears in the output when embed is successful.');
 
     // Tests entity embed using entity UUID and view mode.
-//    $content = '<div data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-view-mode="teaser">This placeholder should not be rendered.</div>';
-//    $settings = array();
-//    $settings['type'] = 'page';
-//    $settings['title'] = 'Test entity embed with entity-uuid and view-mode';
-//    $settings['body'] = array(LANGUAGE_NONE => array(array('value' => $content, 'format' => 'custom_format')));
-//    $node = $this->drupalCreateNode($settings);
-//    $this->drupalGet('node/' . $node->id());
-//    $this->assertText($this->node->body[LANGUAGE_NONE][0]['value'], 'Embedded node exists in page.');
-//    $this->assertNoText(strip_tags($content), 'Placeholder does not appears in the output when embed is successful.');
+    $content = '<div data-entity-type="node" data-entity-uuid="' . $this->node->uuid . '" data-view-mode="teaser">This placeholder should not be rendered.</div>';
+    $settings = array();
+    $settings['type'] = 'page';
+    $settings['title'] = 'Test entity embed with entity-uuid and view-mode';
+    $settings['body'] = array(LANGUAGE_NONE => array(array('value' => $content, 'format' => 'custom_format')));
+    $node = $this->drupalCreateNode($settings);
+    $this->drupalGet('node/' . $node->nid);
+    $this->assertText($this->node->body[LANGUAGE_NONE][0]['value'], 'Embedded node exists in page.');
+    $this->assertNoText(strip_tags($content), 'Placeholder does not appears in the output when embed is successful.');
 
     // Ensure that placeholder is not replaced when embed is unsuccessful.
     $content = '<div data-entity-type="node" data-entity-id="InvalidID" data-view-mode="teaser">This placeholder should be rendered since specified entity does not exists.</div>';
@@ -118,17 +118,17 @@ class EntityEmbedFilterTest extends EntityEmbedTestBase {
     $this->assertText(strip_tags($content), 'Placeholder appears in the output when embed is unsuccessful.');
 
     // Ensure that UUID is preferred over ID when both attributes are present.
-//    $sample_node = $this->drupalCreateNode();
-//    $content = '<div data-entity-type="node" data-entity-id="' . $sample_node->id() . '" data-entity-uuid="' . $this->node->uuid() . '" data-view-mode="teaser">This placeholder should not be rendered.</div>';
-//    $settings = array();
-//    $settings['type'] = 'page';
-//    $settings['title'] = 'Test that entity-uuid is preferred over entity-id when both attributes are present';
-//    $settings['body'] = array(LANGUAGE_NONE => array(array('value' => $content, 'format' => 'custom_format')));
-//    $node = $this->drupalCreateNode($settings);
-//    $this->drupalGet('node/' . $node->id());
-//    $this->assertText($this->node->body[LANGUAGE_NONE][0]['value'], 'Entity specifed with UUID exists in the page.');
-//    $this->assertNoText($sample_node->body[LANGUAGE_NONE][0]['value'], 'Entity specifed with ID does not exists in the page.');
-//    $this->assertNoText(strip_tags($content), 'Placeholder not appears in the output when embed is successful.');
+    $sample_node = $this->drupalCreateNode();
+    $content = '<div data-entity-type="node" data-entity-id="' . $sample_node->nid . '" data-entity-uuid="' . $this->node->uuid . '" data-view-mode="teaser">This placeholder should not be rendered.</div>';
+    $settings = array();
+    $settings['type'] = 'page';
+    $settings['title'] = 'Test that entity-uuid is preferred over entity-id when both attributes are present';
+    $settings['body'] = array(LANGUAGE_NONE => array(array('value' => $content, 'format' => 'custom_format')));
+    $node = $this->drupalCreateNode($settings);
+    $this->drupalGet('node/' . $node->nid);
+    $this->assertText($this->node->body[LANGUAGE_NONE][0]['value'], 'Entity specified with UUID exists in the page.');
+    $this->assertNoText($sample_node->body[LANGUAGE_NONE][0]['value'], 'Entity specified with ID does not exists in the page.');
+    $this->assertNoText(strip_tags($content), 'Placeholder not appears in the output when embed is successful.');
 
     // Test entity embed using 'default' display plugin.
 //    $content = '<div data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="default" data-entity-embed-settings=\'{"view_mode":"teaser"}\'>This placeholder should not be rendered.</div>';
@@ -232,6 +232,7 @@ class EmbedButtonAdminTest extends EntityEmbedTestBase {
       'entity_type' => 'node',
       'button_label' => $name,
     );
+    $this->drupalPost(NULL, $edit, t('Choose'));
     $this->drupalPost(NULL, $edit, t('Save'));
     // Ensure that the newly created button exists.
     $this->drupalGet('admin/config/content/embed-button/list/' . $button_id);

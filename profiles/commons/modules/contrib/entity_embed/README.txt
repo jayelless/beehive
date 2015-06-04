@@ -19,22 +19,36 @@ a text area.
 REQUIREMENTS
 ------------
 
-Entity Embed has five dependencies.
+Entity Embed requires Drupal 7.37 or later. It has five dependencies and needs
+two libraries.
 
 Drupal core modules
  * Filter
 
 Contributed modules
  * Chaos Tools
- * CKEditor - patched with https://www.drupal.org/node/2159403#comment-9518083
+ * CKEditor - The latest development release.
  * Entity
  * jQuery Update - Configured to use jQuery 1.7 or higher.
+
+Libraries
+ * CKEditor - Version 4.3 or later.
+   http://ckeditor.com/download
+ * CKEditor Widget plugin - Compatible with the installed version of CKEditor.
+   http://ckeditor.com/addon/widget
 
 INSTALLATION
 ------------
 
 * Install Entity Embed via the standard Drupal installation process:
   'http://drupal.org/node/895232'.
+* If you weren't previously using the CKEditor WYSIWYG client-side editor,
+  download the CKEditor library (http://ckeditor.com/download) and extract it to
+  'sites/all/libraries' or 'sites/sitename/libraries' as you require. The
+  extracted folder must be named 'ckeditor'.
+* Download the Widget plugin (http://ckeditor.com/addon/widget), extract it and
+  move it into the 'plugins' directory of the 'ckeditor' folder so that it is
+  available at 'ckeditor/plugins/widget'.
 * Configure the jQuery Update module to use jQuery 1.7 or higher:
   '/admin/config/development/jquery_update'.
 * Enable the entity-embed filter 'Display embedded entities' for the desired

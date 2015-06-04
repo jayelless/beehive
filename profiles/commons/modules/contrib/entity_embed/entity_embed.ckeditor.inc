@@ -38,3 +38,19 @@ function entity_embed_ckeditor_plugin() {
 
   return $plugins;
 }
+
+/**
+ * Implements hook_ckeditor_settings_alter().
+ */
+function entity_embed_ckeditor_settings_alter(&$settings, $conf) {
+  // Add theme-independent styles for aligning content.
+  $settings['contentsCss'][] = base_path() . drupal_get_path('module', 'entity_embed') . '/css/entity_embed.css';
+
+  // Add base styles for accessibility, clearing, etc.
+  $settings['contentsCss'][] = base_path() . drupal_get_path('module', 'system') . '/system.base.css';
+
+  // Add styles for handling contextual links.
+  if (module_exists('contextual')) {
+    $settings['contentsCss'][] = base_path() . drupal_get_path('module', 'contextual') . '/contextual.css';
+  }
+}

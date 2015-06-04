@@ -165,9 +165,18 @@ function entity_embed_filter_parse_from_fields($entity_type, $entity) {
           $xpath = new \DOMXPath($dom);
 
           foreach ($xpath->query('//*[@data-entity-type="file" and (@data-entity-uuid or @data-entity-id)]') as $node) {
-            $id = $node->getAttribute('data-entity-uuid') ?: $node->getAttribute('data-entity-id');
+            $uuid = $node->getAttribute('data-entity-uuid');
+            $id = $node->getAttribute('data-entity-id');
 
-            $fids[] = $id;
+            if (!empty($uuid) && module_exists('uuid')) {
+              $ids = entity_get_id_by_uuid('file', array($uuid));
+              $fid = reset($ids);
+            }
+            else {
+              $fid = $id;
+            }
+
+            $fids[] = $fid;
           }
         }
       }

@@ -13,7 +13,7 @@ projects[acquia_connector][patch][] = "https://drupal.org/files/issues/move-mess
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0"
+projects[addressfield][version] = "1.1"
 
 projects[addressfield_tokens][type] = "module"
 projects[addressfield_tokens][subdir] = "contrib"
@@ -129,12 +129,9 @@ projects[entitycache][version] = "1.2"
 ; https://drupal.org/node/1349566#comment-7781063
 projects[entitycache][patch][] = "https://drupal.org/files/add-translation-information-on-each-request-1349566-12.patch"
 
-projects[entity_embed][version] = "1.x-dev"
 projects[entity_embed][type] = "module"
 projects[entity_embed][subdir] = "contrib"
-projects[entity_embed][download][type] = "git"
-projects[entity_embed][download][revision] = "dcd4bac"
-projects[entity_embed][download][branch] = "7.x-1.x"
+projects[entity_embed][version] = "1.0-alpha1"
 
 projects[entityreference][type] = "module"
 projects[entityreference][subdir] = "contrib"
@@ -162,14 +159,14 @@ projects[facetapi][version] = "1.5"
 
 projects[features][type] = "module"
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.4"
+projects[features][version] = "2.5"
 
 projects[file_entity][type] = "module"
 projects[file_entity][subdir] = "contrib"
 projects[file_entity][download][type] = "git"
 projects[file_entity][download][url] = "http://git.drupal.org/project/file_entity.git"
 projects[file_entity][download][branch] = "7.x-2.x"
-projects[file_entity][download][revision] = "b610413"
+projects[file_entity][download][revision] = "5effd7a"
 
 projects[flag][type] = "module"
 projects[flag][subdir] = "contrib"
@@ -200,7 +197,7 @@ projects[http_client][version] = "2.4"
 
 projects[i18n][type] = "module"
 projects[i18n][subdir] = "contrib"
-projects[i18n][version] = "1.12"
+projects[i18n][version] = "1.13"
 
 projects[i18nviews][type] = "module"
 projects[i18nviews][subdir] = "contrib"
@@ -227,7 +224,7 @@ projects[libraries][version] = "2.2"
 
 projects[lingotek][type] = "module"
 projects[lingotek][subdir] = "contrib"
-projects[lingotek][version] = "6.01"
+projects[lingotek][version] = "6.02"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -238,11 +235,11 @@ projects[media][subdir] = "contrib"
 projects[media][download][type] = "git"
 projects[media][download][url] = "http://git.drupal.org/project/media.git"
 projects[media][download][branch] = "7.x-2.x"
-projects[media][download][revision] = "7d9671f"
+projects[media][download][revision] = "9f7142b"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
-projects[media_oembed][version] = "2.2"
+projects[media_oembed][version] = "2.3"
 
 projects[memcache][type] = "module"
 projects[memcache][subdir] = "contrib"
@@ -254,10 +251,7 @@ projects[menu_attributes][version] = "1.0-rc3"
 
 projects[message][type] = "module"
 projects[message][subdir] = "contrib"
-projects[message][download][type] = "git"
-projects[message][download][url] = "http://git.drupal.org/project/message.git"
-projects[message][download][branch] = "7.x-1.x"
-projects[message][download][revision] = "3bbdd5e6"
+projects[message][version] = "1.10"
 
 ; Make message access alterable.
 ; https://drupal.org/node/1920560#comment-7080942
@@ -266,10 +260,6 @@ projects[message][patch][] = "https://drupal.org/files/1920560-message-access-al
 ; Add support for the undefined language.
 ; https://drupal.org/node/2006702#comment-7842259
 projects[message][patch][] = "https://drupal.org/files/message_field_undefined-lang.2006702-14.patch"
-
-; Fix Undefined index: message_type in _field_ui on field listings
-; https://drupal.org/node/1391442
-projects[message][patch][] = "https://drupal.org/files/issues/message-entity_info_hook_notice_undefined_index-1391442-34.patch"
 
 projects[message_notify][type] = "module"
 projects[message_notify][subdir] = "contrib"
@@ -351,10 +341,7 @@ projects[panelizer][version] = "3.1"
 
 projects[panels][type] = "module"
 projects[panels][subdir] = "contrib"
-projects[panels][download][type] = "git"
-projects[panels][download][url] = "http://git.drupal.org/project/panels.git"
-projects[panels][download][branch] = "7.x-3.x"
-projects[panels][download][revision] = "8059bda2b"
+projects[panels][version] = "3.5"
 
 projects[paranoia][type] = "module"
 projects[paranoia][subdir] = "contrib"
@@ -427,7 +414,7 @@ projects[redirect][version] = "1.0-rc1"
 
 projects[registration][subdir] = "contrib"
 projects[registration][type] = "module"
-projects[registration][version] = "1.3"
+projects[registration][version] = "1.4"
 
 projects[rich_snippets][type] = "module"
 projects[rich_snippets][subdir] = "contrib"
@@ -486,7 +473,7 @@ projects[variable][version] = "2.5"
 
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.10"
+projects[views][version] = "3.11"
 
 ; Update Views Content access filter per core performance improvements.
 ; https://drupal.org/comment/8516039#comment-8516039

@@ -2,10 +2,10 @@
 ;----------// Theme Information
 
   name        = Commons Beehive
-  description = Custom theme for Beehive website, based on Commons Origins (<a href="http://drupal.org/project/commons">Drupal Commons 3.x</a>).
+  description = Custom theme for Beehive website, based on Commons Origins (<a href="http://drupal.org/project/commons">Drupal Commons 3.x</a>). Checked against v3.26 on 04 Jun 2015.
   core        = 7.x
   base theme  = adaptivetheme
-  release     = 7.x-3.x
+  release     = 7.x-3.25
   engine      = phptemplate
   screenshot  = screenshot.png
 
@@ -429,9 +429,8 @@
 
   ;
 
-; Information added by Drupal.org packaging script on 2014-07-25
-version = "7.x-3.16"
+; Information added by James Scott on 2015-05-10
+version = "7.x-3.25"
 core = "7.x"
 project = "commons"
-datestamp = "1406328902"
 

@@ -265,11 +265,11 @@ function _module_build_dependencies($files) {
 /**
  * Determines whether a given module exists.
  *
- * @param $module
+ * @param string $module
  *   The name of the module (without the .module extension).
  *
- * @return
- *   TRUE if the module is both installed and enabled.
+ * @return bool
+ *   TRUE if the module is both installed and enabled, FALSE otherwise.
  */
 function module_exists($module) {
   $list = module_list();
@@ -326,7 +326,8 @@ function module_load_include($type, $module, $name = NULL) {
 
   if (function_exists('drupal_get_path')) {
     $file = DRUPAL_ROOT . '/' . drupal_get_path('module', $module) . "/$name.$type";
-    if (@include_once $file) {
+    if (is_file($file)) {
+      require_once $file;
       return $file;
     }
   }

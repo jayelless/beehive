@@ -1,7 +1,8 @@
 ImageCache Token
 ----------------
-Module provides additional tokens for image fields. For each image style
-available additional token [node:field_image_field:style_name] will be provided.
+Module provides additional tokens for image, file and media fields. For each
+image style available additional token [node:field_image_field:style_name] will
+be provided.
 
 
 Installation

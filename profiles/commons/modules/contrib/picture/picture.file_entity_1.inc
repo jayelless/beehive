@@ -25,7 +25,7 @@ function picture_file_formatter_info() {
 }
 
 /**
- * 'view callback' for hook_file_formatter_info().
+ * View callback for hook_file_formatter_info().
  */
 function picture_file_formatter_picture_view($file, $display, $langcode) {
   // Prevent PHP notices when trying to read empty files.
@@ -46,6 +46,10 @@ function picture_file_formatter_picture_view($file, $display, $langcode) {
     $fallback_image_style = '';
     $group_name = $display['settings']['picture_group'];
     $mappings = picture_mapping_load($group_name);
+    if (!$mappings) {
+      trigger_error("Unable to load picture mapping $group_name.", E_USER_ERROR);
+      return;
+    }
     $breakpoint_styles = picture_get_mapping_breakpoints($mappings, $fallback_image_style);
 
     if (isset($display['settings']['fallback_image_style']) && !empty($display['settings']['fallback_image_style'])) {
@@ -80,11 +84,13 @@ function picture_file_formatter_picture_view($file, $display, $langcode) {
     }
     $element = array(
       '#theme' => 'picture_formatter',
-      '#attached' => array('library' => array(
-        array('picture', 'matchmedia'),
-        array('picture', 'picturefill'),
-        array('picture', 'picture.ajax'),
-      )),
+      '#attached' => array(
+        'library' => array(
+          array('picture', 'matchmedia'),
+          array('picture', 'picturefill'),
+          array('picture', 'picture.ajax'),
+        ),
+      ),
       '#item' => array(
         'style_name' => $fallback_image_style,
         'path' => $file->uri,
@@ -102,16 +108,16 @@ function picture_file_formatter_picture_view($file, $display, $langcode) {
 }
 
 /**
- * 'settings callback' for hook_file_formatter_info().
+ * Settings callback for hook_file_formatter_info().
  */
 function picture_file_formatter_picture_settings($form, &$form_state, $settings) {
   $picture_group_options = array();
   $picture_mappings = picture_mapping_load_all();
   if ($picture_mappings && !empty($picture_mappings)) {
     foreach ($picture_mappings as $machine_name => $picture_mapping) {
-      $breakpoint_group = breakpoints_breakpoint_group_load($picture_mapping->breakpoint_group);
+      $breakpoint_group = $picture_mapping->getBreakpointGroup();
       if ($breakpoint_group) {
-        $picture_group_options[$machine_name] = $breakpoint_group->name;
+        $picture_group_options[$machine_name] = $picture_mapping->label;
       }
     }
   }

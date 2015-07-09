@@ -159,7 +159,11 @@ projects[facetapi][version] = "1.5"
 
 projects[features][type] = "module"
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.5"
+projects[features][version] = "2.6"
+
+; cache_features table does not exist.
+; https://www.drupal.org/node/2511858#comment-10058710
+projects[features][patch][] = "https://drupal.org/files/issues/2511858-features-table-missing-13.patch"
 
 projects[file_entity][type] = "module"
 projects[file_entity][subdir] = "contrib"
@@ -208,7 +212,7 @@ projects[i18nviews][download][revision] = "27e9809"
 
 projects[jquery_update][type] = "module"
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "2.5"
+projects[jquery_update][version] = "2.6"
 
 projects[kissmetrics][type] = "module"
 projects[kissmetrics][subdir] = "contrib"
@@ -279,7 +283,7 @@ projects[message_subscribe][patch][] = "https://drupal.org/files/issues/2184567-
 
 projects[metatag][type] = "module"
 projects[metatag][subdir] = "contrib"
-projects[metatag][version] = "1.4"
+projects[metatag][version] = "1.6"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
@@ -287,7 +291,7 @@ projects[module_filter][version] = "2.0"
 
 projects[mollom][type] = "module"
 projects[mollom][subdir] = "contrib"
-projects[mollom][version] = "2.13"
+projects[mollom][version] = "2.14"
 
 projects[navbar][type] = "module"
 projects[navbar][subdir] = "contrib"
@@ -345,7 +349,7 @@ projects[panels][version] = "3.5"
 
 projects[paranoia][type] = "module"
 projects[paranoia][subdir] = "contrib"
-projects[paranoia][version] = "1.4"
+projects[paranoia][version] = "1.5"
 
 projects[pathauto][type] = "module"
 projects[pathauto][subdir] = "contrib"
@@ -353,7 +357,7 @@ projects[pathauto][version] = "1.2"
 
 projects[picture][type] = "module"
 projects[picture][subdir] = "contrib"
-projects[picture][version] = "1.5"
+projects[picture][version] = "2.11"
 
 projects[pm_existing_pages][type] = "module"
 projects[pm_existing_pages][subdir] = "contrib"
@@ -386,7 +390,7 @@ projects[r4032login][version] = "1.8"
 
 projects[radioactivity][type] = "module"
 projects[radioactivity][subdir] = "contrib"
-projects[radioactivity][version] = "2.9"
+projects[radioactivity][version] = "2.10"
 
 projects[rate][type] = "module"
 projects[rate][subdir] = "contrib"
@@ -410,7 +414,7 @@ projects[realname][patch][] = "https://drupal.org/files/issues/2225889-realname-
 
 projects[redirect][type] = "module"
 projects[redirect][subdir] = "contrib"
-projects[redirect][version] = "1.0-rc1"
+projects[redirect][version] = "1.0-rc2"
 
 projects[registration][subdir] = "contrib"
 projects[registration][type] = "module"
@@ -434,7 +438,7 @@ projects[search_facetapi][version] = "1.0-beta2"
 
 projects[sharethis][type] = "module"
 projects[sharethis][subdir] = "contrib"
-projects[sharethis][version] = "2.10"
+projects[sharethis][version] = "2.11"
 
 projects[smartcrop][type] = "module"
 projects[smartcrop][subdir] = "contrib"
@@ -481,7 +485,7 @@ projects[views][patch][] = "https://drupal.org/files/issues/views-content_access
 
 projects[views_bulk_operations][type] = "module"
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "3.2"
+projects[views_bulk_operations][version] = "3.3"
 
 projects[views_field_view][type] = "module"
 projects[views_field_view][subdir] = "contrib"

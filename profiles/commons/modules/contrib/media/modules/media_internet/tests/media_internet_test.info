@@ -8,9 +8,9 @@ files[] = includes/MediaInternetTestStreamWrapper.inc
 files[] = includes/MediaInternetTestHandler.inc
 
 
-; Information added by drush on 2015-05-13
+; Information added by drush on 2015-07-06
 version = "7.x-2.0-alpha4+37-dev"
 core = "7.x"
 project = "media"
-datestamp = "1431479053"
+datestamp = "1436194237"
 

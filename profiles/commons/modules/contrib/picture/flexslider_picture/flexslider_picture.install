@@ -4,6 +4,10 @@
  * @file
  * Install, update and schema hooks for the FlexSlider Picture module.
  */
+
+/**
+ * Implements hook_schema().
+ */
 function flexslider_picture_schema() {
   $schema = array();
   $schema['flexslider_picture_optionset'] = array(
@@ -23,7 +27,7 @@ function flexslider_picture_schema() {
         'type' => 'serial',
         'not null' => TRUE,
         'description' => 'The internal identifier.',
-        'no export' => TRUE, // Do not export database-only keys.
+        'no export' => TRUE,
       ),
       'flexslider_optionset' => array(
         'description' => 'The machine-readable option set name.',
@@ -42,6 +46,13 @@ function flexslider_picture_schema() {
         'type' => 'varchar',
         'length' => 255,
         'not null' => FALSE,
+      ),
+      'fallback' => array(
+        'description' => 'The style machine name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
       ),
     ),
     'primary key' => array('id'),
@@ -64,6 +75,7 @@ function flexslider_picture_schema_alter(&$schema) {
     'load' => array(
       'imagestyle_type',
       'mapping',
+      'fallback',
     ),
     'fields' => array(
       'imagestyle_type' => array(
@@ -78,6 +90,32 @@ function flexslider_picture_schema_alter(&$schema) {
         'length' => 255,
         'not null' => FALSE,
       ),
+      'fallback' => array(
+        'description' => 'The style machine name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
     ),
   );
+}
+
+/**
+ * Add the 'fallback' column to the {flexslider_picture_optionset} table.
+ */
+function flexslider_picture_update_7001() {
+  if (!db_field_exists('flexslider_picture_optionset', 'fallback')) {
+    db_add_field(
+      'flexslider_picture_optionset',
+      'fallback',
+      array(
+        'description' => 'The style machine name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      )
+    );
+  }
 }

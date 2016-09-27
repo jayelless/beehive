@@ -36,8 +36,8 @@ function apachesolr_user_apachesolr_entity_info_alter(&$entity_info) {
  * Status callback for ApacheSolr, for users.
  */
 function apachesolr_user_status_callback($entity_id, $entity_type) {
-  $user = user_load($entity_id, TRUE);
-  return ($user->status == 1);
+  $status = db_query('SELECT status FROM {users} WHERE uid = :uid', array(':uid' => $entity_id))->fetchField();
+  return ($status == 1);
 }
 
 /**
@@ -167,7 +167,8 @@ function apachesolr_user_search_execute($keys = NULL, $conditions = NULL) {
  */
 function apachesolr_user_result($doc, &$result, &$extra) {
   //not good performance, but the results look good.
-  if ($user = user_load($doc->entity_id)) {
+  $user = user_load($doc->entity_id);
+  if($user) {
     $user_profile = user_view($user, 'search_result');
     $result['snippet'] = drupal_render($user_profile);
   }
@@ -223,9 +224,24 @@ function apachesolr_user_facetapi_facet_info($searcher_info) {
       'dependency plugins' => array('bundle', 'role'),
     );
 
-    // Add facets for all fields attached to the user entity. 
+    // Add facets for all fields attached to the user entity.
     $facets = array_merge($facets, apachesolr_entity_field_facets('user'));
   }
   return $facets;
 }
 
+/**
+ * Implements hook_facetapi_facet_info_alter().
+ */
+function apachesolr_user_facetapi_facet_info_alter(&$facet_info, $searcher_info) {
+  // Ensure that the user entity will be correctly included in the list when
+  // filtering by bundle. Since facetapi_map_bundle() defaults to the 'node'
+  // entity when none are set, we need to explicitly include that when the list
+  // starts off empty.
+  if (!empty($facet_info['bundle']['map options']['entities'])) {
+    $facet_info['bundle']['map options']['entities'][] = 'user';
+  }
+  else {
+    $facet_info['bundle']['map options']['entities'] = array('node', 'user');
+  }
+}

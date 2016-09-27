@@ -10,9 +10,9 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = commons_featured
 
-; Information added by Drupal.org packaging script on 2015-07-06
-version = "7.x-3.28"
+; Information added by Drupal.org packaging script on 2016-08-24
+version = "7.x-3.39"
 core = "7.x"
 project = "commons"
-datestamp = "1436194202"
+datestamp = "1472054643"
 

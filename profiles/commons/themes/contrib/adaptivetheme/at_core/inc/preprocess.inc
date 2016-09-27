@@ -101,8 +101,7 @@ function adaptivetheme_preprocess_html(&$vars) {
   // Set the skip navigation target ID
   $vars['skip_link_target'] = '#main-content';
   if (at_get_setting('skip_link_target', $theme_name)) {
-    $skip_link_target = at_get_setting('skip_link_target', $theme_name);
-    $vars['skip_link_target'] = check_plain($skip_link_target);
+    $vars['skip_link_target'] = check_plain(at_get_setting('skip_link_target', $theme_name));
   }
 
   // Generate body classes
@@ -160,7 +159,7 @@ function adaptivetheme_preprocess_page(&$vars) {
   $vars['site_name'] = &drupal_static('adaptivetheme_preprocess_page_site_name');
   if (empty($vars['site_name'])) {
     $vars['site_name_title'] = variable_get('site_name', 'Drupal');
-    $vars['site_name'] = l($vars['site_name_title'], '<front>', array('attributes' => array('title' => t('Home page'))));
+    $vars['site_name'] = l($vars['site_name_title'], '<front>', $options = array('attributes' => array('title' => t('Home page'))));
     $vars['site_name_unlinked'] = $vars['site_name_title'];
   }
 
@@ -218,6 +217,15 @@ function adaptivetheme_preprocess_page(&$vars) {
     $vars['search_box'] = '<div id="search-box" role="search">' . drupal_render($search_box) . '</div>';
   }
 
+  // Test if this is a page manager page, we need this to set things like the page title in themes
+  // want to control the page title, e.g. not show it on nodes.
+  $vars['page_manager_get_current_page'] = FALSE;
+  if (function_exists('page_manager_get_current_page')) {
+    if (page_manager_get_current_page()) {
+      $vars['page_manager_get_current_page'] = TRUE;
+    }
+  }
+
   // Process enabled Extensions
   if (at_get_setting('enable_extensions', $theme_name) == 1) {
     // Generate page classes, in AT Core these are all Extensions
@@ -231,6 +239,11 @@ function adaptivetheme_preprocess_page(&$vars) {
       // Remove the infernal feed icons
       if (at_get_setting('feed_icons_hide', $theme_name) == 1) {
         $vars['feed_icons'] = '';
+      }
+      // Remove local tasks
+      if (at_get_setting('unset_local_tasks', $theme_name) == 1) {
+        $vars['primary_local_tasks'] = '';
+        $vars['secondary_local_tasks'] = '';
       }
     }
   }
@@ -720,14 +733,14 @@ function adaptivetheme_preprocess_node(&$vars) {
   $vars['datetime'] = format_date($vars['created'], 'custom', 'Y-m-d\TH:i:sO'); // PHP 'c' format is not proper ISO8601!
 
   // Publication date, formatted with time element
-  $vars['publication_date'] = '<time datetime="' . $vars['datetime'] . '" pubdate="pubdate">' . $vars['date'] . '</time>';
+  $vars['publication_date'] = '<time datetime="' . $vars['datetime'] . '">' . $vars['date'] . '</time>';
 
   // Last update variables
   $vars['datetime_updated'] = format_date($vars['node']->changed, 'custom', 'Y-m-d\TH:i:sO');
   $vars['custom_date_and_time'] = date('jS F, Y - g:ia', $vars['node']->changed);
 
   // Last updated formatted in time element
-  $vars['last_update'] = '<time datetime="' . $vars['datetime_updated'] . '" pubdate="pubdate">' . $vars['custom_date_and_time'] . '</time>';
+  $vars['last_update'] = '<time datetime="' . $vars['datetime_updated'] . '">' . $vars['custom_date_and_time'] . '</time>';
 
   // Build the submitted variable used by default in node templates
   if (variable_get('node_submitted_' . $vars['node']->type, TRUE)) {
@@ -835,7 +848,7 @@ function adaptivetheme_preprocess_comment(&$vars) {
   $vars['submitted'] = t('Submitted by !username on !datetime',
     array(
       '!username' => $vars['author'],
-      '!datetime' => '<time datetime="' . $vars['datetime'] . '" pubdate="pubdate">' . $vars['created'] . '</time>',
+      '!datetime' => '<time datetime="' . $vars['datetime'] . '">' . $vars['created'] . '</time>',
     )
   );
 
@@ -1021,9 +1034,10 @@ function adaptivetheme_preprocess_user_profile(&$vars) {
  */
 function adaptivetheme_preprocess_breadcrumb(&$vars) {
   // Add Google rich snippets to breadcrumbs using RDFa
-  if (module_exists('rdf')) {
+  if (module_exists('rdf') && !empty($vars['breadcrumb'])) {
     $snippet_url = ' rel="v:url" ';
     $snippet_title = ' property="v:title" ';
+
     foreach ($vars['breadcrumb'] as $key => $breadcrumb) {
       preg_match_all('/<([\w]+)[^>]*>.*?<\/\\1>/', $breadcrumb, $matches);
       if (count($matches[0]) > 0) {

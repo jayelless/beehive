@@ -105,7 +105,8 @@
  *   generate the same form (or very similar forms) using different $form_ids
  *   can implement hook_forms(), which maps different $form_id values to the
  *   proper form constructor function. Examples may be found in node_forms(),
- *   and search_forms().
+ *   and search_forms(). hook_forms() can also be used to define forms in
+ *   classes.
  * @param ...
  *   Any additional arguments are passed on to the functions called by
  *   drupal_get_form(), including the unique form constructor function. For
@@ -506,6 +507,23 @@ function drupal_rebuild_form($form_id, &$form_state, $old_form = NULL) {
   // re-rendering the form.
   $form_state['groups'] = array();
 
+  // drupal_html_id() maintains a cache of element IDs it has seen, so it can
+  // prevent duplicates. We want to be sure we reset that cache when a form is
+  // rebuilt, so that the second form processing does not result in needlessly
+  // incremented IDs. So the form element IDs of a rebuilt form match with
+  // the ones of the previously processed form build.
+  // Note that it is safe to reset the html IDs here as the previously processed
+  // form build won't be rendered anyway.
+  if (array_key_exists('form_html_ids', $form_state['rebuild_info'])) {
+    if (isset($form_state['rebuild_info']['form_html_ids'])) {
+      $seen_ids = &drupal_static('drupal_html_id');
+      $seen_ids = $form_state['rebuild_info']['form_html_ids'];
+    }
+    else {
+      // If the seen IDs are NULL, reset the static to its default value.
+      drupal_static_reset('drupal_html_id');
+    }
+  }
   // Return a fully built form that is ready for rendering.
   return form_builder($form_id, $form, $form_state);
 }
@@ -809,7 +827,7 @@ function drupal_retrieve_form($form_id, &$form_state) {
     }
     if (isset($form_definition['callback'])) {
       $callback = $form_definition['callback'];
-      $form_state['build_info']['base_form_id'] = $callback;
+      $form_state['build_info']['base_form_id'] = isset($form_definition['base_form_id']) ? $form_definition['base_form_id'] : $callback;
     }
     // In case $form_state['wrapper_callback'] is not defined already, we also
     // allow hook_forms() to define one.
@@ -830,7 +848,7 @@ function drupal_retrieve_form($form_id, &$form_state) {
   // the actual form builder function ($callback) expects. This allows for
   // pre-populating a form with common elements for certain forms, such as
   // back/next/save buttons in multi-step form wizards. See drupal_build_form().
-  if (isset($form_state['wrapper_callback']) && function_exists($form_state['wrapper_callback'])) {
+  if (isset($form_state['wrapper_callback']) && is_callable($form_state['wrapper_callback'])) {
     $form = call_user_func_array($form_state['wrapper_callback'], $args);
     // Put the prepopulated $form into $args.
     $args[0] = $form;
@@ -877,6 +895,9 @@ function drupal_process_form($form_id, &$form, &$form_state) {
     }
   }
 
+  // Keep a copy of the html IDs for rebuilding.
+  $form_state['rebuild_info']['form_html_ids'] = drupal_static('drupal_html_id');
+
   // form_builder() finishes building the form by calling element #process
   // functions and mapping user input, if any, to #value properties, and also
   // storing the values in $form_state['values']. We need to retain the
@@ -887,16 +908,6 @@ function drupal_process_form($form_id, &$form, &$form_state) {
   // Only process the input if we have a correct form submission.
   if ($form_state['process_input']) {
     drupal_validate_form($form_id, $form, $form_state);
-
-    // drupal_html_id() maintains a cache of element IDs it has seen,
-    // so it can prevent duplicates. We want to be sure we reset that
-    // cache when a form is processed, so scenarios that result in
-    // the form being built behind the scenes and again for the
-    // browser don't increment all the element IDs needlessly.
-    if (!form_get_errors()) {
-      // In case of errors, do not break HTML IDs of other forms.
-      drupal_static_reset('drupal_html_id');
-    }
 
     if ($form_state['submitted'] && !form_get_errors() && !$form_state['rebuild']) {
       // Execute form submit handlers.
@@ -1128,6 +1139,17 @@ function drupal_prepare_form($form_id, &$form, &$form_state) {
   drupal_alter($hooks, $form, $form_state, $form_id);
 }
 
+/**
+ * Helper function to call form_set_error() if there is a token error.
+ */
+function _drupal_invalid_token_set_form_error() {
+  $path = current_path();
+  $query = drupal_get_query_parameters();
+  $url = url($path, array('query' => $query));
+
+  // Setting this error will cause the form to fail validation.
+  form_set_error('form_token', t('The form has become outdated. Copy any unsaved work in the form below and then <a href="@link">reload this page</a>.', array('@link' => $url)));
+}
 
 /**
  * Validates user-submitted form data in the $form_state array.
@@ -1162,16 +1184,11 @@ function drupal_validate_form($form_id, &$form, &$form_state) {
   }
 
   // If the session token was set by drupal_prepare_form(), ensure that it
-  // matches the current user's session.
+  // matches the current user's session. This is duplicate to code in
+  // form_builder() but left to protect any custom form handling code.
   if (isset($form['#token'])) {
-    if (!drupal_valid_token($form_state['values']['form_token'], $form['#token'])) {
-      $path = current_path();
-      $query = drupal_get_query_parameters();
-      $url = url($path, array('query' => $query));
-
-      // Setting this error will cause the form to fail validation.
-      form_set_error('form_token', t('The form has become outdated. Copy any unsaved work in the form below and then <a href="@link">reload this page</a>.', array('@link' => $url)));
-
+    if (!drupal_valid_token($form_state['values']['form_token'], $form['#token']) || !empty($form_state['invalid_token'])) {
+      _drupal_invalid_token_set_form_error();
       // Stop here and don't run any further validation handlers, because they
       // could invoke non-safe operations which opens the door for CSRF
       // vulnerabilities.
@@ -1827,6 +1844,20 @@ function form_builder($form_id, &$element, &$form_state) {
     // from the POST data is set and matches the current form_id.
     if ($form_state['programmed'] || (!empty($form_state['input']) && (isset($form_state['input']['form_id']) && ($form_state['input']['form_id'] == $form_id)))) {
       $form_state['process_input'] = TRUE;
+      // If the session token was set by drupal_prepare_form(), ensure that it
+      // matches the current user's session.
+      $form_state['invalid_token'] = FALSE;
+      if (isset($element['#token'])) {
+        if (empty($form_state['input']['form_token']) || !drupal_valid_token($form_state['input']['form_token'], $element['#token'])) {
+          // Set an early form error to block certain input processing since that
+          // opens the door for CSRF vulnerabilities.
+          _drupal_invalid_token_set_form_error();
+          // This value is checked in _form_builder_handle_input_element().
+          $form_state['invalid_token'] = TRUE;
+          // Make sure file uploads do not get processed.
+          $_FILES = array();
+        }
+      }
     }
     else {
       $form_state['process_input'] = FALSE;
@@ -1930,6 +1961,18 @@ function form_builder($form_id, &$element, &$form_state) {
       $element['#attributes']['enctype'] = 'multipart/form-data';
     }
 
+    // Allow Ajax submissions to the form action to bypass verification. This is
+    // especially useful for multipart forms, which cannot be verified via a
+    // response header.
+    $element['#attached']['js'][] = array(
+      'type' => 'setting',
+      'data' => array(
+        'urlIsAjaxTrusted' => array(
+          $element['#action'] => TRUE,
+        ),
+      ),
+    );
+
     // If a form contains a single textfield, and the ENTER key is pressed
     // within it, Internet Explorer submits the form with no POST data
     // identifying any submit button. Other browsers submit POST data as though
@@ -1978,6 +2021,19 @@ function form_builder($form_id, &$element, &$form_state) {
  * Adds the #name and #value properties of an input element before rendering.
  */
 function _form_builder_handle_input_element($form_id, &$element, &$form_state) {
+  static $safe_core_value_callbacks = array(
+    'form_type_token_value',
+    'form_type_textarea_value',
+    'form_type_textfield_value',
+    'form_type_checkbox_value',
+    'form_type_checkboxes_value',
+    'form_type_radios_value',
+    'form_type_password_confirm_value',
+    'form_type_select_value',
+    'form_type_tableselect_value',
+    'list_boolean_allowed_values_callback',
+  );
+
   if (!isset($element['#name'])) {
     $name = array_shift($element['#parents']);
     $element['#name'] = $name;
@@ -2056,7 +2112,14 @@ function _form_builder_handle_input_element($form_id, &$element, &$form_state) {
       // property, optionally filtered through $value_callback.
       if ($input_exists) {
         if (function_exists($value_callback)) {
-          $element['#value'] = $value_callback($element, $input, $form_state);
+          // Skip all value callbacks except safe ones like text if the CSRF
+          // token was invalid.
+          if (empty($form_state['invalid_token']) || in_array($value_callback, $safe_core_value_callbacks)) {
+            $element['#value'] = $value_callback($element, $input, $form_state);
+          }
+          else {
+            $input = NULL;
+          }
         }
         if (!isset($element['#value']) && isset($input)) {
           $element['#value'] = $input;
@@ -2519,7 +2582,7 @@ function form_type_select_value($element, $input = FALSE) {
  *   for this element. Return nothing to use the default.
  */
 function form_type_textarea_value($element, $input = FALSE) {
-  if ($input !== FALSE) {
+  if ($input !== FALSE && $input !== NULL) {
     // This should be a string, but allow other scalars since they might be
     // valid input in programmatic form submissions.
     return is_scalar($input) ? (string) $input : '';
@@ -2976,7 +3039,7 @@ function form_process_password_confirm($element) {
 function password_confirm_validate($element, &$element_state) {
   $pass1 = trim($element['pass1']['#value']);
   $pass2 = trim($element['pass2']['#value']);
-  if (!empty($pass1) || !empty($pass2)) {
+  if (strlen($pass1) > 0 || strlen($pass2) > 0) {
     if (strcmp($pass1, $pass2)) {
       form_error($element, t('The specified passwords do not match.'));
     }
@@ -3333,9 +3396,12 @@ function form_process_container($element, &$form_state) {
 /**
  * Returns HTML to wrap child elements in a container.
  *
- * Used for grouped form items. Can also be used as a #theme_wrapper for any
+ * Used for grouped form items. Can also be used as a theme wrapper for any
  * renderable element, to surround it with a <div> and add attributes such as
- * classes or an HTML id.
+ * classes or an HTML ID.
+ *
+ * See the @link forms_api_reference.html Form API reference @endlink for more
+ * information on the #theme_wrappers render array property.
  *
  * @param $variables
  *   An associative array containing:
@@ -3490,6 +3556,7 @@ function form_process_tableselect($element) {
             '#return_value' => $key,
             '#default_value' => isset($value[$key]) ? $key : NULL,
             '#attributes' => $element['#attributes'],
+            '#ajax' => isset($element['#ajax']) ? $element['#ajax'] : NULL,
           );
         }
         else {
@@ -3911,6 +3978,34 @@ function theme_hidden($variables) {
 }
 
 /**
+ * Process function to prepare autocomplete data.
+ *
+ * @param $element
+ *   A textfield or other element with a #autocomplete_path.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function form_process_autocomplete($element) {
+  $element['#autocomplete_input'] = array();
+  if ($element['#autocomplete_path'] && drupal_valid_path($element['#autocomplete_path'])) {
+    $element['#autocomplete_input']['#id'] = $element['#id'] .'-autocomplete';
+    // Force autocomplete to use non-clean URLs since this protects against the
+    // browser interpreting the path plus search string as an actual file.
+    $current_clean_url = isset($GLOBALS['conf']['clean_url']) ? $GLOBALS['conf']['clean_url'] : NULL;
+    $GLOBALS['conf']['clean_url'] = 0;
+    // Force the script path to 'index.php', in case the server is not
+    // configured to find it automatically. Normally it is the responsibility
+    // of the site to do this themselves using hook_url_outbound_alter() (see
+    // url()) but since this code is forcing non-clean URLs on sites that don't
+    // normally use them, it is done here instead.
+    $element['#autocomplete_input']['#url_value'] = url($element['#autocomplete_path'], array('absolute' => TRUE, 'script' => 'index.php'));
+    $GLOBALS['conf']['clean_url'] = $current_clean_url;
+  }
+  return $element;
+}
+
+/**
  * Returns HTML for a textfield form element.
  *
  * @param $variables
@@ -3928,14 +4023,14 @@ function theme_textfield($variables) {
   _form_set_class($element, array('form-text'));
 
   $extra = '';
-  if ($element['#autocomplete_path'] && drupal_valid_path($element['#autocomplete_path'])) {
+  if ($element['#autocomplete_path'] && !empty($element['#autocomplete_input'])) {
     drupal_add_library('system', 'drupal.autocomplete');
     $element['#attributes']['class'][] = 'form-autocomplete';
 
     $attributes = array();
     $attributes['type'] = 'hidden';
-    $attributes['id'] = $element['#attributes']['id'] . '-autocomplete';
-    $attributes['value'] = url($element['#autocomplete_path'], array('absolute' => TRUE));
+    $attributes['id'] = $element['#autocomplete_input']['#id'];
+    $attributes['value'] = $element['#autocomplete_input']['#url_value'];
     $attributes['disabled'] = 'disabled';
     $attributes['class'][] = 'autocomplete';
     $extra = '<input' . drupal_attributes($attributes) . ' />';
@@ -4409,7 +4504,7 @@ function element_validate_number($element, &$form_state) {
  *
  * Sample callback_batch_finished():
  * @code
- * function batch_test_finished($success, $results, $operations) {
+ * function my_finished_callback($success, $results, $operations) {
  *   // The 'success' parameter means no fatal PHP errors were detected. All
  *   // other error management should be handled using 'results'.
  *   if ($success) {

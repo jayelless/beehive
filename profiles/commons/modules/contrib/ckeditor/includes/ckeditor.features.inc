@@ -38,6 +38,7 @@
  * Implementation of hook_features_export_options()
  */
 function ckeditor_profile_features_export_options() {
+  module_load_include('module', 'ckeditor');
   $options = array();
   $profiles = (array) ckeditor_profile_load();
   foreach ($profiles as $name => $profile) {
@@ -50,6 +51,7 @@ function ckeditor_profile_features_export_options() {
  * Implementation of hook_features_export()
  */
 function ckeditor_profile_features_export($data, &$export, $module_name = '') {
+  module_load_include('module', 'ckeditor');
   $pipe = array();
   foreach ((array) $data as $name) {
     $profile = ckeditor_profile_load($name);
@@ -70,6 +72,7 @@ function ckeditor_profile_features_export($data, &$export, $module_name = '') {
  * Implementation of hook_features_export_render()
  */
 function ckeditor_profile_features_export_render($module_name, $data) {
+  module_load_include('module', 'ckeditor');
   $profiles = array();
   $roles = user_roles();
   foreach ($data as $name) {

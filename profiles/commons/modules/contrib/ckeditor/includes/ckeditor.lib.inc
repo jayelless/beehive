@@ -325,15 +325,19 @@ function ckeditor_scayt_langcode($lang) {
 }
 
 /**
- * List of CKEditor plugins;
+ * List of CKEditor plugins.
  *
+ * @param boolean $render
+ *   Whether to generate plugin paths. Default to FALSE.
  * @return array
  */
 function ckeditor_load_plugins($render = FALSE) {
   $plugins = module_invoke_all('ckeditor_plugin');
 
-  // [#2159403] introduced a slight change in CKEditor API, expecting the path to a plugin returned by hook_ckeditor_plugin() to be a full URL.
-  // This breaks backwards compatibility for external plugins, so we're fixing it below.
+  // [#2159403] introduced a slight change in CKEditor API, expecting the path
+  // to a plugin returned by hook_ckeditor_plugin() to be a full URL. This
+  // breaks backward compatibility for external plugins, so we're fixing it
+  // below.
   foreach ($plugins as $i => $plugin) {
     if (strpos($plugin['path'], '%') !== 0 && !preg_match('|^(http(s)?:)?\/?\/|i', $plugin['path'])) {
       $plugins[$i]['path'] = '%base_path%' . $plugin['path'];
@@ -344,7 +348,7 @@ function ckeditor_load_plugins($render = FALSE) {
 
   ksort($plugins);
 
-  if ($render === TRUE) {
+  if ($render) {
     $plugins = ckeditor_plugins_render($plugins);
   }
 
@@ -549,7 +553,6 @@ function ckeditor_profile_settings_compile($global_profile, $profile) {
   $current_theme = variable_get('theme_default', $theme);
 
   $settings = array();
-  $conf = array();
   $conf = $profile->settings;
   $profile_name = $profile->name;
 
@@ -600,6 +603,7 @@ function ckeditor_profile_settings_compile($global_profile, $profile) {
   }
   $settings['format_tags'] = $conf['font_format'];
   $settings['show_toggle'] = $conf['show_toggle'];
+  $settings['default'] = $conf['default'];
   if (!empty($conf['allowed_content']) && $conf['allowed_content'] === 'f') {
     $settings['allowedContent'] = true;
   }
@@ -626,18 +630,6 @@ function ckeditor_profile_settings_compile($global_profile, $profile) {
 
   if (isset($conf['loadPlugins'])) {
     $settings['loadPlugins'] = ckeditor_plugins_render($conf['loadPlugins']);
-
-    if (array_key_exists('media', $settings['loadPlugins']) && module_exists('media') && module_hook('media', 'filter_info')) {
-      module_load_include('inc', 'media', 'includes/media.browser');
-      $javascript = media_browser_js();
-      foreach ($javascript as $key => $definitions) {
-        foreach ($definitions as $definition) {
-          $function = 'drupal_add_' . $key;
-          call_user_func_array($function, $definition);
-        }
-      }
-      drupal_add_js(drupal_get_path('module', 'ckeditor') . '/plugins/media/library.js', array('scope' => 'footer', 'weight' => -20));
-    }
   }
   else {
     $settings['loadPlugins'] = array();
@@ -1086,6 +1078,12 @@ function ckeditor_profile_settings_compile($global_profile, $profile) {
     }
   }
 
+  if (!empty($settings['loadPlugins'])) {
+    // Remove orphaned plugins (coming from disabled modules).
+    $available_plugins = array_keys(ckeditor_load_plugins());
+    $settings['loadPlugins'] = array_intersect_key($settings['loadPlugins'], array_flip($available_plugins));
+  }
+
   // Allow modules to modify the settings.
   drupal_alter('ckeditor_settings', $settings, $conf);
 
@@ -1166,9 +1164,8 @@ function ckeditor_load_by_field($field, $format, $show_toggle = TRUE, $add_field
     $ckeditor_in_default_format = TRUE;
   }
 
-  $settings = FALSE;
   if ($settings = ckeditor_profiles_compile($format)) {
-    $ckeditor_on = ($profile->settings['default'] == 't') ? TRUE : FALSE;
+    $ckeditor_on = ($settings['default'] == 't' && $profile->settings['default'] == 't') ? TRUE : FALSE;
   }
   elseif ($settings = ckeditor_profiles_compile($use_ckeditor)) {
     $ckeditor_on = FALSE;

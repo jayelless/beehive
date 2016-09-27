@@ -28,7 +28,7 @@ function commons_wikis_menu_alter(&$items) {
   $items['node/%node/revisions']['access arguments'][] = $items['node/%node/revisions']['access callback'];
   $items['node/%node/revisions']['access callback'] = 'commons_wikis_user_revision_access';
 
-  $items['node/%node/revisions/%/view']['access arguments'][] = $items['node/%node/revisions']['access callback'];
+  $items['node/%node/revisions/%/view']['access arguments'][] = $items['node/%node/revisions/%/view']['access callback'];
   $items['node/%node/revisions/%/view']['access callback'] = 'commons_wikis_user_revision_access';
 }
 
@@ -126,7 +126,6 @@ function commons_wikis_form_commons_bw_partial_node_form_alter(&$form, &$form_st
  */
 function commons_wikis_form_commons_bw_partial_node_form_after_build($form) {
   $language = $form['body']['#language'];
-  $form['body'][$language][0]['format']['#access'] = FALSE;
   $form['body'][$language][0]['value']['#rows'] = 10;
 
   return $form;

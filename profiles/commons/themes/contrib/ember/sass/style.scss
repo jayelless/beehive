@@ -1020,7 +1020,19 @@ img.screenshot  {
   }
 
   #tab-bar {
-    display: none;
+    display:block;
+    li {
+      width:100%;
+      border-bottom:1px solid #ccc;
+      margin-bottom:5px;
+      margin-top:5px;
+      &:last-child {
+        border-bottom:none;
+      }
+      &.active {
+        border-bottom:2px solid $color-link-alternate;
+      }
+    }
   }
 
   /* dashboard */

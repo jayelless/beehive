@@ -688,6 +688,13 @@ function drupal_goto($path = '', array $options = array(), $http_response_code =
     $options['fragment'] = $destination['fragment'];
   }
 
+  // In some cases modules call drupal_goto(current_path()). We need to ensure
+  // that such a redirect is not to an external URL.
+  if ($path === current_path() && empty($options['external']) && url_is_external($path)) {
+    // Force url() to generate a non-external URL.
+    $options['external'] = FALSE;
+  }
+
   drupal_alter('drupal_goto', $path, $options, $http_response_code);
 
   // The 'Location' HTTP header must be absolute.
@@ -753,7 +760,8 @@ function drupal_access_denied() {
  *   - headers: An array containing request headers to send as name/value pairs.
  *   - method: A string containing the request method. Defaults to 'GET'.
  *   - data: A string containing the request body, formatted as
- *     'param=value&param=value&...'. Defaults to NULL.
+ *     'param=value&param=value&...'; to generate this, use http_build_query().
+ *     Defaults to NULL.
  *   - max_redirects: An integer representing how many times a redirect
  *     may be followed. Defaults to 3.
  *   - timeout: A float representing the maximum number of seconds the function
@@ -778,6 +786,8 @@ function drupal_access_denied() {
  *     HTTP header names are case-insensitive (RFC 2616, section 4.2), so for
  *     easy access the array keys are returned in lower case.
  *   - data: A string containing the response body that was received.
+ *
+ * @see http_build_query()
  */
 function drupal_http_request($url, array $options = array()) {
   // Allow an alternate HTTP client library to replace Drupal's default
@@ -1057,6 +1067,12 @@ function drupal_http_request($url, array $options = array()) {
 
   switch ($code) {
     case 200: // OK
+    case 201: // Created
+    case 202: // Accepted
+    case 203: // Non-Authoritative Information
+    case 204: // No Content
+    case 205: // Reset Content
+    case 206: // Partial Content
     case 304: // Not modified
       break;
     case 301: // Moved permanently
@@ -1571,6 +1587,8 @@ function _filter_xss_attributes($attr) {
   $attrarr = array();
   $mode = 0;
   $attrname = '';
+  $skip = FALSE;
+  $skip_protocol_filtering = FALSE;
 
   while (strlen($attr) != 0) {
     // Was the last operation successful?
@@ -1582,6 +1600,20 @@ function _filter_xss_attributes($attr) {
         if (preg_match('/^([-a-zA-Z]+)/', $attr, $match)) {
           $attrname = strtolower($match[1]);
           $skip = ($attrname == 'style' || substr($attrname, 0, 2) == 'on');
+
+          // Values for attributes of type URI should be filtered for
+          // potentially malicious protocols (for example, an href-attribute
+          // starting with "javascript:"). However, for some non-URI
+          // attributes performing this filtering causes valid and safe data
+          // to be mangled. We prevent this by skipping protocol filtering on
+          // such attributes.
+          // @see filter_xss_bad_protocol()
+          // @see http://www.w3.org/TR/html4/index/attributes.html
+          $skip_protocol_filtering = substr($attrname, 0, 5) === 'data-' || in_array($attrname, array(
+            'title',
+            'alt',
+          ));
+
           $working = $mode = 1;
           $attr = preg_replace('/^[-a-zA-Z]+/', '', $attr);
         }
@@ -1607,7 +1639,7 @@ function _filter_xss_attributes($attr) {
       case 2:
         // Attribute value, a URL after href= for instance.
         if (preg_match('/^"([^"]*)"(\s+|$)/', $attr, $match)) {
-          $thisval = filter_xss_bad_protocol($match[1]);
+          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
 
           if (!$skip) {
             $attrarr[] = "$attrname=\"$thisval\"";
@@ -1619,7 +1651,7 @@ function _filter_xss_attributes($attr) {
         }
 
         if (preg_match("/^'([^']*)'(\s+|$)/", $attr, $match)) {
-          $thisval = filter_xss_bad_protocol($match[1]);
+          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
 
           if (!$skip) {
             $attrarr[] = "$attrname='$thisval'";
@@ -1630,7 +1662,7 @@ function _filter_xss_attributes($attr) {
         }
 
         if (preg_match("%^([^\s\"']+)(\s+|$)%", $attr, $match)) {
-          $thisval = filter_xss_bad_protocol($match[1]);
+          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
 
           if (!$skip) {
             $attrarr[] = "$attrname=\"$thisval\"";
@@ -1694,6 +1726,33 @@ function filter_xss_bad_protocol($string, $decode = TRUE) {
 }
 
 /**
+ * Applies a very permissive XSS/HTML filter to data-attributes.
+ *
+ * @param string $html
+ *   The string to apply the data-attributes filtering to.
+ *
+ * @return string
+ *   The filtered string.
+ */
+function filter_xss_data_attributes($html) {
+  if (stristr($html, 'data-') !== FALSE) {
+    $dom = filter_dom_load($html);
+    $xpath = new \DOMXPath($dom);
+    foreach ($xpath->query('//@*[starts-with(name(.), "data-")]') as $node) {
+      // The data-attributes contain an HTML-encoded value, so we need to
+      // decode the value, apply XSS filtering and then re-save as encoded
+      // value. There is no need to explicitly decode $node->value, since the
+      // DOMAttr::value getter returns the decoded value.
+      $value = filter_xss_admin($node->value);
+      $node->value = check_plain($value);
+    }
+    $html = filter_dom_serialize($dom);
+  }
+
+  return $html;
+}
+
+/**
  * @} End of "defgroup sanitization".
  */
 
@@ -1754,9 +1813,15 @@ function format_rss_item($title, $link, $description, $args = array()) {
  *     - 'key': element name
  *     - 'value': element contents
  *     - 'attributes': associative array of element attributes
+ *     - 'encoded': TRUE if 'value' is already encoded
  *
  * In both cases, 'value' can be a simple string, or it can be another array
  * with the same format as $array itself for nesting.
+ *
+ * If 'encoded' is TRUE it is up to the caller to ensure that 'value' is either
+ * entity-encoded or CDATA-escaped. Using this option is not recommended when
+ * working with untrusted user input, since failing to escape the data
+ * correctly has security implications.
  */
 function format_xml_elements($array) {
   $output = '';
@@ -1769,7 +1834,7 @@ function format_xml_elements($array) {
         }
 
         if (isset($value['value']) && $value['value'] != '') {
-          $output .= '>' . (is_array($value['value']) ? format_xml_elements($value['value']) : check_plain($value['value'])) . '</' . $value['key'] . ">\n";
+          $output .= '>' . (is_array($value['value']) ? format_xml_elements($value['value']) : (!empty($value['encoded']) ? $value['value'] : check_plain($value['value']))) . '</' . $value['key'] . ">\n";
         }
         else {
           $output .= " />\n";
@@ -2214,20 +2279,8 @@ function url($path = NULL, array $options = array()) {
     'prefix' => ''
   );
 
-  // A duplicate of the code from url_is_external() to avoid needing another
-  // function call, since performance inside url() is critical.
   if (!isset($options['external'])) {
-    // Return an external link if $path contains an allowed absolute URL. Avoid
-    // calling drupal_strip_dangerous_protocols() if there is any slash (/),
-    // hash (#) or question_mark (?) before the colon (:) occurrence - if any -
-    // as this would clearly mean it is not a URL. If the path starts with 2
-    // slashes then it is always considered an external URL without an explicit
-    // protocol part.
-    $colonpos = strpos($path, ':');
-    $options['external'] = (strpos($path, '//') === 0)
-      || ($colonpos !== FALSE
-        && !preg_match('![/?#]!', substr($path, 0, $colonpos))
-        && drupal_strip_dangerous_protocols($path) == $path);
+    $options['external'] = url_is_external($path);
   }
 
   // Preserve the original path before altering or aliasing.
@@ -2347,12 +2400,18 @@ function url($path = NULL, array $options = array()) {
  */
 function url_is_external($path) {
   $colonpos = strpos($path, ':');
-  // Avoid calling drupal_strip_dangerous_protocols() if there is any slash (/),
-  // hash (#) or question_mark (?) before the colon (:) occurrence - if any - as
-  // this would clearly mean it is not a URL. If the path starts with 2 slashes
-  // then it is always considered an external URL without an explicit protocol
-  // part.
+  // Some browsers treat \ as / so normalize to forward slashes.
+  $path = str_replace('\\', '/', $path);
+  // If the path starts with 2 slashes then it is always considered an external
+  // URL without an explicit protocol part.
   return (strpos($path, '//') === 0)
+    // Leading control characters may be ignored or mishandled by browsers, so
+    // assume such a path may lead to an external location. The \p{C} character
+    // class matches all UTF-8 control, unassigned, and private characters.
+    || (preg_match('/^\p{C}/u', $path) !== 0)
+    // Avoid calling drupal_strip_dangerous_protocols() if there is any slash
+    // (/), hash (#) or question_mark (?) before the colon (:) occurrence - if
+    // any - as this would clearly mean it is not a URL.
     || ($colonpos !== FALSE
       && !preg_match('![/?#]!', substr($path, 0, $colonpos))
       && drupal_strip_dangerous_protocols($path) == $path);
@@ -2600,7 +2659,7 @@ function drupal_deliver_page($page_callback_result, $default_delivery_callback =
   $delivery_callback = !empty($default_delivery_callback) ? $default_delivery_callback : 'drupal_deliver_html_page';
   // Give modules a chance to alter the delivery callback used, based on
   // request-time context (e.g., HTTP request headers).
-  drupal_alter('page_delivery_callback', $delivery_callback);
+  drupal_alter('page_delivery_callback', $delivery_callback, $page_callback_result);
   if (function_exists($delivery_callback)) {
     $delivery_callback($page_callback_result);
   }
@@ -2636,6 +2695,15 @@ function drupal_deliver_html_page($page_callback_result) {
   // Send appropriate HTTP-Header for browsers and search engines.
   global $language;
   drupal_add_http_header('Content-Language', $language->language);
+
+  // By default, do not allow the site to be rendered in an iframe on another
+  // domain, but provide a variable to override this. If the code running for
+  // this page request already set the X-Frame-Options header earlier, don't
+  // overwrite it here.
+  $frame_options = variable_get('x_frame_options', 'SAMEORIGIN');
+  if ($frame_options && is_null(drupal_get_http_header('X-Frame-Options'))) {
+    drupal_add_http_header('X-Frame-Options', $frame_options);
+  }
 
   // Menu status constants are integers; page content is a string or array.
   if (is_int($page_callback_result)) {
@@ -2751,6 +2819,7 @@ function drupal_page_footer() {
   _registry_check_code(REGISTRY_WRITE_LOOKUP_CACHE);
   drupal_cache_system_paths();
   module_implements_write_cache();
+  drupal_file_scan_write_cache();
   system_run_automated_cron();
 }
 
@@ -2812,11 +2881,11 @@ function drupal_map_assoc($array, $function = NULL) {
  * into script execution a call such as set_time_limit(20) is made, the
  * script will run for a total of 45 seconds before timing out.
  *
- * It also means that it is possible to decrease the total time limit if
- * the sum of the new time limit and the current time spent running the
- * script is inferior to the original time limit. It is inherent to the way
- * set_time_limit() works, it should rather be called with an appropriate
- * value every time you need to allocate a certain amount of time
+ * If the current time limit is not unlimited it is possible to decrease the
+ * total time limit if the sum of the new time limit and the current time spent
+ * running the script is inferior to the original time limit. It is inherent to
+ * the way set_time_limit() works, it should rather be called with an
+ * appropriate value every time you need to allocate a certain amount of time
  * to execute a task than only once at the beginning of the script.
  *
  * Before calling set_time_limit(), we check if this function is available
@@ -2833,7 +2902,11 @@ function drupal_map_assoc($array, $function = NULL) {
  */
 function drupal_set_time_limit($time_limit) {
   if (function_exists('set_time_limit')) {
-    @set_time_limit($time_limit);
+    $current = ini_get('max_execution_time');
+    // Do not set time limit if it is currently unlimited.
+    if ($current != 0) {
+      @set_time_limit($time_limit);
+    }
   }
 }
 
@@ -3014,6 +3087,13 @@ function drupal_add_html_head_link($attributes, $header = FALSE) {
  */
 function drupal_add_css($data = NULL, $options = NULL) {
   $css = &drupal_static(__FUNCTION__, array());
+  $count = &drupal_static(__FUNCTION__ . '_count', 0);
+
+  // If the $css variable has been reset with drupal_static_reset(), there is
+  // no longer any CSS being tracked, so set the counter back to 0 also.
+  if (count($css) === 0) {
+    $count = 0;
+  }
 
   // Construct the options, taking the defaults into consideration.
   if (isset($options)) {
@@ -3049,7 +3129,8 @@ function drupal_add_css($data = NULL, $options = NULL) {
     }
 
     // Always add a tiny value to the weight, to conserve the insertion order.
-    $options['weight'] += count($css) / 1000;
+    $options['weight'] += $count / 1000;
+    $count++;
 
     // Add the data to the CSS array depending on the type.
     switch ($options['type']) {
@@ -5215,6 +5296,11 @@ function _drupal_bootstrap_full() {
   fix_gpc_magic();
   // Load all enabled modules
   module_load_all();
+  // Reset drupal_alter() and module_implements() static caches as these
+  // include implementations for vital modules only when called early on
+  // in the bootstrap.
+  drupal_static_reset('drupal_alter');
+  drupal_static_reset('module_implements');
   // Make sure all stream wrappers are registered.
   file_get_stream_wrappers();
   // Ensure mt_rand is reseeded, to prevent random values from one page load
@@ -5311,8 +5397,8 @@ function drupal_page_set_cache() {
  *
  * Do not call this function from a test. Use $this->cronRun() instead.
  *
- * @return
- *   TRUE if cron ran successfully.
+ * @return bool
+ *   TRUE if cron ran successfully and FALSE if cron is already running.
  */
 function drupal_cron_run() {
   // Allow execution to continue even if the request gets canceled.
@@ -5374,12 +5460,12 @@ function drupal_cron_run() {
       // Do not run if queue wants to skip.
       continue;
     }
-    $function = $info['worker callback'];
+    $callback = $info['worker callback'];
     $end = time() + (isset($info['time']) ? $info['time'] : 15);
     $queue = DrupalQueue::get($queue_name);
     while (time() < $end && ($item = $queue->claimItem())) {
       try {
-        $function($item->data);
+        call_user_func($callback, $item->data);
         $queue->deleteItem($item);
       }
       catch (Exception $e) {
@@ -7086,7 +7172,8 @@ function drupal_uninstall_schema($module) {
  * specification of a schema, as it was defined in a module's
  * hook_schema(). No additional default values will be set,
  * hook_schema_alter() is not invoked and these unprocessed
- * definitions won't be cached.
+ * definitions won't be cached. To retrieve the schema after
+ * hook_schema_alter() has been invoked use drupal_get_schema().
  *
  * This function can be used to retrieve a schema specification in
  * hook_schema(), so it allows you to derive your tables from existing
@@ -7159,6 +7246,7 @@ function _drupal_schema_initialize(&$schema, $module, $remove_descriptions = TRU
  */
 function drupal_schema_field_types($table) {
   $table_schema = drupal_get_schema($table);
+  $field_types = array();
   foreach ($table_schema['fields'] as $field_name => $field_info) {
     $field_types[$field_name] = isset($field_info['type']) ? $field_info['type'] : NULL;
   }
@@ -7366,7 +7454,16 @@ function drupal_write_record($table, &$record, $primary_keys = array()) {
  * Information stored in a module .info file:
  * - name: The real name of the module for display purposes.
  * - description: A brief description of the module.
- * - dependencies: An array of shortnames of other modules this module requires.
+ * - dependencies: An array of dependency strings. Each is in the form
+ *   'project:module (versions)'; with the following meanings:
+ *   - project: (optional) Project shortname, recommended to ensure uniqueness,
+ *     if the module is part of a project hosted on drupal.org. If omitted,
+ *     also omit the : that follows. The project name is currently ignored by
+ *     Drupal core but is used for automated testing.
+ *   - module: (required) Module shortname within the project.
+ *   - (versions): Optional version information, consisting of one or more
+ *     comma-separated operator/value pairs or simply version numbers, which
+ *     can contain "x" as a wildcard. Examples: (>=7.22, <7.28), (7.x-3.x).
  * - package: The name of the package of modules this module belongs to.
  *
  * See forum.info for an example of a module .info file.
@@ -7446,7 +7543,6 @@ function drupal_parse_info_file($filename) {
  */
 function drupal_parse_info_format($data) {
   $info = array();
-  $constants = get_defined_constants();
 
   if (preg_match_all('
     @^\s*                           # Start at the beginning of a line, ignoring leading whitespace
@@ -7486,8 +7582,8 @@ function drupal_parse_info_format($data) {
       }
 
       // Handle PHP constants.
-      if (isset($constants[$value])) {
-        $value = $constants[$value];
+      if (preg_match('/^\w+$/i', $value) && defined($value)) {
+        $value = constant($value);
       }
 
       // Insert actual value.
@@ -7651,7 +7747,12 @@ function debug($data, $label = NULL, $print_r = FALSE) {
  * Parses a dependency for comparison by drupal_check_incompatibility().
  *
  * @param $dependency
- *   A dependency string, for example 'foo (>=7.x-4.5-beta5, 3.x)'.
+ *   A dependency string, which specifies a module dependency, and optionally
+ *   the project it comes from and versions that are supported. Supported
+ *   formats include:
+ *   - 'module'
+ *   - 'project:module'
+ *   - 'project:module (>=version, version)'
  *
  * @return
  *   An associative array with three keys:
@@ -7666,6 +7767,12 @@ function debug($data, $label = NULL, $print_r = FALSE) {
  * @see drupal_check_incompatibility()
  */
 function drupal_parse_dependency($dependency) {
+  $value = array();
+  // Split out the optional project name.
+  if (strpos($dependency, ':')) {
+    list($project_name, $dependency) = explode(':', $dependency);
+    $value['project'] = $project_name;
+  }
   // We use named subpatterns and support every op that version_compare
   // supports. Also, op is optional and defaults to equals.
   $p_op = '(?P<operation>!=|==|=|<|<=|>|>=|<>)?';
@@ -7674,7 +7781,6 @@ function drupal_parse_dependency($dependency) {
   $p_major = '(?P<major>\d+)';
   // By setting the minor version to x, branches can be matched.
   $p_minor = '(?P<minor>(?:\d+|x)(?:-[A-Za-z]+\d+)?)';
-  $value = array();
   $parts = explode('(', $dependency, 2);
   $value['name'] = trim($parts[0]);
   if (isset($parts[1])) {

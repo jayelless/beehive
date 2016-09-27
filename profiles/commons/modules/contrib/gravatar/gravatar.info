@@ -7,9 +7,9 @@ files[] = gravatar.admin.inc
 configure = admin/config/people/gravatar
 
 
-; Information added by drush on 2015-07-06
+; Information added by drush on 2016-08-24
 version = "7.x-1.1+5-dev"
 core = "7.x"
 project = "gravatar"
-datestamp = "1436194240"
+datestamp = "1472054699"
 

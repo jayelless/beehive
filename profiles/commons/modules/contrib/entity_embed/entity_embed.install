@@ -6,79 +6,6 @@
  */
 
 /**
- * Implements hook_requirements().
- */
-function entity_embed_requirements($phase) {
-  $requirements = array();
-
-  if ($phase == 'runtime') {
-    // Check if the site is running >= jQuery 1.7.
-    if (($library = drupal_get_library('system', 'jquery')) && version_compare($library['version'], 1.7, '>=')) {
-      $requirements['entity_embed_jquery'] = array(
-        'title' => t('Entity Embed jQuery version'),
-        'value' => t('jQuery @version', array('@version' => $library['version'])),
-        'severity' => REQUIREMENT_OK,
-      );
-    }
-    else {
-      $destination = drupal_get_destination();
-
-      $requirements['entity_embed_jquery'] = array(
-        'title' => t('Entity Embed jQuery version'),
-        'value' => t('jQuery @version', array('@version' => $library['version'])),
-        'description' => t('Entity Embed requires jQuery 1.7 or greater. Configure <a href="@jquery_update">jQuery Update</a>.', array('@jquery_update' => url('admin/config/development/jquery_update', array('query' => $destination)))),
-        'severity' => REQUIREMENT_ERROR,
-      );
-    }
-
-    // Check if the site is running >= CKEditor 4.3.
-    if (($version = ckeditor_get_version()) && version_compare($version, 4.3, '>=')) {
-      $requirements['entity_embed_ckeditor'] = array(
-        'title' => t('Entity Embed CKEditor version'),
-        'value' => t('CKEditor @version', array('@version' => $version)),
-        'severity' => REQUIREMENT_OK,
-      );
-    }
-    else {
-      $requirements['entity_embed_ckeditor'] = array(
-        'title' => t('Entity Embed CKEditor version'),
-        'value' => t('CKEditor @version', array('@version' => $version)),
-        'description' => t('Entity Embed requires CKEditor 4.3 or greater. Download the latest version of <a href="@ckeditor">CKEditor</a>.', array('@ckeditor' => 'http://ckeditor.com/download')),
-        'severity' => REQUIREMENT_ERROR,
-      );
-    }
-
-    $editor_path = _ckeditor_script_path();
-    $editor_path = strtr($editor_path, array(
-      "%b" => ckeditor_base_path('local'),
-      "%m" => ckeditor_module_path('local'),
-      "%l" => ckeditor_library_path('local')
-    ));
-
-    $widget_path = $editor_path . '/plugins/widget';
-
-    // Check if the CKEditor Widget plugin is available.
-    if (file_exists($widget_path)) {
-      $requirements['entity_embed_widget'] = array(
-        'title' => t('Entity Embed CKEditor Widget plugin'),
-        'value' => t('Widget plugin found at <code>@path</code>', array('@path' => $widget_path)),
-        'severity' => REQUIREMENT_OK,
-      );
-    }
-    else {
-      $requirements['entity_embed_widget'] = array(
-        'title' => t('Entity Embed CKEditor Widget plugin'),
-        'value' => t('Widget plugin not found at <code>@path</code>', array('@path' => $widget_path)),
-        'description' => t('Entity Embed requires the CKEditor Widget API provided by the Widget plugin. Download the latest version of the <a href="@widget">Widget</a> plugin.', array('@widget' => 'http://ckeditor.com/addon/widget')),
-        'severity' => REQUIREMENT_ERROR,
-      );
-    }
-  }
-
-  return $requirements;
-}
-
-/**
  * Implements hook_schema().
  */
 function entity_embed_schema() {
@@ -89,6 +16,12 @@ function entity_embed_schema() {
       'primary key' => 'cid',
       'identifier' => 'configuration', // Exports will be defined as $configuration.
       'default hook' => 'default_entity_embed_configuration', // Function hook name.
+      'create callback' => 'entity_embed_embed_button_new',
+      'load callback' => 'entity_embed_embed_button_load',
+      'load multiple callback' => 'entity_embed_embed_button_load_multiple',
+      'load all callback' => 'entity_embed_embed_button_load_all',
+      'save callback' => 'entity_embed_embed_button_save',
+      'delete callback' => 'entity_embed_embed_button_delete',
       'cache defaults' => TRUE,
       'default cache bin' => 'cache_entity_embed',
       'api' => array(
@@ -121,13 +54,6 @@ function entity_embed_schema() {
         'default' => '',
         'description' => 'Configuration machine name.',
       ),
-      'button_label' => array(
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-        'default' => '',
-        'description' => 'Button label.',
-      ),
       'entity_type' => array(
         'type' => 'varchar',
         'length' => 128,
@@ -148,6 +74,14 @@ function entity_embed_schema() {
         'type' => 'int',
         'not null' => FALSE,
         'unsigned' => TRUE,
+      ),
+      'display_plugins' => array(
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+        'object default' => array(),
+        'description' => 'Allowed display plugins.',
       ),
     ),
     'unique keys' => array(
@@ -173,8 +107,39 @@ function entity_embed_update_7100() {
     'not null' => TRUE,
     'serialize' => TRUE,
     'object default' => array(),
+    'initial' => serialize(array()), // Set the value of 'entity_type_bundles' to a serialized empty array for all existing embed buttons.
     'description' => 'Entity type bundles.',
   ));
+
+  // Clear the cache_entity_embed cache.
+  cache_clear_all(NULL, 'cache_entity_embed');
+}
+
+/**
+ * Add support for restricting embedding to specific display plugins.
+ */
+function entity_embed_update_7300() {
+  // Add new columns to {entity_embed}.
+  db_add_field('entity_embed', 'display_plugins', array(
+    'type' => 'text',
+    'size' => 'big',
+    'not null' => TRUE,
+    'serialize' => TRUE,
+    'object default' => array(),
+    'initial' => serialize(array()), // Set the value of 'display_plugins' to a serialized empty array for all existing embed buttons.
+    'description' => 'Allowed display plugins.',
+  ));
+
+  // Clear the cache_entity_embed cache.
+  cache_clear_all(NULL, 'cache_entity_embed');
+}
+
+/**
+ * Merge CKEditor button label and entity label.
+ */
+function entity_embed_update_7301() {
+  // Drop old 'button_label' column from {entity_embed}.
+  db_drop_field('entity_embed', 'button_label');
 
   // Clear the cache_entity_embed cache.
   cache_clear_all(NULL, 'cache_entity_embed');

@@ -51,15 +51,6 @@ function entity_embed_ctools_export_ui_form(&$form, &$form_state) {
   // Determine the currently selected entity type.
   $selected = isset($form_state['values']['entity_type']) ? $form_state['values']['entity_type'] : $preset->entity_type;
 
-  $form['button_label'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Button label'),
-    '#default_value' => $preset->button_label,
-    '#maxlength' => 64,
-    '#description' => t('The label used by CKEditor to identify the button.'),
-    '#required' => TRUE,
-  );
-
   $options = array();
   $entity_types = entity_get_info();
 
@@ -91,6 +82,7 @@ function entity_embed_ctools_export_ui_form(&$form, &$form_state) {
   );
 
   $bundle_options = array();
+  $formatter_options = array();
 
   if ($selected) {
     $entity_type = entity_get_info($selected);
@@ -99,6 +91,16 @@ function entity_embed_ctools_export_ui_form(&$form, &$form_state) {
     if (!empty($entity_type['bundles'])) {
       foreach ($entity_type['bundles'] as $bundle_id => $bundle_info) {
         $bundle_options[$bundle_id] = $bundle_info['label'];
+      }
+    }
+
+    // Retrieve a list of formatters appropriate for the currently selected
+    // entity type.
+    $formatters = entity_embed_get_entity_field_formatters($selected);
+
+    if (!empty($formatters)) {
+      foreach ($formatters as $formatter => $info) {
+        $formatter_options[$info['module'] . ':' . $formatter] = $info['label'];
       }
     }
   }
@@ -114,9 +116,8 @@ function entity_embed_ctools_export_ui_form(&$form, &$form_state) {
     '#type' => 'checkboxes',
     '#title' => $title,
     '#default_value' => $preset->entity_type_bundles,
-    '#options' => array(),
     '#description' => t('The selected entity type only contains one bundle which is always allowed.'),
-    '#prefix' => '<div id="entity-type-bundles">',
+    '#prefix' => '<div id="bundle-entity-type-wrapper">',
     '#suffix' => '</div>',
   );
 
@@ -141,9 +142,36 @@ function entity_embed_ctools_export_ui_form(&$form, &$form_state) {
     '#upload_location' => file_default_scheme() . '://entity_embed/',
     '#upload_validators' => array(
       'file_validate_extensions' => array('gif png jpg jpeg'),
-      'file_validate_image_resolution' => array('16x16'),
+      'file_validate_image_resolution' => array('32x32', '16x16'),
     ),
   );
+
+  // @todo: Abstract formatters into 'display plugins'.
+  $form['display_plugins'] = array(
+    '#type' => 'checkboxes',
+    '#default_value' => $preset->display_plugins ?: array(),
+    '#prefix' => '<div id="display-plugins-wrapper">',
+    '#suffix' => '</div>',
+  );
+
+  // The selection is hidden if there's just one option, since that's always
+  // going to be allowed.
+  if (count($formatter_options) > 1) {
+    // Allow option to limit Entity Embed Display plugins.
+    $form['display_plugins'] += array(
+      '#title' => t('Allowed Entity Embed Display plugins'),
+      '#options' => $formatter_options,
+      '#description' => t('If none are selected, all are allowed. Note that these are the plugins which are allowed for this entity type, all of these might not be available for the selected entity.'),
+    );
+  }
+
+  // Set options to an empty array if it hasn't been set so far.
+  if (!isset($form['entity_type_bundles']['#options'])) {
+    $form['entity_type_bundles']['#options'] = array();
+  }
+  if (!isset($form['display_plugins']['#options'])) {
+    $form['display_plugins']['#options'] = array();
+  }
 }
 
 /**
@@ -153,6 +181,9 @@ function entity_embed_ctools_export_ui_form_submit($form, &$form_state) {
   // Filter out any unselected checkboxes.
   if (isset($form_state['values']['entity_type_bundles'])) {
     $form_state['values']['entity_type_bundles'] = array_filter($form_state['values']['entity_type_bundles']);
+  }
+  if (isset($form_state['values']['display_plugins'])) {
+    $form_state['values']['display_plugins'] = array_filter($form_state['values']['display_plugins']);
   }
 
   // Now handle the case of the next, previous, and submit buttons.
@@ -175,11 +206,19 @@ function entity_embed_ctools_export_ui_form_submit($form, &$form_state) {
  *   button form elemenets.
  */
 function entity_embed_dependent_entity_type_bundles_callback($form, $form_state) {
+  $commands = array();
+
+  // Update options for entity type bundles.
+  $commands[] =  ajax_command_replace("#bundle-entity-type-wrapper", render($form['entity_type_bundles']));
+
+  // Update options for display plugins.
+  $commands[] =  ajax_command_replace("#display-plugins-wrapper", render($form['display_plugins']));
+
+  // Update submit button.
+  $commands[] =  ajax_command_replace("#save-button", render($form['buttons']['submit']));
+
   return array(
     '#type' => 'ajax',
-    '#commands' => array(
-      ajax_command_replace("#entity-type-bundles", render($form['entity_type_bundles'])),
-      ajax_command_replace("#save-button", render($form['buttons']['submit']))
-    )
+    '#commands' => $commands,
   );
 }

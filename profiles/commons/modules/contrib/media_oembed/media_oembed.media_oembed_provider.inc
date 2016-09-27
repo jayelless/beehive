@@ -29,6 +29,37 @@ http://sta.sh/*';
   $provider = new stdClass();
   $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
   $provider->api_version = 1;
+  $provider->name = 'facebook_post';
+  $provider->admin_title = 'Facebook Post';
+  $provider->admin_description = 'Facebook is a social networking website that makes it easy to connect and share with family and friends online.';
+  $provider->endpoint = 'https://www.facebook.com/plugins/post/oembed.json';
+  $provider->scheme = 'https://www.facebook.com/*/posts/*
+https://www.facebook.com/*/posts/*
+https://www.facebook.com/*/activity/*
+https://www.facebook.com/photo.php?fbid=*
+https://www.facebook.com/photos/*
+https://www.facebook.com/permalink.php?story_fbid=*
+https://www.facebook.com/media/set?set=*
+https://www.facebook.com/questions/*
+https://www.facebook.com/notes/*/*/*';
+  $providers['facebook_post'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
+  $provider->name = 'facebook_video';
+  $provider->admin_title = 'Facebook Video';
+  $provider->admin_description = 'Facebook is a social networking website that makes it easy to connect and share with family and friends online.';
+  $provider->endpoint = 'https://www.facebook.com/plugins/video/oembed.json';
+  $provider->scheme = 'https://www.facebook.com/*/videos/*/
+https://www.facebook.com/*/videos/*/
+https://www.facebook.com/video.php?id=*
+https://www.facebook.com/video.php?v=*';
+  $providers['facebook_video'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
   $provider->name = 'flickr';
   $provider->admin_title = 'Flickr';
   $provider->admin_description = 'Flickr is an image hosting and video hosting website, and web services suite.';
@@ -69,11 +100,15 @@ https://ifttt.com/recipes/*';
   $provider->name = 'instagram';
   $provider->admin_title = 'Instagram';
   $provider->admin_description = 'Instagram is an online photo-sharing, video-sharing and social networking service that enables its users to take pictures and videos, apply digital filters to them, and share them on a variety of social networking services, such as Facebook, Twitter, Tumblr and Flickr.';
-  $provider->endpoint = 'http://api.instagram.com/oembed';
+  $provider->endpoint = 'https://api.instagram.com/oembed';
   $provider->scheme = 'http://instagram.com/p/*
 https://instagram.com/p/*
+http://www.instagram.com/p/*
+https://www.instagram.com/p/*
 http://instagr.am/p/*
-https://instagr.am/p/*';
+https://instagr.am/p/*
+http://www.instagr.am/p/*
+https://www.instagr.am/p/*';
   $providers['instagram'] = $provider;
 
   $provider = new stdClass();
@@ -97,6 +132,20 @@ https://www.nfb.ca/film/*';
   $provider->scheme = 'http://*
 https://*';
   $providers['noembed'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
+  $provider->name = 'podbean';
+  $provider->admin_title = 'Podbean';
+  $provider->admin_description = 'A better way to discover and play all your favorite podcasts anywhere, anytime.';
+  $provider->endpoint = 'https://www.podbean.com/media/oembed/';
+  $provider->scheme = 'http://www.podbean.com/media/share/*
+https://www.podbean.com/media/share/*
+http://www.podbean.com/media/player/*
+https://www.podbean.com/media/player/*
+';
+  $providers['podbean'] = $provider;
 
   $provider = new stdClass();
   $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
@@ -174,6 +223,34 @@ https://soundcloud.com/groups/*
 http://snd.sc/*
 https://snd.sc/*';
   $providers['soundcloud'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
+  $provider->name = 'spotify';
+  $provider->admin_title = 'Spotify';
+  $provider->admin_description = 'Spotify is a digital music service that gives you access to millions of songs.';
+  $provider->endpoint = 'https://embed.spotify.com/oembed';
+  $provider->scheme = 'http://open.spotify.com/*
+http://play.spotify.com/*
+https://open.spotify.com/*
+https://play.spotify.com/*
+';
+  $providers['spotify'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
+  $provider->name = 'ted';
+  $provider->admin_title = 'TED';
+  $provider->admin_description = 'TED is a global community, welcoming people from every discipline and culture who seek a deeper understanding of the world.';
+  $provider->endpoint = 'http://www.ted.com/services/v1/oembed.json';
+  $provider->scheme = 'http://ted.com/talks/*
+http://www.ted.com/talks/*
+https://ted.com/talks/*
+https://www.ted.com/talks/*
+';
+  $providers['ted'] = $provider;
 
   $provider = new stdClass();
   $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */

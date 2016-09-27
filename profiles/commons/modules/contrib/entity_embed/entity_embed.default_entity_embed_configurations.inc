@@ -16,10 +16,10 @@ function entity_embed_default_entity_embed_configuration() {
   $configuration->api_version = 1;
   $configuration->admin_title = 'Node';
   $configuration->name = 'node';
-  $configuration->button_label = 'Content';
   $configuration->entity_type = 'node';
   $configuration->entity_type_bundles = array();
   $configuration->button_icon_fid = 0;
+  $configuration->display_plugins = array();
   $configurations['node'] = $configuration;
 
   return $configurations;

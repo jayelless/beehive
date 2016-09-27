@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Beekeeper Messaging feature.
+ */
+
+include_once 'beekeeper_messaging.features.inc';

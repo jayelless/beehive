@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Beekeeper Apiaries feature.
+ */
+
+include_once 'beekeeper_apiaries.features.inc';

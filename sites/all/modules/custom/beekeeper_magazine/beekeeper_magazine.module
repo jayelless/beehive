@@ -1,0 +1,47 @@
+<?php
+/**
+ * @file
+ * Code for the beekeeper_magazine feature.
+ */
+
+include_once('beekeeper_magazine.features.inc');
+
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function beekeeper_magazine_entity_property_info_alter(&$property_info) {
+  // Make the beekeeper-newsletter-time field a duration.
+  $p = &$property_info['commerce_product']['bundles']['beekeeper_magazine_subscription']['properties']['field_beekeeper_magazine_period'];
+  $p['type'] = 'duration';
+  $p['getter callback'] = 'beekeeper_magazine_period_get';
+  $p['setter callback'] = 'beekeeper_magazine_period_set';
+}
+
+/**
+ * Gets the duration in seconds.
+ */
+function beekeeper_magazine_period_get($entity, array $options, $name, $entity_type, $info) {
+  $value = entity_metadata_field_property_get($entity, $options, $name, $entity_type, $info);
+  return beekeeper_magazine_months_to_secs($value);
+}
+
+/**
+ * Sets the duration in seconds.
+ */
+function beekeeper_magazine_period_set($entity, $name, $value, $langcode, $entity_type, $info) {
+  $secs = beekeeper_magazine_months_to_secs($value);
+  entity_metadata_field_property_set($entity, $name, $secs, $langcode, $entity_type, $info);
+}
+
+/**
+ * Helper function to convert a number of months to seconds from now
+ */
+function beekeeper_magazine_months_to_secs($months) {
+  // Convert the value in months to seconds from now
+  $dim = new DateInterval('P' . $months . 'M');
+  $now = new DateTime();
+  $then = new DateTime();
+  $then->add($dim);
+  $interval = $then->diff($now);
+  return $interval->days * 86400;
+}

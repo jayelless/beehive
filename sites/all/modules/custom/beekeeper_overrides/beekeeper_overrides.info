@@ -1,0 +1,5 @@
+name = Beekeeper Overrides
+description = Overrides to features and code provided by contrib modules
+core = 7.x
+package = Beekeepers
+version = 7.x-1.0

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Beekeepers Memberships feature.
+ */
+
+include_once 'beekeeper_memberships.features.inc';

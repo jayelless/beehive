@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Beekeeper Swarms feature.
+ */
+
+include_once 'beekeeper_swarms.features.inc';

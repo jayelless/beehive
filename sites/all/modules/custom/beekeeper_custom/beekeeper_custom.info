@@ -1,0 +1,6 @@
+name = BeeKeeper Custom
+description = Custom code for Beekeeper Site
+core = 7.x
+package = Beekeepers
+version = 7.x-1.0
+dependancies[] = membership_entity

@@ -1,0 +1,223 @@
+<?php
+/**
+ * Use a hook exposed in the membership_entity_term module to recalculate the end date of the membership
+ * @param  dateObject &$end  The original End date for membership
+ * @param  membership_term_entity  &$term  The term entity
+ * @return dateObject  The amended end date.
+ */
+function beekeeper_custom_membership_entity_term_end_date_alter(&$end, &$term){
+  // Temp - if this is a dummy membership (type = "membership")
+  // then make the end date 31 May this year
+  if ($term->membership_entity_type == 'membership') {
+    $end = new DateObject(strtotime("31 May this year"), new DateTimezone($term->timezone));
+  }
+  else {
+    $end = new DateObject(strtotime("31 May next year"), new DateTimezone($term->timezone));
+  }
+}
+
+/**
+ * Use a hook exposed in the membership_entity_term module to recalculate the start date of the membership
+ * @param  dateObject &$start  The original Start date for membership
+ * @param  membership_term_entity  &$term  The term entity
+ * @return dateObject  The amended start date.
+ */
+function beekeeper_custom_membership_entity_term_start_date_alter(&$start, &$term){
+  // Temp - if this is a dummy membership (type = "membership")
+  // then make the start date 30 May this year
+  if ($term->membership_entity_type == 'membership') {
+    $start = new DateObject(strtotime("30 May this year"), new DateTimezone($term->timezone));
+  }
+}
+
+/**
+ * Implements hook_entity_presave
+ */
+function beekeeper_custom_entity_presave($entity, $type) {
+  switch ($type) {
+    case 'membership_entity':
+      if ($entity->type == 'membership') {
+        // This is a dummy membership, so convert it to an expired standard membership
+        $entity->type = 'standard_membership';
+        $entity->status = 0;
+      }
+      break;
+    case 'membership_entity_term':
+      if ($entity->membership_entity_type == 'membership') {
+        // This is a dummy membership, so convert it to an expired standard membership
+        $entity->membership_entity_type = 'standard_membership';
+        $entity->status = 0;
+      }
+      break;
+  }
+}
+
+
+/**
+ * Function to massage imported data to ensure that the address elements are correct
+ *
+ * Implements hook_feeds_presave
+ */
+function beekeeper_custom_feeds_presave($source, $entity, $item) {
+  // Put the address data into the correct field elements
+  $entity->field_postal_address = array(
+    LANGUAGE_NONE => array(
+      0 => array(
+        'country' => $item['country'],
+        'administrative_area' => '',
+        'sub_administrative_area' => '',
+        'locality' => $item['town_city'],
+        'dependent_locality' => $item['suburb'],
+        'postal_code' => $item['postcode'],
+        'thoroughfare' => $item['address_line1'],
+        'premise' => $item['address_line2'],
+        'sub_premise' => '',
+        'organisation_name' => '',
+        'name_line' => $item['name_first'] . ' ' . $item['surname'],
+        'name_first' => $item['name_first'],
+        'name_last' => $item['surname'],
+        'data' => '',
+      )
+    )
+  );
+
+  // Split the telephone number field on multiple phone numbers
+  $phone_number = $entity->field_phone_number[LANGUAGE_NONE][0]['value'];
+  $phone_numbers = explode(';', $phone_number);
+  $entity->field_phone_number[LANGUAGE_NONE] = array();
+  foreach ($phone_numbers as $phone_number) {
+    $entity->field_phone_number[LANGUAGE_NONE][] = array('value' => trim($phone_number));
+  }
+}
+
+/**
+ * Implements hook_block
+ */
+function beekeeper_custom_block_info() {
+  $blocks['curruser'] = array(
+    'info' => t('Current user'),
+    'cache' => DRUPAL_CACHE_PER_USER,
+  );
+  $blocks['ruleoff'] = array(
+    'info' => t('Rule off'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view
+ */
+function beekeeper_custom_block_view($delta = '') {
+  $subject = NULL;
+  switch ($delta) {
+    case 'curruser':
+      global $user;
+      $content = '<span class="beekeeper-username">';
+      if ($user->uid) {
+        $content .= $user->name . '</span>&nbsp;&nbsp<a href="/user/logout">(logout)</a>';
+      }
+      else {
+        $content .= 'anonymous</span>&nbsp;&nbsp<a href="/user/login">(login)</a>';
+      }
+      break;
+    case 'ruleoff':
+      $content = '<div class="beekeeper-rule-off"></div>';
+      break;
+    default:
+      $content = '';
+  }
+  // Return array holding block information
+  return array(
+    'subject' => $subject,
+    'content' => array('#markup' => $content),
+  );
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter
+ *
+ * Add the user's postal address as the default address in the billing pane
+ */
+function beekeeper_custom_form_commerce_checkout_form_checkout_alter(&$form, &$form_state) {
+  $account = user_load_by_mail($form['account']['login']['mail']['#default_value']);
+  if (isset($account->field_postal_address) && !empty($account->field_postal_address)) {
+    // Loop thru user address values and add them as default values
+    $langcode = NULL;
+    $langcode = is_null($langcode) ? LANGUAGE_NONE : $langcode;
+    foreach ($account->field_postal_address[$langcode][0] as $key => $value) {
+      if (isset($form['customer_profile_billing']['commerce_customer_address'][$langcode][0]['#address'][$key])) {
+        $form['customer_profile_billing']['commerce_customer_address'][$langcode][0]['#address'][$key] = $value;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_user_presave
+ *
+ * Copies the user's name to the name compontnents of the postal address
+ */
+function beekeeper_custom_user_presave(&$edit, $account, $category) {
+  $langcode = NULL;
+  $langcode = is_null($langcode) ? LANGUAGE_NONE : $langcode;
+  if ($edit & isset($edit['field_postal_address'])) {
+    // Copy the name fields to the postal address
+    $name_first = isset($edit['field_name_first']) ? $edit['field_name_first'][$langcode][0]['value'] : 'login:';
+    $name_last = isset($edit['field_name_last']) ? $edit['field_name_last'][$langcode][0]['value'] : $account->name;
+    $edit['field_postal_address'][$langcode][0]['name_line'] = $name_first . ' ' . $name_last;
+    $edit['field_postal_address'][$langcode][0]['name_first'] = $name_first;
+    $edit['field_postal_address'][$langcode][0]['name_last'] = $name_last;
+  }
+}
+
+/**
+ * Implements hook_mail_alter
+ * to stop mail from being sent in development and test environments
+ */
+function beekeeper_custom_mail_alter(&$message) {
+  // We don't want to send emails if the variable has not been set, or if it has been set and is TRUE.
+  // We can use variable_get() to get the $conf variable set in our settings.php file
+  // Note that by setting the default to TRUE, the default setting for the system is to be
+  // a development environment. Set this to FALSE to have the default be a live environment.
+  if(variable_get('development_environment', TRUE)) {
+    // Log the mail so it can be debugged if necessary
+    watchdog('beekeeper', 'The following email was not sent: !message',
+      array('!message' => '<pre>' . print_r($message, TRUE) . '</pre>'));
+    // Prevent the mail from being sent
+    $message['send'] = FALSE;
+    // leave a message for the user
+    drupal_set_message(t('Mail message NOT sent to @to', array('@to'=>$message['to'])));
+  }
+}
+
+/**
+ * Function to return a keyed list of membership types
+ */
+function beekeeper_custom_membership_type_list() {
+  return db_query('SELECT id, type FROM {membership_entity_type} ORDER BY id')->fetchAllKeyed();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function beekeeper_custom_form_system_theme_settings_alter(&$form, &$form_state, $form_id) {
+  $themes_list = list_themes(TRUE);
+
+  // Filter down to just the commons_beehive theme:
+  // If commons_beehive theme exists
+  // If commons_beehive is enabled
+  // If we're not on the general settings tab -- because args aren't set yet
+  // And we're on the commons_origin settings page, then show the color palette
+  if (isset($themes_list['commons_beehive'])
+    && $themes_list['commons_beehive']->status == 1
+    && !empty($form_state['build_info']['args'])
+    && $form_state['build_info']['args'][0] == 'commons_beehive') {
+    // Add the color palette selection form to the apperance settings form.
+    require_once(drupal_get_path('theme', 'commons_beehive') . '/commons_beehive.palettes.inc');
+    commons_beehive_palettes_form($form);
+  }
+}
+

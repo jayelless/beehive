@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Beekeeper Commerce feature.
+ */
+
+include_once 'beekeeper_commerce.features.inc';

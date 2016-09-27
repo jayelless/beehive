@@ -1,0 +1,7 @@
+<?php
+
+function beekeeper_custom_install() {
+  // Set the variable items
+  variable_set('membership_entity_next_member_id', 541);
+  variable_set('membership_entity_required', 0);
+}

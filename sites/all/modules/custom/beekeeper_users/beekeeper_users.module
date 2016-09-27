@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Beekeeper Users feature.
+ */
+
+include_once 'beekeeper_users.features.inc';

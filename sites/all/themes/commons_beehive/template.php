@@ -137,6 +137,7 @@ function commons_beehive_preprocess_html(&$variables, $hook) {
   // Browser/platform sniff - adds body classes such as ipad, webkit, chrome
   // etc.
   $variables['classes_array'][] = css_browser_selector();
+
 }
 
 /**
@@ -1280,6 +1281,28 @@ function commons_beehive_preprocess_user_profile(&$variables, $hook) {
 function commons_beehive_preprocess_commons_search_solr_user_results(&$variables, $hook) {
   // Hide the results title.
   $variables['title_attributes_array']['class'][] = 'element-invisible';
+}
+
+/**
+ * Implements template_process_html().
+ *
+ * Override or insert variables into the page template for HTML output.
+ */
+function commons_beehive_process_html(&$variables) {
+  // Hook into color.module.
+  if (module_exists('color')) {
+    _color_html_alter($variables);
+  }
+}
+
+/*
+ * Implements template_process_page().
+ */
+function commons_beehive_process_page(&$variables, $hook) {
+  // Hook into color.module.
+  if (module_exists('color')) {
+    _color_page_alter($variables);
+  }
 }
 
 /**

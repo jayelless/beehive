@@ -1,4 +1,0 @@
-beehive
-=======
-
-Wellington Beekeepers Website

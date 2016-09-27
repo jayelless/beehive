@@ -5020,14 +5020,14 @@ body.front.logged-in .view-commons-homepage-content .article.node.node-page .lin
 /**
  * Commons Origins Pallete Choices
  */
-#edit-commons-origins-palette .form-item-commons-origins-palette {
+#edit-commons-beehive-palette .form-item-commons-beehive-palette {
   clear: both;
   margin-bottom: 10px;
 }
-#edit-commons-origins-palette .form-item-commons-origins-palette input[type="radio"] {
+#edit-commons-beehive-palette .form-item-commons-beehive-palette input[type="radio"] {
   float: left;
 }
-#edit-commons-origins-palette .form-item-commons-origins-palette label {
+#edit-commons-beehive-palette .form-item-commons-beehive-palette label {
   margin-left: 20px;
 }
 

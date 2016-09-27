@@ -9,6 +9,7 @@ dependencies[] = text
 dependencies[] = webform
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
+features[field_base][] = comment_body
 features[field_base][] = field_image
 features[field_base][] = field_inserted
 features[field_base][] = field_newsletter_date

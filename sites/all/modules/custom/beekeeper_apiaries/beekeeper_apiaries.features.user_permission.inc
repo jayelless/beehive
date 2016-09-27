@@ -17,7 +17,6 @@ function beekeeper_apiaries_user_default_permissions() {
       'Honorary member' => 'Honorary member',
       'Junior member' => 'Junior member',
       'Lifetime member' => 'Lifetime member',
-      'Membership admin' => 'Membership admin',
       'Standard member' => 'Standard member',
       'administrator' => 'administrator',
     ),
@@ -28,7 +27,6 @@ function beekeeper_apiaries_user_default_permissions() {
   $permissions['delete any apiary content'] = array(
     'name' => 'delete any apiary content',
     'roles' => array(
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'node',
@@ -41,7 +39,6 @@ function beekeeper_apiaries_user_default_permissions() {
       'Honorary member' => 'Honorary member',
       'Junior member' => 'Junior member',
       'Lifetime member' => 'Lifetime member',
-      'Membership admin' => 'Membership admin',
       'Standard member' => 'Standard member',
       'administrator' => 'administrator',
     ),
@@ -52,7 +49,6 @@ function beekeeper_apiaries_user_default_permissions() {
   $permissions['edit any apiary content'] = array(
     'name' => 'edit any apiary content',
     'roles' => array(
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'node',
@@ -65,7 +61,6 @@ function beekeeper_apiaries_user_default_permissions() {
       'Honorary member' => 'Honorary member',
       'Junior member' => 'Junior member',
       'Lifetime member' => 'Lifetime member',
-      'Membership admin' => 'Membership admin',
       'Standard member' => 'Standard member',
       'administrator' => 'administrator',
     ),

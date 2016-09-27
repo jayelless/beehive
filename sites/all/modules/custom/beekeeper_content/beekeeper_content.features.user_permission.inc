@@ -23,7 +23,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['access own webform results'] = array(
     'name' => 'access own webform results',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'webform',
@@ -33,7 +32,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['access own webform submissions'] = array(
     'name' => 'access own webform submissions',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'webform',
@@ -43,7 +41,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['create newsletter content'] = array(
     'name' => 'create newsletter content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'Site editor' => 'Site editor',
       'administrator' => 'administrator',
     ),
@@ -54,7 +51,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['create webform content'] = array(
     'name' => 'create webform content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'node',
@@ -73,6 +69,7 @@ function beekeeper_content_user_default_permissions() {
   $permissions['delete any newsletter content'] = array(
     'name' => 'delete any newsletter content',
     'roles' => array(
+      'Site editor' => 'Site editor',
       'administrator' => 'administrator',
     ),
     'module' => 'node',
@@ -91,7 +88,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['delete own newsletter content'] = array(
     'name' => 'delete own newsletter content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'Site editor' => 'Site editor',
       'administrator' => 'administrator',
     ),
@@ -102,7 +98,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['delete own webform content'] = array(
     'name' => 'delete own webform content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'node',
@@ -130,7 +125,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['edit any newsletter content'] = array(
     'name' => 'edit any newsletter content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'Site editor' => 'Site editor',
       'administrator' => 'administrator',
     ),
@@ -150,7 +144,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['edit own newsletter content'] = array(
     'name' => 'edit own newsletter content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'Site editor' => 'Site editor',
       'administrator' => 'administrator',
     ),
@@ -161,7 +154,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['edit own webform content'] = array(
     'name' => 'edit own webform content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'node',
@@ -171,7 +163,6 @@ function beekeeper_content_user_default_permissions() {
   $permissions['edit own webform submissions'] = array(
     'name' => 'edit own webform submissions',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'webform',

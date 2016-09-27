@@ -21,7 +21,7 @@ function beekeeper_commerce_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_product_display';
-  $strongarm->value = 'edit-display';
+  $strongarm->value = 'edit-og';
   $export['additional_settings__active_tab_product_display'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -762,6 +762,12 @@ Payment instructions: Please use your name in the particulars field, and the ord
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'notifications' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -807,6 +813,12 @@ Payment instructions: Please use your name in the particulars field, and the ord
           ),
           'teaser' => array(
             'weight' => '1',
+            'visible' => TRUE,
+          ),
+        ),
+        'product:field_beekeeper_magazine_period' => array(
+          'default' => array(
+            'weight' => '2',
             'visible' => TRUE,
           ),
         ),

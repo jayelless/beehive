@@ -23,12 +23,12 @@ function beekeeper_memberships_menu_default_menu_links() {
       'identifier' => 'user-menu_join---dummy-membership:user/join/membership',
     ),
     'module' => 'system',
-    'hidden' => 1,
+    'hidden' => 0,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
     'weight' => 0,
-    'customized' => 1,
+    'customized' => 0,
     'parent_identifier' => 'user-menu_join:user/join',
   );
   // Exported menu link: user-menu_join---honorary-membership:user/join/honorary-membership.
@@ -103,12 +103,12 @@ function beekeeper_memberships_menu_default_menu_links() {
       'identifier' => 'user-menu_renew---dummy-membership:user/renew/membership',
     ),
     'module' => 'system',
-    'hidden' => 1,
+    'hidden' => 0,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
     'weight' => 0,
-    'customized' => 1,
+    'customized' => 0,
     'parent_identifier' => 'user-menu_renew:user/renew',
   );
   // Exported menu link: user-menu_renew---honorary-membership:user/renew/honorary-membership.

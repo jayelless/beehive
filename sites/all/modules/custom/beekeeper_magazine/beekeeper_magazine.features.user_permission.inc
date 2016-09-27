@@ -13,7 +13,9 @@ function beekeeper_magazine_user_default_permissions() {
   // Exported permission: 'create field_beekeeper_magazine_expiry'.
   $permissions['create field_beekeeper_magazine_expiry'] = array(
     'name' => 'create field_beekeeper_magazine_expiry',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -21,7 +23,7 @@ function beekeeper_magazine_user_default_permissions() {
   $permissions['edit field_beekeeper_magazine_expiry'] = array(
     'name' => 'edit field_beekeeper_magazine_expiry',
     'roles' => array(
-      'Standard member' => 'Standard member',
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );
@@ -30,7 +32,7 @@ function beekeeper_magazine_user_default_permissions() {
   $permissions['view field_beekeeper_magazine_expiry'] = array(
     'name' => 'view field_beekeeper_magazine_expiry',
     'roles' => array(
-      'Standard member' => 'Standard member',
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );
@@ -39,6 +41,7 @@ function beekeeper_magazine_user_default_permissions() {
   $permissions['view own field_beekeeper_magazine_expiry'] = array(
     'name' => 'view own field_beekeeper_magazine_expiry',
     'roles' => array(
+      'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'field_permissions',

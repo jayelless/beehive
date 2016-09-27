@@ -110,7 +110,7 @@ function beekeeper_memberships_default_membership_entity_type() {
       "show_on_profile" : 1,
       "all_edit" : 0,
       "bundle" : "membership_entity_type",
-      "additional_settings__active_tab" : "edit-term-lengths",
+      "additional_settings__active_tab" : "edit-membership-settings",
       "tz_handling" : "site",
       "timezone_db" : "UTC",
       "available_term_lengths" : [ "1 day" ]

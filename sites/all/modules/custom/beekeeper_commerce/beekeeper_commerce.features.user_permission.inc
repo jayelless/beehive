@@ -43,8 +43,6 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['administer commerce_order entities'] = array(
     'name' => 'administer commerce_order entities',
     'roles' => array(
-      'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -93,6 +91,48 @@ function beekeeper_commerce_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_line_item',
+  );
+
+  // Exported permission: 'administer panelizer node product_display content'.
+  $permissions['administer panelizer node product_display content'] = array(
+    'name' => 'administer panelizer node product_display content',
+    'roles' => array(),
+    'module' => 'panelizer',
+  );
+
+  // Exported permission: 'administer panelizer node product_display context'.
+  $permissions['administer panelizer node product_display context'] = array(
+    'name' => 'administer panelizer node product_display context',
+    'roles' => array(),
+    'module' => 'panelizer',
+  );
+
+  // Exported permission: 'administer panelizer node product_display defaults'.
+  $permissions['administer panelizer node product_display defaults'] = array(
+    'name' => 'administer panelizer node product_display defaults',
+    'roles' => array(),
+    'module' => 'panelizer',
+  );
+
+  // Exported permission: 'administer panelizer node product_display layout'.
+  $permissions['administer panelizer node product_display layout'] = array(
+    'name' => 'administer panelizer node product_display layout',
+    'roles' => array(),
+    'module' => 'panelizer',
+  );
+
+  // Exported permission: 'administer panelizer node product_display overview'.
+  $permissions['administer panelizer node product_display overview'] = array(
+    'name' => 'administer panelizer node product_display overview',
+    'roles' => array(),
+    'module' => 'panelizer',
+  );
+
+  // Exported permission: 'administer panelizer node product_display settings'.
+  $permissions['administer panelizer node product_display settings'] = array(
+    'name' => 'administer panelizer node product_display settings',
+    'roles' => array(),
+    'module' => 'panelizer',
   );
 
   // Exported permission: 'administer payment methods'.
@@ -167,7 +207,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'create commerce_order entities',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -178,7 +217,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'create commerce_order entities of bundle commerce_order',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -253,6 +291,13 @@ function beekeeper_commerce_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
     ),
+    'module' => 'commerce_product',
+  );
+
+  // Exported permission: 'create commerce_product entities of bundle training_course'.
+  $permissions['create commerce_product entities of bundle training_course'] = array(
+    'name' => 'create commerce_product entities of bundle training_course',
+    'roles' => array(),
     'module' => 'commerce_product',
   );
 
@@ -381,8 +426,6 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['edit any commerce_customer_profile entity'] = array(
     'name' => 'edit any commerce_customer_profile entity',
     'roles' => array(
-      'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_customer',
@@ -392,8 +435,6 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['edit any commerce_customer_profile entity of bundle billing'] = array(
     'name' => 'edit any commerce_customer_profile entity of bundle billing',
     'roles' => array(
-      'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_customer',
@@ -404,7 +445,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'edit any commerce_order entity',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -415,7 +455,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'edit any commerce_order entity of bundle commerce_order',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -493,6 +532,13 @@ function beekeeper_commerce_user_default_permissions() {
     'module' => 'commerce_product',
   );
 
+  // Exported permission: 'edit any commerce_product entity of bundle training_course'.
+  $permissions['edit any commerce_product entity of bundle training_course'] = array(
+    'name' => 'edit any commerce_product entity of bundle training_course',
+    'roles' => array(),
+    'module' => 'commerce_product',
+  );
+
   // Exported permission: 'edit any merchandise_display content'.
   $permissions['edit any merchandise_display content'] = array(
     'name' => 'edit any merchandise_display content',
@@ -536,7 +582,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'edit own commerce_order entities',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -547,7 +592,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'edit own commerce_order entities of bundle commerce_order',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -622,6 +666,13 @@ function beekeeper_commerce_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
     ),
+    'module' => 'commerce_product',
+  );
+
+  // Exported permission: 'edit own commerce_product entities of bundle training_course'.
+  $permissions['edit own commerce_product entities of bundle training_course'] = array(
+    'name' => 'edit own commerce_product entities of bundle training_course',
+    'roles' => array(),
     'module' => 'commerce_product',
   );
 
@@ -704,7 +755,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'view any commerce_customer_profile entity',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_customer',
@@ -715,7 +765,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'view any commerce_customer_profile entity of bundle billing',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_customer',
@@ -726,7 +775,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'view any commerce_order entity',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -737,7 +785,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'view any commerce_order entity of bundle commerce_order',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -747,6 +794,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity'] = array(
     'name' => 'view any commerce_product entity',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_product',
@@ -756,6 +804,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity of bundle beekeeper_magazine_subscription'] = array(
     'name' => 'view any commerce_product entity of bundle beekeeper_magazine_subscription',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_product',
@@ -765,6 +814,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity of bundle membership_entity_product'] = array(
     'name' => 'view any commerce_product entity of bundle membership_entity_product',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_product',
@@ -774,6 +824,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity of bundle merchandise_baseball_cap'] = array(
     'name' => 'view any commerce_product entity of bundle merchandise_baseball_cap',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_product',
@@ -783,6 +834,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity of bundle merchandise_t_shirt'] = array(
     'name' => 'view any commerce_product entity of bundle merchandise_t_shirt',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_product',
@@ -792,6 +844,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity of bundle merchandise_transfer'] = array(
     'name' => 'view any commerce_product entity of bundle merchandise_transfer',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_product',
@@ -801,6 +854,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity of bundle nucleus_colony'] = array(
     'name' => 'view any commerce_product entity of bundle nucleus_colony',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_product',
@@ -810,8 +864,16 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view any commerce_product entity of bundle product'] = array(
     'name' => 'view any commerce_product entity of bundle product',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
+    'module' => 'commerce_product',
+  );
+
+  // Exported permission: 'view any commerce_product entity of bundle training_course'.
+  $permissions['view any commerce_product entity of bundle training_course'] = array(
+    'name' => 'view any commerce_product entity of bundle training_course',
+    'roles' => array(),
     'module' => 'commerce_product',
   );
 
@@ -839,9 +901,7 @@ function beekeeper_commerce_user_default_permissions() {
   $permissions['view own commerce_order entities'] = array(
     'name' => 'view own commerce_order entities',
     'roles' => array(
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'commerce_order',
@@ -852,7 +912,6 @@ function beekeeper_commerce_user_default_permissions() {
     'name' => 'view own commerce_order entities of bundle commerce_order',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'commerce_order',
@@ -927,6 +986,13 @@ function beekeeper_commerce_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
     ),
+    'module' => 'commerce_product',
+  );
+
+  // Exported permission: 'view own commerce_product entities of bundle training_course'.
+  $permissions['view own commerce_product entities of bundle training_course'] = array(
+    'name' => 'view own commerce_product entities of bundle training_course',
+    'roles' => array(),
     'module' => 'commerce_product',
   );
 

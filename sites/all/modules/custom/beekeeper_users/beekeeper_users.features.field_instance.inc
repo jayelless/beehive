@@ -26,7 +26,7 @@ function beekeeper_users_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 6,
+        'weight' => 16,
       ),
     ),
     'entity_type' => 'user',
@@ -45,7 +45,7 @@ function beekeeper_users_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 13,
+      'weight' => 16,
     ),
   );
 
@@ -61,7 +61,7 @@ function beekeeper_users_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 3,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'user',
@@ -80,7 +80,7 @@ function beekeeper_users_field_default_field_instances() {
         'placeholder' => '',
       ),
       'type' => 'telephone_default',
-      'weight' => 4,
+      'weight' => 6,
     ),
   );
 
@@ -101,7 +101,7 @@ function beekeeper_users_field_default_field_instances() {
           'use_widget_handlers' => 1,
         ),
         'type' => 'addressfield_default',
-        'weight' => 4,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'user',
@@ -133,7 +133,7 @@ function beekeeper_users_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -166,7 +166,7 @@ function beekeeper_users_field_default_field_instances() {
           'marker_icon' => '',
         ),
         'type' => 'geolocation_googlemaps_static',
-        'weight' => 5,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'user',
@@ -186,7 +186,7 @@ function beekeeper_users_field_default_field_instances() {
         'scrollwheel' => 0,
       ),
       'type' => 'geolocation_googlemap',
-      'weight' => 11,
+      'weight' => 15,
     ),
   );
 

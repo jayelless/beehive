@@ -23,7 +23,6 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['administer forums'] = array(
     'name' => 'administer forums',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'forum',
@@ -43,7 +42,6 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['delete any forum content'] = array(
     'name' => 'delete any forum content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'node',
@@ -73,7 +71,6 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['edit any forum content'] = array(
     'name' => 'edit any forum content',
     'roles' => array(
-      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'node',

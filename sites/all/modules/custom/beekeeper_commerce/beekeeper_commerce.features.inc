@@ -44,6 +44,13 @@ function beekeeper_commerce_commerce_product_default_types() {
       'help' => '',
       'revision' => 1,
     ),
+    'training_course' => array(
+      'type' => 'training_course',
+      'name' => 'Training course',
+      'description' => 'This product is a training course that will be delivered over a period of time.',
+      'help' => 'Fill in the details like cost and course outline, then complete the dates and places if known.',
+      'revision' => 1,
+    ),
   );
   return $items;
 }

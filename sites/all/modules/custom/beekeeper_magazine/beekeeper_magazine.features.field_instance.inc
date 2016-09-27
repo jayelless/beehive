@@ -168,7 +168,7 @@ function beekeeper_magazine_field_default_field_instances() {
           'show_remaining_days' => 0,
         ),
         'type' => 'date_default',
-        'weight' => 2,
+        'weight' => 15,
       ),
     ),
     'entity_type' => 'user',
@@ -197,7 +197,7 @@ function beekeeper_magazine_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 7,
+      'weight' => 12,
     ),
   );
 

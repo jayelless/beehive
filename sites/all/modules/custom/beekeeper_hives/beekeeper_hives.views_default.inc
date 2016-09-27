@@ -13,7 +13,7 @@ function beekeeper_hives_views_default_views() {
   $view = new view();
   $view->name = 'hive_management';
   $view->description = '';
-  $view->tag = 'beekeepers';
+  $view->tag = 'default';
   $view->base_table = 'users';
   $view->human_name = 'Hive Management';
   $view->core = 7;
@@ -111,11 +111,6 @@ function beekeeper_hives_views_default_views() {
       'address' => 'address',
     ),
   );
-  /* Field: User: Hive inspect details */
-  $handler->display->display_options['fields']['field_hive_inspect_details']['id'] = 'field_hive_inspect_details';
-  $handler->display->display_options['fields']['field_hive_inspect_details']['table'] = 'field_data_field_hive_inspect_details';
-  $handler->display->display_options['fields']['field_hive_inspect_details']['field'] = 'field_hive_inspect_details';
-  $handler->display->display_options['fields']['field_hive_inspect_details']['label'] = 'Details';
   $handler->display->display_options['path'] = 'hives/list-inspectors';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'List hive inspectors';

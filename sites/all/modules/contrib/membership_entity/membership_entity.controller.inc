@@ -120,7 +120,7 @@ class MembershipEntityController extends EntityAPIController {
       }
 
       // Remove old roles.
-      if (!empty($memberhip->mid)) {
+      if (!empty($membership->mid)) {
         $params = array(':mid' => $membership->mid);
         $original_uid = db_query('SELECT uid FROM {membership_entity} WHERE mid = :mid', $params)->fetchField();
         if ($membership->uid != $original_uid) {

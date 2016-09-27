@@ -6,6 +6,30 @@
  */
 
 /**
+ * Implements hook_requirements().
+ */
+function membership_entity_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+
+  if ($phase == 'runtime' && !module_exists('membership_entity_type')) {
+    $data = membership_entity_get_bundle_settings();
+    if (empty($data['status'])) {
+      $requirements['membership_entity_settings'] += array(
+        'title' => $t('Membership Settings'),
+        'value' => $t('Missing configuration'),
+        'description' => $t('The membership entity module is missing configuration settings. Please visit the <a href="!url">settings page</a> to configure the module.', array(
+          '!url' => url('admin/memberships/types/manage/membership'),
+        )),
+        'severity' => REQUIREMENT_ERROR,
+      );
+    }
+  }
+
+  return $requirements;
+}
+
+/**
  * Implements hook_schema().
  */
 function membership_entity_schema() {
@@ -121,6 +145,8 @@ function membership_entity_schema() {
  * Implements hook_uninstall().
  */
 function membership_entity_uninstall() {
+  // Clean up settings.
   variable_del('membership_entity_settings');
   variable_del('membership_entity_next_member_id');
+  variable_del('membership_entity_user_register_required');
 }

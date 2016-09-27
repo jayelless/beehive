@@ -6,6 +6,35 @@
  */
 
 /**
+ * Implements hook_requirements().
+ */
+function membership_entity_type_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+
+  if ($phase == 'runtime') {
+    $types = db_query('SELECT type, label, data FROM {membership_entity_type}');
+    foreach ($types as $type) {
+      $data = unserialize($type->data);
+
+      if (empty($data)) {
+        $requirements["membership_entity_type_$type->type"] = array(
+          'title' => $t('@type Settings', array('@type' => $type->label)),
+          'value' => $t('Missing configuration'),
+          'description' => $t('Missing configuration settings for membership type %type. Please visit the <a href="!url">settings page</a> to configure the membership type.', array(
+            '%type' => $type->label,
+            '!url' => url("admin/memberships/types/manage/$type->type"),
+          )),
+          'severity' => REQUIREMENT_ERROR,
+        );
+      }
+    }
+  }
+
+  return $requirements;
+}
+
+/**
  * Implements hook_schema().
  */
 function membership_entity_type_schema() {

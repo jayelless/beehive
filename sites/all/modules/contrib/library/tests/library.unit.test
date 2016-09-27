@@ -1,0 +1,75 @@
+<?php
+
+class LibraryWebTestCase extends DrupalWebTestCase {
+
+  protected $dummyNode;
+  protected $privileged_user;
+
+
+  public static function getInfo() {
+
+    return array(
+      'name' => 'Library module tests',
+      'description' => 'Test that the library module works correctly.',
+      'group' => 'Library',
+    );
+  }
+
+  public function setUp() {
+
+    global $conf;
+
+    parent::setUp(array('library','node'));
+    module_disable(array('comment'));
+
+    $this->dummyNode = array(
+      'title' => 'Test book title',
+      'body' => array(
+        'und' => array(
+          '0' => array('Test book description body')
+        )),
+      'type' => 'book',
+      'library_items' => array(
+        '0' => array(
+          'barcode' => '9028345593',
+          'in_circulation' => '1',
+          'library_status' => LIBRARY_ITEM_AVAILABLE,
+          'notes' => 'Paperback edition',
+          'created' => REQUEST_TIME,
+        )
+      )
+    );
+
+    $this->drupalCreateContentType = array(
+      'type' => 'book',
+      'name' => 'Book',
+    );
+
+
+    variable_set('library_book', 1);
+    variable_set('library_item_barcodes', 1);
+
+    $permissions = array('administer site configuration', 'administer modules', 'access content', 'administer library');
+    $user = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($user);
+
+  }
+
+  public function testNodeCreation() {
+    $this->assertTrue(db_table_exists('library'),'Table exists');
+
+    $result_node = $this->drupalCreateNode($this->dummyNode);
+    $this->assertTrue($result_node,'Node successfully created');
+
+    $actual_node = node_load($result_node->nid);
+    $this->assertNotNull($actual_node->library_items[0]['id'], 'Library item has an ID.');
+    $this->assertNotNull($actual_node->library_items[0]['barcode'], 'Library item has a barcode.');
+
+    $this->assertTrue(library_load($actual_node->library_items[0]['id']),'Item on node successfully loaded');
+    $this->drupalGet('node/' . $actual_node->nid);
+
+    $this->assertText($this->dummyNode['title']);
+    $this->assertText($this->dummyNode['library_items'][0]['barcode']);
+  }
+
+}

@@ -24,4 +24,27 @@
     }
   };
 
+  /**
+   * Update button label if a membership is added when registering for a new
+   * account.
+   */
+  Drupal.behaviors.MembershipEntityAddMembership = {
+    attach: function (context, settings) {
+      var $checkbox = $('form#user-register-form input#edit-membership-entity-add'),
+          $submit = $('form#user-register-form input#edit-submit');
+      if ($checkbox.length) {
+        $($checkbox, context).once('membership-entity-add-checkbox', function () {
+          $(this).bind('change', function (e) {
+            if ($(this).attr('checked')) {
+              $submit.attr('value', Drupal.t('Next: Membership Details'));
+            }
+            else {
+              $submit.attr('value', Drupal.t('Create new account'));
+            }
+          });
+        });
+      }
+    }
+  };
+
 })(jQuery);

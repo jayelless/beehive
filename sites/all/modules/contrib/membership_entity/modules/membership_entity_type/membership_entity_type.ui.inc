@@ -29,6 +29,9 @@ function membership_entity_type_form($form, &$form_state, $type, $op = 'edit') {
   }
 
   form_load_include($form_state, 'inc', 'membership_entity', 'membership_entity.pages');
+
+  // Load settings defaults.
+  $type->data += module_invoke_all('membership_entity_bundle_settings_defaults');
   $form = membership_entity_settings_form($form, $form_state, $type->data);
 
   // Make the type object available to implementations of hook_form_alter.

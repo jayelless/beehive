@@ -15,6 +15,7 @@ class views_handler_relationship_term_groupwise_max extends views_handler_relati
   function option_definition() {
     $options = parent::option_definition();
     $options['subquery_status'] = array('default' => array());
+    $options['subquery_offset'] = array('default' => 0);
     return $options;
   }
 
@@ -24,13 +25,32 @@ class views_handler_relationship_term_groupwise_max extends views_handler_relati
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
+    // Form type checkboxes may not use 0 as an options key. We'll use -1
+    // instead.
+    $status_list = membership_entity_get_status_list();
+    $status_list[-1] = $status_list[0];
+    unset($status_list[0]);
+
     $form['subquery_status'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Representative term status'),
-      '#description' => t("Filter the representative term by status."),
-      '#options' => membership_entity_get_status_list(),
+      '#description' => t('Filter the representative term by status.'),
+      '#options' => $status_list,
       '#default_value' => $this->options['subquery_status'],
     );
+
+    $form['subquery_offset'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Representative term offset'),
+      '#description' => t('The number of subquery results to skip. For example, if this field is 3, the 4th result term will be used.'),
+      '#default_value' => $this->options['subquery_offset'],
+      '#element_validate' => array('element_validate_integer'),
+    );
+
+    // Move less common fields to the bottom of the form.
+    $form['subquery_namespace']['#weight'] = 98;
+    $form['subquery_view']['#weight'] = 99;
+    $form['subquery_regenerate']['#weight'] = 100;
   }
 
   /**
@@ -56,9 +76,11 @@ class views_handler_relationship_term_groupwise_max extends views_handler_relati
       // select field. See http://drupal.org/node/844910.
       // We work around this further down.
       $sort = $options['subquery_sort'];
-      list($sort_table, $sort_field) = explode('.', $sort);
-      $sort_options = array('order' => $options['subquery_order']);
-      $temp_view->add_item('default', 'sort', $sort_table, $sort_field, $sort_options);
+      if (!empty($sort)) {
+        list($sort_table, $sort_field) = explode('.', $sort);
+        $sort_options = array('order' => $options['subquery_order']);
+        $temp_view->add_item('default', 'sort', $sort_table, $sort_field, $sort_options);
+      }
     }
 
     // Get the namespace string.
@@ -77,12 +99,7 @@ class views_handler_relationship_term_groupwise_max extends views_handler_relati
     // Add the correct argument for our relationship's base
     // ie the 'how to get back to base' argument.
     // The relationship definition tells us which one to use.
-    $temp_view->add_item(
-      'default',
-      'argument',
-      $this->definition['argument table'], // eg 'term_node',
-      $this->definition['argument field'] //  eg 'tid'
-    );
+    $temp_view->add_item('default', 'argument', $this->definition['argument table'], $this->definition['argument field']);
 
     // Build the view. The creates the query object and produces the query
     // string but does not run any queries.
@@ -93,7 +110,13 @@ class views_handler_relationship_term_groupwise_max extends views_handler_relati
     $subquery = $temp_view->build_info['query'];
 
     // Add a condition based on status.
-    $subquery->condition($this->definition['base'] . '.status', array_unique($options['subquery_status']), 'IN');
+    $status_list = array_unique(array_filter($options['subquery_status']));
+    if (!empty($status_list)) {
+      if (array_key_exists(-1, $status_list)) {
+        $status_list[-1] = MEMBERSHIP_ENTITY_EXPIRED;
+      }
+      $subquery->condition($this->definition['base'] . '.status', $status_list, 'IN');
+    }
 
     // Workaround until http://drupal.org/node/844910 is fixed:
     // Remove all fields from the SELECT except the base id.
@@ -138,7 +161,7 @@ class views_handler_relationship_term_groupwise_max extends views_handler_relati
     }
 
     // The query we get doesn't include the LIMIT, so add it here.
-    $subquery->range(0, 1);
+    $subquery->range($options['subquery_offset'], 1);
 
     // Extract the SQL the temporary view built.
     $args = $subquery->getArguments();

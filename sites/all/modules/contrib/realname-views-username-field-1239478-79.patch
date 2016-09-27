@@ -1,0 +1,204 @@
+diff --git a/realname.info b/realname.info
+index ae9a14d..b958182 100644
+--- a/realname.info
++++ b/realname.info
+@@ -2,10 +2,7 @@ name = Real name
+ description = Provides token-based name displays for users.
+ core = 7.x
+ dependencies[] = token
+-files[] = realname.module
+-files[] = realname.admin.inc
+-files[] = realname.pages.inc
+-files[] = realname.tokens.inc
+-files[] = realname.test
+-files[] = realname.install
++files[] = realname_handler_argument_user_uid.inc
++files[] = realname_handler_argument_user_username.inc
++files[] = realname_handler_argument_user_realname.inc
+ configure = admin/config/people/realname
+diff --git a/realname.views.inc b/realname.views.inc
+index 8dc2e95..c86365e 100644
+--- a/realname.views.inc
++++ b/realname.views.inc
+@@ -28,14 +28,58 @@ function realname_views_data() {
+       'handler' => 'views_handler_sort',
+     ),
+     'argument' => array(
+-      'handler' => 'views_handler_argument_string',
++      'handler' => 'realname_handler_argument_user_realname',
+     ),
+     'filter' => array(
+       'handler' => 'views_handler_filter_string',
+-      'title' => t('Name'),
+-      'help' => t("The user's real name. This filter does not check if the user exists and allows partial matching. Does not utilize autocomplete.")
++      'title' => t('Real name'),
++      'help' => t("The user's real name. This filter does not check if the user exists and allows partial matching. Does not utilize autocomplete."),
+     ),
+   );
+ 
+   return $data;
+ }
++
++/**
++ * Implements hook_views_data_alter().
++ */
++function realname_views_data_alter(&$data) {
++  $data['users']['username'] = array(
++    'title' => t('Username'),
++    'help' => t("The user's unaltered username."),
++    'real field' => 'name',
++    'field' => array(
++      'handler' => 'views_handler_field_user',
++      'click sortable' => TRUE,
++    ),
++    'sort' => array(
++      'handler' => 'views_handler_sort',
++    ),
++    'argument' => array(
++      'handler' => 'realname_handler_argument_user_username',
++    ),
++    'filter' => array(
++      'handler' => 'views_handler_filter_string',
++      'title' => t('Username'),
++      'help' => t("The user's unaltered username.  This filter does not check if the user exists and allows partial matching. Does not utilize autocomplete."),
++    ),
++  );
++
++  // Override handling for UID to use realname in view title/breadcrumbxx.
++  $data['users']['uid']['argument']['handler'] = 'realname_handler_argument_user_uid';
++
++}
++
++/**
++ * Define all realname views handlers.
++ */
++function realname_views_handlers() {
++  return array(
++    'info' => array(),
++    'handlers' => array(
++      'realname_handler_argument_user_uid' => array('parent' => 'views_handler_argument_user_uid'),
++      'realname_handler_argument_user_username' => array('parent' => 'views_handler_argument_user_uid'),
++      'realname_handler_argument_user_realname' => array('parent' => 'views_handler_argument_user_uid'),
++    ),
++  );
++}
+diff --git a/realname_handler_argument_user_realname.inc b/realname_handler_argument_user_realname.inc
+new file mode 100644
+index 0000000..484738e
+--- /dev/null
++++ b/realname_handler_argument_user_realname.inc
+@@ -0,0 +1,34 @@
++<?php
++
++/**
++ * @file
++ * The RealName module allows the admin to choose fields from the user profile
++ * that will be used to add a "realname" element (method) to a user object.
++ */
++
++/**
++ * Argument handler for realnames
++ */
++class realname_handler_argument_user_realname extends views_handler_argument_user_uid {
++  /**
++   * Override the behavior of title(). Get the name of the user.
++   *
++   * @return array
++   *   A list of usernames.
++   */
++  public function title_query() {
++
++    if (!$this->argument) {
++      return array(variable_get('anonymous', t('Anonymous')));
++    }
++
++    $titles = array();
++
++    $result = db_query("SELECT r.realname FROM {realname} r WHERE r.realname IN (:realnames)", array(':realnames' => $this->value));
++    foreach ($result as $term) {
++      $titles[] = check_plain($term->realname);
++    }
++    return $titles;
++
++  }
++}
+diff --git a/realname_handler_argument_user_uid.inc b/realname_handler_argument_user_uid.inc
+new file mode 100644
+index 0000000..db38368
+--- /dev/null
++++ b/realname_handler_argument_user_uid.inc
+@@ -0,0 +1,34 @@
++<?php
++
++/**
++ * @file
++ * The RealName module allows the admin to choose fields from the user profile
++ * that will be used to add a "realname" element (method) to a user object.
++ */
++
++/**
++ * Argument handler for realnames
++ */
++class realname_handler_argument_user_uid extends views_handler_argument_user_uid {
++  /**
++   * Override the behavior of title(). Get the name of the user.
++   *
++   * @return array
++   *   A list of usernames.
++   */
++  public function title_query() {
++
++    if (!$this->argument) {
++      return array(variable_get('anonymous', t('Anonymous')));
++    }
++
++    $titles = array();
++
++    $result = db_query("SELECT r.realname FROM {users} u LEFT JOIN {realname} r ON u.uid=r.uid WHERE u.uid IN (:uids)", array(':uids' => $this->value));
++    foreach ($result as $term) {
++      $titles[] = check_plain($term->realname);
++    }
++    return $titles;
++
++  }
++}
+diff --git a/realname_handler_argument_user_username.inc b/realname_handler_argument_user_username.inc
+new file mode 100644
+index 0000000..d7c17cd
+--- /dev/null
++++ b/realname_handler_argument_user_username.inc
+@@ -0,0 +1,34 @@
++<?php
++
++/**
++ * @file
++ * The RealName module allows the admin to choose fields from the user profile
++ * that will be used to add a "realname" element (method) to a user object.
++ */
++
++/**
++ * Argument handler for realnames
++ */
++class realname_handler_argument_user_username extends views_handler_argument_user_uid {
++  /**
++   * Override behavior of title(), get real name of the user vs. raw username.
++   *
++   * @return array
++   *   A list of usernames.
++   */
++  public function title_query() {
++
++    if (!$this->argument) {
++      return array(variable_get('anonymous', t('Anonymous')));
++    }
++
++    $titles = array();
++
++    $result = db_query("SELECT r.realname FROM {users} u LEFT JOIN {realname} r ON u.uid=r.uid WHERE u.name IN (:names)", array(':names' => $this->value));
++    foreach ($result as $term) {
++      $titles[] = check_plain($term->realname);
++    }
++    return $titles;
++
++  }
++}

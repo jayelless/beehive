@@ -98,7 +98,13 @@ class MigrateDestinationMembershipEntity extends MigrateDestinationEntity {
    *   FALSE on failure.
    */
   public function import(stdClass $membership, stdClass $row) {
-    // Convert $membership to an instance of MembershpEntity.
+    // Migrate flattens single value arrays by default. Make sure
+    // secondary_members is always an array.
+    if (isset($membership->secondary_members) && !is_array($membership->secondary_members)) {
+      $membership->secondary_members = array($membership->secondary_members);
+    }
+
+    // Convert $membership to an instance of MembershipEntity.
     $membership = membership_entity_create_from_stdclass($membership);
 
     // Updating previously-migrated content?

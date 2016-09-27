@@ -20,8 +20,10 @@ class MembershipEntityTermController extends EntityAPIController {
       'term' => '',
       'status' => MEMBERSHIP_ENTITY_ACTIVE,
       'modifiers' => array(),
-      'start' => format_date(REQUEST_TIME, 'custom', DATE_FORMAT_DATETIME),
+      'start' => date_format_date(date_now('UTC'), 'custom', DATE_FORMAT_DATETIME),
       'membership_entity_type' => 'membership',
+      'timezone' => 'UTC',
+      'created' => REQUEST_TIME,
     );
     return parent::create($values);
   }

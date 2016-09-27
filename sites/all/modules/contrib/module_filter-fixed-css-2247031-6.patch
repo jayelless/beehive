@@ -1,0 +1,13 @@
+diff --git a/css/module_filter_tab.css b/css/module_filter_tab.css
+index 2607a61..337ab48 100644
+--- a/css/module_filter_tab.css
++++ b/css/module_filter_tab.css
+@@ -116,7 +116,7 @@ html.js #module-filter-show-wrapper {
+   margin-bottom: 1em;
+ }
+ html.js #module-filter-modules {
+-  margin-left: 240px;
++  margin-left: 16rem;
+   border: 1px solid #ccc;
+ }
+ #module-filter-modules table {

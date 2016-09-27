@@ -91,7 +91,7 @@ class MembershipEntityTokenMemberId extends MembershipEntityMemberIdAbstract {
       '#min_tokens' => 1,
     );
 
-     $form['token_help'] = array(
+    $form['token_help'] = array(
       '#title' => t('Replacement patterns'),
       '#type' => 'fieldset',
       '#collapsible' => TRUE,
@@ -117,10 +117,10 @@ class MembershipEntityTokenMemberId extends MembershipEntityMemberIdAbstract {
       '#size' => 5,
       '#states' => array(
         'required' => array(
-          'input[name="suffix"]' => array('checked' => TRUE)
+          'input[name="member_id_settings[suffix]"]' => array('checked' => TRUE)
         ),
         'visible' => array(
-          'input[name="suffix"]' => array('checked' => TRUE)
+          'input[name="member_id_settings[suffix]"]' => array('checked' => TRUE)
         ),
       ),
       '#default_value' => $settings['length'],
@@ -214,13 +214,15 @@ function _membership_entity_token_clean_string($string, $settings) {
   }
 
   // Shorten to maxlength.
-  $return = truncate_utf8($return, $settings['maxlength']);
+  if (!empty($settings['maxlength'])) {
+    $return = truncate_utf8($return, $settings['maxlength']);
+  }
 
   return $return;
 }
 
 /**
- * Replace whtiespace and punctuation with a separator.
+ * Replace whitespace and punctuation with a separator.
  */
 function _membership_entity_token_clean_separator($string, $separator) {
   $return = $string;

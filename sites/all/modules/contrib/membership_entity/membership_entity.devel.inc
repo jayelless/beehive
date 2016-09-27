@@ -136,7 +136,7 @@ function membership_entity_devel_create_memberships($values) {
       break;
     }
     if (empty($values['multiple_types'])) {
-      // Only one membershp type per user.
+      // Only one membership type per user.
       unset($users[$uid]);
     }
     $used_users[$type][$uid] = $uid;
@@ -165,7 +165,7 @@ function membership_entity_devel_create_memberships($values) {
 
         if ($i == 0) {
           // First term starts when the membership was created.
-          $start = format_date($created, 'custom', DATE_FORMAT_DATETIME);
+          $start = format_date($created, 'custom', DATE_FORMAT_DATETIME, 'UTC');
         }
         elseif ($terms[$i - 1]->term == 'lifetime') {
           // Don't add anymore terms after a lifetime term.
@@ -177,7 +177,7 @@ function membership_entity_devel_create_memberships($values) {
             $start = $terms[$i - 1]->end;
           }
           else {
-            $start = format_date($term_start, 'custom', DATE_FORMAT_DATETIME);
+            $start = format_date($term_start, 'custom', DATE_FORMAT_DATETIME, 'UTC');
           }
         }
         $terms[$i] = membership_entity_term_create(array(

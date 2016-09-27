@@ -9,7 +9,7 @@
  * Implements hook_views_default_views().
  */
 function membership_entity_views_default_views() {
-  // Check for some helper modles.
+  // Check for some helper modules.
   $vbo = module_exists('views_bulk_operations');
   $types = module_exists('membership_entity_type');
   $terms = module_exists('membership_entity_term');
@@ -38,6 +38,7 @@ function membership_entity_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array();
+  $handler->display->display_options['style_options']['empty_table'] = TRUE;
   $handler->display->display_options['style_options']['info'] = array();
   if ($vbo) {
     $handler->display->display_options['style_options']['columns']['views_bulk_operations'] = 'views_bulk_operations';
@@ -159,6 +160,14 @@ function membership_entity_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = ($terms) ? 'start' : 'created';
 
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = t('There are no memberships to display.');
+  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+
   if ($terms) {
     /* Relationship: Last Term */
     $handler->display->display_options['relationships']['membership_entity_term_representative']['id'] = 'membership_entity_term_representative';
@@ -170,8 +179,8 @@ function membership_entity_views_default_views() {
     $handler->display->display_options['relationships']['membership_entity_term_representative']['subquery_view'] = '';
     $handler->display->display_options['relationships']['membership_entity_term_representative']['subquery_namespace'] = 'last';
     $handler->display->display_options['relationships']['membership_entity_term_representative']['subquery_status'] = array(
-      0 => '0',
       1 => '1',
+      -1 => '-1',
       2 => 0,
       3 => 0,
     );
@@ -187,9 +196,9 @@ function membership_entity_views_default_views() {
     $handler->display->display_options['relationships']['membership_entity_term_representative_1']['subquery_view'] = '';
     $handler->display->display_options['relationships']['membership_entity_term_representative_1']['subquery_namespace'] = 'first';
     $handler->display->display_options['relationships']['membership_entity_term_representative_1']['subquery_status'] = array(
-      0 => '0',
       1 => '1',
       3 => '3',
+      -1 => '-1',
       2 => 0,
     );
   }
@@ -379,13 +388,18 @@ function membership_entity_views_default_views() {
   /* Display: Admin Page */
   $handler = $view->new_display('page', 'Admin Page', 'admin');
   $handler->display->display_options['display_description'] = t('A list of membership for administrators.');
-  $handler->display->display_options['path'] = 'admin/memberships';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Memberships';
+  $handler->display->display_options['path'] = 'admin/memberships/list';
+  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['menu']['title'] = 'List';
+  $handler->display->display_options['menu']['description'] = t('A list of all memberships');
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Memberships';
+  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['name'] = 'management';
 
   $views[$view->name] = $view;
   return $views;

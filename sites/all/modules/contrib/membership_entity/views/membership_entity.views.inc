@@ -61,6 +61,24 @@ class MembershipEntityViewsController extends EntityDefaultViewsController {
     $info['membership_entity_secondary_member'] = array(
       'table' => array(
         'group' => t('Secondary members'),
+        'join' => array(
+          'membership_entity' => array(
+            'left_field' => 'mid',
+            'field' => 'mid',
+          ),
+        ),
+      ),
+    );
+
+    $info['membership_entity_secondary_member']['uid'] = array(
+      'title' => t('User'),
+      'help' => t('Secondary members that belong to the membership.'),
+      'relationship' => array(
+        'label' => t('Secondary member'),
+        'handler' => 'views_handler_relationship',
+        'base' => 'users',
+        'base field' => 'uid',
+        'relationship field' => 'uid',
       ),
     );
 

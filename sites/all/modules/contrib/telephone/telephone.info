@@ -3,6 +3,7 @@ description = "Defines a field type for telephone numbers."
 package = Fields
 core = 7.x
 dependencies[] = field
+files[] = telephone.feeds.inc
 files[] = telephone.migrate.inc
 
 ; Information added by Drupal.org packaging script on 2014-01-14

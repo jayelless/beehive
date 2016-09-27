@@ -36,7 +36,7 @@ class MembershipEntityTypeController extends EntityAPIControllerExportable {
   public function save($type, DatabaseTransaction $transaction = NULL) {
     $status = parent::save($type, $transaction);
 
-    // Clear field info ane menu caches.
+    // Clear field info and menu caches.
     field_info_cache_clear();
     menu_rebuild();
 

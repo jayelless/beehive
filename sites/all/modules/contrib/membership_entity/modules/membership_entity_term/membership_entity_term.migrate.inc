@@ -49,6 +49,7 @@ class MigrateDestinationMembershipEntityTerm extends MigrateDestinationEntity {
     $fields['modifiers'] = t('Membership term: term length modifiers');
     $fields['start'] = t('Membership term: start date datetime');
     $fields['end'] = t('Membership term: end date datetime');
+    $fields['timezone'] = t('Membership term: Start and end date timezone');
 
     // Add in anything provided by handlers
     $fields += migrate_handler_invoke_all('Entity', 'fields', $this->entityType, $this->bundle, $migration);
@@ -199,7 +200,7 @@ class MigrateDestinationMembershipEntityTerm extends MigrateDestinationEntity {
    */
   static protected function datetime($value) {
     if (empty($value)) {
-      $value = REQUEST_TIME;
+      $value = 'now';
     }
 
     // Is it a timestamp?

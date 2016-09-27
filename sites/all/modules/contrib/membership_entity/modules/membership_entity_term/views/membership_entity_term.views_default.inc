@@ -46,7 +46,7 @@ function membership_entity_term_views_default_views() {
     'current' => array(
       'align' => '',
       'separator' => '',
-      'empty_column' => 0,
+      'empty_column' => 1,
     ),
     'term' => array(
       'sortable' => 1,
@@ -84,7 +84,7 @@ function membership_entity_term_views_default_views() {
     'edit' => array(
       'align' => '',
       'separator' => ' | ',
-      'empty_column' => 0,
+      'empty_column' => 1,
     ),
     'current_1' => array(
       'align' => '',

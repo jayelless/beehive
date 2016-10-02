@@ -19,7 +19,7 @@ h1, h2 { color: #333333; }
 #main-content a:visited,
 #main-content a:hover,
 #main-content a:focus,
-#main-content a:active { color: #ff7f00; }
+#main-content a:active { color: #6a513b; /*#ff7f00;*/ }
 
 /* Main menu links */
 #site-menu ul li a { color: #666666; }

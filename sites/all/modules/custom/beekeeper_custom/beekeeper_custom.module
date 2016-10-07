@@ -232,3 +232,23 @@ function beekeeper_custom_block_view_commons_site_homepage_commons_site_homepage
     }
   }
 }
+
+/**
+ * Implements hook_menu_alter()
+ */
+function beekeeper_custom_menu_alter(&$menu_items) {
+  // apiaries and orders come from views so are pre-set
+  foreach ($menu_items as $key => &$item) {
+    if ($key == 'user/%user/edit') { $item['weight'] = 1; }
+    if ($key == 'user/%user/edit-profile') { $item['weight'] = 2; }
+    if ($key == 'user/%/apiaries') { $item['weight'] = 5; }
+    if ($key == 'user/%/messages') { $item['weight'] = 6; }
+    if ($key == 'user/%user/notifications') { $item['weight'] = 7; }
+    if ($key == 'user/%user/contacts') { $item['weight'] = 8; }
+    if ($key == 'user/%/orders') { $item['weight'] = 15; }
+    if ($key == 'user/%user/addressbook') { $item['weight'] = 16; }
+    if ($key == 'user/%user/shortcuts') { $item['weight'] = 17; }
+    if ($key == 'user/%user/notification-settings') { $item['weight'] = 18; }
+    if ($key == 'user/%user/devel') { $item['weight'] = 19; }
+  }
+}

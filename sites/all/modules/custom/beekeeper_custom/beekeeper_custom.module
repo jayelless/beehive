@@ -221,3 +221,14 @@ function beekeeper_custom_form_system_theme_settings_alter(&$form, &$form_state,
   }
 }
 
+/**
+ * Implelemnts hook_block_view_MODULE_DELTA_alter()
+ */
+function beekeeper_custom_block_view_commons_site_homepage_commons_site_homepage_alter(&$data) {
+
+  foreach ($data['content']['#links'] as &$link) {
+    if ($link['title'] == t('Sign up')) {
+      $link['href'] = 'user/join';
+    }
+  }
+}

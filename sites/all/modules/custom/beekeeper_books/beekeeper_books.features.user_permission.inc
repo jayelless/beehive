@@ -43,13 +43,6 @@ function beekeeper_books_user_default_permissions() {
     'module' => 'book',
   );
 
-  // Exported permission: 'administer panelizer node book defaults'.
-  $permissions['administer panelizer node book defaults'] = array(
-    'name' => 'administer panelizer node book defaults',
-    'roles' => array(),
-    'module' => 'panelizer',
-  );
-
   // Exported permission: 'create book content'.
   $permissions['create book content'] = array(
     'name' => 'create book content',

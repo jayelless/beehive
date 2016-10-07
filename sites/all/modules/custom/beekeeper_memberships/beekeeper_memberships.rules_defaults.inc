@@ -98,6 +98,23 @@ function beekeeper_memberships_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_beekeepers_add_to_members_group'] = entity_import('rules_config', '{ "rules_beekeepers_add_to_members_group" : {
+      "LABEL" : "Beekeepers: Add to members group",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "Beekeepers" ],
+      "REQUIRES" : [ "rules", "og", "commerce_payment" ],
+      "ON" : { "commerce_payment_order_paid_in_full" : [] },
+      "DO" : [
+        { "variable_add" : {
+            "USING" : { "type" : "node", "value" : "133" },
+            "PROVIDE" : { "variable_added" : { "group_members" : "Group: Members" } }
+          }
+        },
+        { "og_subcribe_user" : { "user" : [ "commerce-order:owner" ], "group" : [ "group-members" ] } }
+      ]
+    }
+  }');
   $items['rules_beekeepers_email_membership_lapse_notification_on_1st_augu'] = entity_import('rules_config', '{ "rules_beekeepers_email_membership_lapse_notification_on_1st_augu" : {
       "LABEL" : "Beekeepers: email membership lapse notification on 1st August",
       "PLUGIN" : "reaction rule",
@@ -123,6 +140,33 @@ function beekeeper_memberships_default_rules_configuration() {
             "remove" : { "value" : { "4" : "4", "5" : "5" } }
           }
         }
+      ]
+    }
+  }');
+  $items['rules_limit_nuc_orders_to_one'] = entity_import('rules_config', '{ "rules_limit_nuc_orders_to_one" : {
+      "LABEL" : "Limit Nuc orders to one",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "Beekeepers" ],
+      "REQUIRES" : [ "rules", "entity" ],
+      "ON" : { "commerce_line_item_update" : [] },
+      "IF" : [
+        { "data_is" : { "data" : [ "commerce-line-item:type" ], "value" : "product" } },
+        { "data_is" : {
+            "data" : [ "commerce-line-item:commerce-product:type" ],
+            "value" : "nucleus_colony"
+          }
+        },
+        { "data_is" : {
+            "data" : [ "commerce-line-item:quantity" ],
+            "op" : "\\u003E",
+            "value" : "1"
+          }
+        }
+      ],
+      "DO" : [
+        { "data_set" : { "data" : [ "commerce-line-item:quantity" ], "value" : "1" } },
+        { "drupal_message" : { "message" : "You may only order one nuc colony.", "type" : "warning" } }
       ]
     }
   }');

@@ -70,19 +70,14 @@ function beekeeper_apiaries_user_default_permissions() {
   // Exported permission: 'view any apiary content'.
   $permissions['view any apiary content'] = array(
     'name' => 'view any apiary content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'node_view_permissions',
   );
 
   // Exported permission: 'view own apiary content'.
   $permissions['view own apiary content'] = array(
     'name' => 'view own apiary content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
+    'roles' => array(),
     'module' => 'node_view_permissions',
   );
 

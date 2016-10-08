@@ -297,7 +297,9 @@ function beekeeper_commerce_user_default_permissions() {
   // Exported permission: 'create commerce_product entities of bundle training_course'.
   $permissions['create commerce_product entities of bundle training_course'] = array(
     'name' => 'create commerce_product entities of bundle training_course',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'commerce_product',
   );
 
@@ -535,7 +537,9 @@ function beekeeper_commerce_user_default_permissions() {
   // Exported permission: 'edit any commerce_product entity of bundle training_course'.
   $permissions['edit any commerce_product entity of bundle training_course'] = array(
     'name' => 'edit any commerce_product entity of bundle training_course',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'commerce_product',
   );
 
@@ -672,7 +676,9 @@ function beekeeper_commerce_user_default_permissions() {
   // Exported permission: 'edit own commerce_product entities of bundle training_course'.
   $permissions['edit own commerce_product entities of bundle training_course'] = array(
     'name' => 'edit own commerce_product entities of bundle training_course',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'commerce_product',
   );
 
@@ -873,7 +879,9 @@ function beekeeper_commerce_user_default_permissions() {
   // Exported permission: 'view any commerce_product entity of bundle training_course'.
   $permissions['view any commerce_product entity of bundle training_course'] = array(
     'name' => 'view any commerce_product entity of bundle training_course',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'commerce_product',
   );
 
@@ -992,7 +1000,9 @@ function beekeeper_commerce_user_default_permissions() {
   // Exported permission: 'view own commerce_product entities of bundle training_course'.
   $permissions['view own commerce_product entities of bundle training_course'] = array(
     'name' => 'view own commerce_product entities of bundle training_course',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'commerce_product',
   );
 

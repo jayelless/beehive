@@ -41,6 +41,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['honorary_membership delete any membership'] = array(
     'name' => 'honorary_membership delete any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -59,6 +60,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['honorary_membership edit any membership'] = array(
     'name' => 'honorary_membership edit any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -86,6 +88,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['honorary_membership renew any membership'] = array(
     'name' => 'honorary_membership renew any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -104,6 +107,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['honorary_membership view any membership'] = array(
     'name' => 'honorary_membership view any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -123,6 +127,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['junior_membership delete any membership'] = array(
     'name' => 'junior_membership delete any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -141,6 +146,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['junior_membership edit any membership'] = array(
     'name' => 'junior_membership edit any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -170,6 +176,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['junior_membership renew any membership'] = array(
     'name' => 'junior_membership renew any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -189,6 +196,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['junior_membership view any membership'] = array(
     'name' => 'junior_membership view any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -208,6 +216,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['life_membership delete any membership'] = array(
     'name' => 'life_membership delete any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -226,6 +235,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['life_membership edit any membership'] = array(
     'name' => 'life_membership edit any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -253,6 +263,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['life_membership renew any membership'] = array(
     'name' => 'life_membership renew any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -271,6 +282,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['life_membership view any membership'] = array(
     'name' => 'life_membership view any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -371,6 +383,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['standard_membership delete any membership'] = array(
     'name' => 'standard_membership delete any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -389,6 +402,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['standard_membership edit any membership'] = array(
     'name' => 'standard_membership edit any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -418,6 +432,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['standard_membership renew any membership'] = array(
     'name' => 'standard_membership renew any membership',
     'roles' => array(
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',
@@ -437,7 +452,7 @@ function beekeeper_memberships_user_default_permissions() {
   $permissions['standard_membership view any membership'] = array(
     'name' => 'standard_membership view any membership',
     'roles' => array(
-      'Standard member' => 'Standard member',
+      'Membership admin' => 'Membership admin',
       'administrator' => 'administrator',
     ),
     'module' => 'membership_entity_type',

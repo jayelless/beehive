@@ -958,50 +958,50 @@ function beekeeper_commons_overrides_filter_default_formats_alter(&$data) {
 /**
  * Implements hook_default_page_manager_handlers_alter().
  */
-function beekeeper_commons_overrides_default_page_manager_handlers_alter(&$data) {
-  if (isset($data['forum_panel_context_forum'])) {
-    $data['forum_panel_context_forum']->conf['display']->did = 'new'; /* WAS: 'new-9d8383d6-d51b-42fe-bc89-9c05ac42739b' */
-    unset($data['forum_panel_context_forum']->conf['display']->panels['center']);
-    unset($data['forum_panel_context_forum']->export_type);
-    unset($data['forum_panel_context_forum']->in_code_only);
-    unset($data['forum_panel_context_forum']->table);
-    unset($data['forum_panel_context_forum']->type);
-  }
-  if (isset($data['user_view_panel_context'])) {
-    $data['user_view_panel_context']->conf['display']->content['new-38b23f27-878a-f264-dd90-e55305d0f70c']->style['settings'] = NULL; /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->content['new-cca8f147-f983-4453-b109-2585c6e8d471'] = (object) array(
-          'pid' => 'new-cca8f147-f983-4453-b109-2585c6e8d471',
-          'panel' => 'three_33_bottom',
-          'type' => 'entity_field_extra',
-          'subtype' => 'user:memberships',
-          'shown' => TRUE,
-          'access' => array(
-            'plugins' => array(),
-          ),
-          'configuration' => array(
-            'view_mode' => 'full',
-            'context' => 'argument_entity_id:user_1',
-            'override_title' => 0,
-            'override_title_text' => '',
-            'override_title_heading' => 'h2',
-          ),
-          'cache' => array(),
-          'style' => array(
-            'settings' => NULL,
-          ),
-          'css' => array(),
-          'extras' => array(),
-          'position' => 0,
-          'locks' => array(),
-          'uuid' => 'cca8f147-f983-4453-b109-2585c6e8d471',
-        ); /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->panels['three_33_bottom'] = array(
-      0 => 'new-cca8f147-f983-4453-b109-2585c6e8d471',
-    ); /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->storage_id = 'user_view_panel_context'; /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
-  }
-}
+//function beekeeper_commons_overrides_default_page_manager_handlers_alter(&$data) {
+//  if (isset($data['forum_panel_context_forum'])) {
+//    $data['forum_panel_context_forum']->conf['display']->did = 'new'; /* WAS: 'new-9d8383d6-d51b-42fe-bc89-9c05ac42739b' */
+//    unset($data['forum_panel_context_forum']->conf['display']->panels['center']);
+//    unset($data['forum_panel_context_forum']->export_type);
+//    unset($data['forum_panel_context_forum']->in_code_only);
+//    unset($data['forum_panel_context_forum']->table);
+//    unset($data['forum_panel_context_forum']->type);
+//  }
+//  if (isset($data['user_view_panel_context'])) {
+//    $data['user_view_panel_context']->conf['display']->content['new-38b23f27-878a-f264-dd90-e55305d0f70c']->style['settings'] = NULL; /* WAS: '' */
+//    $data['user_view_panel_context']->conf['display']->content['new-cca8f147-f983-4453-b109-2585c6e8d471'] = (object) array(
+//          'pid' => 'new-cca8f147-f983-4453-b109-2585c6e8d471',
+//          'panel' => 'three_33_bottom',
+//          'type' => 'entity_field_extra',
+//          'subtype' => 'user:memberships',
+//          'shown' => TRUE,
+//          'access' => array(
+//            'plugins' => array(),
+//          ),
+//          'configuration' => array(
+//            'view_mode' => 'full',
+//            'context' => 'argument_entity_id:user_1',
+//            'override_title' => 0,
+//            'override_title_text' => '',
+//            'override_title_heading' => 'h2',
+//          ),
+//          'cache' => array(),
+//          'style' => array(
+//            'settings' => NULL,
+//          ),
+//          'css' => array(),
+//          'extras' => array(),
+//          'position' => 0,
+//          'locks' => array(),
+//          'uuid' => 'cca8f147-f983-4453-b109-2585c6e8d471',
+//        ); /* WAS: '' */
+//    $data['user_view_panel_context']->conf['display']->panels['three_33_bottom'] = array(
+//      0 => 'new-cca8f147-f983-4453-b109-2585c6e8d471',
+//    ); /* WAS: '' */
+//    $data['user_view_panel_context']->conf['display']->storage_id = 'user_view_panel_context'; /* WAS: '' */
+//    $data['user_view_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
+//  }
+//}
 
 /**
  * Implements hook_default_page_manager_pages_alter().

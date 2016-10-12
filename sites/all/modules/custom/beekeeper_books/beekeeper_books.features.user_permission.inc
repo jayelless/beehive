@@ -36,7 +36,6 @@ function beekeeper_books_user_default_permissions() {
     'name' => 'administer book outlines',
     'roles' => array(
       'Committee member' => 'Committee member',
-      'Content moderator' => 'Content moderator',
       'Site editor' => 'Site editor',
       'administrator' => 'administrator',
     ),

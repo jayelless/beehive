@@ -189,67 +189,55 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-document-field_document_file']['widget']['settings']['insert_width'] = ''; /* WAS: '' */
   }
   if (isset($data['node-document-field_radioactivity'])) {
-    unset($data['node-document-field_radioactivity']);
+    $data['node-document-field_radioactivity']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-document-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
+    $data['node-document-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-document-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-document-field_topics'])) {
-    unset($data['node-document-field_topics']);
+    $data['node-document-field_topics']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-document-field_topics']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-document-field_topics']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-document-group_content_access'])) {
-    $data['node-document-group_content_access']['display']['default']['label'] = 'above'; /* WAS: 'hidden' */
-    $data['node-document-group_content_access']['display']['default']['module'] = 'list'; /* WAS: '' */
-    $data['node-document-group_content_access']['display']['default']['type'] = 'list_default'; /* WAS: 'hidden' */
-    $data['node-document-group_content_access']['display']['default']['weight'] = 2; /* WAS: 5 */
     $data['node-document-group_content_access']['display']['notifications'] = array(
       'label' => 'above',
       'settings' => array(),
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-document-group_content_access']['display']['teaser']['label'] = 'above'; /* WAS: 'hidden' */
     $data['node-document-group_content_access']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-document-group_content_access']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['node-document-group_content_access']['widget']['weight'] = 42; /* WAS: 16 */
   }
   if (isset($data['node-document-og_group_ref'])) {
-    $data['node-document-og_group_ref']['description'] = ''; /* WAS: 'Separate group names with commas' */
-    $data['node-document-og_group_ref']['display']['default']['weight'] = 1; /* WAS: 11 */
     $data['node-document-og_group_ref']['display']['notifications'] = array(
       'label' => 'above',
       'settings' => array(),
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-document-og_group_ref']['label'] = 'Groups audience'; /* WAS: 'Groups' */
-    $data['node-document-og_group_ref']['required'] = FALSE; /* WAS: 0 */
-    $data['node-document-og_group_ref']['settings']['behaviors']['og_widget']['admin']['widget_type'] = 'entityreference_autocomplete'; /* WAS: 'entityreference_autocomplete_tags' */
-    $data['node-document-og_group_ref']['settings']['behaviors']['og_widget']['default']['widget_type'] = 'options_select'; /* WAS: 'entityreference_autocomplete_tags' */
     $data['node-document-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-document-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['node-document-og_group_ref']['widget']['weight'] = 41; /* WAS: 5 */
-    unset($data['node-document-og_group_ref']['default_value_function']);
-    unset($data['node-document-og_group_ref']['settings']['behaviors']['prepopulate']);
-    unset($data['node-document-og_group_ref']['widget']['active']);
   }
   if (isset($data['node-document-og_user_group_ref'])) {
-    $data['node-document-og_user_group_ref']['display']['default']['label'] = 'above'; /* WAS: 'inline' */
-    $data['node-document-og_user_group_ref']['display']['default']['weight'] = 3; /* WAS: 11 */
     $data['node-document-og_user_group_ref']['display']['notifications'] = array(
       'label' => 'above',
       'settings' => array(),
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-document-og_user_group_ref']['display']['teaser']['label'] = 'above'; /* WAS: 'inline' */
-    $data['node-document-og_user_group_ref']['label'] = 'Groups audience'; /* WAS: 'Visible to trusted contacts of' */
-    $data['node-document-og_user_group_ref']['required'] = FALSE; /* WAS: 0 */
-    $data['node-document-og_user_group_ref']['settings']['behaviors']['og_widget']['admin']['widget_type'] = 'entityreference_autocomplete'; /* WAS: 'entityreference_autocomplete_tags' */
-    $data['node-document-og_user_group_ref']['settings']['behaviors']['og_widget']['default']['widget_type'] = 'options_select'; /* WAS: 'entityreference_autocomplete_tags' */
     $data['node-document-og_user_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-document-og_user_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['node-document-og_user_group_ref']['widget']['weight'] = 43; /* WAS: 5 */
-    unset($data['node-document-og_user_group_ref']['default_value_function']);
-    unset($data['node-document-og_user_group_ref']['settings']['behaviors']['prepopulate']);
-    unset($data['node-document-og_user_group_ref']['widget']['active']);
   }
   if (isset($data['node-document-title_field'])) {
     $data['node-document-title_field']['display']['notifications'] = array(
@@ -611,32 +599,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-post-body']['settings']['better_formats'] = array(
-      'allowed_formats' => array(
-        'advanced_html' => 'advanced_html',
-        'filtered_html' => 'filtered_html',
-        'full_html' => 'full_html',
-        'plain_text' => 'plain_text',
-      ),
-      'allowed_formats_toggle' => 1,
-      'default_order_toggle' => 0,
-      'default_order_wrapper' => array(
-        'formats' => array(
-          'advanced_html' => array(
-            'weight' => 0,
-          ),
-          'filtered_html' => array(
-            'weight' => 0,
-          ),
-          'full_html' => array(
-            'weight' => 1,
-          ),
-          'plain_text' => array(
-            'weight' => 10,
-          ),
-        ),
-      ),
-    ); /* WAS: '' */
     $data['node-post-body']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-post-body']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -909,20 +871,13 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['user-user-field_name_last']['widget']['weight'] = 5; /* WAS: 4 */
   }
   if (isset($data['user-user-group_access'])) {
-    $data['user-user-group_access']['display']['default']['label'] = 'inline'; /* WAS: 'above' */
-    $data['user-user-group_access']['display']['default']['weight'] = 25; /* WAS: 13 */
     $data['user-user-group_access']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-group_access']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-group_access']['widget']['weight'] = 3; /* WAS: 13 */
   }
   if (isset($data['user-user-group_group'])) {
     $data['user-user-group_group']['display']['default']['settings']['field_name'] = FALSE; /* WAS: '' */
-    $data['user-user-group_group']['display']['default']['weight'] = 2; /* WAS: 3 */
     $data['user-user-group_group']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-group_group']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-group_group']['widget']['weight'] = 2; /* WAS: 0 */
-    unset($data['user-user-group_group']['display']['default']['settings']['allowed_values']);
-    unset($data['user-user-group_group']['display']['default']['settings']['allowed_values_function']);
   }
   if (isset($data['user-user-message_subscribe_email'])) {
     $data['user-user-message_subscribe_email']['display']['default']['label'] = 'inline'; /* WAS: 'above' */
@@ -932,10 +887,8 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['user-user-message_subscribe_email']['widget']['weight'] = 1; /* WAS: 0 */
   }
   if (isset($data['user-user-user_trusted_contacts'])) {
-    $data['user-user-user_trusted_contacts']['display']['default']['weight'] = 26; /* WAS: 4 */
     $data['user-user-user_trusted_contacts']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-user_trusted_contacts']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-user_trusted_contacts']['widget']['weight'] = 14; /* WAS: 2 */
   }
 }
 
@@ -944,64 +897,46 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
  */
 function beekeeper_commons_overrides_filter_default_formats_alter(&$data) {
   if (isset($data['filtered_html'])) {
-    $data['filtered_html']['cache'] = 0; /* WAS: 1 */
-    $data['filtered_html']['editor_settings'] = 'a:3:{s:7:"toolbar";a:1:{i:0;a:7:{i:0;a:2:{s:4:"name";s:6:"Format";s:5:"items";a:1:{i:0;s:6:"Format";}}i:1;a:2:{s:4:"name";s:4:"Text";s:5:"items";a:2:{i:0;s:4:"Bold";i:1;s:6:"Italic";}}i:2;a:2:{s:4:"name";s:5:"Lists";s:5:"items";a:2:{i:0;s:12:"BulletedList";i:1;s:12:"NumberedList";}}i:3;a:2:{s:4:"name";s:5:"Links";s:5:"items";a:2:{i:0;s:10:"DrupalLink";i:1;s:12:"DrupalUnlink";}}i:4;a:2:{s:4:"name";s:10:"Formatting";s:5:"items";a:2:{i:0;s:12:"RemoveFormat";i:1;s:10:"Blockquote";}}i:5;a:2:{s:4:"name";s:5:"Media";s:5:"items";a:1:{i:0;s:4:"file";}}i:6;a:2:{s:4:"name";s:5:"Tools";s:5:"items";a:2:{i:0;s:6:"Source";i:1;s:8:"Maximize";}}}}s:12:"image_upload";a:5:{s:6:"status";i:0;s:6:"scheme";s:6:"public";s:9:"directory";s:13:"inline-images";s:8:"max_size";s:0:"";s:14:"max_dimensions";a:2:{s:5:"width";s:0:"";s:6:"height";s:0:"";}}s:7:"plugins";a:2:{s:5:"style";a:1:{s:10:"style_list";a:0:{}}s:8:"language";a:1:{s:13:"language_list";s:2:"un";}}}'; /* WAS: 'a:3:{s:7:"toolbar";a:1:{i:0;a:7:{i:0;a:2:{s:4:"name";s:6:"Format";s:5:"items";a:1:{i:0;s:6:"Format";}}i:1;a:2:{s:4:"name";s:4:"Text";s:5:"items";a:2:{i:0;s:4:"Bold";i:1;s:6:"Italic";}}i:2;a:2:{s:4:"name";s:5:"Lists";s:5:"items";a:2:{i:0;s:12:"BulletedList";i:1;s:12:"NumberedList";}}i:3;a:2:{s:4:"name";s:5:"Links";s:5:"items";a:2:{i:0;s:10:"DrupalLink";i:1;s:12:"DrupalUnlink";}}i:4;a:2:{s:4:"name";s:10:"Formatting";s:5:"items";a:2:{i:0;s:12:"RemoveFormat";i:1;s:10:"Blockquote";}}i:5;a:2:{s:4:"name";s:5:"Media";s:5:"items";a:1:{i:0;s:4:"file";}}i:6;a:2:{s:4:"name";s:5:"Tools";s:5:"items";a:2:{i:0;s:6:"Source";i:1;s:8:"Maximize";}}}}s:12:"image_upload";a:5:{s:6:"status";i:0;s:6:"scheme";s:6:"public";s:9:"directory";s:13:"inline-images";s:8:"max_size";s:0:"";s:14:"max_dimensions";a:2:{s:5:"width";s:0:"";s:6:"height";s:0:"";}}s:7:"plugins";a:1:{s:5:"style";a:1:{s:10:"style_list";a:0:{}}}}' */
-    $data['filtered_html']['filters']['entity_embed'] = array(
+    $data['filtered_html']['editor_settings'] = 'a:3:{s:7:"toolbar";a:1:{i:0;a:7:{i:0;a:2:{s:4:"name";s:6:"Format";s:5:"items";a:1:{i:0;s:6:"Format";}}i:1;a:2:{s:4:"name";s:4:"Text";s:5:"items";a:3:{i:0;s:4:"Bold";i:1;s:6:"Italic";i:2;s:9:"Underline";}}i:2;a:2:{s:4:"name";s:5:"Lists";s:5:"items";a:2:{i:0;s:12:"BulletedList";i:1;s:12:"NumberedList";}}i:3;a:2:{s:4:"name";s:5:"Links";s:5:"items";a:2:{i:0;s:10:"DrupalLink";i:1;s:12:"DrupalUnlink";}}i:4;a:2:{s:4:"name";s:10:"Formatting";s:5:"items";a:2:{i:0;s:12:"RemoveFormat";i:1;s:10:"Blockquote";}}i:5;a:2:{s:4:"name";s:5:"Media";s:5:"items";a:1:{i:0;s:11:"DrupalImage";}}i:6;a:2:{s:4:"name";s:5:"Tools";s:5:"items";a:0:{}}}}s:12:"image_upload";a:5:{s:6:"status";i:1;s:6:"scheme";s:6:"public";s:9:"directory";s:13:"inline-images";s:8:"max_size";s:3:"2MB";s:14:"max_dimensions";a:2:{s:5:"width";s:3:"320";s:6:"height";s:3:"240";}}s:7:"plugins";a:2:{s:5:"style";a:1:{s:10:"style_list";a:0:{}}s:8:"language";a:1:{s:13:"language_list";s:2:"un";}}}'; /* WAS: 'a:3:{s:7:"toolbar";a:1:{i:0;a:7:{i:0;a:2:{s:4:"name";s:6:"Format";s:5:"items";a:1:{i:0;s:6:"Format";}}i:1;a:2:{s:4:"name";s:4:"Text";s:5:"items";a:2:{i:0;s:4:"Bold";i:1;s:6:"Italic";}}i:2;a:2:{s:4:"name";s:5:"Lists";s:5:"items";a:2:{i:0;s:12:"BulletedList";i:1;s:12:"NumberedList";}}i:3;a:2:{s:4:"name";s:5:"Links";s:5:"items";a:2:{i:0;s:10:"DrupalLink";i:1;s:12:"DrupalUnlink";}}i:4;a:2:{s:4:"name";s:10:"Formatting";s:5:"items";a:2:{i:0;s:12:"RemoveFormat";i:1;s:10:"Blockquote";}}i:5;a:2:{s:4:"name";s:5:"Media";s:5:"items";a:1:{i:0;s:4:"file";}}i:6;a:2:{s:4:"name";s:5:"Tools";s:5:"items";a:2:{i:0;s:6:"Source";i:1;s:8:"Maximize";}}}}s:12:"image_upload";a:5:{s:6:"status";i:0;s:6:"scheme";s:6:"public";s:9:"directory";s:13:"inline-images";s:8:"max_size";s:0:"";s:14:"max_dimensions";a:2:{s:5:"width";s:0:"";s:6:"height";s:0:"";}}s:7:"plugins";a:1:{s:5:"style";a:1:{s:10:"style_list";a:0:{}}}}' */
+    $data['filtered_html']['filters']['filter_autop'] = array(
       'settings' => array(),
       'status' => 1,
-      'weight' => 2,
+      'weight' => 0,
     ); /* WAS: '' */
-    $data['filtered_html']['filters']['filter_html']['settings']['allowed_html'] = '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike> <drupal-entity> <drupal-entity> <drupal-entity>'; /* WAS: '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike>' */
+    $data['filtered_html']['filters']['filter_htmlcorrector'] = array(
+      'settings' => array(),
+      'status' => 1,
+      'weight' => 10,
+    ); /* WAS: '' */
+    $data['filtered_html']['filters']['filter_html']['settings']['allowed_html'] = '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike> <drupal-entity> <drupal-entity> <drupal-entity> <drupal-entity> <span>'; /* WAS: '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike>' */
+    $data['filtered_html']['filters']['filter_url'] = array(
+      'settings' => array(
+        'filter_url_length' => 72,
+      ),
+      'status' => 1,
+      'weight' => 0,
+    ); /* WAS: '' */
+    unset($data['filtered_html']['filters']['editor_align']);
+    unset($data['filtered_html']['filters']['editor_caption']);
   }
 }
 
 /**
  * Implements hook_default_page_manager_handlers_alter().
  */
-//function beekeeper_commons_overrides_default_page_manager_handlers_alter(&$data) {
-//  if (isset($data['forum_panel_context_forum'])) {
-//    $data['forum_panel_context_forum']->conf['display']->did = 'new'; /* WAS: 'new-9d8383d6-d51b-42fe-bc89-9c05ac42739b' */
-//    unset($data['forum_panel_context_forum']->conf['display']->panels['center']);
-//    unset($data['forum_panel_context_forum']->export_type);
-//    unset($data['forum_panel_context_forum']->in_code_only);
-//    unset($data['forum_panel_context_forum']->table);
-//    unset($data['forum_panel_context_forum']->type);
-//  }
-//  if (isset($data['user_view_panel_context'])) {
-//    $data['user_view_panel_context']->conf['display']->content['new-38b23f27-878a-f264-dd90-e55305d0f70c']->style['settings'] = NULL; /* WAS: '' */
-//    $data['user_view_panel_context']->conf['display']->content['new-cca8f147-f983-4453-b109-2585c6e8d471'] = (object) array(
-//          'pid' => 'new-cca8f147-f983-4453-b109-2585c6e8d471',
-//          'panel' => 'three_33_bottom',
-//          'type' => 'entity_field_extra',
-//          'subtype' => 'user:memberships',
-//          'shown' => TRUE,
-//          'access' => array(
-//            'plugins' => array(),
-//          ),
-//          'configuration' => array(
-//            'view_mode' => 'full',
-//            'context' => 'argument_entity_id:user_1',
-//            'override_title' => 0,
-//            'override_title_text' => '',
-//            'override_title_heading' => 'h2',
-//          ),
-//          'cache' => array(),
-//          'style' => array(
-//            'settings' => NULL,
-//          ),
-//          'css' => array(),
-//          'extras' => array(),
-//          'position' => 0,
-//          'locks' => array(),
-//          'uuid' => 'cca8f147-f983-4453-b109-2585c6e8d471',
-//        ); /* WAS: '' */
-//    $data['user_view_panel_context']->conf['display']->panels['three_33_bottom'] = array(
-//      0 => 'new-cca8f147-f983-4453-b109-2585c6e8d471',
-//    ); /* WAS: '' */
-//    $data['user_view_panel_context']->conf['display']->storage_id = 'user_view_panel_context'; /* WAS: '' */
-//    $data['user_view_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
-//  }
-//}
+function beekeeper_commons_overrides_default_page_manager_handlers_alter(&$data) {
+  if (isset($data['forum_panel_context_forum'])) {
+    $data['forum_panel_context_forum']->conf['display']->did = 'new'; /* WAS: 'new-4f96b729-5ca5-416e-846b-6087255d5869' */
+    unset($data['forum_panel_context_forum']->export_type);
+    unset($data['forum_panel_context_forum']->in_code_only);
+    unset($data['forum_panel_context_forum']->table);
+    unset($data['forum_panel_context_forum']->type);
+  }
+  if (isset($data['user_view_panel_context'])) {
+    $data['user_view_panel_context']->conf['display']->storage_id = 'user_view_panel_context'; /* WAS: '' */
+    $data['user_view_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
+  }
+}
 
 /**
  * Implements hook_default_page_manager_pages_alter().
@@ -1112,10 +1047,8 @@ function beekeeper_commons_overrides_default_page_manager_pages_alter(&$data) {
     $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_second'] = array(
       0 => 'new-b6e290b7-1d2b-5db4-a181-28befdcde628',
     ); /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][0] = 'new-09fa5dd5-466f-486f-8307-063a43974a5f'; /* WAS: 'new-800b2f8a-307f-0e14-4174-626a1c5c4cd9' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][1] = 'new-29ff082a-b9fb-4d7a-8605-d151fe8ead9f'; /* WAS: 'new-58e71a00-2b87-ab64-31c5-4fdc9e99a2d4' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][2] = 'new-800b2f8a-307f-0e14-4174-626a1c5c4cd9'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][3] = 'new-58e71a00-2b87-ab64-31c5-4fdc9e99a2d4'; /* WAS: '' */
+    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][2] = 'new-09fa5dd5-466f-486f-8307-063a43974a5f'; /* WAS: '' */
+    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][3] = 'new-29ff082a-b9fb-4d7a-8605-d151fe8ead9f'; /* WAS: '' */
     $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->storage_id = 'page_commons_home_panel_context_2'; /* WAS: '' */
     $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
     $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-14a27b32-586f-4446-bb49-dc69fdf3f5d0'] = (object) array(
@@ -1141,10 +1074,7 @@ function beekeeper_commons_overrides_default_page_manager_pages_alter(&$data) {
     $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-895dfc63-a30f-f734-3185-c40c407b4af0']->position = 3; /* WAS: 2 */
     $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-b20add8c-2daf-4684-45f3-212d60c7f31e']->position = 1; /* WAS: 0 */
     $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42']->position = 2; /* WAS: 1 */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][0] = 'new-14a27b32-586f-4446-bb49-dc69fdf3f5d0'; /* WAS: 'new-b20add8c-2daf-4684-45f3-212d60c7f31e' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][1] = 'new-b20add8c-2daf-4684-45f3-212d60c7f31e'; /* WAS: 'new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][2] = 'new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42'; /* WAS: 'new-895dfc63-a30f-f734-3185-c40c407b4af0' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][3] = 'new-895dfc63-a30f-f734-3185-c40c407b4af0'; /* WAS: '' */
+    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][3] = 'new-14a27b32-586f-4446-bb49-dc69fdf3f5d0'; /* WAS: '' */
     $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->storage_id = 'page_commons_home_panel_context'; /* WAS: '' */
     $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
   }
@@ -1170,10 +1100,7 @@ function beekeeper_commons_overrides_user_default_permissions_alter(&$data) {
     unset($data['edit own answer content']['roles']['administrator']);
   }
   if (isset($data['use text format filtered_html'])) {
-    $data['use text format filtered_html']['roles']['Honorary member'] = 'Honorary member'; /* WAS: '' */
-    $data['use text format filtered_html']['roles']['Junior member'] = 'Junior member'; /* WAS: '' */
-    $data['use text format filtered_html']['roles']['Lifetime member'] = 'Lifetime member'; /* WAS: '' */
-    $data['use text format filtered_html']['roles']['Standard member'] = 'Standard member'; /* WAS: '' */
+    unset($data['use text format filtered_html']['roles']['administrator']);
   }
 }
 
@@ -1196,6 +1123,11 @@ function beekeeper_commons_overrides_strongarm_alter(&$data) {
     $data['rate_widgets']->value[1]->comment_types[10] = 'document'; /* WAS: '' */
     $data['rate_widgets']->value[1]->comment_types[11] = 'wiki'; /* WAS: '' */
     $data['rate_widgets']->value[1]->comment_types[12] = 'poll'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->comment_types[13] = 'post'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->comment_types[14] = 'question'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->comment_types[15] = 'document'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->comment_types[16] = 'wiki'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->comment_types[17] = 'poll'; /* WAS: '' */
     $data['rate_widgets']->value[1]->comment_types[2] = 'poll'; /* WAS: '' */
     $data['rate_widgets']->value[1]->comment_types[3] = 'post'; /* WAS: '' */
     $data['rate_widgets']->value[1]->comment_types[4] = 'question'; /* WAS: '' */
@@ -1208,6 +1140,11 @@ function beekeeper_commons_overrides_strongarm_alter(&$data) {
     $data['rate_widgets']->value[1]->node_types[1] = 'group'; /* WAS: '' */
     $data['rate_widgets']->value[1]->node_types[10] = 'wiki'; /* WAS: '' */
     $data['rate_widgets']->value[1]->node_types[11] = 'poll'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->node_types[12] = 'post'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->node_types[13] = 'question'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->node_types[14] = 'document'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->node_types[15] = 'wiki'; /* WAS: '' */
+    $data['rate_widgets']->value[1]->node_types[16] = 'poll'; /* WAS: '' */
     $data['rate_widgets']->value[1]->node_types[2] = 'poll'; /* WAS: '' */
     $data['rate_widgets']->value[1]->node_types[3] = 'post'; /* WAS: '' */
     $data['rate_widgets']->value[1]->node_types[4] = 'question'; /* WAS: '' */
@@ -1259,6 +1196,48 @@ function beekeeper_commons_overrides_strongarm_alter(&$data) {
           'use_source_translation' => TRUE,
         ); /* WAS: '' */
     $data['rate_widgets']->value[3] = (object) array(
+          'name' => 'commons_answer',
+          'tag' => 'commons_thumbs_up_down',
+          'title' => 'Answer',
+          'node_types' => array(
+            0 => 'answer',
+          ),
+          'comment_types' => array(),
+          'options' => array(
+            0 => array(
+              0 => 1,
+              1 => 'up',
+            ),
+            1 => array(
+              0 => -1,
+              1 => 'down',
+            ),
+          ),
+          'template' => 'commons_thumbs_up_down',
+          'node_display' => 2,
+          'teaser_display' => FALSE,
+          'comment_display' => 2,
+          'node_display_mode' => 1,
+          'teaser_display_mode' => 1,
+          'comment_display_mode' => 1,
+          'roles' => array(
+            2 => 2,
+            1 => 0,
+          ),
+          'allow_voting_by_author' => 1,
+          'noperm_behaviour' => 3,
+          'displayed' => 1,
+          'displayed_just_voted' => 1,
+          'description' => '',
+          'description_in_compact' => TRUE,
+          'delete_vote_on_second_click' => 1,
+          'value_type' => 'points',
+          'theme' => 'rate_template_commons_thumbs_up_down',
+          'css' => 'profiles/commons/modules/contrib/commons_q_a/commons-thumbs-up-down.css',
+          'translate' => TRUE,
+          'use_source_translation' => TRUE,
+        ); /* WAS: '' */
+    $data['rate_widgets']->value[4] = (object) array(
           'name' => 'commons_answer',
           'tag' => 'commons_thumbs_up_down',
           'title' => 'Answer',

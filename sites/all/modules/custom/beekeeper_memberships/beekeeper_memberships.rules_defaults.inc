@@ -38,7 +38,7 @@ function beekeeper_memberships_default_rules_configuration() {
         { "entity_exists" : {
             "type" : "membership_entity_term",
             "property" : "start",
-            "value" : "test"
+            "value" : "now"
           }
         },
         { "entity_has_field" : {
@@ -103,8 +103,17 @@ function beekeeper_memberships_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "Beekeepers" ],
-      "REQUIRES" : [ "rules", "og", "commerce_payment" ],
+      "REQUIRES" : [ "commerce_order", "rules", "og", "commerce_payment" ],
       "ON" : { "commerce_payment_order_paid_in_full" : [] },
+      "IF" : [
+        { "commerce_order_contains_product_type" : {
+            "commerce_order" : [ "commerce_order" ],
+            "product_type" : { "value" : { "membership_entity_product" : "membership_entity_product" } },
+            "operator" : "\\u003E=",
+            "value" : "1"
+          }
+        }
+      ],
       "DO" : [
         { "variable_add" : {
             "USING" : { "type" : "node", "value" : "133" },
@@ -140,33 +149,6 @@ function beekeeper_memberships_default_rules_configuration() {
             "remove" : { "value" : { "4" : "4", "5" : "5" } }
           }
         }
-      ]
-    }
-  }');
-  $items['rules_limit_nuc_orders_to_one'] = entity_import('rules_config', '{ "rules_limit_nuc_orders_to_one" : {
-      "LABEL" : "Limit Nuc orders to one",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "Beekeepers" ],
-      "REQUIRES" : [ "rules", "entity" ],
-      "ON" : { "commerce_line_item_update" : [] },
-      "IF" : [
-        { "data_is" : { "data" : [ "commerce-line-item:type" ], "value" : "product" } },
-        { "data_is" : {
-            "data" : [ "commerce-line-item:commerce-product:type" ],
-            "value" : "nucleus_colony"
-          }
-        },
-        { "data_is" : {
-            "data" : [ "commerce-line-item:quantity" ],
-            "op" : "\\u003E",
-            "value" : "1"
-          }
-        }
-      ],
-      "DO" : [
-        { "data_set" : { "data" : [ "commerce-line-item:quantity" ], "value" : "1" } },
-        { "drupal_message" : { "message" : "You may only order one nuc colony.", "type" : "warning" } }
       ]
     }
   }');

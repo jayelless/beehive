@@ -48,32 +48,10 @@ function beekeeper_commerce_default_rules_configuration() {
       ]
     }
   }');
-  $items['beekeeper_commerce_bank_transfer'] = entity_import('rules_config', '{ "beekeeper_commerce_bank_transfer" : {
-      "LABEL" : "Bank Transfer",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "REQUIRES" : [ "commerce_payment" ],
-      "ON" : { "commerce_payment_methods" : [] },
-      "DO" : [
-        { "commerce_payment_enable_bank_transfer" : {
-            "commerce_order" : [ "commerce-order" ],
-            "payment_method" : { "value" : {
-                "method_id" : "bank_transfer",
-                "settings" : { "information" : {
-                    "value" : "\\u003Cp\\u003E\\r\\n\\u003Cstrong\\u003EPlease make payment to:\\u003C\\/strong\\u003E\\u003Cbr \\/\\u003E\\r\\nWellington Beekeepers Association Incorporated \\u003Cbr \\/\\u003E\\r\\nAccount number: \\u003Cstrong\\u003E03-1534-0009311-000\\u003C\\/strong\\u003E\\u003Cbr \\/\\u003E\\r\\n\\u003Cbr \\/\\u003E\\r\\nPayment instructions: Please use your name in the particulars field, and the order number in the reference field\\u003Cbr \\/\\u003E\\r\\n\\u003C\\/p\\u003E",
-                    "format" : "filtered_html"
-                  }
-                }
-              }
-            }
-          }
-        }
-      ]
-    }
-  }');
   $items['commerce_payment_bank_transfer'] = entity_import('rules_config', '{ "commerce_payment_bank_transfer" : {
       "LABEL" : "Bank Transfer",
       "PLUGIN" : "reaction rule",
+      "WEIGHT" : "1",
       "OWNER" : "rules",
       "TAGS" : [ "Commerce Payment" ],
       "REQUIRES" : [ "commerce_payment" ],
@@ -82,6 +60,40 @@ function beekeeper_commerce_default_rules_configuration() {
         { "commerce_payment_enable_bank_transfer" : {
             "commerce_order" : [ "commerce-order" ],
             "payment_method" : "bank_transfer"
+          }
+        }
+      ]
+    }
+  }');
+  $items['commerce_payment_commerce_cheque'] = entity_import('rules_config', '{ "commerce_payment_commerce_cheque" : {
+      "LABEL" : "Cheque",
+      "PLUGIN" : "reaction rule",
+      "WEIGHT" : "9",
+      "OWNER" : "rules",
+      "TAGS" : [ "Commerce Payment" ],
+      "REQUIRES" : [ "commerce_payment" ],
+      "ON" : { "commerce_payment_methods" : [] },
+      "DO" : [
+        { "commerce_payment_enable_commerce_cheque" : {
+            "commerce_order" : [ "commerce-order" ],
+            "payment_method" : "commerce_cheque"
+          }
+        }
+      ]
+    }
+  }');
+  $items['commerce_payment_in_person'] = entity_import('rules_config', '{ "commerce_payment_in_person" : {
+      "LABEL" : "Pay in person",
+      "PLUGIN" : "reaction rule",
+      "WEIGHT" : "2",
+      "OWNER" : "rules",
+      "TAGS" : [ "Commerce Payment" ],
+      "REQUIRES" : [ "commerce_payment" ],
+      "ON" : { "commerce_payment_methods" : [] },
+      "DO" : [
+        { "commerce_payment_enable_in_person" : {
+            "commerce_order" : [ "commerce-order" ],
+            "payment_method" : "in_person"
           }
         }
       ]

@@ -8,6 +8,22 @@
  * Implements hook_field_default_field_instances_alter().
  */
 function beekeeper_commons_overrides_field_default_field_instances_alter(&$data) {
+  if (isset($data['message-commons_activity_streams_comment_created-field_target_comments'])) {
+    $data['message-commons_activity_streams_comment_created-field_target_comments']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['message-commons_activity_streams_comment_created-field_target_comments']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['message-commons_activity_streams_comment_created-field_target_nodes'])) {
+    $data['message-commons_activity_streams_comment_created-field_target_nodes']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['message-commons_activity_streams_comment_created-field_target_nodes']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['message-commons_activity_streams_node_created-field_target_nodes'])) {
+    $data['message-commons_activity_streams_node_created-field_target_nodes']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['message-commons_activity_streams_node_created-field_target_nodes']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['message-commons_activity_streams_user_profile_updated-field_target_users'])) {
+    $data['message-commons_activity_streams_user_profile_updated-field_target_users']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['message-commons_activity_streams_user_profile_updated-field_target_users']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['message-commons_events_event_node_created-field_message_rendered_body'])) {
     $data['message-commons_events_event_node_created-field_message_rendered_body']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['message-commons_events_event_node_created-field_message_rendered_body']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
@@ -23,6 +39,14 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
   if (isset($data['message-commons_events_event_node_created-field_target_nodes'])) {
     $data['message-commons_events_event_node_created-field_target_nodes']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['message-commons_events_event_node_created-field_target_nodes']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['message-commons_follow_user_user_followed-field_target_users'])) {
+    $data['message-commons_follow_user_user_followed-field_target_users']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['message-commons_follow_user_user_followed-field_target_users']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['message-commons_like_user_likes_node-field_target_nodes'])) {
+    $data['message-commons_like_user_likes_node-field_target_nodes']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['message-commons_like_user_likes_node-field_target_nodes']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['message-commons_notify_comment_created-field_message_rendered_body'])) {
     $data['message-commons_notify_comment_created-field_message_rendered_body']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
@@ -856,6 +880,16 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['user-user-field_bio']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_bio']['widget']['weight'] = 8; /* WAS: 5 */
   }
+  if (isset($data['user-user-field_facebook_url'])) {
+    $data['user-user-field_facebook_url']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['user-user-field_facebook_url']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+    $data['user-user-field_facebook_url']['settings']['title_label_use_field_label'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['user-user-field_linkedin_url'])) {
+    $data['user-user-field_linkedin_url']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['user-user-field_linkedin_url']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+    $data['user-user-field_linkedin_url']['settings']['title_label_use_field_label'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['user-user-field_name_first'])) {
     $data['user-user-field_name_first']['display']['default']['label'] = 'inline'; /* WAS: 'above' */
     $data['user-user-field_name_first']['display']['default']['weight'] = 3; /* WAS: 2 */
@@ -869,6 +903,11 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['user-user-field_name_last']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_name_last']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_name_last']['widget']['weight'] = 5; /* WAS: 4 */
+  }
+  if (isset($data['user-user-field_twitter_url'])) {
+    $data['user-user-field_twitter_url']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['user-user-field_twitter_url']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+    $data['user-user-field_twitter_url']['settings']['title_label_use_field_label'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-group_access'])) {
     $data['user-user-group_access']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
@@ -922,11 +961,48 @@ function beekeeper_commons_overrides_filter_default_formats_alter(&$data) {
 }
 
 /**
+ * Implements hook_flag_default_flags_alter().
+ */
+function beekeeper_commons_overrides_flag_default_flags_alter(&$data) {
+  if (isset($data['commons_follow_user'])) {
+    $data['commons_follow_user']['show_on_entity'] = FALSE; /* WAS: '' */
+  }
+}
+
+/**
+ * Implements hook_default_message_type_alter().
+ */
+function beekeeper_commons_overrides_default_message_type_alter(&$data) {
+  if (isset($data['commons_activity_streams_comment_created'])) {
+    $data['commons_activity_streams_comment_created']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
+  }
+  if (isset($data['commons_activity_streams_node_created'])) {
+    $data['commons_activity_streams_node_created']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
+  }
+  if (isset($data['commons_activity_streams_user_profile_updated'])) {
+    $data['commons_activity_streams_user_profile_updated']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
+  }
+  if (isset($data['commons_follow_user_user_followed'])) {
+    $data['commons_follow_user_user_followed']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture]</p>'; /* WAS: '' */
+  }
+  if (isset($data['commons_posts_post_created'])) {
+    $data['commons_posts_post_created']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
+    $data['commons_posts_post_created']->message_text['und'][2]['safe_value'] = '<p>[commons-groups:in-groups-text]</p>'; /* WAS: '' */
+  }
+  if (isset($data['commons_q_a_question_answered'])) {
+    $data['commons_q_a_question_answered']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
+  }
+  if (isset($data['commons_q_a_question_asked'])) {
+    $data['commons_q_a_question_asked']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
+  }
+}
+
+/**
  * Implements hook_default_page_manager_handlers_alter().
  */
 function beekeeper_commons_overrides_default_page_manager_handlers_alter(&$data) {
   if (isset($data['forum_panel_context_forum'])) {
-    $data['forum_panel_context_forum']->conf['display']->did = 'new'; /* WAS: 'new-4f96b729-5ca5-416e-846b-6087255d5869' */
+    $data['forum_panel_context_forum']->conf['display']->did = 'new'; /* WAS: 'new-f5c250e6-7b02-480c-b677-a6ec0c3e912f' */
     unset($data['forum_panel_context_forum']->export_type);
     unset($data['forum_panel_context_forum']->in_code_only);
     unset($data['forum_panel_context_forum']->table);
@@ -1117,6 +1193,10 @@ function beekeeper_commons_overrides_user_default_roles_alter(&$data) {
  * Implements hook_strongarm_alter().
  */
 function beekeeper_commons_overrides_strongarm_alter(&$data) {
+  if (isset($data['field_bundle_settings_message__commons_posts_post_created'])) {
+    unset($data['field_bundle_settings_message__commons_posts_post_created']->value['extra_fields']['display']['message__message_text__0']['default']);
+    unset($data['field_bundle_settings_message__commons_posts_post_created']->value['extra_fields']['display']['message__message_text__1']['default']);
+  }
   if (isset($data['rate_widgets'])) {
     $data['rate_widgets']->value[1]->comment_types[0] = 'event'; /* WAS: '' */
     $data['rate_widgets']->value[1]->comment_types[1] = 'group'; /* WAS: '' */
@@ -1345,5 +1425,122 @@ function beekeeper_commons_overrides_strongarm_alter(&$data) {
     unset($data['theme_commons_origins_settings']->value['smartphone_portrait_sidebar_first']);
     unset($data['theme_commons_origins_settings']->value['smartphone_portrait_sidebar_second']);
     unset($data['theme_commons_origins_settings']->value['smartphone_portrait_sidebar_unit']);
+  }
+}
+
+/**
+ * Implements hook_views_default_views_alter().
+ */
+function beekeeper_commons_overrides_views_default_views_alter(&$data) {
+  if (isset($data['commons_bw_all'])) {
+    $data['commons_bw_all']->display['default']->display_options['filters']['type']['value']['document'] = 'document'; /* WAS: '' */
+  }
+  if (isset($data['commons_bw_posts'])) {
+    $data['commons_bw_posts']->display['default']->display_options['filters']['flagged'] = array(
+      'id' => 'flagged',
+      'table' => 'flag_content',
+      'field' => 'flagged',
+      'relationship' => 'flag_content_rel',
+      'ui_name' => 'Following',
+      'value' => 1,
+      'exposed' => TRUE,
+      'expose' => array(
+        'operator_id' => '',
+        'label' => 'Following',
+        'operator' => 'flagged_op',
+        'identifier' => 'following',
+      ),
+    ); /* WAS: '' */
+    $data['commons_bw_posts']->display['default']->display_options['relationships']['flag_content_rel'] = array(
+      'id' => 'flag_content_rel',
+      'table' => 'node',
+      'field' => 'flag_content_rel',
+      'ui_name' => 'Following',
+      'label' => 'following',
+      'required' => 0,
+      'flag' => 'commons_follow_node',
+    ); /* WAS: '' */
+    $data['commons_bw_posts']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
+      'id' => 'field_radioactivity_radioactivity_energy',
+      'table' => 'field_data_field_radioactivity',
+      'field' => 'field_radioactivity_radioactivity_energy',
+      'order' => 'DESC',
+      'exposed' => TRUE,
+      'expose' => array(
+        'label' => 'most active',
+      ),
+    ); /* WAS: '' */
+  }
+  if (isset($data['commons_bw_q_a'])) {
+    $data['commons_bw_q_a']->display['default']->display_options['filters']['flagged'] = array(
+      'id' => 'flagged',
+      'table' => 'flag_content',
+      'field' => 'flagged',
+      'relationship' => 'flag_content_rel',
+      'ui_name' => 'Following',
+      'value' => 1,
+      'exposed' => TRUE,
+      'expose' => array(
+        'operator_id' => '',
+        'label' => 'Following',
+        'operator' => 'flagged_op',
+        'identifier' => 'following',
+      ),
+    ); /* WAS: '' */
+    $data['commons_bw_q_a']->display['default']->display_options['relationships']['flag_content_rel'] = array(
+      'id' => 'flag_content_rel',
+      'table' => 'node',
+      'field' => 'flag_content_rel',
+      'ui_name' => 'Following',
+      'label' => 'following',
+      'required' => 0,
+      'flag' => 'commons_follow_node',
+    ); /* WAS: '' */
+    $data['commons_bw_q_a']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
+      'id' => 'field_radioactivity_radioactivity_energy',
+      'table' => 'field_data_field_radioactivity',
+      'field' => 'field_radioactivity_radioactivity_energy',
+      'order' => 'DESC',
+      'exposed' => TRUE,
+      'expose' => array(
+        'label' => 'most active',
+      ),
+    ); /* WAS: '' */
+  }
+  if (isset($data['commons_bw_wikis'])) {
+    $data['commons_bw_wikis']->display['default']->display_options['filters']['flagged'] = array(
+      'id' => 'flagged',
+      'table' => 'flag_content',
+      'field' => 'flagged',
+      'relationship' => 'flag_content_rel',
+      'ui_name' => 'Following',
+      'value' => 1,
+      'exposed' => TRUE,
+      'expose' => array(
+        'operator_id' => '',
+        'label' => 'Following',
+        'operator' => 'flagged_op',
+        'identifier' => 'following',
+      ),
+    ); /* WAS: '' */
+    $data['commons_bw_wikis']->display['default']->display_options['relationships']['flag_content_rel'] = array(
+      'id' => 'flag_content_rel',
+      'table' => 'node',
+      'field' => 'flag_content_rel',
+      'ui_name' => 'Following',
+      'label' => 'following',
+      'required' => 0,
+      'flag' => 'commons_follow_node',
+    ); /* WAS: '' */
+    $data['commons_bw_wikis']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
+      'id' => 'field_radioactivity_radioactivity_energy',
+      'table' => 'field_data_field_radioactivity',
+      'field' => 'field_radioactivity_radioactivity_energy',
+      'order' => 'DESC',
+      'exposed' => TRUE,
+      'expose' => array(
+        'label' => 'most active',
+      ),
+    ); /* WAS: '' */
   }
 }

@@ -128,15 +128,25 @@ function beekeeper_commerce_strongarm() {
   $strongarm->name = 'commerce_checkout_completion_message';
   $strongarm->value = array(
     'value' => '<p>Your order number is [commerce-order:order-number]. You can <a href="[commerce-order:url]">view your order</a> on your account page when logged in.</p>
-<p>
-<strong>Please make payment to:</strong><br />
-Wellington Beekeepers Association Incorporated <br />
+
+<p><strong>If you are paying by bank transfer</strong>, please make payment to:<br />
+Wellington Beekeepers Association Incorporated<br />
 Account number: <strong>03-1534-0009311-000</strong><br />
-<br />
-Payment instructions: Please use your name in the particulars field, and the order number in the reference field<br />
-</p>
-<p><a href="[site:url]">Return to the front page.</a></p>',
-    'format' => 'filtered_html',
+(Please use your name in the particulars field, and the order number in the reference field).</p>
+
+<p><strong>If you are paying in person</strong>, please hand the payment to the treasurer, John Burnet.</p>
+
+<p><strong>If you are paying by cheque</strong>, please either hand to the treasurer John Burnet, or post to:<br />
+The Treasurer<br />
+Wellington Beekeepers Association<br />
+C/- John Burnet<br />
+21 Kiwi Crescent<br />
+Tawa<br />
+Wellington 5028</p>
+
+<p><a href="[site:url]">Return to the front page.</a></p>
+',
+    'format' => 'advanced_html',
   );
   $export['commerce_checkout_completion_message'] = $strongarm;
 

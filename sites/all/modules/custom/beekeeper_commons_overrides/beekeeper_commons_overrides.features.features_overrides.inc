@@ -12,6 +12,14 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides = array();
 
   // Exported overrides for: field_instance
+  $overrides["field_instance.message-commons_activity_streams_comment_created-field_target_comments.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.message-commons_activity_streams_comment_created-field_target_comments.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.message-commons_activity_streams_comment_created-field_target_nodes.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.message-commons_activity_streams_comment_created-field_target_nodes.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.message-commons_activity_streams_node_created-field_target_nodes.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.message-commons_activity_streams_node_created-field_target_nodes.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.message-commons_activity_streams_user_profile_updated-field_target_users.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.message-commons_activity_streams_user_profile_updated-field_target_users.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.message-commons_events_event_node_created-field_message_rendered_body.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.message-commons_events_event_node_created-field_message_rendered_body.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.message-commons_events_event_node_created-field_message_rendered_subject.settings|membership_entity_join_form"] = FALSE;
@@ -20,6 +28,10 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["field_instance.message-commons_events_event_node_created-field_target_comments.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.message-commons_events_event_node_created-field_target_nodes.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.message-commons_events_event_node_created-field_target_nodes.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.message-commons_follow_user_user_followed-field_target_users.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.message-commons_follow_user_user_followed-field_target_users.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.message-commons_like_user_likes_node-field_target_nodes.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.message-commons_like_user_likes_node-field_target_nodes.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.message-commons_notify_comment_created-field_message_rendered_body.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.message-commons_notify_comment_created-field_message_rendered_body.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.message-commons_notify_comment_created-field_message_rendered_subject.settings|membership_entity_join_form"] = FALSE;
@@ -662,6 +674,12 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["field_instance.user-user-field_bio.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.user-user-field_bio.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-field_bio.widget|weight"] = 8;
+  $overrides["field_instance.user-user-field_facebook_url.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.user-user-field_facebook_url.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.user-user-field_facebook_url.settings|title_label_use_field_label"] = FALSE;
+  $overrides["field_instance.user-user-field_linkedin_url.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.user-user-field_linkedin_url.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.user-user-field_linkedin_url.settings|title_label_use_field_label"] = FALSE;
   $overrides["field_instance.user-user-field_name_first.display|default|label"] = 'inline';
   $overrides["field_instance.user-user-field_name_first.display|default|weight"] = 3;
   $overrides["field_instance.user-user-field_name_first.settings|membership_entity_join_form"] = FALSE;
@@ -672,6 +690,9 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["field_instance.user-user-field_name_last.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.user-user-field_name_last.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-field_name_last.widget|weight"] = 5;
+  $overrides["field_instance.user-user-field_twitter_url.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.user-user-field_twitter_url.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.user-user-field_twitter_url.settings|title_label_use_field_label"] = FALSE;
   $overrides["field_instance.user-user-group_access.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.user-user-group_access.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-group_group.display|default|settings|field_name"] = FALSE;
@@ -713,6 +734,19 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
     'status' => 1,
     'weight' => 0,
   );
+
+  // Exported overrides for: flag
+  $overrides["flag.commons_follow_user.show_on_entity"] = FALSE;
+
+  // Exported overrides for: message_type
+  $overrides["message_type.commons_activity_streams_comment_created.message_text|und|0|safe_value"] = '<p>[message:user:picture:35x35]</p>';
+  $overrides["message_type.commons_activity_streams_node_created.message_text|und|0|safe_value"] = '<p>[message:user:picture:35x35]</p>';
+  $overrides["message_type.commons_activity_streams_user_profile_updated.message_text|und|0|safe_value"] = '<p>[message:user:picture:35x35]</p>';
+  $overrides["message_type.commons_follow_user_user_followed.message_text|und|0|safe_value"] = '<p>[message:user:picture]</p>';
+  $overrides["message_type.commons_posts_post_created.message_text|und|0|safe_value"] = '<p>[message:user:picture:35x35]</p>';
+  $overrides["message_type.commons_posts_post_created.message_text|und|2|safe_value"] = '<p>[commons-groups:in-groups-text]</p>';
+  $overrides["message_type.commons_q_a_question_answered.message_text|und|0|safe_value"] = '<p>[message:user:picture:35x35]</p>';
+  $overrides["message_type.commons_q_a_question_asked.message_text|und|0|safe_value"] = '<p>[message:user:picture:35x35]</p>';
 
   // Exported overrides for: page_manager_handlers
   $overrides["page_manager_handlers.forum_panel_context_forum.conf|display|did"] = 'new';
@@ -906,6 +940,8 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["user_role.administrator.weight"] = 2;
 
   // Exported overrides for: variable
+  $overrides["variable.field_bundle_settings_message__commons_posts_post_created.value|extra_fields|display|message__message_text__0|default"]["DELETED"] = TRUE;
+  $overrides["variable.field_bundle_settings_message__commons_posts_post_created.value|extra_fields|display|message__message_text__1|default"]["DELETED"] = TRUE;
   $overrides["variable.rate_widgets.value|1|comment_types|0"] = 'event';
   $overrides["variable.rate_widgets.value|1|comment_types|1"] = 'group';
   $overrides["variable.rate_widgets.value|1|comment_types|10"] = 'document';
@@ -1131,6 +1167,111 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["variable.theme_commons_origins_settings.value|smartphone_portrait_sidebar_first"]["DELETED"] = TRUE;
   $overrides["variable.theme_commons_origins_settings.value|smartphone_portrait_sidebar_second"]["DELETED"] = TRUE;
   $overrides["variable.theme_commons_origins_settings.value|smartphone_portrait_sidebar_unit"]["DELETED"] = TRUE;
+
+  // Exported overrides for: views_view
+  $overrides["views_view.commons_bw_all.display|default|display_options|filters|type|value|document"] = 'document';
+  $overrides["views_view.commons_bw_posts.display|default|display_options|filters|flagged"] = array(
+    'id' => 'flagged',
+    'table' => 'flag_content',
+    'field' => 'flagged',
+    'relationship' => 'flag_content_rel',
+    'ui_name' => 'Following',
+    'value' => 1,
+    'exposed' => TRUE,
+    'expose' => array(
+      'operator_id' => '',
+      'label' => 'Following',
+      'operator' => 'flagged_op',
+      'identifier' => 'following',
+    ),
+  );
+  $overrides["views_view.commons_bw_posts.display|default|display_options|relationships|flag_content_rel"] = array(
+    'id' => 'flag_content_rel',
+    'table' => 'node',
+    'field' => 'flag_content_rel',
+    'ui_name' => 'Following',
+    'label' => 'following',
+    'required' => 0,
+    'flag' => 'commons_follow_node',
+  );
+  $overrides["views_view.commons_bw_posts.display|default|display_options|sorts|field_radioactivity_radioactivity_energy"] = array(
+    'id' => 'field_radioactivity_radioactivity_energy',
+    'table' => 'field_data_field_radioactivity',
+    'field' => 'field_radioactivity_radioactivity_energy',
+    'order' => 'DESC',
+    'exposed' => TRUE,
+    'expose' => array(
+      'label' => 'most active',
+    ),
+  );
+  $overrides["views_view.commons_bw_q_a.display|default|display_options|filters|flagged"] = array(
+    'id' => 'flagged',
+    'table' => 'flag_content',
+    'field' => 'flagged',
+    'relationship' => 'flag_content_rel',
+    'ui_name' => 'Following',
+    'value' => 1,
+    'exposed' => TRUE,
+    'expose' => array(
+      'operator_id' => '',
+      'label' => 'Following',
+      'operator' => 'flagged_op',
+      'identifier' => 'following',
+    ),
+  );
+  $overrides["views_view.commons_bw_q_a.display|default|display_options|relationships|flag_content_rel"] = array(
+    'id' => 'flag_content_rel',
+    'table' => 'node',
+    'field' => 'flag_content_rel',
+    'ui_name' => 'Following',
+    'label' => 'following',
+    'required' => 0,
+    'flag' => 'commons_follow_node',
+  );
+  $overrides["views_view.commons_bw_q_a.display|default|display_options|sorts|field_radioactivity_radioactivity_energy"] = array(
+    'id' => 'field_radioactivity_radioactivity_energy',
+    'table' => 'field_data_field_radioactivity',
+    'field' => 'field_radioactivity_radioactivity_energy',
+    'order' => 'DESC',
+    'exposed' => TRUE,
+    'expose' => array(
+      'label' => 'most active',
+    ),
+  );
+  $overrides["views_view.commons_bw_wikis.display|default|display_options|filters|flagged"] = array(
+    'id' => 'flagged',
+    'table' => 'flag_content',
+    'field' => 'flagged',
+    'relationship' => 'flag_content_rel',
+    'ui_name' => 'Following',
+    'value' => 1,
+    'exposed' => TRUE,
+    'expose' => array(
+      'operator_id' => '',
+      'label' => 'Following',
+      'operator' => 'flagged_op',
+      'identifier' => 'following',
+    ),
+  );
+  $overrides["views_view.commons_bw_wikis.display|default|display_options|relationships|flag_content_rel"] = array(
+    'id' => 'flag_content_rel',
+    'table' => 'node',
+    'field' => 'flag_content_rel',
+    'ui_name' => 'Following',
+    'label' => 'following',
+    'required' => 0,
+    'flag' => 'commons_follow_node',
+  );
+  $overrides["views_view.commons_bw_wikis.display|default|display_options|sorts|field_radioactivity_radioactivity_energy"] = array(
+    'id' => 'field_radioactivity_radioactivity_energy',
+    'table' => 'field_data_field_radioactivity',
+    'field' => 'field_radioactivity_radioactivity_energy',
+    'order' => 'DESC',
+    'exposed' => TRUE,
+    'expose' => array(
+      'label' => 'most active',
+    ),
+  );
 
  return $overrides;
 }

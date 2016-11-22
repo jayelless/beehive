@@ -38,7 +38,7 @@ function beekeeper_memberships_default_rules_configuration() {
         { "entity_exists" : {
             "type" : "membership_entity_term",
             "property" : "start",
-            "value" : "now"
+            "value" : "test"
           }
         },
         { "entity_has_field" : {
@@ -95,32 +95,6 @@ function beekeeper_memberships_default_rules_configuration() {
           }
         },
         { "user_unblock" : { "account" : [ "commerce-order:owner" ] } }
-      ]
-    }
-  }');
-  $items['rules_beekeepers_add_to_members_group'] = entity_import('rules_config', '{ "rules_beekeepers_add_to_members_group" : {
-      "LABEL" : "Beekeepers: Add to members group",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "Beekeepers" ],
-      "REQUIRES" : [ "commerce_order", "rules", "og", "commerce_payment" ],
-      "ON" : { "commerce_payment_order_paid_in_full" : [] },
-      "IF" : [
-        { "commerce_order_contains_product_type" : {
-            "commerce_order" : [ "commerce_order" ],
-            "product_type" : { "value" : { "membership_entity_product" : "membership_entity_product" } },
-            "operator" : "\\u003E=",
-            "value" : "1"
-          }
-        }
-      ],
-      "DO" : [
-        { "variable_add" : {
-            "USING" : { "type" : "node", "value" : "133" },
-            "PROVIDE" : { "variable_added" : { "group_members" : "Group: Members" } }
-          }
-        },
-        { "og_subcribe_user" : { "user" : [ "commerce-order:owner" ], "group" : [ "group-members" ] } }
       ]
     }
   }');

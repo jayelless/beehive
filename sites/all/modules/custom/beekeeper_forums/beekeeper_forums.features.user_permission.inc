@@ -32,8 +32,13 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['create forum content'] = array(
     'name' => 'create forum content',
     'roles' => array(
+      'Honorary member' => 'Honorary member',
+      'Junior member' => 'Junior member',
+      'Lifetime member' => 'Lifetime member',
+      'Site editor' => 'Site editor',
+      'Standard member' => 'Standard member',
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
+      'content moderator' => 'content moderator',
     ),
     'module' => 'node',
   );
@@ -42,7 +47,9 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['delete any forum content'] = array(
     'name' => 'delete any forum content',
     'roles' => array(
+      'Site editor' => 'Site editor',
       'administrator' => 'administrator',
+      'content moderator' => 'content moderator',
     ),
     'module' => 'node',
   );
@@ -51,8 +58,13 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['delete own forum content'] = array(
     'name' => 'delete own forum content',
     'roles' => array(
+      'Honorary member' => 'Honorary member',
+      'Junior member' => 'Junior member',
+      'Lifetime member' => 'Lifetime member',
+      'Site editor' => 'Site editor',
+      'Standard member' => 'Standard member',
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
+      'content moderator' => 'content moderator',
     ),
     'module' => 'node',
   );
@@ -71,7 +83,9 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['edit any forum content'] = array(
     'name' => 'edit any forum content',
     'roles' => array(
+      'Site editor' => 'Site editor',
       'administrator' => 'administrator',
+      'content moderator' => 'content moderator',
     ),
     'module' => 'node',
   );
@@ -80,8 +94,13 @@ function beekeeper_forums_user_default_permissions() {
   $permissions['edit own forum content'] = array(
     'name' => 'edit own forum content',
     'roles' => array(
+      'Honorary member' => 'Honorary member',
+      'Junior member' => 'Junior member',
+      'Lifetime member' => 'Lifetime member',
+      'Site editor' => 'Site editor',
+      'Standard member' => 'Standard member',
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
+      'content moderator' => 'content moderator',
     ),
     'module' => 'node',
   );

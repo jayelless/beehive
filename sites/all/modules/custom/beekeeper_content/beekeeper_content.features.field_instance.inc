@@ -92,7 +92,7 @@ function beekeeper_content_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'notifications' => array(
         'label' => 'above',
@@ -262,6 +262,76 @@ function beekeeper_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-newsletter-field_pdf_file'.
+  $field_instances['node-newsletter-field_pdf_file'] = array(
+    'bundle' => 'newsletter',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 3,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pdf_file',
+    'label' => 'PDF file',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => 'newsletters/[current-date:custom:Y]',
+      'file_extensions' => 'pdf',
+      'max_filesize' => '',
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'insert' => 0,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'icon_link' => 0,
+          'image' => 0,
+          'image_35x35' => 0,
+          'image_50x50' => 0,
+          'image_50x50_avatar' => 0,
+          'image_extra_large' => 0,
+          'image_large' => 0,
+          'image_larger' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 41,
+    ),
+  );
+
   // Exported field_instance: 'node-newsletter-field_pdf_standard'.
   $field_instances['node-newsletter-field_pdf_standard'] = array(
     'bundle' => 'newsletter',
@@ -336,7 +406,7 @@ function beekeeper_content_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'notifications' => array(
         'label' => 'above',
@@ -382,6 +452,7 @@ function beekeeper_content_field_default_field_instances() {
   t('Newsletter date');
   t('PDF - booklet');
   t('PDF - standard');
+  t('PDF file');
   t('Tags');
 
   return $field_instances;

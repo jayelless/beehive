@@ -14,6 +14,7 @@ function beekeeper_content_user_default_permissions() {
   $permissions['access all webform results'] = array(
     'name' => 'access all webform results',
     'roles' => array(
+      'Committee member' => 'Committee member',
       'administrator' => 'administrator',
     ),
     'module' => 'webform',

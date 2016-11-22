@@ -375,6 +375,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-merchandise_display-title_field.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-merchandise_display-title_field.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-newsletter-title_field.display|default|weight"] = 6;
   $overrides["field_instance.node-newsletter-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -635,6 +636,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-wiki-og_user_group_ref.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-wiki-og_user_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-wiki-title_field.display_in_partial_form"] = 1;
   $overrides["field_instance.node-wiki-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -684,9 +686,15 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["field_instance.user-user-user_trusted_contacts.settings|membership_entity_term_renew_form"] = FALSE;
 
   // Exported overrides for: filter
+  $overrides["filter.filtered_html.cache"] = 0;
   $overrides["filter.filtered_html.editor_settings"] = 'a:3:{s:7:"toolbar";a:1:{i:0;a:7:{i:0;a:2:{s:4:"name";s:6:"Format";s:5:"items";a:1:{i:0;s:6:"Format";}}i:1;a:2:{s:4:"name";s:4:"Text";s:5:"items";a:3:{i:0;s:4:"Bold";i:1;s:6:"Italic";i:2;s:9:"Underline";}}i:2;a:2:{s:4:"name";s:5:"Lists";s:5:"items";a:2:{i:0;s:12:"BulletedList";i:1;s:12:"NumberedList";}}i:3;a:2:{s:4:"name";s:5:"Links";s:5:"items";a:2:{i:0;s:10:"DrupalLink";i:1;s:12:"DrupalUnlink";}}i:4;a:2:{s:4:"name";s:10:"Formatting";s:5:"items";a:2:{i:0;s:12:"RemoveFormat";i:1;s:10:"Blockquote";}}i:5;a:2:{s:4:"name";s:5:"Media";s:5:"items";a:1:{i:0;s:11:"DrupalImage";}}i:6;a:2:{s:4:"name";s:5:"Tools";s:5:"items";a:0:{}}}}s:12:"image_upload";a:5:{s:6:"status";i:1;s:6:"scheme";s:6:"public";s:9:"directory";s:13:"inline-images";s:8:"max_size";s:3:"2MB";s:14:"max_dimensions";a:2:{s:5:"width";s:3:"320";s:6:"height";s:3:"240";}}s:7:"plugins";a:2:{s:5:"style";a:1:{s:10:"style_list";a:0:{}}s:8:"language";a:1:{s:13:"language_list";s:2:"un";}}}';
   $overrides["filter.filtered_html.filters|editor_align"]["DELETED"] = TRUE;
   $overrides["filter.filtered_html.filters|editor_caption"]["DELETED"] = TRUE;
+  $overrides["filter.filtered_html.filters|entity_embed"] = array(
+    'settings' => array(),
+    'status' => 1,
+    'weight' => 2,
+  );
   $overrides["filter.filtered_html.filters|filter_autop"] = array(
     'settings' => array(),
     'status' => 1,
@@ -697,7 +705,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
     'status' => 1,
     'weight' => 10,
   );
-  $overrides["filter.filtered_html.filters|filter_html|settings|allowed_html"] = '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike> <drupal-entity> <drupal-entity> <drupal-entity> <drupal-entity> <span>';
+  $overrides["filter.filtered_html.filters|filter_html|settings|allowed_html"] = '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike> <drupal-entity> <drupal-entity> <drupal-entity> <drupal-entity> <span> <drupal-entity>';
   $overrides["filter.filtered_html.filters|filter_url"] = array(
     'settings' => array(
       'filter_url_length' => 72,
@@ -712,6 +720,34 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["page_manager_handlers.forum_panel_context_forum.in_code_only"]["DELETED"] = TRUE;
   $overrides["page_manager_handlers.forum_panel_context_forum.table"]["DELETED"] = TRUE;
   $overrides["page_manager_handlers.forum_panel_context_forum.type"]["DELETED"] = TRUE;
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|content|new-38b23f27-878a-f264-dd90-e55305d0f70c|style|settings"] = NULL;
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|content|new-9bdf933a-5e54-4d2c-b214-aa7155f17746"] = (object) array(
+      'pid' => 'new-9bdf933a-5e54-4d2c-b214-aa7155f17746',
+      'panel' => 'three_33_bottom',
+      'type' => 'entity_field_extra',
+      'subtype' => 'user:memberships',
+      'shown' => TRUE,
+      'access' => array(),
+      'configuration' => array(
+        'view_mode' => 'full',
+        'context' => 'argument_entity_id:user_1',
+        'override_title' => 0,
+        'override_title_text' => '',
+        'override_title_heading' => 'h2',
+      ),
+      'cache' => array(),
+      'style' => array(
+        'settings' => NULL,
+      ),
+      'css' => array(),
+      'extras' => array(),
+      'position' => 0,
+      'locks' => array(),
+      'uuid' => '9bdf933a-5e54-4d2c-b214-aa7155f17746',
+    );
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|panels|three_33_bottom"] = array(
+    0 => 'new-9bdf933a-5e54-4d2c-b214-aa7155f17746',
+  );
   $overrides["page_manager_handlers.user_view_panel_context.conf|display|storage_id"] = 'user_view_panel_context';
   $overrides["page_manager_handlers.user_view_panel_context.conf|display|storage_type"] = 'page_manager';
 
@@ -820,8 +856,10 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_second"] = array(
     0 => 'new-b6e290b7-1d2b-5db4-a181-28befdcde628',
   );
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|2"] = 'new-09fa5dd5-466f-486f-8307-063a43974a5f';
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|3"] = 'new-29ff082a-b9fb-4d7a-8605-d151fe8ead9f';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|0"] = 'new-09fa5dd5-466f-486f-8307-063a43974a5f';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|1"] = 'new-29ff082a-b9fb-4d7a-8605-d151fe8ead9f';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|2"] = 'new-800b2f8a-307f-0e14-4174-626a1c5c4cd9';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|3"] = 'new-58e71a00-2b87-ab64-31c5-4fdc9e99a2d4';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|storage_id"] = 'page_commons_home_panel_context_2';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|storage_type"] = 'page_manager';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|content|new-14a27b32-586f-4446-bb49-dc69fdf3f5d0"] = (object) array(
@@ -847,7 +885,10 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|content|new-895dfc63-a30f-f734-3185-c40c407b4af0|position"] = 3;
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|content|new-b20add8c-2daf-4684-45f3-212d60c7f31e|position"] = 1;
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|content|new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42|position"] = 2;
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|3"] = 'new-14a27b32-586f-4446-bb49-dc69fdf3f5d0';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|0"] = 'new-14a27b32-586f-4446-bb49-dc69fdf3f5d0';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|1"] = 'new-b20add8c-2daf-4684-45f3-212d60c7f31e';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|2"] = 'new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|3"] = 'new-895dfc63-a30f-f734-3185-c40c407b4af0';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|storage_id"] = 'page_commons_home_panel_context';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|storage_type"] = 'page_manager';
 

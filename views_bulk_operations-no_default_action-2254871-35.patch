@@ -1,0 +1,105 @@
+diff --git a/plugins/operation_types/action.inc b/plugins/operation_types/action.inc
+index 2cdd6a1..c05d0cb 100644
+--- a/plugins/operation_types/action.inc
++++ b/plugins/operation_types/action.inc
+@@ -63,6 +63,9 @@ function views_bulk_operations_operation_action_list($operation_id = NULL) {
+         'behavior' => isset($action['behavior']) ? $action['behavior'] : array(),
+         'permissions' => isset($action['permissions']) ? $action['permissions'] : NULL,
+         'pass rows' => !empty($action['pass rows']),
++        'entity operations' => !empty($action['entity operations']) ? $action['entity operations'] : array(),
++        'access callback' => isset($action['access callback']) ? $action['access callback'] : NULL,
++        'access arguments' => !empty($action['access arguments']) ? $action['access arguments'] : array(),
+       );
+     }
+   }
+diff --git a/plugins/operation_types/base.class.php b/plugins/operation_types/base.class.php
+index 968921f..9592f9e 100644
+--- a/plugins/operation_types/base.class.php
++++ b/plugins/operation_types/base.class.php
+@@ -128,6 +128,64 @@ abstract class ViewsBulkOperationsBaseOperation {
+   }
+ 
+   /**
++   * Checks the account's permission to execute the operation on the entity.
++   *
++   * This method checks whether the specified account has the necessary
++   * permission to perform the requested operation on the specified entity, and
++   * returns the results of the check.
++   *
++   * @param string $entity_type
++   *   The type of the entity permission is being checked on.
++   * @param object $entity
++   *   The entity permission is being checked on.
++   * @param object $account
++   *   The user account the permission is being checked for.
++   *
++   * @return bool
++   *   Returns TRUE, if the account has permission to perform the requested
++   *   operation on the speficied entity, or FALSE, if it does not.
++   */
++  public function entity_access($entity_type, $entity, $account = NULL) {
++    // If the action has specified an access callback, call it.
++    if (isset($this->operationInfo['access callback'])) {
++      $callback = $this->operationInfo['access callback'];
++      // Check for a TRUE or FALSE value.
++      if (is_bool($callback)) {
++        return $callback;
++      }
++
++      // The first three arguments sent to the callback are $entity_type,
++      // $entity, and $account. Other arguments are tacked on after that.
++      $parameters = array(
++        $entity_type,
++        $entity,
++        $account,
++      );
++      return call_user_func_array(
++        $callback,
++        array_merge($parameters, $this->operationInfo['access arguments'])
++      );
++    }
++
++    // If the action has specified which operations are being executed against
++    // this entity, then check those specifically against entity_access. This
++    // is offered as a convenience to avoid having to write a custom access
++    // callback for many common use-cases.
++    if (!empty($this->operationInfo['entity operations'])) {
++      foreach ($this->operationInfo['entity operations'] as $op) {
++        if (!entity_access($op, $entity_type, $entity, $account)) {
++          return FALSE;
++        }
++        return TRUE;
++      }
++    }
++
++    // Legacy fallback: if neither 'access callback' nor 'entity operations' is
++    // set, then access will be derived from getAccessMask().
++    return _views_bulk_operations_entity_access($this, $entity_type, $entity, $account);
++  }
++
++  /**
+    * Returns the configuration form for the operation.
+    * Only called if the operation is declared as configurable.
+    *
+diff --git a/views_bulk_operations.module b/views_bulk_operations.module
+index 49ccf55..b9a7843 100644
+--- a/views_bulk_operations.module
++++ b/views_bulk_operations.module
+@@ -1075,7 +1075,7 @@ function views_bulk_operations_queue_item_process($queue_item_data, &$log = NULL
+     }
+ 
+     // If the current entity can't be accessed, skip it and log a notice.
+-    if (!_views_bulk_operations_entity_access($operation, $entity_type, $entity, $account)) {
++    if (!$operation->entity_access($entity_type, $entity, $account)) {
+       $message = 'Skipped %operation on @type %title due to insufficient permissions.';
+       $arguments = array(
+         '%operation' => $operation->label(),
+@@ -1162,7 +1162,7 @@ function views_bulk_operations_direct_process($operation, $rows, $options) {
+ 
+     // Filter out entities that can't be accessed.
+     foreach ($entities as $id => $entity) {
+-      if (!_views_bulk_operations_entity_access($operation, $entity_type, $entity)) {
++      if (!$operation->entity_access($entity_type, $entity)) {
+         $context['results']['log'][] = t('Skipped %operation on @type %title due to insufficient permissions.', array(
+           '%operation' => $operation->label(),
+           '@type' => $entity_type,

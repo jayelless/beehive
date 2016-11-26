@@ -127,16 +127,11 @@ function message_subscribe_email_message_subscribe_get_subscribers_alter(&$uids,
       $fids[$flag->fid] = $flag->name;
     }
 
-    if (FLAG_API_VERSION == 2) {
-      $query = db_select('flag_content', 'f');
-    }
-    else {
-      $query = db_select('flagging', 'f');
-    }
+    $query = db_select('flagging', 'f');
 
     $result = $query->fields('f', array('uid'))
-      ->condition('content_type', $entity_type)
-      ->condition('content_id', $entity_ids, 'IN')
+      ->condition('entity_type', $entity_type)
+      ->condition('entity_id', $entity_ids, 'IN')
       ->condition('fid', array_keys($fids), 'IN')
       ->condition('uid', array_keys($uids), 'IN')
       ->groupBy('uid')

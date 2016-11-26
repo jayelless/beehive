@@ -30,9 +30,9 @@ features[variable][] = page_manager_search_disabled_search_facetapi
 
 features_exclude[dependencies][ctools] = ctools
 
-; Information added by Drupal.org packaging script on 2016-08-24
-version = "7.x-3.39"
+; Information added by Drupal.org packaging script on 2016-11-22
+version = "7.x-3.40"
 core = "7.x"
 project = "commons"
-datestamp = "1472054643"
+datestamp = "1479776644"
 

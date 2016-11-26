@@ -170,48 +170,10 @@ function entity_embed_dialog_form($form, &$form_state, $filter_format, $embed_bu
         '#value' => $entity_element['data-entity-uuid'],
       );
 
-      $formatter_options = array();
-      $available_plugins = array();
+      // Determine the available Display plugins for the current entity type.
+      $available_plugins = entity_embed_get_entity_field_formatters($entity_element['data-entity-type'], $entity);
 
-      // Retrieve a list of formatters appropriate for the currently selected
-      // entity type.
-      $formatters = entity_embed_get_entity_field_formatters($entity_element['data-entity-type']);
-
-      if (!empty($formatters)) {
-        foreach ($formatters as $formatter => $info) {
-          $available_plugins[$info['module'] . ':' . $formatter] = $info;
-          $formatter_options[$info['module'] . ':' . $formatter] = $info['label'];
-
-          // With the File Entity module enabled, file entities require some
-          // special handling. Unlike standard field formatters which specify a
-          // list of compatible entity types and will work with any entity as
-          // long as it is the correct type, file formatters may only support
-          // files with specific MIME types.
-          if ($entity_element['data-entity-type'] == 'file' && module_exists('file_entity')) {
-            if (isset($info['file formatter']['mime types'])) {
-              if (!file_entity_match_mimetypes($info['file formatter']['mime types'], $entity->filemime)) {
-                // Remove the incompatible formatter.
-                unset($formatter_options[$info['module'] . ':' . $formatter]);
-              }
-            }
-          }
-
-          // With the File Image Formatters module enabled, image field
-          // formatters will appear twice.
-          if ($info['module'] == 'file_image_formatters' && module_exists('file_image_formatters')) {
-            // Remove the duplicate formatter.
-            unset($formatter_options[$info['module'] . ':' . $formatter]);
-          }
-        }
-      }
-
-      // The 'Rendered entity' formatter can not be used for files unless
-      // the file_entity module is available.
-      if (!empty($formatter_options['entityreference:entityreference_entity_view']) && $entity_element['data-entity-type'] == 'file' && !module_exists('file_entity')) {
-        unset($formatter_options['entityreference:entityreference_entity_view']);
-      }
-
-      // Build the list of allowed Entity Embed Display plugins.
+      // Retrieve the list of allowed Entity Embed Display plugins.
       $allowed_plugins = $embed_button->display_plugins;
 
       // If list of allowed options is empty, it means that all plugins are
@@ -236,7 +198,7 @@ function entity_embed_dialog_form($form, &$form_state, $filter_format, $embed_bu
       $form['attributes']['data-entity-embed-display'] = array(
         '#type' => 'select',
         '#title' => t('Display as'),
-        '#options' => $formatter_options,
+        '#options' => $display_plugin_options,
         '#default_value' => $entity_element['data-entity-embed-display'],
         '#required' => TRUE,
         '#ajax' => array(
@@ -393,9 +355,16 @@ function entity_embed_dialog_form_validate($form, &$form_state) {
             // Ensure that at least one Entity Embed Display plugin is present
             // before proceeding to the next step. Rasie an error otherwise.
             $embed_button = $form['#embed_button'];
-            $allowed_plugins = $embed_button->display_plugins;
-            $available_plugins = entity_embed_get_entity_field_formatters($entity_type);
 
+            // Determine the available Display plugins for the current entity type.
+            $available_plugins = entity_embed_get_entity_field_formatters($entity_type, $entity);
+
+            // Retrieve the list of allowed Entity Embed Display plugins.
+            $allowed_plugins = $embed_button->display_plugins;
+
+            // If list of allowed options is empty, it means that all plugins are
+            // allowed. Else, take the intersection of allowed and available
+            // plugins.
             $display_plugin_options = empty($allowed_plugins) ? $available_plugins : array_intersect_key($available_plugins, $allowed_plugins);
 
             // If no plugin is available after taking the intersection,

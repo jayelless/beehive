@@ -22,14 +22,18 @@ features[features_api][] = api:2
 features[field_instance][] = message-commons_follow_user_user_followed-field_target_users
 features[flag][] = commons_follow_user
 features[message_type][] = commons_follow_user_user_followed
+features[user_permission][] = flag commons_follow_user
+features[user_permission][] = flag email_user
+features[user_permission][] = unflag commons_follow_user
+features[user_permission][] = unflag email_user
 features[variable][] = field_bundle_settings_message__commons_follow_user_user_followed
 features[views_view][] = commons_follow_user
 features[views_view][] = commons_follow_user_followers
 features[views_view][] = commons_follow_user_following
 
-; Information added by Drupal.org packaging script on 2016-08-24
-version = "7.x-3.39"
+; Information added by Drupal.org packaging script on 2016-11-22
+version = "7.x-3.40"
 core = "7.x"
 project = "commons"
-datestamp = "1472054643"
+datestamp = "1479776644"
 

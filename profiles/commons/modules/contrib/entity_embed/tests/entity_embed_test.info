@@ -8,8 +8,8 @@ dependencies[] = entity_embed
 hidden = TRUE
 
 
-; Information added by drush on 2016-08-24
+; Information added by drush on 2016-11-22
 version = ""
 project = "entity_embed"
-datestamp = "1472054707"
+datestamp = "1479776711"
 

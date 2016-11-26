@@ -3,20 +3,26 @@ description = Provides Taxonomy integration for Commons Follow, allowing users t
 package = Commons - Building blocks
 core = 7.x
 
+dependencies[] = features
 dependencies[] = flag
+dependencies[] = taxonomy
 dependencies[] = views
 dependencies[] = views_litepager
 
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[flag][] = commons_follow_term
+features[user_permission][] = flag commons_follow_term
+features[user_permission][] = flag email_term
+features[user_permission][] = unflag commons_follow_term
+features[user_permission][] = unflag email_term
 features[views_view][] = commons_follow_taxonomy_term
 
 features_exclude[dependencies][ctools] = ctools
 
-; Information added by Drupal.org packaging script on 2016-08-24
-version = "7.x-3.39"
+; Information added by Drupal.org packaging script on 2016-11-22
+version = "7.x-3.40"
 core = "7.x"
 project = "commons"
-datestamp = "1472054643"
+datestamp = "1479776644"
 

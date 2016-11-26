@@ -211,17 +211,59 @@ function entity_embed_get_entity_field_types($entity_type) {
 /**
  * Helper function to get all the field formatters that we can use to display
  * entity types.
+ *
+ * @param $entity_type
+ *   The type of entity, i.e. 'node', 'user'.
+ * @param $entity
+ *   (optional) The entity to be rendered. This is used to perform special
+ *   checks/processing for unruly modules.
+ *
+ * @return array
  */
-function entity_embed_get_entity_field_formatters($entity_type) {
+function entity_embed_get_entity_field_formatters($entity_type, $entity = NULL) {
   $formatters = field_info_formatter_types();
   $field_types = entity_embed_get_entity_field_types($entity_type);
 
   $entity_formatters = array();
 
   foreach ($formatters as $formatter => $info) {
+    // Files require special handling.
+    if ($entity_type == 'file') {
+      // Files behave differently depending on whether the File Entity module is
+      // available.
+      if (module_exists('file_entity')) {
+        // With the File Entity module enabled, file entities require some
+        // special handling. Unlike standard field formatters which specify a
+        // list of compatible entity types and will work with any entity as long
+        // as it is the correct type, file formatters may only support files
+        // with specific MIME types.
+        if (isset($entity) && isset($info['file formatter']['mime types']) && isset($entity->filemime)) {
+          if (!file_entity_match_mimetypes($info['file formatter']['mime types'], $entity->filemime)) {
+            // Skip the incompatible formatter.
+            continue;
+          }
+        }
+      }
+      else {
+        // The 'Rendered entity' formatter can not be used for files unless the
+        // File Entity module is available.
+        if ($formatter == 'entityreference_entity_view') {
+          // Skip the incompatible formatter.
+          continue;
+        }
+      }
+    }
+
+    // With the File Image Formatters module enabled, image field formatters
+    // will appear twice.
+    if ($info['module'] == 'file_image_formatters' && module_exists('file_image_formatters')) {
+      // Skip the duplicate formatter.
+      continue;
+    }
+
     foreach ($info['field types'] as $field_type) {
       if (in_array($field_type, $field_types)) {
-        $entity_formatters[$formatter] = $info;
+        $entity_formatters[$info['module'] . ':' . $formatter] = $info['label'];
         break;
       }
     }
@@ -387,14 +429,10 @@ function entity_embed_field_get_display($formatter_type, $settings = array()) {
 function entity_embed_field_info_field($entity_type, $module) {
   $field = array();
 
-  // Support the file_entity module.
-  if ('file_entity' == $module) {
-    $field['settings'] = field_info_field_settings('file_entity');
-    $field['field_name'] = 'foo';
-  }
+  $field['field_name'] = '_entity_embed';
 
   // Support the entityreference module.
-  elseif ('entityreference' == $module) {
+  if ('entityreference' == $module) {
     $field['settings'] = field_info_field_settings('entityreference');
     $field['settings']['target_type'] = $entity_type;
   }
@@ -402,13 +440,11 @@ function entity_embed_field_info_field($entity_type, $module) {
   // Support the user_reference (references) module.
   elseif ('user_reference' == $module) {
     $field['settings'] = field_info_field_settings('user_reference');
-    $field['field_name'] = 'foo';
   }
 
   // Support node_reference (references) module.
   elseif ('node_reference' == $module) {
     $field['settings'] = field_info_field_settings('node_reference');
-    $field['field_name'] = 'foo';
   }
 
   // Support taxonomy (core) module.
@@ -416,8 +452,8 @@ function entity_embed_field_info_field($entity_type, $module) {
     $field['settings'] = field_info_field_settings('taxonomy_term_reference');
   }
 
-  // Support file (core) module.
-  elseif ('file' == $module) {
+  // Support file (core) and file_entity modules.
+  elseif ('file' == $module || 'file_entity' == $module) {
     $field['settings'] = field_info_field_settings('file');
   }
 

@@ -122,6 +122,14 @@ function dialog_library() {
   );
 
   // Register libraries on behalf of seven.theme.
+  $libraries['seven.ckeditor-dialog'] = array(
+    'title' => 'Custom CKEditor dialog styling for the Seven theme.',
+    'version' => VERSION,
+    'css' => array(
+      drupal_get_path('module', 'dialog') . '/themes/seven/css/theme/ckeditor-dialog.css' => array(),
+    ),
+  );
+
   $libraries['seven.drupal.dialog'] = array(
     'title' => 'Seven Drupal Dialog',
     'website' => 'http://www.drupal.org',
@@ -194,6 +202,11 @@ function dialog_library_alter(&$libraries, $module) {
 
       $libraries['drupal.dialog']['dependencies'][] = array('dialog', 'seven.drupal.dialog');
     }
+
+    // Add custom styling for CKEditor dialogs.
+    if ($module == 'editor_ckeditor' && isset($libraries['ckeditor'])) {
+      $libraries['ckeditor']['dependencies'][] = array('dialog', 'seven.ckeditor-dialog');
+    }
   }
 
   // Require the dialog library when quick editing.
@@ -254,30 +267,69 @@ function dialog_page_delivery_callback_alter(&$delivery_callback, $page_output =
 
 /**
  * Delivers the content of a page as a dialog.
+ *
+ * @param $page_callback_result
+ *   The result of a page callback. Can be one of:
+ *   - NULL: to indicate no content.
+ *   - An integer menu status constant: to indicate an error condition.
+ *   - A string of HTML content.
+ *   - A renderable array of content.
+ *
+ * @return
+ *   An Ajax commands array that can be passed to ajax_render().
  */
 function ajax_deliver_dialog($page_callback_result) {
-  if (isset($page_callback_result['#title'])) {
-    $title = $page_callback_result['#title'];
+  if (!isset($page_callback_result)) {
+    // Simply delivering an empty commands array is sufficient. This results
+    // in the Ajax request being completed, but nothing being done to the page.
   }
   else {
     $title = drupal_get_title();
-  }
-  $html = drupal_render($page_callback_result);
+    $html = $page_callback_result;
 
-  $dialog_options = isset($_POST['dialogOptions']) ? $_POST['dialogOptions'] : array('modal' => TRUE);
-  if (isset($dialog_options['target'])) {
-    $selector = $dialog_options['target'];
-  }
-  else {
-    $selector = '#drupal-modal';
-    $dialog_options['modal'] = TRUE;
-  }
+    if ((is_int($page_callback_result)) ) {
+      switch ($page_callback_result) {
+        case MENU_NOT_FOUND:
+          $title = t('Page not found');
+          $html = t('The requested page could not be found.');
+          break;
 
-  $commands = array();
-  $commands[] = dialog_command_open_dialog($selector, $title, $html, $dialog_options);
-  $return = array(
-    '#type' => 'ajax',
-    '#commands' => $commands,
-  );
-  ajax_deliver($return);
+        case MENU_ACCESS_DENIED:
+          $title = t('Access denied');
+          $html = t('You are not authorized to access this page.');
+          break;
+
+        case MENU_SITE_OFFLINE:
+          $title = t('Site under maintenance');
+          $html = filter_xss_admin(variable_get('maintenance_mode_message',
+            t('@site is currently under maintenance. We should be back shortly. Thank you for your patience.', array('@site' => variable_get('site_name', 'Drupal')))));
+          break;
+      }
+    }
+    elseif (is_array($page_callback_result)) {
+      $html = drupal_render($page_callback_result);
+
+      if (isset($page_callback_result['#title'])) {
+        $title = $page_callback_result['#title'];
+      }
+    }
+
+    $dialog_options = isset($_POST['dialogOptions']) ? $_POST['dialogOptions'] : array('modal' => TRUE);
+
+    if (isset($dialog_options['target'])) {
+      $selector = $dialog_options['target'];
+    }
+    else {
+      $selector = '#drupal-modal';
+      $dialog_options['modal'] = TRUE;
+    }
+
+    $commands[] = dialog_command_open_dialog($selector, $title, $html, $dialog_options);
+    $return = array(
+      '#type' => 'ajax',
+      '#commands' => $commands,
+    );
+
+    ajax_deliver($return);
+  }
 }

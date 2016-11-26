@@ -70,7 +70,7 @@ projects[ckeditor][patch][] = "https://drupal.org/files/issues/ckeditor-ckeditor
 
 projects[ctools][type] = "module"
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.10"
+projects[ctools][version] = "1.11"
 
 projects[custom_search][type] = "module"
 projects[custom_search][subdir] = "contrib"
@@ -91,7 +91,7 @@ projects[devel][subdir] = "contrib"
 
 projects[dialog][type] = "module"
 projects[dialog][subdir] = "contrib"
-projects[dialog][version] = "2.0-alpha9"
+projects[dialog][version] = "2.0-beta1"
 
 projects[diff][type] = "module"
 projects[diff][subdir] = "contrib"
@@ -116,7 +116,7 @@ projects[email_registration][version] = "1.3"
 
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.7"
+projects[entity][version] = "1.8"
 
 projects[entitycache][type] = "module"
 projects[entitycache][subdir] = "contrib"
@@ -126,12 +126,12 @@ projects[entity_embed][version] = "3.x-dev"
 projects[entity_embed][type] = "module"
 projects[entity_embed][subdir] = "contrib"
 projects[entity_embed][download][type] = "git"
-projects[entity_embed][download][revision] = "b7e2a13"
+projects[entity_embed][download][revision] = "bb4f5e3"
 projects[entity_embed][download][branch] = "7.x-3.x"
 
 projects[entityreference][type] = "module"
 projects[entityreference][subdir] = "contrib"
-projects[entityreference][version] = "1.1"
+projects[entityreference][version] = "1.2"
 
 ; Autocomplete widgets cannot reference a single entity result.
 ; https://drupal.org/node/1959624#comment-8451891
@@ -163,15 +163,7 @@ projects[file_entity][version] = "2.0-beta3"
 
 projects[flag][type] = "module"
 projects[flag][subdir] = "contrib"
-projects[flag][version] = "2.2"
-
-; Issue #1965760: Manually set taxonomy term flag types because its different.
-; https://drupal.org/node/1965760
-projects[flag][patch][] = "https://drupal.org/files/issues/1965760.29.flag_.entity-tokens.patch"
-
-; Provide a hook to allow default flag definitions to be altered.
-; https://drupal.org/node/2027091#comment-8012263
-projects[flag][patch][] = "https://drupal.org/files/flag-default-flags-alter-hook-2027091-03.patch"
+projects[flag][version] = "3.9"
 
 projects[flag_abuse][type] = "module"
 projects[flag_abuse][subdir] = "contrib"
@@ -190,7 +182,7 @@ projects[http_client][version] = "2.4"
 
 projects[i18n][type] = "module"
 projects[i18n][subdir] = "contrib"
-projects[i18n][version] = "1.13"
+projects[i18n][version] = "1.14"
 
 projects[i18nviews][type] = "module"
 projects[i18nviews][subdir] = "contrib"
@@ -222,7 +214,7 @@ projects[link][version] = "1.4"
 
 projects[media][type] = "module"
 projects[media][subdir] = "contrib"
-projects[media][version] = "2.0-beta2"
+projects[media][version] = "2.0-beta5"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
@@ -258,7 +250,7 @@ projects[message_subscribe][version] = "1.0-rc2"
 
 ; Message Subscribe sends emails regardless of context
 ; https://www.drupal.org/node/1828184
-projects[message_subscribe][patch][] = "https://drupal.org/files/issues/group-context-1828184-53.patch"
+projects[message_subscribe][patch][] = "https://drupal.org/files/issues/group-context-1828184-67.patch"
 
 ; By default, don't notify blocked users
 ; https://www.drupal.org/node/2184567
@@ -314,7 +306,7 @@ projects[panelizer][version] = "3.4"
 
 projects[panels][type] = "module"
 projects[panels][subdir] = "contrib"
-projects[panels][version] = "3.7"
+projects[panels][version] = "3.8"
 
 projects[paranoia][type] = "module"
 projects[paranoia][subdir] = "contrib"
@@ -519,7 +511,7 @@ libraries[modernizr][download][url] = "https://github.com/Modernizr/Modernizr/ar
 
 libraries[timeago][download][type] = "get"
 libraries[timeago][type] = "libraries"
-libraries[timeago][download][url] = "https://raw.githubusercontent.com/rmm5t/jquery-timeago/v1.4.1/jquery.timeago.js"
+libraries[timeago][download][url] = "https://raw.githubusercontent.com/rmm5t/jquery-timeago/v1.5.3/jquery.timeago.js"
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][type] = "libraries"

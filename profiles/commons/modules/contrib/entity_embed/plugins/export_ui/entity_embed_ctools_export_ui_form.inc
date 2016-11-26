@@ -96,13 +96,7 @@ function entity_embed_ctools_export_ui_form(&$form, &$form_state) {
 
     // Retrieve a list of formatters appropriate for the currently selected
     // entity type.
-    $formatters = entity_embed_get_entity_field_formatters($selected);
-
-    if (!empty($formatters)) {
-      foreach ($formatters as $formatter => $info) {
-        $formatter_options[$info['module'] . ':' . $formatter] = $info['label'];
-      }
-    }
+    $formatter_options = entity_embed_get_entity_field_formatters($selected);
   }
 
   if (isset($options[$selected])) {

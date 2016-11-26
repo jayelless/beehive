@@ -128,6 +128,64 @@ abstract class ViewsBulkOperationsBaseOperation {
   }
 
   /**
+   * Checks the account's permission to execute the operation on the entity.
+   *
+   * This method checks whether the specified account has the necessary
+   * permission to perform the requested operation on the specified entity, and
+   * returns the results of the check.
+   *
+   * @param string $entity_type
+   *   The type of the entity permission is being checked on.
+   * @param object $entity
+   *   The entity permission is being checked on.
+   * @param object $account
+   *   The user account the permission is being checked for.
+   *
+   * @return bool
+   *   Returns TRUE, if the account has permission to perform the requested
+   *   operation on the speficied entity, or FALSE, if it does not.
+   */
+  public function entity_access($entity_type, $entity, $account = NULL) {
+    // If the action has specified an access callback, call it.
+    if (isset($this->operationInfo['access callback'])) {
+      $callback = $this->operationInfo['access callback'];
+      // Check for a TRUE or FALSE value.
+      if (is_bool($callback)) {
+        return $callback;
+      }
+
+      // The first three arguments sent to the callback are $entity_type,
+      // $entity, and $account. Other arguments are tacked on after that.
+      $parameters = array(
+        $entity_type,
+        $entity,
+        $account,
+      );
+      return call_user_func_array(
+        $callback,
+        array_merge($parameters, $this->operationInfo['access arguments'])
+      );
+    }
+
+    // If the action has specified which operations are being executed against
+    // this entity, then check those specifically against entity_access. This
+    // is offered as a convenience to avoid having to write a custom access
+    // callback for many common use-cases.
+    if (!empty($this->operationInfo['entity operations'])) {
+      foreach ($this->operationInfo['entity operations'] as $op) {
+        if (!entity_access($op, $entity_type, $entity, $account)) {
+          return FALSE;
+        }
+        return TRUE;
+      }
+    }
+
+    // Legacy fallback: if neither 'access callback' nor 'entity operations' is
+    // set, then access will be derived from getAccessMask().
+    return _views_bulk_operations_entity_access($this, $entity_type, $entity, $account);
+  }
+
+  /**
    * Returns the configuration form for the operation.
    * Only called if the operation is declared as configurable.
    *

@@ -6,8 +6,8 @@ package = Search Toolkit
 core = 7.x
 
 
-; Information added by drush on 2016-08-24
+; Information added by drush on 2016-11-22
 version = ""
 project = "apachesolr_user"
-datestamp = "1472054728"
+datestamp = "1479776736"
 

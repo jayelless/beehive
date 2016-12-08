@@ -137,7 +137,6 @@ function commons_beehive_preprocess_html(&$variables, $hook) {
   // Browser/platform sniff - adds body classes such as ipad, webkit, chrome
   // etc.
   $variables['classes_array'][] = css_browser_selector();
-
 }
 
 /**
@@ -472,7 +471,7 @@ function commons_beehive_preprocess_comment(&$variables, $hook) {
 function commons_beehive_preprocess_flag(&$variables, $hook) {
   if (strpos($variables['flag_name_css'], 'inappropriate-') !== 0) {
     // Style the flag links like buttons.
-    if ($variables['last_action'] == 'flagged') {
+    if ($variables['action'] == 'flagged') {
       $variables['flag_classes_array'][] = 'action-item-small-active';
     }
     else {
@@ -1284,28 +1283,6 @@ function commons_beehive_preprocess_commons_search_solr_user_results(&$variables
 }
 
 /**
- * Implements template_process_html().
- *
- * Override or insert variables into the page template for HTML output.
- */
-function commons_beehive_process_html(&$variables) {
-  // Hook into color.module.
-  if (module_exists('color')) {
-    _color_html_alter($variables);
-  }
-}
-
-/*
- * Implements template_process_page().
- */
-function commons_beehive_process_page(&$variables, $hook) {
-  // Hook into color.module.
-  if (module_exists('color')) {
-    _color_page_alter($variables);
-  }
-}
-
-/**
  * Implements hook_process_node().
  */
 function commons_beehive_process_node(&$variables, $hook) {
@@ -1359,5 +1336,27 @@ function commons_beehive_process_node(&$variables, $hook) {
   // Append a feature label to featured node teasers.
   if ($variables['teaser'] && $variables['promote']) {
     $variables['submitted'] .= ' <span class="featured-node-tooltip">' . t('Featured') . ' ' . $variables['type'] . '</span>';
+  }
+}
+
+/**
+ * Implements template_process_html().
+ *
+ * Override or insert variables into the page template for HTML output.
+ */
+function commons_beehive_process_html(&$variables) {
+  // Hook into color.module.
+  if (module_exists('color')) {
+    _color_html_alter($variables);
+  }
+}
+
+/*
+ * Implements template_process_page().
+ */
+function commons_beehive_process_page(&$variables, $hook) {
+  // Hook into color.module.
+  if (module_exists('color')) {
+    _color_page_alter($variables);
   }
 }

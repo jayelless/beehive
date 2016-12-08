@@ -306,13 +306,13 @@ function _flag_abuse_views_default_abuse_comment(&$views, $flags) {
     $handler->display->display_options['relationships']['nid']['required'] = TRUE;
     /* Relationship: Flags: User */
     $handler->display->display_options['relationships']['uid']['id'] = 'uid';
-    $handler->display->display_options['relationships']['uid']['table'] = 'flag_content';
+    $handler->display->display_options['relationships']['uid']['table'] = 'flagging';
     $handler->display->display_options['relationships']['uid']['field'] = 'uid';
     $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
     $handler->display->display_options['relationships']['uid']['required'] = TRUE;
     /* Field: Flags: Flagged time */
     $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
-    $handler->display->display_options['fields']['timestamp']['table'] = 'flag_content';
+    $handler->display->display_options['fields']['timestamp']['table'] = 'flagging';
     $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
     $handler->display->display_options['fields']['timestamp']['relationship'] = 'flag_content_rel';
     $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
@@ -343,19 +343,19 @@ function _flag_abuse_views_default_abuse_comment(&$views, $flags) {
     $handler->display->display_options['fields']['delete_comment']['field'] = 'delete_comment';
     /* Field: Flags: Flag link */
     $handler->display->display_options['fields']['ops']['id'] = 'ops';
-    $handler->display->display_options['fields']['ops']['table'] = 'flag_content';
+    $handler->display->display_options['fields']['ops']['table'] = 'flagging';
     $handler->display->display_options['fields']['ops']['field'] = 'ops';
     $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
     /* Field: Flags: Flag link */
     $handler->display->display_options['fields']['ops_1']['id'] = 'ops_1';
-    $handler->display->display_options['fields']['ops_1']['table'] = 'flag_content';
+    $handler->display->display_options['fields']['ops_1']['table'] = 'flagging';
     $handler->display->display_options['fields']['ops_1']['field'] = 'ops';
     $handler->display->display_options['fields']['ops_1']['relationship'] = 'flag_content_rel_1';
     $handler->display->display_options['fields']['ops_1']['label'] = 'Whitelist';
     $handler->display->display_options['fields']['ops_1']['element_label_colon'] = FALSE;
     /* Sort criterion: Flags: Flagged time */
     $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-    $handler->display->display_options['sorts']['timestamp']['table'] = 'flag_content';
+    $handler->display->display_options['sorts']['timestamp']['table'] = 'flagging';
     $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
     $handler->display->display_options['sorts']['timestamp']['relationship'] = 'flag_content_rel';
     /* Filter criterion: Comment: Approved */
@@ -380,7 +380,7 @@ function _flag_abuse_views_default_abuse_comment(&$views, $flags) {
     $handler->display->display_options['relationships']['nid']['required'] = TRUE;
     /* Relationship: Flags: User */
     $handler->display->display_options['relationships']['uid']['id'] = 'uid';
-    $handler->display->display_options['relationships']['uid']['table'] = 'flag_content';
+    $handler->display->display_options['relationships']['uid']['table'] = 'flagging';
     $handler->display->display_options['relationships']['uid']['field'] = 'uid';
     $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
     $handler->display->display_options['relationships']['uid']['required'] = TRUE;
@@ -651,7 +651,7 @@ function _flag_abuse_views_default_abuse_node(&$views) {
     $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
     /* Relationship: Flags: User */
     $handler->display->display_options['relationships']['uid']['id'] = 'uid';
-    $handler->display->display_options['relationships']['uid']['table'] = 'flag_content';
+    $handler->display->display_options['relationships']['uid']['table'] = 'flagging';
     $handler->display->display_options['relationships']['uid']['field'] = 'uid';
     $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
     $handler->display->display_options['relationships']['uid']['label'] = 'user';
@@ -706,13 +706,13 @@ function _flag_abuse_views_default_abuse_node(&$views) {
     $handler->display->display_options['fields']['delete_node']['text'] = 'remove';
     /* Field: Flags: Flag link */
     $handler->display->display_options['fields']['ops']['id'] = 'ops';
-    $handler->display->display_options['fields']['ops']['table'] = 'flag_content';
+    $handler->display->display_options['fields']['ops']['table'] = 'flagging';
     $handler->display->display_options['fields']['ops']['field'] = 'ops';
     $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
     $handler->display->display_options['fields']['ops']['label'] = '';
     /* Field: Flags: Flag link */
     $handler->display->display_options['fields']['ops_1']['id'] = 'ops_1';
-    $handler->display->display_options['fields']['ops_1']['table'] = 'flag_content';
+    $handler->display->display_options['fields']['ops_1']['table'] = 'flagging';
     $handler->display->display_options['fields']['ops_1']['field'] = 'ops';
     $handler->display->display_options['fields']['ops_1']['relationship'] = 'flag_content_rel_1';
     $handler->display->display_options['fields']['ops_1']['label'] = 'Whitelist';
@@ -889,13 +889,13 @@ function _flag_abuse_views_default_abuse_user(&$views) {
     $handler->display->display_options['fields']['name']['field'] = 'name';
     /* Field: Flags: Flag link */
     $handler->display->display_options['fields']['ops']['id'] = 'ops';
-    $handler->display->display_options['fields']['ops']['table'] = 'flag_content';
+    $handler->display->display_options['fields']['ops']['table'] = 'flagging';
     $handler->display->display_options['fields']['ops']['field'] = 'ops';
     $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
     $handler->display->display_options['fields']['ops']['label'] = 'Ops';
     /* Field: Flags: Flag link */
     $handler->display->display_options['fields']['ops_1']['id'] = 'ops_1';
-    $handler->display->display_options['fields']['ops_1']['table'] = 'flag_content';
+    $handler->display->display_options['fields']['ops_1']['table'] = 'flagging';
     $handler->display->display_options['fields']['ops_1']['field'] = 'ops';
     $handler->display->display_options['fields']['ops_1']['relationship'] = 'flag_content_rel_1';
     $handler->display->display_options['fields']['ops_1']['label'] = 'Whitelist';

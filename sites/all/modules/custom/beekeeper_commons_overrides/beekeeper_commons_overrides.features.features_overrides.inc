@@ -106,14 +106,6 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-apiary-title_field.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-apiary-title_field.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.node-article-title_field.display|notifications"] = array(
-    'label' => 'above',
-    'settings' => array(),
-    'type' => 'hidden',
-    'weight' => 0,
-  );
-  $overrides["field_instance.node-article-title_field.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.node-article-title_field.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-book-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),

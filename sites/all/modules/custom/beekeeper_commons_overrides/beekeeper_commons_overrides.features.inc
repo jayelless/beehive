@@ -172,16 +172,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-apiary-title_field']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-apiary-title_field']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
-  if (isset($data['node-article-title_field'])) {
-    $data['node-article-title_field']['display']['notifications'] = array(
-      'label' => 'above',
-      'settings' => array(),
-      'type' => 'hidden',
-      'weight' => 0,
-    ); /* WAS: '' */
-    $data['node-article-title_field']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['node-article-title_field']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
   if (isset($data['node-book-title_field'])) {
     $data['node-book-title_field']['display']['notifications'] = array(
       'label' => 'above',

@@ -719,6 +719,12 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['field_postal_address_thoroughfare']['table'] = 'field_data_field_postal_address';
   $handler->display->display_options['fields']['field_postal_address_thoroughfare']['field'] = 'field_postal_address_thoroughfare';
   $handler->display->display_options['fields']['field_postal_address_thoroughfare']['label'] = 'Street';
+  /* Field: User: Postal address - Premise (i.e. Apartment / Suite number) */
+  $handler->display->display_options['fields']['field_postal_address_premise']['id'] = 'field_postal_address_premise';
+  $handler->display->display_options['fields']['field_postal_address_premise']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_premise']['field'] = 'field_postal_address_premise';
+  $handler->display->display_options['fields']['field_postal_address_premise']['label'] = '';
+  $handler->display->display_options['fields']['field_postal_address_premise']['element_label_colon'] = FALSE;
   /* Field: User: Postal address - Dependent locality */
   $handler->display->display_options['fields']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
   $handler->display->display_options['fields']['field_postal_address_dependent_locality']['table'] = 'field_data_field_postal_address';
@@ -1166,18 +1172,16 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['mail']['table'] = 'users';
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['link_to_user'] = '0';
-  /* Field: User: Postal address */
-  $handler->display->display_options['fields']['field_postal_address']['id'] = 'field_postal_address';
-  $handler->display->display_options['fields']['field_postal_address']['table'] = 'field_data_field_postal_address';
-  $handler->display->display_options['fields']['field_postal_address']['field'] = 'field_postal_address';
-  $handler->display->display_options['fields']['field_postal_address']['label'] = 'Address';
-  $handler->display->display_options['fields']['field_postal_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_postal_address']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
+  /* Field: User: Postal address - Dependent locality */
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['field'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['label'] = 'Suburb';
+  /* Field: User: Postal address - Locality (i.e. City) */
+  $handler->display->display_options['fields']['field_postal_address_locality']['id'] = 'field_postal_address_locality';
+  $handler->display->display_options['fields']['field_postal_address_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_locality']['field'] = 'field_postal_address_locality';
+  $handler->display->display_options['fields']['field_postal_address_locality']['label'] = 'Town/City';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: User: Active */
@@ -1264,28 +1268,51 @@ function beekeeper_users_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  /* Filter criterion: User: Postal address (field_postal_address:data) */
-  $handler->display->display_options['filters']['field_postal_address_data']['id'] = 'field_postal_address_data';
-  $handler->display->display_options['filters']['field_postal_address_data']['table'] = 'field_data_field_postal_address';
-  $handler->display->display_options['filters']['field_postal_address_data']['field'] = 'field_postal_address_data';
-  $handler->display->display_options['filters']['field_postal_address_data']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_postal_address_data']['group'] = 1;
-  $handler->display->display_options['filters']['field_postal_address_data']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['operator_id'] = 'field_postal_address_data_op';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['label'] = 'Address';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['operator'] = 'field_postal_address_data_op';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['identifier'] = 'field_postal_address_data';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['remember'] = TRUE;
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['remember_roles'] = array(
+  /* Filter criterion: User: Postal address - Dependent locality */
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['field'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['operator_id'] = 'field_postal_address_dependent_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['label'] = 'Suburb';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['operator'] = 'field_postal_address_dependent_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['identifier'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
+    11 => 0,
     4 => 0,
     5 => 0,
     6 => 0,
     7 => 0,
     8 => 0,
     9 => 0,
+    10 => 0,
+  );
+  /* Filter criterion: User: Postal address - Locality (i.e. City) */
+  $handler->display->display_options['filters']['field_postal_address_locality']['id'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['filters']['field_postal_address_locality']['field'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_postal_address_locality']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['operator_id'] = 'field_postal_address_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['label'] = 'Town/City';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['operator'] = 'field_postal_address_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['identifier'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    11 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+    10 => 0,
   );
   $handler->display->display_options['path'] = 'users/list';
   $handler->display->display_options['menu']['type'] = 'normal';
@@ -1370,18 +1397,16 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['mail']['table'] = 'users';
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['link_to_user'] = '0';
-  /* Field: User: Postal address */
-  $handler->display->display_options['fields']['field_postal_address']['id'] = 'field_postal_address';
-  $handler->display->display_options['fields']['field_postal_address']['table'] = 'field_data_field_postal_address';
-  $handler->display->display_options['fields']['field_postal_address']['field'] = 'field_postal_address';
-  $handler->display->display_options['fields']['field_postal_address']['label'] = 'Address';
-  $handler->display->display_options['fields']['field_postal_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_postal_address']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
+  /* Field: User: Postal address - Dependent locality */
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['field'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['label'] = 'Suburb';
+  /* Field: User: Postal address - Locality (i.e. City) */
+  $handler->display->display_options['fields']['field_postal_address_locality']['id'] = 'field_postal_address_locality';
+  $handler->display->display_options['fields']['field_postal_address_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_locality']['field'] = 'field_postal_address_locality';
+  $handler->display->display_options['fields']['field_postal_address_locality']['label'] = 'Town/City';
   /* Field: User: Roles */
   $handler->display->display_options['fields']['rid']['id'] = 'rid';
   $handler->display->display_options['fields']['rid']['table'] = 'users_roles';
@@ -1464,28 +1489,51 @@ function beekeeper_users_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  /* Filter criterion: User: Postal address (field_postal_address:data) */
-  $handler->display->display_options['filters']['field_postal_address_data']['id'] = 'field_postal_address_data';
-  $handler->display->display_options['filters']['field_postal_address_data']['table'] = 'field_data_field_postal_address';
-  $handler->display->display_options['filters']['field_postal_address_data']['field'] = 'field_postal_address_data';
-  $handler->display->display_options['filters']['field_postal_address_data']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_postal_address_data']['group'] = 1;
-  $handler->display->display_options['filters']['field_postal_address_data']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['operator_id'] = 'field_postal_address_data_op';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['label'] = 'Address';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['operator'] = 'field_postal_address_data_op';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['identifier'] = 'field_postal_address_data';
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['remember'] = TRUE;
-  $handler->display->display_options['filters']['field_postal_address_data']['expose']['remember_roles'] = array(
+  /* Filter criterion: User: Postal address - Dependent locality */
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['field'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['operator_id'] = 'field_postal_address_dependent_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['label'] = 'Suburb';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['operator'] = 'field_postal_address_dependent_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['identifier'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
+    11 => 0,
     4 => 0,
     5 => 0,
     6 => 0,
     7 => 0,
     8 => 0,
     9 => 0,
+    10 => 0,
+  );
+  /* Filter criterion: User: Postal address - Locality (i.e. City) */
+  $handler->display->display_options['filters']['field_postal_address_locality']['id'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['filters']['field_postal_address_locality']['field'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_postal_address_locality']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['operator_id'] = 'field_postal_address_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['label'] = 'Town/City';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['operator'] = 'field_postal_address_locality_op';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['identifier'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    11 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+    10 => 0,
   );
   $handler->display->display_options['path'] = 'users/list-all';
   $handler->display->display_options['menu']['type'] = 'normal';
@@ -1504,7 +1552,8 @@ function beekeeper_users_views_default_views() {
     3 => '3',
     8 => '8',
   );
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['style_options']['provide_file'] = 0;
   $handler->display->display_options['style_options']['parent_sort'] = 0;
@@ -1530,10 +1579,26 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['mail']['table'] = 'users';
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['link_to_user'] = '0';
-  /* Field: User: Postal address (field_postal_address:data) */
-  $handler->display->display_options['fields']['field_postal_address_data']['id'] = 'field_postal_address_data';
-  $handler->display->display_options['fields']['field_postal_address_data']['table'] = 'field_data_field_postal_address';
-  $handler->display->display_options['fields']['field_postal_address_data']['field'] = 'field_postal_address_data';
+  /* Field: User: Postal address - Thoroughfare (i.e. Street address) */
+  $handler->display->display_options['fields']['field_postal_address_thoroughfare']['id'] = 'field_postal_address_thoroughfare';
+  $handler->display->display_options['fields']['field_postal_address_thoroughfare']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_thoroughfare']['field'] = 'field_postal_address_thoroughfare';
+  $handler->display->display_options['fields']['field_postal_address_thoroughfare']['label'] = 'Street';
+  /* Field: User: Postal address - Premise (i.e. Apartment / Suite number) */
+  $handler->display->display_options['fields']['field_postal_address_premise']['id'] = 'field_postal_address_premise';
+  $handler->display->display_options['fields']['field_postal_address_premise']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_premise']['field'] = 'field_postal_address_premise';
+  $handler->display->display_options['fields']['field_postal_address_premise']['label'] = 'Address2';
+  /* Field: User: Postal address - Dependent locality */
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['field'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['fields']['field_postal_address_dependent_locality']['label'] = 'Suburb';
+  /* Field: User: Postal address - Locality (i.e. City) */
+  $handler->display->display_options['fields']['field_postal_address_locality']['id'] = 'field_postal_address_locality';
+  $handler->display->display_options['fields']['field_postal_address_locality']['table'] = 'field_data_field_postal_address';
+  $handler->display->display_options['fields']['field_postal_address_locality']['field'] = 'field_postal_address_locality';
+  $handler->display->display_options['fields']['field_postal_address_locality']['label'] = 'Town/City';
   $handler->display->display_options['path'] = 'users/export';
   $export['user_admin'] = $view;
 

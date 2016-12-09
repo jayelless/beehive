@@ -165,11 +165,11 @@ function beekeeper_custom_user_presave(&$edit, $account, $category) {
   $langcode = is_null($langcode) ? LANGUAGE_NONE : $langcode;
   if ($edit & isset($edit['field_postal_address'])) {
     // Copy the name fields to the postal address
-    $name_first = isset($edit['field_name_first']) ? $edit['field_name_first'][$langcode][0]['value'] : 'login:';
-    $name_last = isset($edit['field_name_last']) ? $edit['field_name_last'][$langcode][0]['value'] : $account->name;
-    $edit['field_postal_address'][$langcode][0]['name_line'] = $name_first . ' ' . $name_last;
-    $edit['field_postal_address'][$langcode][0]['name_first'] = $name_first;
-    $edit['field_postal_address'][$langcode][0]['name_last'] = $name_last;
+    $first_name = isset($edit['field_name_first']) ? $edit['field_name_first'][$langcode][0]['value'] : 'login:';
+    $last_name = isset($edit['field_name_last']) ? $edit['field_name_last'][$langcode][0]['value'] : $account->name;
+    $edit['field_postal_address'][$langcode][0]['name_line'] = $first_name . ' ' . $last_name;
+    $edit['field_postal_address'][$langcode][0]['first_name'] = $first_name;
+    $edit['field_postal_address'][$langcode][0]['last_name'] = $last_name;
   }
 }
 

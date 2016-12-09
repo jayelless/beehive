@@ -132,29 +132,11 @@ function beekeeper_content_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
-      'notifications' => array(
-        'custom_settings' => TRUE,
-      ),
-      'print' => array(
-        'custom_settings' => FALSE,
-      ),
-      'diff_standard' => array(
-        'custom_settings' => FALSE,
-      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'title' => array(
           'weight' => '-5',
-        ),
-        'metatags' => array(
-          'weight' => '40',
-        ),
-        'path' => array(
-          'weight' => '30',
-        ),
-        'redirect' => array(
-          'weight' => '30',
         ),
       ),
       'display' => array(),

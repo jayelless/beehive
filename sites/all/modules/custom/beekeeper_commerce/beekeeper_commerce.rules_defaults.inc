@@ -28,6 +28,7 @@ function beekeeper_commerce_default_rules_configuration() {
                 "beekeeper_magazine_subscription" : "beekeeper_magazine_subscription",
                 "nucleus_colony" : "nucleus_colony",
                 "product" : "product",
+                "training_course" : "training_course",
                 "membership_entity_product" : "membership_entity_product"
               }
             },
@@ -51,7 +52,6 @@ function beekeeper_commerce_default_rules_configuration() {
   $items['commerce_payment_bank_transfer'] = entity_import('rules_config', '{ "commerce_payment_bank_transfer" : {
       "LABEL" : "Bank Transfer",
       "PLUGIN" : "reaction rule",
-      "WEIGHT" : "1",
       "OWNER" : "rules",
       "TAGS" : [ "Commerce Payment" ],
       "REQUIRES" : [ "commerce_payment" ],
@@ -68,7 +68,6 @@ function beekeeper_commerce_default_rules_configuration() {
   $items['commerce_payment_commerce_cheque'] = entity_import('rules_config', '{ "commerce_payment_commerce_cheque" : {
       "LABEL" : "Cheque",
       "PLUGIN" : "reaction rule",
-      "WEIGHT" : "9",
       "OWNER" : "rules",
       "TAGS" : [ "Commerce Payment" ],
       "REQUIRES" : [ "commerce_payment" ],
@@ -85,7 +84,6 @@ function beekeeper_commerce_default_rules_configuration() {
   $items['commerce_payment_in_person'] = entity_import('rules_config', '{ "commerce_payment_in_person" : {
       "LABEL" : "Pay in person",
       "PLUGIN" : "reaction rule",
-      "WEIGHT" : "2",
       "OWNER" : "rules",
       "TAGS" : [ "Commerce Payment" ],
       "REQUIRES" : [ "commerce_payment" ],
@@ -96,6 +94,33 @@ function beekeeper_commerce_default_rules_configuration() {
             "payment_method" : "in_person"
           }
         }
+      ]
+    }
+  }');
+  $items['rules_limit_nuc_orders_to_one'] = entity_import('rules_config', '{ "rules_limit_nuc_orders_to_one" : {
+      "LABEL" : "Limit Nuc orders to one",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "Beekeepers" ],
+      "REQUIRES" : [ "rules", "entity" ],
+      "ON" : { "commerce_line_item_update" : [] },
+      "IF" : [
+        { "data_is" : { "data" : [ "commerce-line-item:type" ], "value" : "product" } },
+        { "data_is" : {
+            "data" : [ "commerce-line-item:commerce-product:type" ],
+            "value" : "nucleus_colony"
+          }
+        },
+        { "data_is" : {
+            "data" : [ "commerce-line-item:quantity" ],
+            "op" : "\\u003E",
+            "value" : "1"
+          }
+        }
+      ],
+      "DO" : [
+        { "data_set" : { "data" : [ "commerce-line-item:quantity" ], "value" : "1" } },
+        { "drupal_message" : { "message" : "You may only order one nuc colony.", "type" : "warning" } }
       ]
     }
   }');

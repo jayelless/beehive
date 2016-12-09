@@ -172,6 +172,16 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-apiary-title_field']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-apiary-title_field']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
+  if (isset($data['node-article-title_field'])) {
+    $data['node-article-title_field']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-article-title_field']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-article-title_field']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['node-book-title_field'])) {
     $data['node-book-title_field']['display']['notifications'] = array(
       'label' => 'above',
@@ -219,7 +229,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-document-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-document-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-document-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -516,7 +525,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-merchandise_display-title_field']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-newsletter-title_field'])) {
-    $data['node-newsletter-title_field']['display']['default']['weight'] = 6; /* WAS: -50 */
     $data['node-newsletter-title_field']['display']['notifications'] = array(
       'label' => 'above',
       'settings' => array(),
@@ -563,7 +571,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-poll-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-poll-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-poll-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -634,7 +641,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-post-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-post-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-post-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -715,7 +721,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-question-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-question-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-question-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -796,7 +801,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
-    $data['node-wiki-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-wiki-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-wiki-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -841,7 +845,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-wiki-og_user_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-wiki-title_field'])) {
-    $data['node-wiki-title_field']['display_in_partial_form'] = 1; /* WAS: FALSE */
     $data['node-wiki-title_field']['display']['notifications'] = array(
       'label' => 'above',
       'settings' => array(),
@@ -872,60 +875,44 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['og_membership-trusted_contacts-field_original_og_membership']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['og_membership-trusted_contacts-field_response_date'])) {
-    $data['og_membership-trusted_contacts-field_response_date']['display']['default']['settings']['show_remaining_days'] = FALSE; /* WAS: '' */
     $data['og_membership-trusted_contacts-field_response_date']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['og_membership-trusted_contacts-field_response_date']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-field_bio'])) {
-    $data['user-user-field_bio']['display']['default']['weight'] = 10; /* WAS: 8 */
     $data['user-user-field_bio']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_bio']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-field_bio']['widget']['weight'] = 8; /* WAS: 5 */
   }
   if (isset($data['user-user-field_facebook_url'])) {
     $data['user-user-field_facebook_url']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_facebook_url']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-field_facebook_url']['settings']['title_label_use_field_label'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-field_linkedin_url'])) {
     $data['user-user-field_linkedin_url']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_linkedin_url']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-field_linkedin_url']['settings']['title_label_use_field_label'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-field_name_first'])) {
-    $data['user-user-field_name_first']['display']['default']['label'] = 'inline'; /* WAS: 'above' */
-    $data['user-user-field_name_first']['display']['default']['weight'] = 3; /* WAS: 2 */
     $data['user-user-field_name_first']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_name_first']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-field_name_first']['widget']['weight'] = 4; /* WAS: 3 */
   }
   if (isset($data['user-user-field_name_last'])) {
-    $data['user-user-field_name_last']['display']['default']['label'] = 'inline'; /* WAS: 'above' */
-    $data['user-user-field_name_last']['display']['default']['weight'] = 4; /* WAS: 3 */
     $data['user-user-field_name_last']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_name_last']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-field_name_last']['widget']['weight'] = 5; /* WAS: 4 */
   }
   if (isset($data['user-user-field_twitter_url'])) {
     $data['user-user-field_twitter_url']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_twitter_url']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-field_twitter_url']['settings']['title_label_use_field_label'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-group_access'])) {
     $data['user-user-group_access']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-group_access']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-group_group'])) {
-    $data['user-user-group_group']['display']['default']['settings']['field_name'] = FALSE; /* WAS: '' */
     $data['user-user-group_group']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-group_group']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-message_subscribe_email'])) {
-    $data['user-user-message_subscribe_email']['display']['default']['label'] = 'inline'; /* WAS: 'above' */
-    $data['user-user-message_subscribe_email']['display']['default']['weight'] = 21; /* WAS: 9 */
     $data['user-user-message_subscribe_email']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-message_subscribe_email']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-    $data['user-user-message_subscribe_email']['widget']['weight'] = 1; /* WAS: 0 */
   }
   if (isset($data['user-user-user_trusted_contacts'])) {
     $data['user-user-user_trusted_contacts']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
@@ -934,538 +921,12 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
 }
 
 /**
- * Implements hook_filter_default_formats_alter().
- */
-function beekeeper_commons_overrides_filter_default_formats_alter(&$data) {
-  if (isset($data['filtered_html'])) {
-    $data['filtered_html']['cache'] = 0; /* WAS: 1 */
-    $data['filtered_html']['editor_settings'] = 'a:3:{s:7:"toolbar";a:1:{i:0;a:7:{i:0;a:2:{s:4:"name";s:6:"Format";s:5:"items";a:1:{i:0;s:6:"Format";}}i:1;a:2:{s:4:"name";s:4:"Text";s:5:"items";a:3:{i:0;s:4:"Bold";i:1;s:6:"Italic";i:2;s:9:"Underline";}}i:2;a:2:{s:4:"name";s:5:"Lists";s:5:"items";a:2:{i:0;s:12:"BulletedList";i:1;s:12:"NumberedList";}}i:3;a:2:{s:4:"name";s:5:"Links";s:5:"items";a:2:{i:0;s:10:"DrupalLink";i:1;s:12:"DrupalUnlink";}}i:4;a:2:{s:4:"name";s:10:"Formatting";s:5:"items";a:2:{i:0;s:12:"RemoveFormat";i:1;s:10:"Blockquote";}}i:5;a:2:{s:4:"name";s:5:"Media";s:5:"items";a:1:{i:0;s:11:"DrupalImage";}}i:6;a:2:{s:4:"name";s:5:"Tools";s:5:"items";a:0:{}}}}s:12:"image_upload";a:5:{s:6:"status";i:1;s:6:"scheme";s:6:"public";s:9:"directory";s:13:"inline-images";s:8:"max_size";s:3:"2MB";s:14:"max_dimensions";a:2:{s:5:"width";s:3:"320";s:6:"height";s:3:"240";}}s:7:"plugins";a:2:{s:5:"style";a:1:{s:10:"style_list";a:0:{}}s:8:"language";a:1:{s:13:"language_list";s:2:"un";}}}'; /* WAS: 'a:3:{s:7:"toolbar";a:1:{i:0;a:7:{i:0;a:2:{s:4:"name";s:6:"Format";s:5:"items";a:1:{i:0;s:6:"Format";}}i:1;a:2:{s:4:"name";s:4:"Text";s:5:"items";a:2:{i:0;s:4:"Bold";i:1;s:6:"Italic";}}i:2;a:2:{s:4:"name";s:5:"Lists";s:5:"items";a:2:{i:0;s:12:"BulletedList";i:1;s:12:"NumberedList";}}i:3;a:2:{s:4:"name";s:5:"Links";s:5:"items";a:2:{i:0;s:10:"DrupalLink";i:1;s:12:"DrupalUnlink";}}i:4;a:2:{s:4:"name";s:10:"Formatting";s:5:"items";a:2:{i:0;s:12:"RemoveFormat";i:1;s:10:"Blockquote";}}i:5;a:2:{s:4:"name";s:5:"Media";s:5:"items";a:1:{i:0;s:4:"file";}}i:6;a:2:{s:4:"name";s:5:"Tools";s:5:"items";a:2:{i:0;s:6:"Source";i:1;s:8:"Maximize";}}}}s:12:"image_upload";a:5:{s:6:"status";i:0;s:6:"scheme";s:6:"public";s:9:"directory";s:13:"inline-images";s:8:"max_size";s:0:"";s:14:"max_dimensions";a:2:{s:5:"width";s:0:"";s:6:"height";s:0:"";}}s:7:"plugins";a:1:{s:5:"style";a:1:{s:10:"style_list";a:0:{}}}}' */
-    $data['filtered_html']['filters']['entity_embed'] = array(
-      'settings' => array(),
-      'status' => 1,
-      'weight' => 2,
-    ); /* WAS: '' */
-    $data['filtered_html']['filters']['filter_autop'] = array(
-      'settings' => array(),
-      'status' => 1,
-      'weight' => 0,
-    ); /* WAS: '' */
-    $data['filtered_html']['filters']['filter_htmlcorrector'] = array(
-      'settings' => array(),
-      'status' => 1,
-      'weight' => 10,
-    ); /* WAS: '' */
-    $data['filtered_html']['filters']['filter_html']['settings']['allowed_html'] = '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike> <drupal-entity> <drupal-entity> <drupal-entity> <drupal-entity> <span> <drupal-entity>'; /* WAS: '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike>' */
-    $data['filtered_html']['filters']['filter_url'] = array(
-      'settings' => array(
-        'filter_url_length' => 72,
-      ),
-      'status' => 1,
-      'weight' => 0,
-    ); /* WAS: '' */
-    unset($data['filtered_html']['filters']['editor_align']);
-    unset($data['filtered_html']['filters']['editor_caption']);
-  }
-}
-
-/**
- * Implements hook_flag_default_flags_alter().
- */
-function beekeeper_commons_overrides_flag_default_flags_alter(&$data) {
-  if (isset($data['commons_follow_user'])) {
-    $data['commons_follow_user']['show_on_entity'] = FALSE; /* WAS: '' */
-  }
-}
-
-/**
- * Implements hook_default_message_type_alter().
- */
-function beekeeper_commons_overrides_default_message_type_alter(&$data) {
-  if (isset($data['commons_activity_streams_comment_created'])) {
-    $data['commons_activity_streams_comment_created']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
-  }
-  if (isset($data['commons_activity_streams_node_created'])) {
-    $data['commons_activity_streams_node_created']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
-  }
-  if (isset($data['commons_activity_streams_user_profile_updated'])) {
-    $data['commons_activity_streams_user_profile_updated']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
-  }
-  if (isset($data['commons_follow_user_user_followed'])) {
-    $data['commons_follow_user_user_followed']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture]</p>'; /* WAS: '' */
-  }
-  if (isset($data['commons_posts_post_created'])) {
-    $data['commons_posts_post_created']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
-    $data['commons_posts_post_created']->message_text['und'][2]['safe_value'] = '<p>[commons-groups:in-groups-text]</p>'; /* WAS: '' */
-  }
-  if (isset($data['commons_q_a_question_answered'])) {
-    $data['commons_q_a_question_answered']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
-  }
-  if (isset($data['commons_q_a_question_asked'])) {
-    $data['commons_q_a_question_asked']->message_text['und'][0]['safe_value'] = '<p>[message:user:picture:35x35]</p>'; /* WAS: '' */
-  }
-}
-
-/**
- * Implements hook_default_page_manager_handlers_alter().
- */
-function beekeeper_commons_overrides_default_page_manager_handlers_alter(&$data) {
-  if (isset($data['forum_panel_context_forum'])) {
-    $data['forum_panel_context_forum']->conf['display']->did = 'new'; /* WAS: 'new-f5c250e6-7b02-480c-b677-a6ec0c3e912f' */
-    unset($data['forum_panel_context_forum']->export_type);
-    unset($data['forum_panel_context_forum']->in_code_only);
-    unset($data['forum_panel_context_forum']->table);
-    unset($data['forum_panel_context_forum']->type);
-  }
-  if (isset($data['user_view_panel_context'])) {
-    $data['user_view_panel_context']->conf['display']->content['new-38b23f27-878a-f264-dd90-e55305d0f70c']->style['settings'] = NULL; /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->content['new-9bdf933a-5e54-4d2c-b214-aa7155f17746'] = (object) array(
-          'pid' => 'new-9bdf933a-5e54-4d2c-b214-aa7155f17746',
-          'panel' => 'three_33_bottom',
-          'type' => 'entity_field_extra',
-          'subtype' => 'user:memberships',
-          'shown' => TRUE,
-          'access' => array(),
-          'configuration' => array(
-            'view_mode' => 'full',
-            'context' => 'argument_entity_id:user_1',
-            'override_title' => 0,
-            'override_title_text' => '',
-            'override_title_heading' => 'h2',
-          ),
-          'cache' => array(),
-          'style' => array(
-            'settings' => NULL,
-          ),
-          'css' => array(),
-          'extras' => array(),
-          'position' => 0,
-          'locks' => array(),
-          'uuid' => '9bdf933a-5e54-4d2c-b214-aa7155f17746',
-        ); /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->panels['three_33_bottom'] = array(
-      0 => 'new-9bdf933a-5e54-4d2c-b214-aa7155f17746',
-    ); /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->storage_id = 'user_view_panel_context'; /* WAS: '' */
-    $data['user_view_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
-  }
-}
-
-/**
  * Implements hook_default_page_manager_pages_alter().
  */
 function beekeeper_commons_overrides_default_page_manager_pages_alter(&$data) {
-  if (isset($data['commons_home'])) {
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->content['new-09fa5dd5-466f-486f-8307-063a43974a5f'] = (object) array(
-          'pid' => 'new-09fa5dd5-466f-486f-8307-063a43974a5f',
-          'panel' => 'three_33_third',
-          'type' => 'block',
-          'subtype' => 'block-2',
-          'shown' => TRUE,
-          'access' => array(),
-          'configuration' => array(
-            'override_title' => 1,
-            'override_title_text' => 'Bee Swarms',
-            'override_title_heading' => 'h2',
-          ),
-          'cache' => array(),
-          'style' => array(
-            'settings' => NULL,
-            'style' => 'rounded_corners',
-          ),
-          'css' => array(),
-          'extras' => array(),
-          'position' => 0,
-          'locks' => array(),
-          'uuid' => '09fa5dd5-466f-486f-8307-063a43974a5f',
-        ); /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->content['new-29ff082a-b9fb-4d7a-8605-d151fe8ead9f'] = (object) array(
-          'pid' => 'new-29ff082a-b9fb-4d7a-8605-d151fe8ead9f',
-          'panel' => 'three_33_third',
-          'type' => 'block',
-          'subtype' => 'system-navigation',
-          'shown' => TRUE,
-          'access' => array(),
-          'configuration' => array(
-            'override_title' => 0,
-            'override_title_text' => '',
-            'override_title_heading' => 'h2',
-          ),
-          'cache' => array(),
-          'style' => array(
-            'settings' => NULL,
-            'style' => 'rounded_corners',
-          ),
-          'css' => array(),
-          'extras' => array(),
-          'position' => 1,
-          'locks' => array(),
-          'uuid' => '29ff082a-b9fb-4d7a-8605-d151fe8ead9f',
-        ); /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->content['new-2ab570f0-8498-44f4-e9d0-9977e3d8d4df']->configuration['title'] = 'Support and encouragment of beekeeping and beekeepers'; /* WAS: 'Welcome to our community' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->content['new-58e71a00-2b87-ab64-31c5-4fdc9e99a2d4']->position = 3; /* WAS: 1 */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->content['new-800b2f8a-307f-0e14-4174-626a1c5c4cd9']->position = 2; /* WAS: 0 */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->content['new-94106ddd-1278-0954-c5ba-b59ff1b9bf49'] = (object) array(
-          'pid' => 'new-94106ddd-1278-0954-c5ba-b59ff1b9bf49',
-          'panel' => 'three_33_first',
-          'type' => 'views',
-          'subtype' => 'commons_events_upcoming',
-          'shown' => TRUE,
-          'access' => array(),
-          'configuration' => array(
-            'override_pager_settings' => 0,
-            'use_pager' => 0,
-            'nodes_per_page' => 5,
-            'pager_id' => 0,
-            'offset' => 0,
-            'more_link' => 0,
-            'feed_icons' => 0,
-            'panel_args' => 0,
-            'link_to_view' => 0,
-            'args' => '',
-            'url' => '',
-            'display' => 'commons_events_upcoming_global_block',
-            'override_title' => 0,
-            'override_title_text' => '',
-          ),
-          'cache' => array(),
-          'style' => array(
-            'settings' => NULL,
-          ),
-          'css' => array(),
-          'extras' => array(),
-          'position' => 1,
-          'locks' => array(),
-          'uuid' => '94106ddd-1278-0954-c5ba-b59ff1b9bf49',
-        ); /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->content['new-b6e290b7-1d2b-5db4-a181-28befdcde628'] = (object) array(
-          'pid' => 'new-b6e290b7-1d2b-5db4-a181-28befdcde628',
-          'panel' => 'three_33_second',
-          'type' => 'views_panes',
-          'subtype' => 'commons_radioactivity_groups_most_active-panel_pane_1',
-          'shown' => TRUE,
-          'access' => array(),
-          'configuration' => array(),
-          'cache' => array(),
-          'style' => array(
-            'settings' => NULL,
-          ),
-          'css' => array(),
-          'extras' => array(),
-          'position' => 0,
-          'locks' => array(),
-          'uuid' => 'b6e290b7-1d2b-5db4-a181-28befdcde628',
-        ); /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_first'][1] = 'new-94106ddd-1278-0954-c5ba-b59ff1b9bf49'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_second'] = array(
-      0 => 'new-b6e290b7-1d2b-5db4-a181-28befdcde628',
-    ); /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][0] = 'new-09fa5dd5-466f-486f-8307-063a43974a5f'; /* WAS: 'new-800b2f8a-307f-0e14-4174-626a1c5c4cd9' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][1] = 'new-29ff082a-b9fb-4d7a-8605-d151fe8ead9f'; /* WAS: 'new-58e71a00-2b87-ab64-31c5-4fdc9e99a2d4' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][2] = 'new-800b2f8a-307f-0e14-4174-626a1c5c4cd9'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->panels['three_33_third'][3] = 'new-58e71a00-2b87-ab64-31c5-4fdc9e99a2d4'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->storage_id = 'page_commons_home_panel_context_2'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context_2']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-14a27b32-586f-4446-bb49-dc69fdf3f5d0'] = (object) array(
-          'pid' => 'new-14a27b32-586f-4446-bb49-dc69fdf3f5d0',
-          'panel' => 'two_66_33_second',
-          'type' => 'block',
-          'subtype' => 'system-navigation',
-          'shown' => TRUE,
-          'access' => array(),
-          'configuration' => array(
-            'override_title' => 0,
-            'override_title_text' => '',
-            'override_title_heading' => 'h2',
-          ),
-          'cache' => array(),
-          'style' => array(),
-          'css' => array(),
-          'extras' => array(),
-          'position' => 0,
-          'locks' => array(),
-          'uuid' => '14a27b32-586f-4446-bb49-dc69fdf3f5d0',
-        ); /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-895dfc63-a30f-f734-3185-c40c407b4af0']->position = 3; /* WAS: 2 */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-b20add8c-2daf-4684-45f3-212d60c7f31e']->position = 1; /* WAS: 0 */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->content['new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42']->position = 2; /* WAS: 1 */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][0] = 'new-14a27b32-586f-4446-bb49-dc69fdf3f5d0'; /* WAS: 'new-b20add8c-2daf-4684-45f3-212d60c7f31e' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][1] = 'new-b20add8c-2daf-4684-45f3-212d60c7f31e'; /* WAS: 'new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][2] = 'new-da301a84-b9a5-8664-cd4b-1e84d7dd9f42'; /* WAS: 'new-895dfc63-a30f-f734-3185-c40c407b4af0' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->panels['two_66_33_second'][3] = 'new-895dfc63-a30f-f734-3185-c40c407b4af0'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->storage_id = 'page_commons_home_panel_context'; /* WAS: '' */
-    $data['commons_home']->default_handlers['page_commons_home_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
-  }
-}
-
-/**
- * Implements hook_user_default_permissions_alter().
- */
-function beekeeper_commons_overrides_user_default_permissions_alter(&$data) {
-  if (isset($data['create answer content'])) {
-    $data['create answer content']['roles']['Standard member'] = 'Standard member'; /* WAS: '' */
-    unset($data['create answer content']['roles']['administrator']);
-  }
-  if (isset($data['delete any post content'])) {
-    $data['delete any post content']['roles']['Standard member'] = 'Standard member'; /* WAS: '' */
-  }
-  if (isset($data['delete own event content'])) {
-    $data['delete own event content']['roles']['Standard member'] = 'Standard member'; /* WAS: '' */
-    unset($data['delete own event content']['roles']['administrator']);
-  }
-  if (isset($data['edit own answer content'])) {
-    $data['edit own answer content']['roles']['Standard member'] = 'Standard member'; /* WAS: '' */
-    unset($data['edit own answer content']['roles']['administrator']);
-  }
-  if (isset($data['use text format filtered_html'])) {
-    unset($data['use text format filtered_html']['roles']['administrator']);
-  }
-}
-
-/**
- * Implements hook_user_default_roles_alter().
- */
-function beekeeper_commons_overrides_user_default_roles_alter(&$data) {
-  if (isset($data['administrator'])) {
-    $data['administrator']['weight'] = 2; /* WAS: 10 */
-  }
-}
-
-/**
- * Implements hook_strongarm_alter().
- */
-function beekeeper_commons_overrides_strongarm_alter(&$data) {
-  if (isset($data['field_bundle_settings_message__commons_posts_post_created'])) {
-    unset($data['field_bundle_settings_message__commons_posts_post_created']->value['extra_fields']['display']['message__message_text__0']['default']);
-    unset($data['field_bundle_settings_message__commons_posts_post_created']->value['extra_fields']['display']['message__message_text__1']['default']);
-  }
-  if (isset($data['rate_widgets'])) {
-    $data['rate_widgets']->value[1]->comment_types[0] = 'event'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[1] = 'group'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[10] = 'document'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[11] = 'wiki'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[12] = 'poll'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[13] = 'post'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[14] = 'question'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[15] = 'document'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[16] = 'wiki'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[17] = 'poll'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[2] = 'poll'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[3] = 'post'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[4] = 'question'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[5] = 'answer'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[6] = 'wiki'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[7] = 'document'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[8] = 'post'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->comment_types[9] = 'question'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[0] = 'event'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[1] = 'group'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[10] = 'wiki'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[11] = 'poll'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[12] = 'post'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[13] = 'question'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[14] = 'document'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[15] = 'wiki'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[16] = 'poll'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[2] = 'poll'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[3] = 'post'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[4] = 'question'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[5] = 'wiki'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[6] = 'document'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[7] = 'post'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[8] = 'question'; /* WAS: '' */
-    $data['rate_widgets']->value[1]->node_types[9] = 'document'; /* WAS: '' */
-    $data['rate_widgets']->value[2] = (object) array(
-          'name' => 'commons_answer',
-          'tag' => 'commons_thumbs_up_down',
-          'title' => 'Answer',
-          'node_types' => array(
-            0 => 'answer',
-          ),
-          'comment_types' => array(),
-          'options' => array(
-            0 => array(
-              0 => 1,
-              1 => 'up',
-            ),
-            1 => array(
-              0 => -1,
-              1 => 'down',
-            ),
-          ),
-          'template' => 'commons_thumbs_up_down',
-          'node_display' => 2,
-          'teaser_display' => FALSE,
-          'comment_display' => 2,
-          'node_display_mode' => 1,
-          'teaser_display_mode' => 1,
-          'comment_display_mode' => 1,
-          'roles' => array(
-            2 => 2,
-            1 => 0,
-          ),
-          'allow_voting_by_author' => 1,
-          'noperm_behaviour' => 3,
-          'displayed' => 1,
-          'displayed_just_voted' => 1,
-          'description' => '',
-          'description_in_compact' => TRUE,
-          'delete_vote_on_second_click' => 1,
-          'value_type' => 'points',
-          'theme' => 'rate_template_commons_thumbs_up_down',
-          'css' => 'profiles/commons/modules/contrib/commons_q_a/commons-thumbs-up-down.css',
-          'translate' => TRUE,
-          'use_source_translation' => TRUE,
-        ); /* WAS: '' */
-    $data['rate_widgets']->value[3] = (object) array(
-          'name' => 'commons_answer',
-          'tag' => 'commons_thumbs_up_down',
-          'title' => 'Answer',
-          'node_types' => array(
-            0 => 'answer',
-          ),
-          'comment_types' => array(),
-          'options' => array(
-            0 => array(
-              0 => 1,
-              1 => 'up',
-            ),
-            1 => array(
-              0 => -1,
-              1 => 'down',
-            ),
-          ),
-          'template' => 'commons_thumbs_up_down',
-          'node_display' => 2,
-          'teaser_display' => FALSE,
-          'comment_display' => 2,
-          'node_display_mode' => 1,
-          'teaser_display_mode' => 1,
-          'comment_display_mode' => 1,
-          'roles' => array(
-            2 => 2,
-            1 => 0,
-          ),
-          'allow_voting_by_author' => 1,
-          'noperm_behaviour' => 3,
-          'displayed' => 1,
-          'displayed_just_voted' => 1,
-          'description' => '',
-          'description_in_compact' => TRUE,
-          'delete_vote_on_second_click' => 1,
-          'value_type' => 'points',
-          'theme' => 'rate_template_commons_thumbs_up_down',
-          'css' => 'profiles/commons/modules/contrib/commons_q_a/commons-thumbs-up-down.css',
-          'translate' => TRUE,
-          'use_source_translation' => TRUE,
-        ); /* WAS: '' */
-    $data['rate_widgets']->value[4] = (object) array(
-          'name' => 'commons_answer',
-          'tag' => 'commons_thumbs_up_down',
-          'title' => 'Answer',
-          'node_types' => array(
-            0 => 'answer',
-          ),
-          'comment_types' => array(),
-          'options' => array(
-            0 => array(
-              0 => 1,
-              1 => 'up',
-            ),
-            1 => array(
-              0 => -1,
-              1 => 'down',
-            ),
-          ),
-          'template' => 'commons_thumbs_up_down',
-          'node_display' => 2,
-          'teaser_display' => FALSE,
-          'comment_display' => 2,
-          'node_display_mode' => 1,
-          'teaser_display_mode' => 1,
-          'comment_display_mode' => 1,
-          'roles' => array(
-            2 => 2,
-            1 => 0,
-          ),
-          'allow_voting_by_author' => 1,
-          'noperm_behaviour' => 3,
-          'displayed' => 1,
-          'displayed_just_voted' => 1,
-          'description' => '',
-          'description_in_compact' => TRUE,
-          'delete_vote_on_second_click' => 1,
-          'value_type' => 'points',
-          'theme' => 'rate_template_commons_thumbs_up_down',
-          'css' => 'profiles/commons/modules/contrib/commons_q_a/commons-thumbs-up-down.css',
-          'translate' => TRUE,
-          'use_source_translation' => TRUE,
-        ); /* WAS: '' */
-  }
-  if (isset($data['theme_commons_origins_settings'])) {
-    $data['theme_commons_origins_settings']->value['adaptivetheme_meta_clear_type'] = 0; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['adaptivetheme_meta_ie_document_mode'] = ''; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['combine_css_files'] = 0; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['combine_js_files'] = 0; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['commons_origins_palette'] = 'palette-brown-yellow'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['enable_menu_toggle'] = 0; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['global_default_layout'] = 'smalltouch-portrait'; /* WAS: 'smartphone-portrait' */
-    $data['theme_commons_origins_settings']->value['load_matchmediajs'] = 0; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_five_5x20'] = 'five-5x20-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_four_4x25'] = 'four-4x25-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_layout'] = 'one_col_vert'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_media_query'] = 'only screen and (min-width:321px) and (max-width:480px)'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_page_unit'] = '%'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_page_width'] = 100; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_sidebar_first'] = 50; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_sidebar_second'] = 50; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_sidebar_unit'] = '%'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_six_6x16'] = 'six-6x16-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_three_25_25_50'] = 'three-25-25-50-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_three_25_50_25'] = 'three-25-50-25-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_three_3x33'] = 'three-3x33-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_three_50_25_25'] = 'three-50-25-25-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_three_inset_left'] = 'three-inset-left-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_three_inset_right'] = 'three-inset-right-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_two_33_66'] = 'two-33-66-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_two_50'] = 'two-50-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_two_66_33'] = 'two-66-33-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_landscape_two_brick'] = 'two-brick-stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_portrait_layout'] = 'one_col_stack'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_portrait_media_query'] = 'only screen and (max-width:320px)'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_portrait_page_unit'] = '%'; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_portrait_page_width'] = 100; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_portrait_sidebar_first'] = 100; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_portrait_sidebar_second'] = 100; /* WAS: '' */
-    $data['theme_commons_origins_settings']->value['smalltouch_portrait_sidebar_unit'] = '%'; /* WAS: '' */
-    unset($data['theme_commons_origins_settings']->value['chrome_edge']);
-    unset($data['theme_commons_origins_settings']->value['clear_type']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_five_5x20']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_four_4x25']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_layout']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_media_query']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_page_unit']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_page_width']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_sidebar_first']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_sidebar_second']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_sidebar_unit']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_six_6x16']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_three_25_25_50']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_three_25_50_25']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_three_3x33']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_three_50_25_25']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_three_inset_left']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_three_inset_right']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_two_33_66']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_two_50']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_two_66_33']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_landscape_two_brick']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_portrait_layout']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_portrait_media_query']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_portrait_page_unit']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_portrait_page_width']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_portrait_sidebar_first']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_portrait_sidebar_second']);
-    unset($data['theme_commons_origins_settings']->value['smartphone_portrait_sidebar_unit']);
+  if (isset($data['views_events_landing_page'])) {
+    $data['views_events_landing_page']->default_handlers['page_views_events_landing_page_panel_context']->conf['display']->storage_id = 'page_views_events_landing_page_panel_context'; /* WAS: '' */
+    $data['views_events_landing_page']->default_handlers['page_views_events_landing_page_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
   }
 }
 
@@ -1476,10 +937,10 @@ function beekeeper_commons_overrides_views_default_views_alter(&$data) {
   if (isset($data['commons_bw_all'])) {
     $data['commons_bw_all']->display['default']->display_options['filters']['type']['value']['document'] = 'document'; /* WAS: '' */
   }
-  if (isset($data['commons_bw_posts'])) {
-    $data['commons_bw_posts']->display['default']->display_options['filters']['flagged'] = array(
+  if (isset($data['commons_bw_documents'])) {
+    $data['commons_bw_documents']->display['default']->display_options['filters']['flagged'] = array(
       'id' => 'flagged',
-      'table' => 'flag_content',
+      'table' => 'flagging',
       'field' => 'flagged',
       'relationship' => 'flag_content_rel',
       'ui_name' => 'Following',
@@ -1492,7 +953,7 @@ function beekeeper_commons_overrides_views_default_views_alter(&$data) {
         'identifier' => 'following',
       ),
     ); /* WAS: '' */
-    $data['commons_bw_posts']->display['default']->display_options['relationships']['flag_content_rel'] = array(
+    $data['commons_bw_documents']->display['default']->display_options['relationships']['flag_content_rel'] = array(
       'id' => 'flag_content_rel',
       'table' => 'node',
       'field' => 'flag_content_rel',
@@ -1501,43 +962,7 @@ function beekeeper_commons_overrides_views_default_views_alter(&$data) {
       'required' => 0,
       'flag' => 'commons_follow_node',
     ); /* WAS: '' */
-    $data['commons_bw_posts']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
-      'id' => 'field_radioactivity_radioactivity_energy',
-      'table' => 'field_data_field_radioactivity',
-      'field' => 'field_radioactivity_radioactivity_energy',
-      'order' => 'DESC',
-      'exposed' => TRUE,
-      'expose' => array(
-        'label' => 'most active',
-      ),
-    ); /* WAS: '' */
-  }
-  if (isset($data['commons_bw_q_a'])) {
-    $data['commons_bw_q_a']->display['default']->display_options['filters']['flagged'] = array(
-      'id' => 'flagged',
-      'table' => 'flag_content',
-      'field' => 'flagged',
-      'relationship' => 'flag_content_rel',
-      'ui_name' => 'Following',
-      'value' => 1,
-      'exposed' => TRUE,
-      'expose' => array(
-        'operator_id' => '',
-        'label' => 'Following',
-        'operator' => 'flagged_op',
-        'identifier' => 'following',
-      ),
-    ); /* WAS: '' */
-    $data['commons_bw_q_a']->display['default']->display_options['relationships']['flag_content_rel'] = array(
-      'id' => 'flag_content_rel',
-      'table' => 'node',
-      'field' => 'flag_content_rel',
-      'ui_name' => 'Following',
-      'label' => 'following',
-      'required' => 0,
-      'flag' => 'commons_follow_node',
-    ); /* WAS: '' */
-    $data['commons_bw_q_a']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
+    $data['commons_bw_documents']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
       'id' => 'field_radioactivity_radioactivity_energy',
       'table' => 'field_data_field_radioactivity',
       'field' => 'field_radioactivity_radioactivity_energy',
@@ -1551,7 +976,7 @@ function beekeeper_commons_overrides_views_default_views_alter(&$data) {
   if (isset($data['commons_bw_wikis'])) {
     $data['commons_bw_wikis']->display['default']->display_options['filters']['flagged'] = array(
       'id' => 'flagged',
-      'table' => 'flag_content',
+      'table' => 'flagging',
       'field' => 'flagged',
       'relationship' => 'flag_content_rel',
       'ui_name' => 'Following',
@@ -1583,5 +1008,8 @@ function beekeeper_commons_overrides_views_default_views_alter(&$data) {
         'label' => 'most active',
       ),
     ); /* WAS: '' */
+  }
+  if (isset($data['commons_events_user_upcoming_events'])) {
+    $data['commons_events_user_upcoming_events']->display['panel_pane_3'] = unserialize('O:13:"views_display":7:{s:15:"display_options";a:8:{s:5:"query";a:2:{s:4:"type";s:11:"views_query";s:7:"options";a:0:{}}s:8:"defaults";a:10:{s:5:"title";b:0;s:16:"hide_admin_links";b:0;s:12:"style_plugin";b:0;s:13:"style_options";b:0;s:10:"row_plugin";b:0;s:11:"row_options";b:0;s:5:"empty";b:0;s:13:"relationships";b:0;s:6:"fields";b:0;s:9:"arguments";b:0;}s:5:"title";s:10:"You follow";s:12:"style_plugin";s:7:"default";s:10:"row_plugin";s:6:"fields";s:11:"row_options";a:1:{s:6:"inline";a:2:{s:13:"capacity_used";s:13:"capacity_used";s:13:"comment_count";s:13:"comment_count";}}s:13:"relationships";a:1:{s:16:"flag_content_rel";a:4:{s:2:"id";s:16:"flag_content_rel";s:5:"table";s:4:"node";s:5:"field";s:16:"flag_content_rel";s:4:"flag";s:19:"commons_follow_node";}}s:6:"fields";a:4:{s:11:"title_field";a:5:{s:2:"id";s:11:"title_field";s:5:"table";s:22:"field_data_title_field";s:5:"field";s:11:"title_field";s:5:"label";s:0:"";s:14:"link_to_entity";i:1;}s:13:"field_address";a:7:{s:2:"id";s:13:"field_address";s:5:"table";s:24:"field_data_field_address";s:5:"field";s:13:"field_address";s:5:"label";s:0:"";s:19:"element_label_colon";b:0;s:17:"click_sort_column";s:7:"country";s:8:"settings";a:2:{s:19:"use_widget_handlers";i:1;s:15:"format_handlers";a:1:{s:7:"address";s:7:"address";}}}s:13:"capacity_used";a:7:{s:2:"id";s:13:"capacity_used";s:5:"table";s:4:"node";s:5:"field";s:13:"capacity_used";s:5:"label";s:0:"";s:5:"alter";a:2:{s:10:"alter_text";b:1;s:4:"text";s:43:"<strong>[capacity_used]</strong> attendees,";}s:19:"element_label_colon";b:0;s:9:"separator";s:0:"";}s:13:"comment_count";a:7:{s:2:"id";s:13:"comment_count";s:5:"table";s:23:"node_comment_statistics";s:5:"field";s:13:"comment_count";s:5:"label";s:0:"";s:5:"alter";a:2:{s:10:"alter_text";b:1;s:4:"text";s:41:"<strong>[comment_count]</strong> comments";}s:19:"element_label_colon";b:0;s:9:"separator";s:0:"";}}}s:8:"db_table";s:13:"views_display";s:3:"vid";i:0;s:2:"id";s:12:"panel_pane_3";s:13:"display_title";s:17:"You follow - pane";s:14:"display_plugin";s:10:"panel_pane";s:8:"position";i:0;}'); /* WAS: '' */
   }
 }

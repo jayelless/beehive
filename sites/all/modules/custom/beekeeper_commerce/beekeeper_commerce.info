@@ -287,5 +287,6 @@ features[views_view][] = nucleus_colonies
 features_exclude[dependencies][beekeeper_messaging] = beekeeper_messaging
 features_exclude[dependencies][beekeeper_forums] = beekeeper_forums
 features_exclude[dependencies][commons_bw] = commons_bw
+features_exclude[dependencies][beekeeper_content] = beekeeper_content
 features_exclude[field_base][comment_body] = comment_body
 project path = sites/default/files/features

@@ -72,49 +72,6 @@ function beekeeper_commerce_views_api($module = NULL, $api = NULL) {
 }
 
 /**
- * Implements hook_commerce_custom_offline_payments_alter().
- */
-function beekeeper_commerce_commerce_custom_offline_payments_alter(&$data) {
-  if (isset($data['bank_transfer'])) {
-    $data['bank_transfer']['description'] = 'Receive direct money transfers initiated by the customer into your bank account.'; /* WAS: 'Receive direct money transfers initiated by the customer to your bank account.' */
-    $data['bank_transfer']['information'] = '<p><strong>Please make payment to:</strong><br />
-    Wellington Beekeepers Association Incorporated<br />
-    Account number: <strong>03-1534-0009311-000</strong><br />
-    <br />
-    Payment instructions: Please use your name in the particulars field, and the order number in the reference field</p>
-    '; /* WAS: '<p>
-            <strong>Please make payment to:</strong><br />
-            Account owner: <br />
-            Account number: <br />
-            IBAN: <br />
-            Bank code: <br />
-            SWIFT: <br />
-            Banking institution: <br />
-            Branch office: <br />
-            <br />
-            Payment instructions: <br />
-            </p>' */
-  }
-  if (isset($data['commerce_cheque'])) {
-    $data['commerce_cheque']['format'] = 'filtered_html'; /* WAS: 'plain_text' */
-    $data['commerce_cheque']['information'] = '<p>Please make your cheque out to "<strong>Wellington Beekeepers Association Inc.</strong>" and either hand to the treasurer, John Burnet, at a meeting, or post to:</p>
-    
-    <p><strong>The Treasurer<br />
-    Wellington Beekeepers Association<br />
-    C/- John Burnet<br />
-    21 Kiwi Crescent<br />
-    Tawa<br />
-    Wellington 5028</strong></p>
-    '; /* WAS: 'Pay by cheque instructions.' */
-  }
-  if (isset($data['in_person'])) {
-    $data['in_person']['format'] = 'filtered_html'; /* WAS: 'plain_text' */
-    $data['in_person']['information'] = '<p>Pay to the treasurer, <strong>John Burnet</strong>, at a meeting or other beekeeping occasion.</p>
-    '; /* WAS: 'Pay in person instructions.' */
-  }
-}
-
-/**
  * Implements hook_node_info().
  */
 function beekeeper_commerce_node_info() {

@@ -267,7 +267,7 @@ class geolocation_views_plugin_style_google_map extends views_plugin_style {
       'options' => $this->options,
       'attributes_array' => array(
         'id' => $map_id,
-        'class' => 'geolocation-views-map',
+        'class' => array('geolocation-views-map'),
         'style' => 'width:' . $this->options['map_width'] . '; height:' . $this->options['map_height'],
         'data-map-center' => $this->options['map_center'],
         'data-map-zoom' => $this->options['map_zoom'],

@@ -431,8 +431,8 @@
 
   ;
 
-; Information added by Drupal.org packaging script on 2016-08-24
-version = "7.x-3.40"
+; Information added by Drupal.org packaging script on 2017-01-22
+version = "7.x-3.41"
 core = "7.x"
 project = "beehive"
-datestamp = "1479776644"
+datestamp = "1484170688"

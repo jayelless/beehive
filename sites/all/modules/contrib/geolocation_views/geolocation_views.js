@@ -65,7 +65,10 @@
 
         // Markers Clusterer
         if ($this.data('use-marker-clusterer')) {
-          var markerClastererOptions = {gridSize: parseInt($this.data('marker-clusterer-grid-size'))};
+          var markerClastererOptions = {
+            gridSize: parseInt($this.data('marker-clusterer-grid-size')),
+            imagePath: Drupal.settings.geolocationViews.modulePath + '/markerclusterer/images/m'
+          };
           if ($this.data('marker-clusterer-max-zoom')) {
             markerClastererOptions.maxZoom = parseInt($this.data('marker-clusterer-max-zoom'));
           }

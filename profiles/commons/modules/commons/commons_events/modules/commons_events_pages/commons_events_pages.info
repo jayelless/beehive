@@ -13,9 +13,9 @@ features[features_api][] = api:2
 features[panelizer_defaults][] = node:event:default
 features[variable][] = panelizer_defaults_node_event
 
-; Information added by Drupal.org packaging script on 2016-11-22
-version = "7.x-3.40"
+; Information added by Drupal.org packaging script on 2017-01-11
+version = "7.x-3.41"
 core = "7.x"
 project = "commons"
-datestamp = "1479776644"
+datestamp = "1484170688"
 

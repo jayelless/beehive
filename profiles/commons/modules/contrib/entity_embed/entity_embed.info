@@ -22,8 +22,8 @@ files[] = entity_embed.test
 configure = admin/config/content/embed-button
 
 
-; Information added by drush on 2016-11-22
-version = "7.x-3.x (commit:bb4f5e3)"
+; Information added by drush on 2017-01-11
+version = ""
 project = "entity_embed"
-datestamp = "1479776711"
+datestamp = "1484170712"
 

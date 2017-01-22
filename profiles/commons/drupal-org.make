@@ -70,7 +70,7 @@ projects[ckeditor][patch][] = "https://drupal.org/files/issues/ckeditor-ckeditor
 
 projects[ctools][type] = "module"
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.11"
+projects[ctools][version] = "1.12"
 
 projects[custom_search][type] = "module"
 projects[custom_search][subdir] = "contrib"
@@ -95,7 +95,7 @@ projects[dialog][version] = "2.0-beta1"
 
 projects[diff][type] = "module"
 projects[diff][subdir] = "contrib"
-projects[diff][version] = "3.2"
+projects[diff][version] = "3.3"
 
 projects[editor][type] = "module"
 projects[editor][subdir] = "contrib"
@@ -206,7 +206,7 @@ projects[libraries][version] = "2.3"
 
 projects[lingotek][type] = "module"
 projects[lingotek][subdir] = "contrib"
-projects[lingotek][version] = "6.02"
+projects[lingotek][version] = "7.18"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -214,7 +214,8 @@ projects[link][version] = "1.4"
 
 projects[media][type] = "module"
 projects[media][subdir] = "contrib"
-projects[media][version] = "2.0-beta5"
+projects[media][version] = "2.0-rc2"
+projects[media][patch][] = "https://drupal.org/files/issues/media-widget-ajax-2842446-and-rebuild-bug-2534724-7.patch"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
@@ -258,7 +259,7 @@ projects[message_subscribe][patch][] = "https://drupal.org/files/issues/2184567-
 
 projects[metatag][type] = "module"
 projects[metatag][subdir] = "contrib"
-projects[metatag][version] = "1.17"
+projects[metatag][version] = "1.19"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"

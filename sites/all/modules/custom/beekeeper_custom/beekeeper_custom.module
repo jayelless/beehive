@@ -252,3 +252,110 @@ function beekeeper_custom_menu_alter(&$menu_items) {
     if ($key == 'user/%user/devel') { $item['weight'] = 19; }
   }
 }
+
+/**
+ * Implements hook_cron()
+ */
+function beekeeper_custom_cron() {
+
+  // Test if mlmmj is available
+  if ($result = exec('/usr/bin/mlmmj-list -V')) {
+    // Go through the registered users and update the mlmmj mail lists
+    $rids = db_query('SELECT name, rid from {role}', array())->fetchAllKeyed();
+    // TODO - get the role names from a configuration variable
+    $member_rids = array($rids['Standard member'], $rids['Junior member'], $rids['Lifetime member']);
+    $committee_rids = array($rids['Committee member']);
+
+    // Update the members mailing list
+    $sql = 'Select LOWER(u.mail) from {users} u LEFT JOIN {users_roles} r on r.uid = u.uid ';
+    $sql .= 'LEFT JOIN {field_data_field_members_maillist} m ON m.entity_id = u.uid ';
+    $sql .= 'WHERE r.rid in (:roles) AND m.field_members_maillist_value = :yes';
+
+    $members = db_query($sql, array(':roles' => $member_rids, ':yes' => 1))->fetchCol();
+    sort($members);
+
+    // Get a list of members currently subscribed to the mlmmj list
+    // TODO - get the mlmmj command elements from a configuration variable
+    $command = '/usr/bin/mlmmj-list -L /var/spool/mlmmj/beehive.org.nz/members';
+    $subscribers = array();
+    $result = NULL;
+    exec($command, $subscribers, $result);
+    if ($result === 0) {
+      sort($subscribers);
+      // Compare the list of subscribers with the list of members
+      $new_subscribers = array_diff($members, $subscribers);
+      $old_subscribers = array_diff($subscribers, $members);
+
+      if ($new_subscribers) {
+        watchdog('beekeepers', 'New subscribers: @new', array('@new' => print_r($new_subscribers, TRUE)), WATCHDOG_DEBUG);
+      }
+      if ($old_subscribers) {
+        watchdog('beekeepers', 'Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_DEBUG);
+      }
+
+      foreach ($new_subscribers as $tosubscribe) {
+        $command = '/usr/bin/mlmmj-sub -L /var/spool/mlmmj/beehive.org.nz/members -a ' . $tosubscribe;
+        $output = array();
+        $result = NULL;
+        exec($command, $output, $result);
+        if ($result !== 0) {
+          watchdog('beekeeper','Error subscribing address %adr to members list (Result=@res, @out)',
+            array('%adr' => $tosubscribe, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+        }
+      }
+      foreach ($old_subscribers as $unsubscribed) {
+        $command = '/usr/bin/mlmmj-unsub -L /var/spool/mlmmj/beehive.org.nz/members -a ' . $unsubscribed;
+        $output = array();
+        $result = NULL;
+        exec($command, $output, $result);
+        if ($result !== 0) {
+          watchdog('beekeeper','Error unsubscribing address %adr to members list (Result=@res, @out)',
+            array('%adr' => $unsubscribed, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+        }
+      }
+    }
+
+    // Update the committee mailing list
+    $sql = 'Select LOWER(u.mail) from {users} u LEFT JOIN {users_roles} r on r.uid = u.uid ';
+    $sql .= 'WHERE r.rid in (:roles)';
+
+    $members = db_query($sql, array(':roles' => $committee_rids))->fetchCol();
+    sort($members);
+
+    // Get a list of members currently subscribed to the mlmmj list
+    $command = '/usr/bin/mlmmj-list -L /var/spool/mlmmj/beehive.org.nz/committee';
+    $subscribers = array();
+    $result = NULL;
+    exec($command, $subscribers, $result);
+    if ($result === 0) {
+      sort($subscribers);
+      // Compare the list of subscribers with the list of members
+      $new_subscribers = array_diff($members, $subscribers);
+      $old_subscribers = array_diff($subscribers, $members);
+
+      foreach ($new_subscribers as $tosubscribe) {
+        $command = '/usr/bin/mlmmj-sub -L /var/spool/mlmmj/beehive.org.nz/committee -a ' . $tosubscribe;
+        $output = array();
+        $result = NULL;
+        exec($command, $output, $result);
+        if ($result !== 0) {
+          watchdog('beekeeper','Error subscribing address %adr to members list (Result=@res, @out)',
+            array('%adr' => $tosubscribe, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+        }
+      }
+      foreach ($old_subscribers as $unsubscribed) {
+        $command = '/usr/bin/mlmmj-unsub -L /var/spool/mlmmj/beehive.org.nz/committee -a ' . $unsubscribed;
+        $output = array();
+        $result = NULL;
+        exec($command, $output, $result);
+        if ($result !== 0) {
+          watchdog('beekeeper','Error unsubscribing address %adr to members list (Result=@res, @out)',
+            array('%adr' => $unsubscribed, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+        }
+      }
+    }
+
+  }
+
+
+}

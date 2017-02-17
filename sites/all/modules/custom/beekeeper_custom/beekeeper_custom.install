@@ -5,3 +5,56 @@ function beekeeper_custom_install() {
   variable_set('membership_entity_next_member_id', 541);
   variable_set('membership_entity_required', 0);
 }
+
+/**
+ * Set initial values for member maillist subscription
+ */
+function beekeeper_custom_update_7002(&$sandbox) {
+  // Initialise the batch functions
+  if (!isset($sandbox['subscribers'])) {
+    $sandbox['count'] = 0;
+    $sandbox['total'] = 0;
+    $sandbox['missing'] = 0;
+    // Get a list of members currently subscribed to the mlmmj list
+    $command = '/usr/bin/mlmmj-list -L /var/spool/mlmmj/beehive.org.nz/members';
+    $subscribers = array();
+    $result = NULL;
+    exec($command, $subscribers, $result);
+    if ($result === 0) {
+      $sandbox['subscribers'] = $subscribers;
+      $sandbox['count'] = 0;
+      $sandbox['total'] = count($subscribers);
+    }
+  }
+
+  if (isset($sandbox['subscribers'])) {
+    $subscribers = $sandbox['subscribers'];
+    $first = $sandbox['count'];
+    $next = $first + 100;
+    if ($next > count($subscribers)) {
+      $next = count($subscribers);
+    }
+    for ($i=$first; $i<$next; $i++) {
+      if ($account = user_load_by_mail($subscribers[$i])) {
+        $account->field_members_maillist = array(LANGUAGE_NONE => array(0 => array('value' => TRUE)));
+        user_save($account);
+      }
+      else {
+        $sandbox['mising']++;
+      }
+      $sandbox['count']++;
+    }
+  }
+
+  if ($sandbox['count'] < $sandbox['total']) {
+    $sandbox['#finished'] = round($sandbox['count']/$sandbox['total'], 2);
+    if ($sandbox['#finished'] > 0.99) { $sandbox['#finished'] = 0.99; }
+    return;
+  }
+
+  watchdog('beehive', 'Processed @num accounts for subscription to maillist, @xxx missing',
+    array('@num' => $sandbox['total'], '@xxx' => $sandbox['missing']), WATCHDOG_INFO);
+
+  return t('Processed @num accounts for subscription to maillist, @xxx missing',
+    array('@num' => $sandbox['total'], '@xxx' => $sandbox['missing']));
+}

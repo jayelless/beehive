@@ -49,6 +49,46 @@ function beekeeper_users_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_members_maillist'.
+  $field_instances['user-user-field_members_maillist'] = array(
+    'bundle' => 'user',
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Check this field to subscribe to the members mail list.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 7,
+      ),
+    ),
+    'display_in_partial_form' => 0,
+    'entity_type' => 'user',
+    'field_name' => 'field_members_maillist',
+    'label' => 'Members maillist',
+    'required' => 0,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => 1,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 23,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_phone_number'.
   $field_instances['user-user-field_phone_number'] = array(
     'bundle' => 'user',
@@ -168,7 +208,7 @@ function beekeeper_users_field_default_field_instances() {
           'marker_icon' => '',
         ),
         'type' => 'geolocation_googlemaps_static',
-        'weight' => 8,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'user',
@@ -194,10 +234,12 @@ function beekeeper_users_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Check this field to subscribe to the members mail list.');
   t('Checking this box will mean that your address details are made available to other members, and additionally, you will be able to see other members details.');
   t('Enter one or more contact phone numbers.  Use the "Add another item" button for second and subsequent numbers.  It is recommended that each number is prefixed with a brief description like "Home: "');
   t('Enter your home or postal address here.  The first address field should be used for the street name and number unless you need to specify a flat or apartment. Please also specify your suburb if possible.');
   t('Location Privacy');
+  t('Members maillist');
   t('My Location');
   t('Postal address');
   t('Telephone');

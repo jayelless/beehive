@@ -12,9 +12,9 @@ features[features_api][] = api:2
 features[field_base][] = field_topics
 features[taxonomy][] = topics
 
-; Information added by Drupal.org packaging script on 2017-01-11
-version = "7.x-3.41"
+; Information added by Drupal.org packaging script on 2017-02-06
+version = "7.x-3.42"
 core = "7.x"
 project = "commons"
-datestamp = "1484170688"
+datestamp = "1486411089"
 

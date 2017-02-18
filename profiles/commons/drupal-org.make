@@ -139,7 +139,7 @@ projects[entityreference][patch][] = "https://drupal.org/files/issues/entityrefe
 
 projects[entityreference_prepopulate][type] = "module"
 projects[entityreference_prepopulate][subdir] = "contrib"
-projects[entityreference_prepopulate][version] = "1.6"
+projects[entityreference_prepopulate][version] = "1.7"
 
 ; Entityreference prepopulate overwrites field instance custom default value functions.
 ; https://drupal.org/node/2304301#comment-8973459
@@ -182,7 +182,7 @@ projects[http_client][version] = "2.4"
 
 projects[i18n][type] = "module"
 projects[i18n][subdir] = "contrib"
-projects[i18n][version] = "1.14"
+projects[i18n][version] = "1.15"
 
 projects[i18nviews][type] = "module"
 projects[i18nviews][subdir] = "contrib"
@@ -214,8 +214,8 @@ projects[link][version] = "1.4"
 
 projects[media][type] = "module"
 projects[media][subdir] = "contrib"
-projects[media][version] = "2.0-rc2"
-projects[media][patch][] = "https://drupal.org/files/issues/media-widget-ajax-2842446-and-rebuild-bug-2534724-7.patch"
+projects[media][version] = "2.0-rc5"
+projects[media][patch][] = "https://drupal.org/files/issues/media-ajax-2849607-2.patch"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
@@ -259,7 +259,7 @@ projects[message_subscribe][patch][] = "https://drupal.org/files/issues/2184567-
 
 projects[metatag][type] = "module"
 projects[metatag][subdir] = "contrib"
-projects[metatag][version] = "1.19"
+projects[metatag][version] = "1.20"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
@@ -275,7 +275,7 @@ projects[navbar][version] = "1.7"
 
 projects[oauth][type] = "module"
 projects[oauth][subdir] = "contrib"
-projects[oauth][version] = "3.2"
+projects[oauth][version] = "3.4"
 
 projects[oauthconnector][type] = "module"
 projects[oauthconnector][subdir] = "contrib"
@@ -423,11 +423,11 @@ projects[timeago][patch][] = "https://drupal.org/files/issues/1427226-timeago-da
 
 projects[title][type] = "module"
 projects[title][subdir] = "contrib"
-projects[title][version] = "1.0-alpha8"
+projects[title][version] = "1.0-alpha9"
 
 projects[token][type] = "module"
 projects[token][subdir] = "contrib"
-projects[token][version] = "1.6"
+projects[token][version] = "1.7"
 
 projects[translation_helpers][type] = "module"
 projects[translation_helpers][subdir] = "contrib"

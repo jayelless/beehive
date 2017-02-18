@@ -28,6 +28,7 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_instance][] = message-commons_wikis_wiki_updated-field_target_nodes
 features[field_instance][] = node-wiki-body
+features[field_instance][] = node-wiki-title_field
 features[message_type][] = commons_wikis_wiki_updated
 features[node][] = wiki
 features[og_features_permission][] = node:group:create wiki content
@@ -71,9 +72,9 @@ features[views_view][] = commons_wikis_contributor_list
 features_exclude[dependencies][commons_bw] = commons_bw
 features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
 
-; Information added by Drupal.org packaging script on 2017-01-11
-version = "7.x-3.41"
+; Information added by Drupal.org packaging script on 2017-02-06
+version = "7.x-3.42"
 core = "7.x"
 project = "commons"
-datestamp = "1484170688"
+datestamp = "1486411089"
 

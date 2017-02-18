@@ -19,9 +19,9 @@ features[radioactivity_decay_profile][] = commons_ra_node
 features[variable][] = commons_radioactivity_entity_types
 features[views_view][] = commons_radioactivity_admin
 
-; Information added by Drupal.org packaging script on 2017-01-11
-version = "7.x-3.41"
+; Information added by Drupal.org packaging script on 2017-02-06
+version = "7.x-3.42"
 core = "7.x"
 project = "commons"
-datestamp = "1484170688"
+datestamp = "1486411089"
 

@@ -70,7 +70,7 @@
 
     inWords: function(distanceMillis) {
       if (!this.settings.allowPast && ! this.settings.allowFuture) {
-        throw 'timeago allowPast and allowFuture settings can not both be set to false.';
+          throw 'timeago allowPast and allowFuture settings can not both be set to false.';
       }
 
       var $l = this.settings.strings;
@@ -197,7 +197,7 @@
         $(this).text(inWords(data.datetime));
       } else {
         if ($(this).attr('title').length > 0) {
-          $(this).text($(this).attr('title'));
+            $(this).text($(this).attr('title'));
         }
       }
     }

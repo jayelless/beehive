@@ -12,9 +12,9 @@ features[ctools][] = page_manager:pages_default:1
 features[features_api][] = api:2
 features[page_manager_pages][] = commons_activity_streams_activity
 
-; Information added by Drupal.org packaging script on 2017-01-11
-version = "7.x-3.41"
+; Information added by Drupal.org packaging script on 2017-02-06
+version = "7.x-3.42"
 core = "7.x"
 project = "commons"
-datestamp = "1484170689"
+datestamp = "1486411089"
 

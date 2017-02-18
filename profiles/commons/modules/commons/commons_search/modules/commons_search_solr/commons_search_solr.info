@@ -27,9 +27,9 @@ features[variable][] = apachesolr_search_default_search_page
 features[variable][] = page_manager_search_disabled_apachesolr_search
 features[variable][] = pm_existing_pages_disabled_solr_search
 
-; Information added by Drupal.org packaging script on 2017-01-11
-version = "7.x-3.41"
+; Information added by Drupal.org packaging script on 2017-02-06
+version = "7.x-3.42"
 core = "7.x"
 project = "commons"
-datestamp = "1484170688"
+datestamp = "1486411089"
 

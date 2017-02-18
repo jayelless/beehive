@@ -288,10 +288,10 @@ function beekeeper_custom_cron() {
       $old_subscribers = array_diff($subscribers, $members);
 
       if ($new_subscribers) {
-        watchdog('beekeepers', 'Members - New subscribers: @new', array('@new' => print_r($new_subscribers, TRUE)), WATCHDOG_INFO);
+        watchdog('beekeeper', 'Members - New subscribers: @new', array('@new' => print_r($new_subscribers, TRUE)), WATCHDOG_INFO);
       }
       if ($old_subscribers) {
-        watchdog('beekeepers', 'Members - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
+        watchdog('beekeeper', 'Members - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
       }
 
       foreach ($new_subscribers as $tosubscribe) {
@@ -335,10 +335,10 @@ function beekeeper_custom_cron() {
       $old_subscribers = array_diff($subscribers, $members);
 
       if ($new_subscribers) {
-        watchdog('beekeepers', 'Committee - New subscribers: @new', array('@new' => print_r($new_subscribers, TRUE)), WATCHDOG_INFO);
+        watchdog('beekeeper', 'Committee - New subscribers: @new', array('@new' => print_r($new_subscribers, TRUE)), WATCHDOG_INFO);
       }
       if ($old_subscribers) {
-        watchdog('beekeepers', 'Committee - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
+        watchdog('beekeeper', 'Committee - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
       }
 
       foreach ($new_subscribers as $tosubscribe) {

@@ -52,7 +52,7 @@ function beekeeper_custom_update_7002(&$sandbox) {
     return;
   }
 
-  watchdog('beehive', 'Processed @num accounts for subscription to maillist, @xxx missing',
+  watchdog('beekeeper', 'Processed @num accounts for subscription to maillist, @xxx missing',
     array('@num' => $sandbox['total'], '@xxx' => $sandbox['missing']), WATCHDOG_INFO);
 
   return t('Processed @num accounts for subscription to maillist, @xxx missing',

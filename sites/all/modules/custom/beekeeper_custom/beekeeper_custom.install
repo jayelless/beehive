@@ -58,3 +58,21 @@ function beekeeper_custom_update_7002(&$sandbox) {
   return t('Processed @num accounts for subscription to maillist, @xxx missing',
     array('@num' => $sandbox['total'], '@xxx' => $sandbox['missing']));
 }
+
+/**
+ * Set an expiry date of +100 years for lifetime subscriptions
+ */
+function beekeeper_custom_update_7003(&$sandbox) {
+
+  // update the existing lifetime memberships
+  $num = db_update('membership_entity_term')
+    ->fields(array('end' => '2115-09-24 12:00:00'))
+    ->condition('term', 'lifetime')
+    ->condition('end', NULL)
+    ->execute();
+
+  watchdog('beekeeper', 'Processed @num lifetime membership terms', array('@num' => $num), WATCHDOG_INFO);
+
+  return t('Processed @num lifetime membership terms', array('@num' => $num));
+
+}

@@ -1075,7 +1075,7 @@ function views_bulk_operations_queue_item_process($queue_item_data, &$log = NULL
     }
 
     // If the current entity can't be accessed, skip it and log a notice.
-    if (!$operation->entity_access($entity_type, $entity, $account)) {
+    if (!_views_bulk_operations_entity_access($operation, $entity_type, $entity, $account)) {
       $message = 'Skipped %operation on @type %title due to insufficient permissions.';
       $arguments = array(
         '%operation' => $operation->label(),
@@ -1162,7 +1162,7 @@ function views_bulk_operations_direct_process($operation, $rows, $options) {
 
     // Filter out entities that can't be accessed.
     foreach ($entities as $id => $entity) {
-      if (!$operation->entity_access($entity_type, $entity)) {
+      if (!_views_bulk_operations_entity_access($operation, $entity_type, $entity)) {
         $context['results']['log'][] = t('Skipped %operation on @type %title due to insufficient permissions.', array(
           '%operation' => $operation->label(),
           '@type' => $entity_type,

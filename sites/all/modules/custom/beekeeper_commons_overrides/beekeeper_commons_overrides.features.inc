@@ -120,14 +120,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['message-commons_wikis_wiki_updated-field_target_nodes']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['message-commons_wikis_wiki_updated-field_target_nodes']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
-  if (isset($data['message-trusted_contact_request_approved-field_approving_user'])) {
-    $data['message-trusted_contact_request_approved-field_approving_user']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['message-trusted_contact_request_approved-field_approving_user']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['message-trusted_contact_request_pending-field_requesting_user'])) {
-    $data['message-trusted_contact_request_pending-field_requesting_user']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['message-trusted_contact_request_pending-field_requesting_user']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
   if (isset($data['message_type-commons_notify-message_text'])) {
     $data['message_type-commons_notify-message_text']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['message_type-commons_notify-message_text']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
@@ -251,16 +243,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     ); /* WAS: '' */
     $data['node-document-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-document-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['node-document-og_user_group_ref'])) {
-    $data['node-document-og_user_group_ref']['display']['notifications'] = array(
-      'label' => 'above',
-      'settings' => array(),
-      'type' => 'hidden',
-      'weight' => 0,
-    ); /* WAS: '' */
-    $data['node-document-og_user_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['node-document-og_user_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-document-title_field'])) {
     $data['node-document-title_field']['display']['notifications'] = array(
@@ -594,16 +576,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-poll-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-poll-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
-  if (isset($data['node-poll-og_user_group_ref'])) {
-    $data['node-poll-og_user_group_ref']['display']['notifications'] = array(
-      'label' => 'above',
-      'settings' => array(),
-      'type' => 'hidden',
-      'weight' => 0,
-    ); /* WAS: '' */
-    $data['node-poll-og_user_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['node-poll-og_user_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
   if (isset($data['node-poll-title_field'])) {
     $data['node-poll-title_field']['display']['notifications'] = array(
       'label' => 'above',
@@ -663,16 +635,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     ); /* WAS: '' */
     $data['node-post-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-post-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['node-post-og_user_group_ref'])) {
-    $data['node-post-og_user_group_ref']['display']['notifications'] = array(
-      'label' => 'above',
-      'settings' => array(),
-      'type' => 'hidden',
-      'weight' => 0,
-    ); /* WAS: '' */
-    $data['node-post-og_user_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['node-post-og_user_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-post-title_field'])) {
     $data['node-post-title_field']['display']['notifications'] = array(
@@ -744,16 +706,6 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-question-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-question-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
-  if (isset($data['node-question-og_user_group_ref'])) {
-    $data['node-question-og_user_group_ref']['display']['notifications'] = array(
-      'label' => 'above',
-      'settings' => array(),
-      'type' => 'hidden',
-      'weight' => 0,
-    ); /* WAS: '' */
-    $data['node-question-og_user_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['node-question-og_user_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
   if (isset($data['node-question-title_field'])) {
     $data['node-question-title_field']['display']['notifications'] = array(
       'label' => 'above',
@@ -824,39 +776,9 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-wiki-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-wiki-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
-  if (isset($data['node-wiki-og_user_group_ref'])) {
-    $data['node-wiki-og_user_group_ref']['display']['notifications'] = array(
-      'label' => 'above',
-      'settings' => array(),
-      'type' => 'hidden',
-      'weight' => 0,
-    ); /* WAS: '' */
-    $data['node-wiki-og_user_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['node-wiki-og_user_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
   if (isset($data['og_membership-og_membership_type_default-og_membership_request'])) {
     $data['og_membership-og_membership_type_default-og_membership_request']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['og_membership-og_membership_type_default-og_membership_request']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['og_membership-trusted_contacts-field_confirmation'])) {
-    $data['og_membership-trusted_contacts-field_confirmation']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['og_membership-trusted_contacts-field_confirmation']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['og_membership-trusted_contacts-field_membership_token'])) {
-    $data['og_membership-trusted_contacts-field_membership_token']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['og_membership-trusted_contacts-field_membership_token']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['og_membership-trusted_contacts-field_my_request'])) {
-    $data['og_membership-trusted_contacts-field_my_request']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['og_membership-trusted_contacts-field_my_request']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['og_membership-trusted_contacts-field_original_og_membership'])) {
-    $data['og_membership-trusted_contacts-field_original_og_membership']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['og_membership-trusted_contacts-field_original_og_membership']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['og_membership-trusted_contacts-field_response_date'])) {
-    $data['og_membership-trusted_contacts-field_response_date']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['og_membership-trusted_contacts-field_response_date']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['user-user-field_bio'])) {
     $data['user-user-field_bio']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
@@ -882,21 +804,9 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['user-user-field_twitter_url']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-field_twitter_url']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
-  if (isset($data['user-user-group_access'])) {
-    $data['user-user-group_access']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['user-user-group_access']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['user-user-group_group'])) {
-    $data['user-user-group_group']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['user-user-group_group']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
   if (isset($data['user-user-message_subscribe_email'])) {
     $data['user-user-message_subscribe_email']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['user-user-message_subscribe_email']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
-  }
-  if (isset($data['user-user-user_trusted_contacts'])) {
-    $data['user-user-user_trusted_contacts']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
-    $data['user-user-user_trusted_contacts']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
 }
 

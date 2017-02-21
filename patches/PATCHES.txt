@@ -1,0 +1,13 @@
+This files describes the patches applied to the Commons codebase and the
+contributed modules
+
+Commons Codebase - 7.x-3.42
+19 Feb 2017: commons-fix-private_groups.patch (issue #2399695)
+20 Feb 2017: message_notify-2381465-could-not-send-message-5.patch
+
+Modules
+=== message_subscribe - 7.x-1.0-rc2 ===
+19 Feb 2017: old_flag_table-2551485-8.patch
+
+=== views_bulk_operations - 7.x-3.3 ===
+19 Feb 2017: views_bulk_operations-no_default_action-2254871-42.patch

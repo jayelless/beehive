@@ -1,0 +1,25 @@
+From b97d4f692808b760bb9803c782e4cf6beef64bce Mon Sep 17 00:00:00 2001
+From: agb80 <atin81@gmail.com>
+Date: Tue, 23 Jun 2015 18:31:57 -0500
+Subject: [PATCH] Fix problem with answers being published only to trusted
+ contacts - D.O issue #2399695
+
+---
+ profiles/commons/modules/commons/commons_q_a/commons_q_a.module | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/profiles/commons/modules/commons/commons_q_a/commons_q_a.module b/profiles/commons/modules/commons/commons_q_a/commons_q_a.module
+index 6725a5c..94091f0 100644
+--- a/profiles/commons/modules/commons/commons_q_a/commons_q_a.module
++++ b/profiles/commons/modules/commons/commons_q_a/commons_q_a.module
+@@ -249,6 +249,7 @@ function commons_q_a_field_attach_submit($entity_type, &$entity, $form, &$form_s
+   // Questions should inherit the group membership of the related question.
+   if ($entity_type == 'node' && $entity->type == 'answer' && empty($entity->nid)) {
+     $question = node_load($entity->field_related_question[LANGUAGE_NONE][0]['target_id']);
++    $entity->group_audience_type = $question->group_audience_type;
+     $entity->og_group_ref = $question->og_group_ref;
+   }
+ }
+--
+2.4.4
+

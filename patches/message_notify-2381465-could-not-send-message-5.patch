@@ -1,0 +1,13 @@
+diff --git a/profiles/commons/modules/contrib/message_notify/plugins/notifier/abstract.inc b/profiles/commons/modules/contrib/message_notify/plugins/notifier/abstract.inc
+index 4283e77..93d25be 100644
+--- a/profiles/commons/modules/contrib/message_notify/plugins/notifier/abstract.inc
++++ b/profiles/commons/modules/contrib/message_notify/plugins/notifier/abstract.inc
+@@ -98,7 +98,7 @@ abstract class MessageNotifierBase implements MessageNotifierInterface {
+ 
+     $save = FALSE;
+     if (!$result) {
+-      watchdog('message_notify', t('Could not send message using @title to user ID @uid.'), array('@label' => $plugin['title'], '@uid' => $message->uid), WATCHDOG_ERROR);
++      watchdog('message_notify', t('Could not send message using @title to user ID @uid.'), array('@title' => $plugin['title'], '@uid' => $message->uid), WATCHDOG_ERROR);
+       if ($options['save on fail']) {
+         $save = TRUE;
+       }

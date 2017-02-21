@@ -68,10 +68,6 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["field_instance.message-commons_q_a_question_asked-field_target_nodes.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.message-commons_wikis_wiki_updated-field_target_nodes.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.message-commons_wikis_wiki_updated-field_target_nodes.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.message-trusted_contact_request_approved-field_approving_user.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.message-trusted_contact_request_approved-field_approving_user.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.message-trusted_contact_request_pending-field_requesting_user.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.message-trusted_contact_request_pending-field_requesting_user.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.message_type-commons_notify-message_text.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.message_type-commons_notify-message_text.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-answer-body.display|notifications"] = array(
@@ -172,14 +168,6 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-document-og_group_ref.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-document-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.node-document-og_user_group_ref.display|notifications"] = array(
-    'label' => 'above',
-    'settings' => array(),
-    'type' => 'hidden',
-    'weight' => 0,
-  );
-  $overrides["field_instance.node-document-og_user_group_ref.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.node-document-og_user_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-document-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -450,14 +438,6 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-poll-og_group_ref.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-poll-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.node-poll-og_user_group_ref.display|notifications"] = array(
-    'label' => 'above',
-    'settings' => array(),
-    'type' => 'hidden',
-    'weight' => 0,
-  );
-  $overrides["field_instance.node-poll-og_user_group_ref.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.node-poll-og_user_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-poll-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -506,14 +486,6 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-post-og_group_ref.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-post-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.node-post-og_user_group_ref.display|notifications"] = array(
-    'label' => 'above',
-    'settings' => array(),
-    'type' => 'hidden',
-    'weight' => 0,
-  );
-  $overrides["field_instance.node-post-og_user_group_ref.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.node-post-og_user_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-post-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -570,14 +542,6 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-question-og_group_ref.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-question-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.node-question-og_user_group_ref.display|notifications"] = array(
-    'label' => 'above',
-    'settings' => array(),
-    'type' => 'hidden',
-    'weight' => 0,
-  );
-  $overrides["field_instance.node-question-og_user_group_ref.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.node-question-og_user_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-question-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -634,26 +598,8 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-wiki-og_group_ref.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-wiki-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.node-wiki-og_user_group_ref.display|notifications"] = array(
-    'label' => 'above',
-    'settings' => array(),
-    'type' => 'hidden',
-    'weight' => 0,
-  );
-  $overrides["field_instance.node-wiki-og_user_group_ref.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.node-wiki-og_user_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.og_membership-og_membership_type_default-og_membership_request.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.og_membership-og_membership_type_default-og_membership_request.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_confirmation.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_confirmation.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_membership_token.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_membership_token.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_my_request.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_my_request.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_original_og_membership.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_original_og_membership.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_response_date.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.og_membership-trusted_contacts-field_response_date.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-field_bio.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.user-user-field_bio.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-field_facebook_url.settings|membership_entity_join_form"] = FALSE;
@@ -666,14 +612,8 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["field_instance.user-user-field_name_last.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-field_twitter_url.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.user-user-field_twitter_url.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.user-user-group_access.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.user-user-group_access.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.user-user-group_group.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.user-user-group_group.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-message_subscribe_email.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.user-user-message_subscribe_email.settings|membership_entity_term_renew_form"] = FALSE;
-  $overrides["field_instance.user-user-user_trusted_contacts.settings|membership_entity_join_form"] = FALSE;
-  $overrides["field_instance.user-user-user_trusted_contacts.settings|membership_entity_term_renew_form"] = FALSE;
 
   // Exported overrides for: page_manager_pages
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|content|new-0ae8e5a2-44f6-8584-21f2-8be6e340e62f|panel"] = 'three_33_third';

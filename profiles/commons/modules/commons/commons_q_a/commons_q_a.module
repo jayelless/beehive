@@ -249,6 +249,7 @@ function commons_q_a_field_attach_submit($entity_type, &$entity, $form, &$form_s
   // Questions should inherit the group membership of the related question.
   if ($entity_type == 'node' && $entity->type == 'answer' && empty($entity->nid)) {
     $question = node_load($entity->field_related_question[LANGUAGE_NONE][0]['target_id']);
+    $entity->group_audience_type = $question->group_audience_type;
     $entity->og_group_ref = $question->og_group_ref;
   }
 }

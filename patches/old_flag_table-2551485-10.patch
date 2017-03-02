@@ -1,7 +1,7 @@
-diff --git a/profiles/commons/modules/contrib/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc b/profiles/commons/modules/contrib/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc
+diff --git a/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc b/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc
 index 2403f0b..bc94f27 100644
---- a/profiles/commons/modules/contrib/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc
-+++ b/profiles/commons/modules/contrib/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc
+--- a/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc
++++ b/message_subscribe/message_subscribe_email/message_subscribe_email.views_default.inc
 @@ -77,14 +77,14 @@ function message_subscribe_email_views_default_views() {
    $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
    /* Field: Flags: Flag link */
@@ -51,10 +51,10 @@ index 2403f0b..bc94f27 100644
    $handler->display->display_options['fields']['ops']['field'] = 'ops';
    $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
    $handler->display->display_options['fields']['ops']['label'] = 'Subscribe';
-diff --git a/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.info b/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.info
+diff --git a/message_subscribe/message_subscribe_ui/message_subscribe_ui.info b/message_subscribe/message_subscribe_ui/message_subscribe_ui.info
 index 8c00a55..dcfbeec 100644
---- a/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.info
-+++ b/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.info
+--- a/message_subscribe/message_subscribe_ui/message_subscribe_ui.info
++++ b/message_subscribe/message_subscribe_ui/message_subscribe_ui.info
 @@ -9,7 +9,7 @@ dependencies[] = message_subscribe
  dependencies[] = views
  dependencies[] = views_content
@@ -64,10 +64,10 @@ index 8c00a55..dcfbeec 100644
  features[views_view][] = subscribe_node
  features[views_view][] = subscribe_taxonomy_term
  features[views_view][] = subscribe_user
-diff --git a/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc b/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc
+diff --git a/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc b/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc
 index f7b658a..efa004a 100644
---- a/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc
-+++ b/profiles/commons/modules/contrib/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc
+--- a/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc
++++ b/message_subscribe/message_subscribe_ui/message_subscribe_ui.views_default.inc
 @@ -71,7 +71,7 @@ function message_subscribe_ui_views_default_views() {
    $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
    /* Field: Flags: Flag link */

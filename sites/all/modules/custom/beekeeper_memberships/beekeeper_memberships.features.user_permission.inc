@@ -69,6 +69,7 @@ function beekeeper_memberships_user_default_permissions() {
     'name' => 'honorary_membership edit own membership',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'membership_entity_type',
   );
@@ -151,6 +152,7 @@ function beekeeper_memberships_user_default_permissions() {
     'name' => 'junior_membership edit own membership',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'membership_entity_type',
   );
@@ -236,6 +238,7 @@ function beekeeper_memberships_user_default_permissions() {
     'name' => 'life_membership edit own membership',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'membership_entity_type',
   );
@@ -399,6 +402,7 @@ function beekeeper_memberships_user_default_permissions() {
     'name' => 'standard_membership edit own membership',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'membership_entity_type',
   );

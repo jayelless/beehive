@@ -615,6 +615,38 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   $overrides["field_instance.user-user-message_subscribe_email.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.user-user-message_subscribe_email.settings|membership_entity_term_renew_form"] = FALSE;
 
+  // Exported overrides for: page_manager_handlers
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|content|new-38b23f27-878a-f264-dd90-e55305d0f70c|style|settings"] = NULL;
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|content|new-9370d657-6ff3-443e-b595-c0e59371a344"] = (object) array(
+      'pid' => 'new-9370d657-6ff3-443e-b595-c0e59371a344',
+      'panel' => 'three_33_bottom',
+      'type' => 'entity_field_extra',
+      'subtype' => 'user:memberships',
+      'shown' => TRUE,
+      'access' => array(),
+      'configuration' => array(
+        'view_mode' => 'full',
+        'context' => 'argument_entity_id:user_1',
+        'override_title' => 0,
+        'override_title_text' => '',
+        'override_title_heading' => 'h2',
+      ),
+      'cache' => array(),
+      'style' => array(
+        'settings' => NULL,
+      ),
+      'css' => array(),
+      'extras' => array(),
+      'position' => 0,
+      'locks' => array(),
+      'uuid' => '9370d657-6ff3-443e-b595-c0e59371a344',
+    );
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|panels|three_33_bottom"] = array(
+    0 => 'new-9370d657-6ff3-443e-b595-c0e59371a344',
+  );
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|storage_id"] = 'user_view_panel_context';
+  $overrides["page_manager_handlers.user_view_panel_context.conf|display|storage_type"] = 'page_manager';
+
   // Exported overrides for: page_manager_pages
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|content|new-0ae8e5a2-44f6-8584-21f2-8be6e340e62f|panel"] = 'three_33_third';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|content|new-0ae8e5a2-44f6-8584-21f2-8be6e340e62f|position"] = 2;

@@ -811,6 +811,44 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
 }
 
 /**
+ * Implements hook_default_page_manager_handlers_alter().
+ */
+function beekeeper_commons_overrides_default_page_manager_handlers_alter(&$data) {
+  if (isset($data['user_view_panel_context'])) {
+    $data['user_view_panel_context']->conf['display']->content['new-38b23f27-878a-f264-dd90-e55305d0f70c']->style['settings'] = NULL; /* WAS: '' */
+    $data['user_view_panel_context']->conf['display']->content['new-9370d657-6ff3-443e-b595-c0e59371a344'] = (object) array(
+          'pid' => 'new-9370d657-6ff3-443e-b595-c0e59371a344',
+          'panel' => 'three_33_bottom',
+          'type' => 'entity_field_extra',
+          'subtype' => 'user:memberships',
+          'shown' => TRUE,
+          'access' => array(),
+          'configuration' => array(
+            'view_mode' => 'full',
+            'context' => 'argument_entity_id:user_1',
+            'override_title' => 0,
+            'override_title_text' => '',
+            'override_title_heading' => 'h2',
+          ),
+          'cache' => array(),
+          'style' => array(
+            'settings' => NULL,
+          ),
+          'css' => array(),
+          'extras' => array(),
+          'position' => 0,
+          'locks' => array(),
+          'uuid' => '9370d657-6ff3-443e-b595-c0e59371a344',
+        ); /* WAS: '' */
+    $data['user_view_panel_context']->conf['display']->panels['three_33_bottom'] = array(
+      0 => 'new-9370d657-6ff3-443e-b595-c0e59371a344',
+    ); /* WAS: '' */
+    $data['user_view_panel_context']->conf['display']->storage_id = 'user_view_panel_context'; /* WAS: '' */
+    $data['user_view_panel_context']->conf['display']->storage_type = 'page_manager'; /* WAS: '' */
+  }
+}
+
+/**
  * Implements hook_default_page_manager_pages_alter().
  */
 function beekeeper_commons_overrides_default_page_manager_pages_alter(&$data) {

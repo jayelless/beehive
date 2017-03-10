@@ -1454,9 +1454,6 @@ function lingotek_grid_define_columns($entity_type) {
   }
   if ($entity_type == 'bean'){
     $columns['columns']['label'] = 'label';
-    # REMOVED SO THAT EXISTING INSTALLS WITH COLUMN SETTINGS ALREADY SELECTED
-    # WILL NOT SEE THE BEAN LABEL FIELD AS "ON" WHEN IT IS REALLY NOT YET.
-    #$columns['defaults']['label'] = 'label';
   }
 
   return $columns;
@@ -2374,12 +2371,18 @@ function lingotek_render_title($row, $entity_properties) {
     elseif ($entity_type == 'paragraphs_item') {
       $row = lingotek_entity_load_single($entity_type, $row->item_id);
     }
+    elseif ($entity_type == 'file') {
+      $row = lingotek_entity_load_single($entity_type, $row->fid);
+    }
     $uri = isset($info['uri callback']) ? call_user_func($info['uri callback'], $row) : '';
   }
 
   $uri['options']['attributes'] = array('target' => '_blank');
   if ($entity_type == 'paragraphs_item') {
     $title_to_show = lingotek_clean_paragraphs_title($row->field_name);
+  }
+  elseif ($entity_type == 'file') {
+    $title_to_show = $row->filename;
   }
   else {
     $title_to_show = (isset($row->localized_title) ? $row->localized_title : $row->title);
@@ -2437,6 +2440,9 @@ function lingotek_render_source_current_icon_link($row, $entity_properties, $pro
 
       return $paragraphs_icon;
     }
+    elseif ($entity_type == 'file') {
+      $row = lingotek_entity_load_single($entity_type, $row->fid);
+    }
     $uri = isset($info['uri callback']) ? call_user_func($info['uri callback'], $row) : '';
   }
 
@@ -2491,6 +2497,10 @@ function lingotek_render_source($entity_type, $row, $languages, $language_col, $
   }
   elseif ($entity_type == 'paragraphs_item') {
     $id = $row->item_id;
+  }
+  elseif ($entity_type == 'file') {
+    $id = $row->fid;
+    $row->language = lingotek_get_file_source($row->fid);
   }
   elseif (!empty($row->id)) {
     $id = $row->id;
@@ -2636,7 +2646,7 @@ function lingotek_lang_icons($entity_type, $languages, $entity_id, $locale_statu
     LingotekSync::STATUS_CURRENT => t('Current'),
     LingotekSync::STATUS_READY_INTERIM => t('Ready for Interim Download'),
     LingotekSync::STATUS_INTERIM => t('In-progress (interim translation downloaded)'),
-    LingotekSync::STATUS_EDITED => t('Not Current'),
+    LingotekSync::STATUS_EDITED => t('Source Edited'),
     LingotekSync::STATUS_UNTRACKED => t('Translation exists, but it is not being tracked by Lingotek'),
     LingotekSync::STATUS_TARGET_LOCALIZE => t('Pending localization'),
     LingotekSync::STATUS_TARGET_EDITED => t('Needs to be uploaded'),

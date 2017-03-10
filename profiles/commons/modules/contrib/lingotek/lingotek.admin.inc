@@ -1446,6 +1446,15 @@ function lingotek_admin_prefs_form($form, &$form_state, $show_fieldset = FALSE) 
     );
   }
 
+  if (module_exists('file_entity')) {
+    $form[$fkey]['lingotek_translate_files'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable file entity translation'),
+      '#default_value' => variable_get('lingotek_translate_files', FALSE),
+      '#description' => t('If checked, file entity fields will be managed by Lingotek.'),
+    );
+  }
+
   $node_based_translation = variable_get('lingotek_nodes_translation_method') == 'node' ? TRUE : FALSE;
 
   if ($node_based_translation) {
@@ -1584,6 +1593,23 @@ function lingotek_admin_prefs_form_submit($form, &$form_state) {
       );
       db_add_field('paragraphs_item', 'language', $schema['paragraphs_item']['fields']['language']);
       LingotekLog::warning('Language column has been added to the @module_name by Lingotek.', array('@module_name' => ('Paragraph')));
+    }
+
+    if (!db_table_exists('entity_translation')) {
+      drupal_set_message(t('For Paragraphs translation, make sure you\'ve installed the <i>Entity Translation</i> module.'), 'warning', FALSE);
+    }
+  }
+  if (module_exists('file_entity') && variable_get('lingotek_translate_files', FALSE)) {
+    if (!db_field_exists('file_managed', 'language')) {
+      $schema['file_managed']['fields']['language'] = array(
+        'type' => 'char',
+        'length' => 8,
+        'not null' => TRUE,
+        'default' => language_default()->language,
+        'description' => 'Language used for third party translation',
+      );
+      db_add_field('file_managed', 'language', $schema['file_managed']['fields']['language']);
+      LingotekLog::warning('Language column has been added to the @module_name by Lingotek.', array('@module_name' => ('File Entity')));
     }
 
     if (!db_table_exists('entity_translation')) {

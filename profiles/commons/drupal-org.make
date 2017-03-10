@@ -206,7 +206,7 @@ projects[libraries][version] = "2.3"
 
 projects[lingotek][type] = "module"
 projects[lingotek][subdir] = "contrib"
-projects[lingotek][version] = "7.18"
+projects[lingotek][version] = "7.19"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -259,7 +259,7 @@ projects[message_subscribe][patch][] = "https://drupal.org/files/issues/2184567-
 
 projects[metatag][type] = "module"
 projects[metatag][subdir] = "contrib"
-projects[metatag][version] = "1.20"
+projects[metatag][version] = "1.21"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
@@ -307,11 +307,11 @@ projects[panelizer][version] = "3.4"
 
 projects[panels][type] = "module"
 projects[panels][subdir] = "contrib"
-projects[panels][version] = "3.8"
+projects[panels][version] = "3.9"
 
 projects[paranoia][type] = "module"
 projects[paranoia][subdir] = "contrib"
-projects[paranoia][version] = "1.6"
+projects[paranoia][version] = "1.7"
 
 projects[pathauto][type] = "module"
 projects[pathauto][subdir] = "contrib"
@@ -439,7 +439,7 @@ projects[variable][version] = "2.5"
 
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.14"
+projects[views][version] = "3.15"
 
 ; Update Views Content access filter per core performance improvements.
 ; https://drupal.org/comment/8516039#comment-8516039
@@ -447,7 +447,7 @@ projects[views][patch][] = "https://drupal.org/files/issues/views-content_access
 
 projects[views_bulk_operations][type] = "module"
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "3.3"
+projects[views_bulk_operations][version] = "3.4"
 
 projects[views_field_view][type] = "module"
 projects[views_field_view][subdir] = "contrib"
@@ -512,7 +512,7 @@ libraries[modernizr][download][url] = "https://github.com/Modernizr/Modernizr/ar
 
 libraries[timeago][download][type] = "get"
 libraries[timeago][type] = "libraries"
-libraries[timeago][download][url] = "https://raw.githubusercontent.com/rmm5t/jquery-timeago/v1.5.3/jquery.timeago.js"
+libraries[timeago][download][url] = "https://raw.githubusercontent.com/rmm5t/jquery-timeago/v1.5.4/jquery.timeago.js"
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][type] = "libraries"

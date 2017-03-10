@@ -339,13 +339,14 @@ a:hover.tooltips span {
 }
 
 #lingotek-bulk-grid-form .language-icon.target-edited {
-  background-color: #5FDC64;
-  border: 1px solid #5FDC64;
+  background-color: #FFC107;
+  border: 1px solid #FFC107;
+  color: #575757;
 }
 
 #lingotek-bulk-grid-form .language-icon.target-edited:hover {
-  background-color: #43A047;
-  border: 1px solid #43A047;
+  background-color: #FFB300;
+  border: 1px solid #FFB300;
 }
 
 #lingotek-bulk-grid-form .language-icon.target-untracked {

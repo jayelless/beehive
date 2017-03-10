@@ -1217,12 +1217,13 @@ function lingotek_sync_target_locales($entity, $entity_type) {
   }
 
   foreach($drupal_target_locales as $dtl => $val) {
-    $api->addTranslationTarget($document_id, Null, $dtl);
+    $workflow = isset($val['workflow_id']) ? $val['workflow_id'] : '';
+    $api->addTranslationTarget($document_id, NULL, $dtl, $workflow);
   }
 
   foreach ($tms_target_locales as $ttl => $val) {
     if (variable_get('lingotek_remove_target_from_tms', FALSE)) {
-      $api->removeTranslationTarget($document_id, Null, $ttl);
+      $api->removeTranslationTarget($document_id, NULL, $ttl);
     }
     LingotekSync::setTargetStatus($ln->getEntityType(), $ln->getId(), $ttl, LingotekSync::STATUS_UNTRACKED);
   }
@@ -1505,6 +1506,9 @@ function lingotek_entity_load_single($entity_type, $entity_id) {
     if ($entity_type == 'paragraphs_item') {
       $language = lingotek_get_paragraphs_item_source($entity->item_id);
       $entity->language = $language;
+    }
+    if ($entity_type == 'file') {
+      $entity->language = lingotek_get_file_source($entity->fid);
     }
   }
   return $entity;

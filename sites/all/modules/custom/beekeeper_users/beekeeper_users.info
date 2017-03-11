@@ -52,6 +52,7 @@ features[user_role][] = Membership admin
 features[user_role][] = Site editor
 features[user_role][] = Standard member
 features[views_view][] = member_lists
+features[views_view][] = newsletters
 features[views_view][] = user_admin
 features[views_view][] = user_bulk_update
 project path = sites/default/files/features

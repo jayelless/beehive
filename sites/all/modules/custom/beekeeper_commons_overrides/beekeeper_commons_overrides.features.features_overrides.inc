@@ -78,6 +78,15 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-answer-body.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-answer-body.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-answer-field_radioactivity.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-answer-field_radioactivity.settings|history"] = 0;
+  $overrides["field_instance.node-answer-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-answer-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-answer-field_related_question.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -86,6 +95,22 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-answer-field_related_question.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-answer-field_related_question.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-answer-group_content_access.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-answer-group_content_access.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-answer-group_content_access.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-answer-og_group_ref.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-answer-og_group_ref.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-answer-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-answer-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -142,6 +167,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
     'type' => 'hidden',
     'weight' => 0,
   );
+  $overrides["field_instance.node-document-field_radioactivity.settings|history"] = 0;
   $overrides["field_instance.node-document-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-document-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-document-field_topics.display|notifications"] = array(
@@ -252,6 +278,15 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-event-field_organizers.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-event-field_organizers.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-event-field_radioactivity.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-event-field_radioactivity.settings|history"] = 0;
+  $overrides["field_instance.node-event-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-event-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-event-field_registration.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -268,6 +303,30 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-event-field_registration_type.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-event-field_registration_type.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-event-field_topics.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-event-field_topics.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-event-field_topics.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-event-group_content_access.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-event-group_content_access.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-event-group_content_access.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-event-og_group_ref.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-event-og_group_ref.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-event-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-event-title_field.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -326,6 +385,23 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-group-field_og_subscribe_settings.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-group-field_og_subscribe_settings.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-group-field_radioactivity.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-group-field_radioactivity.settings|history"] = 0;
+  $overrides["field_instance.node-group-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-group-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-group-field_topics.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-group-field_topics.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-group-field_topics.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-group-group_access.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
@@ -406,12 +482,21 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-poll-body.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-poll-body.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-poll-field_media.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-poll-field_media.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-poll-field_media.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-poll-field_radioactivity.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
     'type' => 'hidden',
     'weight' => 0,
   );
+  $overrides["field_instance.node-poll-field_radioactivity.settings|history"] = 0;
   $overrides["field_instance.node-poll-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-poll-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-poll-field_topics.display|notifications"] = array(
@@ -454,12 +539,21 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-post-body.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-post-body.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-post-field_media.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-post-field_media.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-post-field_media.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-post-field_radioactivity.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
     'type' => 'hidden',
     'weight' => 0,
   );
+  $overrides["field_instance.node-post-field_radioactivity.settings|history"] = 0;
   $overrides["field_instance.node-post-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-post-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-post-field_topics.display|notifications"] = array(
@@ -510,12 +604,21 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-question-body.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-question-body.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-question-field_media.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-question-field_media.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-question-field_media.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-question-field_radioactivity.display|notifications"] = array(
     'label' => 'above',
     'settings' => array(),
     'type' => 'hidden',
     'weight' => 0,
   );
+  $overrides["field_instance.node-question-field_radioactivity.settings|history"] = 0;
   $overrides["field_instance.node-question-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-question-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-question-field_topics.display|notifications"] = array(
@@ -572,6 +675,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
     'type' => 'hidden',
     'weight' => 0,
   );
+  $overrides["field_instance.node-wiki-field_radioactivity.settings|history"] = 0;
   $overrides["field_instance.node-wiki-field_radioactivity.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-wiki-field_radioactivity.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.node-wiki-field_topics.display|notifications"] = array(
@@ -598,6 +702,14 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
   );
   $overrides["field_instance.node-wiki-og_group_ref.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.node-wiki-og_group_ref.settings|membership_entity_term_renew_form"] = FALSE;
+  $overrides["field_instance.node-wiki-title_field.display|notifications"] = array(
+    'label' => 'above',
+    'settings' => array(),
+    'type' => 'hidden',
+    'weight' => 0,
+  );
+  $overrides["field_instance.node-wiki-title_field.settings|membership_entity_join_form"] = FALSE;
+  $overrides["field_instance.node-wiki-title_field.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.og_membership-og_membership_type_default-og_membership_request.settings|membership_entity_join_form"] = FALSE;
   $overrides["field_instance.og_membership-og_membership_type_default-og_membership_request.settings|membership_entity_term_renew_form"] = FALSE;
   $overrides["field_instance.user-user-field_bio.settings|membership_entity_join_form"] = FALSE;
@@ -799,6 +911,36 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
     'flag' => 'commons_follow_node',
   );
   $overrides["views_view.commons_bw_documents.display|default|display_options|sorts|field_radioactivity_radioactivity_energy"] = array(
+    'id' => 'field_radioactivity_radioactivity_energy',
+    'table' => 'field_data_field_radioactivity',
+    'field' => 'field_radioactivity_radioactivity_energy',
+    'order' => 'DESC',
+    'exposed' => TRUE,
+    'expose' => array(
+      'label' => 'most active',
+    ),
+  );
+  $overrides["views_view.commons_bw_polls.display|default|display_options|sorts|field_radioactivity_radioactivity_energy"] = array(
+    'id' => 'field_radioactivity_radioactivity_energy',
+    'table' => 'field_data_field_radioactivity',
+    'field' => 'field_radioactivity_radioactivity_energy',
+    'order' => 'DESC',
+    'exposed' => TRUE,
+    'expose' => array(
+      'label' => 'most active',
+    ),
+  );
+  $overrides["views_view.commons_bw_posts.display|default|display_options|sorts|field_radioactivity_radioactivity_energy"] = array(
+    'id' => 'field_radioactivity_radioactivity_energy',
+    'table' => 'field_data_field_radioactivity',
+    'field' => 'field_radioactivity_radioactivity_energy',
+    'order' => 'DESC',
+    'exposed' => TRUE,
+    'expose' => array(
+      'label' => 'most active',
+    ),
+  );
+  $overrides["views_view.commons_bw_q_a.display|default|display_options|sorts|field_radioactivity_radioactivity_energy"] = array(
     'id' => 'field_radioactivity_radioactivity_energy',
     'table' => 'field_data_field_radioactivity',
     'field' => 'field_radioactivity_radioactivity_energy',

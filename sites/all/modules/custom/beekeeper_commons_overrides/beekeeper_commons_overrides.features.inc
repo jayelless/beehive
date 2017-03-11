@@ -134,6 +134,17 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-answer-body']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-answer-body']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
+  if (isset($data['node-answer-field_radioactivity'])) {
+    $data['node-answer-field_radioactivity']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-answer-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
+    $data['node-answer-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-answer-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['node-answer-field_related_question'])) {
     $data['node-answer-field_related_question']['display']['notifications'] = array(
       'label' => 'above',
@@ -143,6 +154,26 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     ); /* WAS: '' */
     $data['node-answer-field_related_question']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-answer-field_related_question']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-answer-group_content_access'])) {
+    $data['node-answer-group_content_access']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-answer-group_content_access']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-answer-group_content_access']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-answer-og_group_ref'])) {
+    $data['node-answer-og_group_ref']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-answer-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-answer-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-answer-title_field'])) {
     $data['node-answer-title_field']['display']['notifications'] = array(
@@ -211,6 +242,7 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
+    $data['node-document-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-document-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-document-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -346,6 +378,17 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-event-field_organizers']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-event-field_organizers']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
+  if (isset($data['node-event-field_radioactivity'])) {
+    $data['node-event-field_radioactivity']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-event-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
+    $data['node-event-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-event-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['node-event-field_registration'])) {
     $data['node-event-field_registration']['display']['notifications'] = array(
       'label' => 'above',
@@ -365,6 +408,36 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     ); /* WAS: '' */
     $data['node-event-field_registration_type']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-event-field_registration_type']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-event-field_topics'])) {
+    $data['node-event-field_topics']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-event-field_topics']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-event-field_topics']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-event-group_content_access'])) {
+    $data['node-event-group_content_access']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-event-group_content_access']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-event-group_content_access']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-event-og_group_ref'])) {
+    $data['node-event-og_group_ref']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-event-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-event-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-event-title_field'])) {
     $data['node-event-title_field']['display']['notifications'] = array(
@@ -435,6 +508,27 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     ); /* WAS: '' */
     $data['node-group-field_og_subscribe_settings']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-group-field_og_subscribe_settings']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-group-field_radioactivity'])) {
+    $data['node-group-field_radioactivity']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-group-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
+    $data['node-group-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-group-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-group-field_topics'])) {
+    $data['node-group-field_topics']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-group-field_topics']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-group-field_topics']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['node-group-group_access'])) {
     $data['node-group-group_access']['display']['notifications'] = array(
@@ -536,6 +630,16 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-poll-body']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-poll-body']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
+  if (isset($data['node-poll-field_media'])) {
+    $data['node-poll-field_media']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-poll-field_media']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-poll-field_media']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['node-poll-field_radioactivity'])) {
     $data['node-poll-field_radioactivity']['display']['notifications'] = array(
       'label' => 'above',
@@ -543,6 +647,7 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
+    $data['node-poll-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-poll-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-poll-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -596,6 +701,16 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-post-body']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-post-body']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
+  if (isset($data['node-post-field_media'])) {
+    $data['node-post-field_media']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-post-field_media']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-post-field_media']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['node-post-field_radioactivity'])) {
     $data['node-post-field_radioactivity']['display']['notifications'] = array(
       'label' => 'above',
@@ -603,6 +718,7 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
+    $data['node-post-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-post-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-post-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -666,6 +782,16 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     $data['node-question-body']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-question-body']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
+  if (isset($data['node-question-field_media'])) {
+    $data['node-question-field_media']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-question-field_media']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-question-field_media']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
   if (isset($data['node-question-field_radioactivity'])) {
     $data['node-question-field_radioactivity']['display']['notifications'] = array(
       'label' => 'above',
@@ -673,6 +799,7 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
+    $data['node-question-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-question-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-question-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -743,6 +870,7 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
       'type' => 'hidden',
       'weight' => 0,
     ); /* WAS: '' */
+    $data['node-wiki-field_radioactivity']['settings']['history'] = 0; /* WAS: '' */
     $data['node-wiki-field_radioactivity']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-wiki-field_radioactivity']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
@@ -775,6 +903,16 @@ function beekeeper_commons_overrides_field_default_field_instances_alter(&$data)
     ); /* WAS: '' */
     $data['node-wiki-og_group_ref']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
     $data['node-wiki-og_group_ref']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
+  }
+  if (isset($data['node-wiki-title_field'])) {
+    $data['node-wiki-title_field']['display']['notifications'] = array(
+      'label' => 'above',
+      'settings' => array(),
+      'type' => 'hidden',
+      'weight' => 0,
+    ); /* WAS: '' */
+    $data['node-wiki-title_field']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
+    $data['node-wiki-title_field']['settings']['membership_entity_term_renew_form'] = FALSE; /* WAS: '' */
   }
   if (isset($data['og_membership-og_membership_type_default-og_membership_request'])) {
     $data['og_membership-og_membership_type_default-og_membership_request']['settings']['membership_entity_join_form'] = FALSE; /* WAS: '' */
@@ -1014,6 +1152,42 @@ function beekeeper_commons_overrides_views_default_views_alter(&$data) {
       'flag' => 'commons_follow_node',
     ); /* WAS: '' */
     $data['commons_bw_documents']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
+      'id' => 'field_radioactivity_radioactivity_energy',
+      'table' => 'field_data_field_radioactivity',
+      'field' => 'field_radioactivity_radioactivity_energy',
+      'order' => 'DESC',
+      'exposed' => TRUE,
+      'expose' => array(
+        'label' => 'most active',
+      ),
+    ); /* WAS: '' */
+  }
+  if (isset($data['commons_bw_polls'])) {
+    $data['commons_bw_polls']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
+      'id' => 'field_radioactivity_radioactivity_energy',
+      'table' => 'field_data_field_radioactivity',
+      'field' => 'field_radioactivity_radioactivity_energy',
+      'order' => 'DESC',
+      'exposed' => TRUE,
+      'expose' => array(
+        'label' => 'most active',
+      ),
+    ); /* WAS: '' */
+  }
+  if (isset($data['commons_bw_posts'])) {
+    $data['commons_bw_posts']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
+      'id' => 'field_radioactivity_radioactivity_energy',
+      'table' => 'field_data_field_radioactivity',
+      'field' => 'field_radioactivity_radioactivity_energy',
+      'order' => 'DESC',
+      'exposed' => TRUE,
+      'expose' => array(
+        'label' => 'most active',
+      ),
+    ); /* WAS: '' */
+  }
+  if (isset($data['commons_bw_q_a'])) {
+    $data['commons_bw_q_a']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy'] = array(
       'id' => 'field_radioactivity_radioactivity_energy',
       'table' => 'field_data_field_radioactivity',
       'field' => 'field_radioactivity_radioactivity_energy',

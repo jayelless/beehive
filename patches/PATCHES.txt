@@ -37,4 +37,4 @@ Contrib Modules
 === geolocation_views ===
 >>> 7.x-dev
 12 Mar 2017: geolocation_views-2859902-remove-redundant-sensor-query-1.patch
-12 Mar 2017: geolocation_views-2859904-pass-absolute-module-path-1.patch
+13 Mar 2017: geolocation_views-2859904-pass-absolute-module-path-3.patch

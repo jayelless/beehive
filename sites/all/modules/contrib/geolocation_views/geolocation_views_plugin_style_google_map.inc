@@ -260,11 +260,11 @@ class geolocation_views_plugin_style_google_map extends views_plugin_style {
       $query['key'] = $googlemaps_api_key;
     }
     drupal_add_js('//maps.google.com/maps/api/js?' . drupal_http_build_query($query), array('type' => 'external'));
-    $module_path = '/' . drupal_get_path('module', 'geolocation_views');
+    $module_path = drupal_get_path('module', 'geolocation_views');
     if ($this->options['use_marker_clusterer']) {
       drupal_add_js(array(
         'geolocationViews' => array(
-          'modulePath' => $module_path,
+          'modulePath' => '/' . $module_path,
         ),
       ), array('type' => 'setting'));
       drupal_add_js($module_path . '/markerclusterer/markerclusterer.js');

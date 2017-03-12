@@ -1,0 +1,13 @@
+diff --git a/geolocation_views_plugin_style_google_map.inc b/geolocation_views_plugin_style_google_map.inc
+index 64cf8a1..9c56f0a 100644
+--- a/geolocation_views_plugin_style_google_map.inc
++++ b/geolocation_views_plugin_style_google_map.inc
+@@ -264,7 +264,7 @@ class geolocation_views_plugin_style_google_map extends views_plugin_style {
+     if ($this->options['use_marker_clusterer']) {
+       drupal_add_js(array(
+         'geolocationViews' => array(
+-          'modulePath' => $module_path,
++          'modulePath' => '/' . $module_path,
+         ),
+       ), array('type' => 'setting'));
+       drupal_add_js($module_path . '/markerclusterer/markerclusterer.js');

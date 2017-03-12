@@ -1,0 +1,17 @@
+name = Beekeeper Events
+description = Calendar and events for the beekeeper website.
+core = 7.x
+package = Beekeepers
+version = 7.x-1.1
+dependencies[] = calendar
+dependencies[] = date_views
+dependencies[] = strongarm
+dependencies[] = views
+features[ctools][] = strongarm:strongarm:1
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[variable][] = calendar_add_colorbox
+features[variable][] = calendar_track_date
+features[views_view][] = event_calendar
+features_exclude[dependencies][ctools] = ctools
+project path = sites/default/files/features/

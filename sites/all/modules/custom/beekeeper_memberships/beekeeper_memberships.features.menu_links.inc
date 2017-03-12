@@ -29,7 +29,7 @@ function beekeeper_memberships_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-    'parent_identifier' => 'user-menu_join:user/join',
+    'parent_identifier' => 'user-menu_join-club:user/join',
   );
   // Exported menu link: user-menu_join---honorary-membership:user/join/honorary-membership.
   $menu_links['user-menu_join---honorary-membership:user/join/honorary-membership'] = array(
@@ -50,7 +50,7 @@ function beekeeper_memberships_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-    'parent_identifier' => 'user-menu_join:user/join',
+    'parent_identifier' => 'user-menu_join-club:user/join',
   );
   // Exported menu link: user-menu_join---life-membership:user/join/life-membership.
   $menu_links['user-menu_join---life-membership:user/join/life-membership'] = array(
@@ -71,24 +71,7 @@ function beekeeper_memberships_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-    'parent_identifier' => 'user-menu_join:user/join',
-  );
-  // Exported menu link: user-menu_join:user/join.
-  $menu_links['user-menu_join:user/join'] = array(
-    'menu_name' => 'user-menu',
-    'link_path' => 'user/join',
-    'router_path' => 'user/join',
-    'link_title' => 'Join',
-    'options' => array(
-      'identifier' => 'user-menu_join:user/join',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 1,
-    'expanded' => 0,
-    'weight' => -50,
-    'customized' => 1,
+    'parent_identifier' => 'user-menu_join-club:user/join',
   );
   // Exported menu link: user-menu_renew---dummy-membership:user/renew/membership.
   $menu_links['user-menu_renew---dummy-membership:user/renew/membership'] = array(
@@ -109,7 +92,7 @@ function beekeeper_memberships_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-    'parent_identifier' => 'user-menu_renew:user/renew',
+    'parent_identifier' => 'user-menu_renew-membership:user/renew',
   );
   // Exported menu link: user-menu_renew---honorary-membership:user/renew/honorary-membership.
   $menu_links['user-menu_renew---honorary-membership:user/renew/honorary-membership'] = array(
@@ -130,7 +113,7 @@ function beekeeper_memberships_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-    'parent_identifier' => 'user-menu_renew:user/renew',
+    'parent_identifier' => 'user-menu_renew-membership:user/renew',
   );
   // Exported menu link: user-menu_renew---life-membership:user/renew/life-membership.
   $menu_links['user-menu_renew---life-membership:user/renew/life-membership'] = array(
@@ -151,33 +134,14 @@ function beekeeper_memberships_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-    'parent_identifier' => 'user-menu_renew:user/renew',
-  );
-  // Exported menu link: user-menu_renew:user/renew.
-  $menu_links['user-menu_renew:user/renew'] = array(
-    'menu_name' => 'user-menu',
-    'link_path' => 'user/renew',
-    'router_path' => 'user/renew',
-    'link_title' => 'Renew',
-    'options' => array(
-      'identifier' => 'user-menu_renew:user/renew',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 1,
-    'expanded' => 0,
-    'weight' => -49,
-    'customized' => 1,
+    'parent_identifier' => 'user-menu_renew-membership:user/renew',
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Join');
   t('Join - Dummy Membership');
   t('Join - Honorary Membership');
   t('Join - Life Membership');
-  t('Renew');
   t('Renew - Dummy Membership');
   t('Renew - Honorary Membership');
   t('Renew - Life Membership');

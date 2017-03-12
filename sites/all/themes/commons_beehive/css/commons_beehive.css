@@ -1,0 +1,30 @@
+/* Custom styles for commons_beehive */
+
+/* Style the user_menu in the lower header region */
+.region-lower-header nav.block-menu {
+  margin-left: 212px;
+  margin-bottom: 0;
+}
+.region-lower-header nav.block-menu ul {
+  padding: 0;
+  margin: 5px 0 0 0;
+}
+.region-lower-header nav.block-menu ul li {
+  display: inline-block;
+  float: left;
+  padding: 0 5px 0 0;
+  border-right: 1px solid #6a513b;
+  margin: 0 5px 0 0;
+}
+.region-lower-header nav.block-menu ul li.last {
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+.region-lower-header nav.block-menu ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+}

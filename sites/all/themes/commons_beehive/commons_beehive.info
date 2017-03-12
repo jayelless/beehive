@@ -15,6 +15,9 @@
   ; See each stylesheet for extensive documentation and help.
   stylesheets[screen][] = css/global.base.css
   stylesheets[screen][] = css/global.styles.css
+  ; Include our custom stylesheet
+  stylesheets[screen][] = css/modified_global.styles.css
+  stylesheets[screen][] = css/commons_beehive.css
 
   ; Print - uncomment to load basic print styles.
   stylesheets[print][] = css/print.css
@@ -99,6 +102,7 @@
   regions[tertiary_content]  = Tertiary
   regions[footer]            = Footer
   regions[header]            = Header
+  regions[lower_header]      = Lower header
   regions[menu_bar]          = Menu Bar
   regions[help]              = Help
   regions[page_top]          = Page top

@@ -91,7 +91,6 @@
 <div class="header-wrapper">
   <div class="header-color-row-one">
     <header<?php print $header_attributes; ?>>
-
       <?php if ($site_logo || $site_name || $site_slogan): ?>
         <!-- start: Branding -->
         <div<?php print $branding_attributes; ?>>
@@ -127,7 +126,11 @@
       <?php print render($page['header']); ?>
     </header>
   </div>
-  <div class="header-color-row-two"></div>
+  <div class="header-color-row-two">
+    <header class="clearfix container">
+      <?php print render($page['lower_header']); ?>
+    </header>
+  </div>
 </div>
 <div id="page" class="container <?php print $classes; ?>">
 

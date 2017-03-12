@@ -234,6 +234,73 @@ function beekeeper_custom_block_view_commons_site_homepage_commons_site_homepage
 }
 
 /**
+ * Implements hook_menu()
+ */
+function beekeeper_custom_menu() {
+  $menu_items = array();
+  $menu_items['beekeeper/membership/join'] = array(
+    'title' => 'Join club',
+    'description' => 'Join the Wellington Beekeepers Association',
+    'access callback' => 'beekeeper_custom_accesscheck',
+    'access arguments' => array('membership', 'join'),
+    'page callback' => 'beekeeper_custom_menu_join_club',
+    'page arguments' => '',
+    'file' => 'beekeeper_custom.menu.inc',
+    'menu_name' => 'beekeeper-menu',
+    'weight' => 0,
+  );
+  $menu_items['beekeeper/membership/renew'] = array(
+    'title' => 'Renew membership',
+    'description' => 'Renew membership of the Wellington Beekeepers Association',
+    'access callback' => 'beekeeper_custom_accesscheck',
+    'access arguments' => array('membership', 'renew'),
+    'page callback' => 'beekeeper_custom_menu_renew_membership',
+    'page arguments' => '',
+    'file' => 'beekeeper_custom.menu.inc',
+    'menu_name' => 'beekeeper-menu',
+    'weight' => 0,
+  );
+
+  return $menu_items;
+}
+
+/**
+ * Custom access callback function
+ */
+function beekeeper_custom_accesscheck() {
+  $args = func_get_args();
+  global $user;
+  if ($user->uid == 1) { return TRUE; }
+
+  // Show the "Join" menu item
+  if ($args[0] == 'membership' && $args[1] == 'join') {
+    if (empty($user->uid)) {
+      return TRUE;
+    }
+    if (!db_query('SELECT mid FROM {membership_entity} WHERE uid = :uid', array(':uid' => $user->uid))->rowCount()) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  // Show the "Renew membership" menu item
+  if ($args[0] == 'membership' && $args[1] == 'renew') {
+    // Check if the user has a renewable membership and date is after 31 Mar
+    $month_day = date('md');
+    $membership_type = isset($args[2]) ? array($args[2]) : array('standard_membership','junior_membership');
+    if ($user->uid && $month_day > '0331') {
+      $result = db_query('SELECT mid FROM {membership_entity} WHERE uid = :uid AND type IN (:type)',
+        array(':uid' => $user->uid, ':type' => $membership_type))->rowCount();
+      return (bool) $result;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
+}
+
+/**
  * Implements hook_menu_alter()
  */
 function beekeeper_custom_menu_alter(&$menu_items) {

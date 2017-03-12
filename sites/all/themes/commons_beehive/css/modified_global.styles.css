@@ -94,7 +94,7 @@ html .cke_editable {
 }
 
 body {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #636466;
   color: #444444;
   min-width: 18em;
@@ -107,6 +107,7 @@ h1 {
   font-size: 30px;
   line-height: 30px;
   font-weight: normal;
+  font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
   color: white;
 }
 h1 a {
@@ -128,7 +129,7 @@ h2 {
   color: #e2ad20;
   font-weight: lighter;
   font-size: 3.8em;
-  font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h3 {
@@ -355,7 +356,7 @@ var {
  */
 #site-name {
   margin: .3em 0 0;
-  font-family: 'Trebuchet MS';
+  font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
   font-weight: 700;
 }
 #site-name a:link, #site-name a:visited {
@@ -913,7 +914,7 @@ button,
   border-radius: 2px;
   /* Reset all button fonts to a similar baseline in webkit. */
   font: -webkit-small-control;
-  font-family: "Helvetica Neue", Arial, "Liberation Sans", FreeSans, sans-serif;
+  font-family: "Helvetica Neue", "Liberation Sans", FreeSans, Arial, sans-serif;
   font-weight: light;
   letter-spacing: .06em;
   text-align: center;

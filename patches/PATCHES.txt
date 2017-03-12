@@ -30,3 +30,11 @@ Commons Modules
 -------------------------------------------------------------------------------
 Contrib Modules
 -------------------------------------------------------------------------------
+=== geolocation_proximity ===
+>>> 7.x-2.0
+12 Mar 2017: geolocation_proximity-2859901-remove-sensor-query-1.patch
+
+=== geolocation_views ===
+>>> 7.x-dev
+12 Mar 2017: geolocation_views-2859902-remove-redundant-sensor-query-1.patch
+12 Mar 2017: geolocation_views-2859904-pass-absolute-module-path-1.patch

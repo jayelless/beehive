@@ -160,10 +160,6 @@ class geolocation_proximity_views_handler_filter_distance extends views_handler_
         // Attach CSS and JS files via FAPI '#attached'.
         $form['value']['googlemap']['googlemap']['#attached']['css'][] = drupal_get_path('module', 'geolocation_googlemaps') . '/geolocation_googlemaps.css';
         $form['value']['googlemap']['googlemap']['#attached']['js'][] = array(
-          'data' => '//maps.google.com/maps/api/js?sensor=false',
-          'type' => 'external',
-        );
-        $form['value']['googlemap']['googlemap']['#attached']['js'][] = array(
           'data' => '//www.google.com/jsapi',
           'type' => 'external',
         );
@@ -298,6 +294,6 @@ class geolocation_proximity_views_handler_filter_distance extends views_handler_
 
     // We use having to be able to reuse the query on field handlers
     $this->query->add_field(NULL, $sql, $this->field_alias);
-    $this->query->add_having_expression($this->options['group'], '(' . $this->field_alias . ' IS NULL) OR (' . $this->field_alias . $this->operator . $filter_distance . ')');
+    $this->query->add_having($this->options['group'], $this->field_alias, $filter_distance, $this->operator);
   }
 }

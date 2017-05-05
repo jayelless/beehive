@@ -6,7 +6,7 @@ class geolocation_views_plugin_style_google_map extends views_plugin_style {
    */
   function option_definition() {
     $options = parent::option_definition();
-
+    
     $options['map_width'] = array('default' => '100%');
     $options['map_height'] = array('default' => '400px');
     $options['map_center'] = array('default' => '0,0');
@@ -25,10 +25,10 @@ class geolocation_views_plugin_style_google_map extends views_plugin_style {
     $options['map_auto_center_and_zoom'] = array('default' => TRUE);
     $options['map_disable_scroll_wheel'] = array('default' => FALSE);
     $options['map_disable_double_click_zoom'] = array('default' => FALSE);
-
+    
     return $options;
   }
-
+  
   /**
    * Options form.
    */
@@ -185,7 +185,7 @@ class geolocation_views_plugin_style_google_map extends views_plugin_style {
       '#default_value' => $this->options['map_disable_double_click_zoom'],
     );
   }
-
+  
   /**
    * Render the display in this style.
    */
@@ -213,27 +213,27 @@ class geolocation_views_plugin_style_google_map extends views_plugin_style {
       if (!$row->{'field_' . $geolocation_field}) {
         continue;
       }
-
+      
       $marker_icon = '';
       if ($this->options['marker_icon_field']) {
         $marker_icon = $this->get_field($row_index, $this->options['marker_icon_field']);
       }
-
+      
       $marker_url = '';
       if ($this->options['marker_url_field']) {
         $marker_url = $this->get_field($row_index, $this->options['marker_url_field']);
       }
-
+      
       $marker_title = '';
       if ($this->options['marker_title_field']) {
         $marker_title = $this->get_field($row_index, $this->options['marker_title_field']);
         $marker_title = strip_tags($marker_title);
         $marker_title = decode_entities($marker_title);
       }
-
+      
       $this->view->row_index = $row_index;
       $marker_content = $this->row_plugin->render($row);
-
+      
       foreach ($row->{'field_' . $geolocation_field} as $field_value) {
         $markers[] = array(
           'lat' => (float)$field_value['raw']['lat'],

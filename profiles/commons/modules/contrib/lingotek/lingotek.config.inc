@@ -406,7 +406,7 @@ function lingotek_bulk_grid_parse_config_data($table_data_raw, $entity_type, $st
     $escaped_source = htmlentities($row->{'source'});
     $source_text = lingotek_truncate_grid_text($escaped_source, 55);
 
-    $translation_icons = lingotek_lang_icons($entity_type, $languages, $lid, $locale_statuses, FALSE, $row->language, FALSE, FALSE, $non_lingotek_config_translations); // show translation statuses
+    $translation_icons = lingotek_lang_icons($entity_type, $languages, $lid, NULL, $locale_statuses, FALSE, $row->language, FALSE, FALSE, $non_lingotek_config_translations); // show translation statuses
     $target_icons_str = implode('', array_values($translation_icons));
     $source_uploaded = lingotek_render_source($entity_type, $row, $languages, 'language');
     $set_id = LingotekConfigSet::getSetId($lid, FALSE);

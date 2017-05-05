@@ -42,9 +42,9 @@ features_exclude[field_base][field_target_nodes] = field_target_nodes
 features_exclude[field_base][field_target_comments] = field_target_comments
 features_exclude[views_view][commons_bw_all] = commons_bw_all
 
-; Information added by Drupal.org packaging script on 2017-02-27
-version = "7.x-3.43"
+; Information added by Drupal.org packaging script on 2017-04-21
+version = "7.x-3.44"
 core = "7.x"
 project = "commons"
-datestamp = "1488210216"
+datestamp = "1492807148"
 

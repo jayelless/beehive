@@ -12,6 +12,9 @@ Commons Codebase
 >>> 7.x-3.43
 10 Mar 2017: commons-fix-private_groups.patch (issue #2399695)
 10 Mar 2017: message_notify-2381465-could-not-send-message-5.patch
+>>> 7.x-3.44
+05 May 2017: commons-fix-private_groups.patch (issue #2399695)
+05 May 2017: message_notify-2381465-could-not-send-message-5.patch
 
 -------------------------------------------------------------------------------
 Commons Modules
@@ -19,13 +22,15 @@ Commons Modules
 === message_subscribe ===
 >>> 7.x-1.0-rc2
 19 Feb 2017: old_flag_table-2551485-8.patch
-10 Mar 2017: old_flag_table-2551485-8.patch
+10 Mar 2017: old_flag_table-2551485-10.patch
+05 May 2017: old_flag_table-2551485-13.patch
 
 === views_bulk_operations ===
 >>> 7.x-3.3
 19 Feb 2017: views_bulk_operations-no_default_action-2254871-42.patch
 >>> 7.x-3.4
 10 Mar 2017: views_bulk_operations-no_default_action-2254871-42.patch
+05 May 2017: views_bulk_operations-no_default_action-2254871-54.patch
 
 -------------------------------------------------------------------------------
 Contrib Modules
@@ -38,3 +43,5 @@ Contrib Modules
 >>> 7.x-dev
 12 Mar 2017: geolocation_views-2859902-remove-redundant-sensor-query-1.patch
 13 Mar 2017: geolocation_views-2859904-pass-absolute-module-path-3.patch
+>>> 7.x-1.x-dev
+05 May 2017: geolocation_views-2859904-pass-absolute-module-path-3.patch

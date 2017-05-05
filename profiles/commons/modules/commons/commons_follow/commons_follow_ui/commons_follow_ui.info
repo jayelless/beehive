@@ -7,9 +7,9 @@ dependencies[] = commons_follow
 dependencies[] = message_subscribe_ui
 dependencies[] = quicktabs
 
-; Information added by Drupal.org packaging script on 2017-02-27
-version = "7.x-3.43"
+; Information added by Drupal.org packaging script on 2017-04-21
+version = "7.x-3.44"
 core = "7.x"
 project = "commons"
-datestamp = "1488210216"
+datestamp = "1492807148"
 

@@ -100,24 +100,24 @@ index 968921f..7f26cc1 100644
     * Only called if the operation is declared as configurable.
     *
 diff --git a/views_bulk_operations.module b/views_bulk_operations.module
-index 477921a..111ceae 100644
+index f5865a2..aa0e93f 100644
 --- a/views_bulk_operations.module
 +++ b/views_bulk_operations.module
-@@ -1087,7 +1087,7 @@ function views_bulk_operations_queue_item_process($queue_item_data, &$log = NULL
-     }
+@@ -1088,7 +1088,7 @@ function views_bulk_operations_queue_item_process($queue_item_data, &$log = NULL
  
      // If the current entity can't be accessed, skip it and log a notice.
--    if (!_views_bulk_operations_entity_access($operation, $entity_type, $entity, $account)) {
-+    if (!$operation->entity_access($entity_type, $entity, $account)) {
+     $skip_permission_check = $operation->getAdminOption('skip_permission_check');
+-    if (!$skip_permission_check && !_views_bulk_operations_entity_access($operation, $entity_type, $entity, $account)) {
++    if (!$skip_permission_check && !$operation->entity_access($entity_type, $entity, $account)) {
        $message = 'Skipped %operation on @type %title due to insufficient permissions.';
        $arguments = array(
          '%operation' => $operation->label(),
-@@ -1184,7 +1184,7 @@ function views_bulk_operations_direct_process($operation, $rows, $options) {
- 
+@@ -1186,7 +1186,7 @@ function views_bulk_operations_direct_process($operation, $rows, $options) {
+     $skip_permission_check = $operation->getAdminOption('skip_permission_check');
      // Filter out entities that can't be accessed.
      foreach ($entities as $id => $entity) {
--      if (!_views_bulk_operations_entity_access($operation, $entity_type, $entity)) {
-+      if (!$operation->entity_access($entity_type, $entity)) {
+-      if (!$skip_permission_check && !_views_bulk_operations_entity_access($operation, $entity_type, $entity, $user)) {
++      if (!$skip_permission_check && !$operation->entity_access($entity_type, $entity)) {
          $context['results']['log'][] = t('Skipped %operation on @type %title due to insufficient permissions.', array(
            '%operation' => $operation->label(),
            '@type' => $entity_type,

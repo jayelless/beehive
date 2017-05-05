@@ -5,7 +5,7 @@ core = 7.x
 
 projects[acquia_connector][type] = "module"
 projects[acquia_connector][subdir] = "contrib"
-projects[acquia_connector][version] = "2.17"
+projects[acquia_connector][version] = "3.1"
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
@@ -78,7 +78,7 @@ projects[custom_search][version] = "1.20"
 
 projects[date][type] = "module"
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.9"
+projects[date][version] = "2.10"
 
 projects[date_facets][type] = "module"
 projects[date_facets][subdir] = "contrib"
@@ -147,7 +147,7 @@ projects[entityreference_prepopulate][patch][] = "https://drupal.org/files/issue
 
 projects[entity_translation][type] = "module"
 projects[entity_translation][subdir] = "contrib"
-projects[entity_translation][version] = "1.0-beta5"
+projects[entity_translation][version] = "1.0-beta6"
 
 projects[facetapi][type] = "module"
 projects[facetapi][subdir] = "contrib"
@@ -182,7 +182,7 @@ projects[http_client][version] = "2.4"
 
 projects[i18n][type] = "module"
 projects[i18n][subdir] = "contrib"
-projects[i18n][version] = "1.15"
+projects[i18n][version] = "1.17"
 
 projects[i18nviews][type] = "module"
 projects[i18nviews][subdir] = "contrib"
@@ -206,7 +206,7 @@ projects[libraries][version] = "2.3"
 
 projects[lingotek][type] = "module"
 projects[lingotek][subdir] = "contrib"
-projects[lingotek][version] = "7.19"
+projects[lingotek][version] = "7.20"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -214,8 +214,7 @@ projects[link][version] = "1.4"
 
 projects[media][type] = "module"
 projects[media][subdir] = "contrib"
-projects[media][version] = "2.0-rc5"
-projects[media][patch][] = "https://drupal.org/files/issues/media-ajax-2849607-2.patch"
+projects[media][version] = "2.0"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
@@ -223,7 +222,7 @@ projects[media_oembed][version] = "2.7"
 
 projects[memcache][type] = "module"
 projects[memcache][subdir] = "contrib"
-projects[memcache][version] = "1.5"
+projects[memcache][version] = "1.6"
 
 projects[menu_attributes][type] = "module"
 projects[menu_attributes][subdir] = "contrib"
@@ -388,7 +387,7 @@ projects[rich_snippets][version] = "1.0-beta4"
 
 projects[rules][type] = "module"
 projects[rules][subdir] = "contrib"
-projects[rules][version] = "2.9"
+projects[rules][version] = "2.10"
 
 projects[schemaorg][type] = "module"
 projects[schemaorg][subdir] = "contrib"
@@ -439,7 +438,7 @@ projects[variable][version] = "2.5"
 
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.15"
+projects[views][version] = "3.16"
 
 ; Update Views Content access filter per core performance improvements.
 ; https://drupal.org/comment/8516039#comment-8516039

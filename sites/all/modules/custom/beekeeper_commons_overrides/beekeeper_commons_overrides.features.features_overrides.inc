@@ -796,7 +796,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
       ),
       'css' => array(),
       'extras' => array(),
-      'position' => 0,
+      'position' => 1,
       'locks' => array(),
       'uuid' => '94106ddd-1278-0954-c5ba-b59ff1b9bf49',
     );
@@ -825,7 +825,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
     );
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|content|new-b6e290b7-1d2b-5db4-a181-28befdcde628"] = (object) array(
       'pid' => 'new-b6e290b7-1d2b-5db4-a181-28befdcde628',
-      'panel' => 'three_33_first',
+      'panel' => 'three_33_second',
       'type' => 'views_panes',
       'subtype' => 'commons_radioactivity_groups_most_active-panel_pane_1',
       'shown' => TRUE,
@@ -837,18 +837,18 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
       ),
       'css' => array(),
       'extras' => array(),
-      'position' => 1,
+      'position' => 0,
       'locks' => array(),
       'uuid' => 'b6e290b7-1d2b-5db4-a181-28befdcde628',
     );
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_first|0"] = 'new-94106ddd-1278-0954-c5ba-b59ff1b9bf49';
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_first|1"] = 'new-b6e290b7-1d2b-5db4-a181-28befdcde628';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_second"] = array(
     0 => 'new-58e71a00-2b87-ab64-31c5-4fdc9e99a2d4',
+    1 => 'new-b6e290b7-1d2b-5db4-a181-28befdcde628',
   );
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|0"] = 'new-b08fd311-7faa-4cd2-b527-48b0e83317a2';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|0"] = 'new-0ae8e5a2-44f6-8584-21f2-8be6e340e62f';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|1"] = 'new-800b2f8a-307f-0e14-4174-626a1c5c4cd9';
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|2"] = 'new-0ae8e5a2-44f6-8584-21f2-8be6e340e62f';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|panels|three_33_third|2"] = 'new-b08fd311-7faa-4cd2-b527-48b0e83317a2';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|storage_id"] = 'page_commons_home_panel_context_2';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context_2|conf|display|storage_type"] = 'page_manager';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|content|new-895dfc63-a30f-f734-3185-c40c407b4af0|position"] = 3;
@@ -876,9 +876,7 @@ function beekeeper_commons_overrides_features_override_default_overrides() {
       'locks' => array(),
       'uuid' => 'bd2087f8-3cf5-4e07-aa1a-61036c986af2',
     );
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|0"] = 'new-bd2087f8-3cf5-4e07-aa1a-61036c986af2';
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|2"] = 'new-b20add8c-2daf-4684-45f3-212d60c7f31e';
-  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|3"] = 'new-895dfc63-a30f-f734-3185-c40c407b4af0';
+  $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|panels|two_66_33_second|3"] = 'new-bd2087f8-3cf5-4e07-aa1a-61036c986af2';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|storage_id"] = 'page_commons_home_panel_context';
   $overrides["page_manager_pages.commons_home.default_handlers|page_commons_home_panel_context|conf|display|storage_type"] = 'page_manager';
   $overrides["page_manager_pages.views_events_landing_page.default_handlers|page_views_events_landing_page_panel_context|conf|display|storage_id"] = 'page_views_events_landing_page_panel_context';

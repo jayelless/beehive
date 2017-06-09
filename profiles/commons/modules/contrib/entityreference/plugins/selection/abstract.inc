@@ -21,7 +21,7 @@ interface EntityReference_SelectionHandler {
    * Return a list of referencable entities.
    *
    * @return
-   *   An nested array of entities, the first level is keyed by the
+   *   A nested array of entities, the first level is keyed by the
    *   entity bundle, which contains an array of entity labels (safe HTML),
    *   keyed by the entity ID.
    */

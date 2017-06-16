@@ -30,6 +30,7 @@ features[rules_config][] = rules_beekeeper_magazine_subscription_started_insert
 features[rules_config][] = rules_beekeeper_magazine_subscription_started_update
 features[user_permission][] = create field_beekeeper_magazine_expiry
 features[user_permission][] = edit field_beekeeper_magazine_expiry
+features[user_permission][] = edit own field_beekeeper_magazine_expiry
 features[user_permission][] = view field_beekeeper_magazine_expiry
 features[user_permission][] = view own field_beekeeper_magazine_expiry
 features_exclude[dependencies][beekeeper_commerce] = beekeeper_commerce

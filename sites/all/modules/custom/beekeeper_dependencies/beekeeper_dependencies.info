@@ -29,7 +29,6 @@ dependencies[] = geolocation_googlemaps
 dependencies[] = geolocation_html5
 dependencies[] = geolocation_proximity
 dependencies[] = geolocation_views
-dependencies[] = mass_contact
 dependencies[] = membership_entity
 dependencies[] = membership_entity_commerce
 dependencies[] = membership_entity_term

@@ -33,29 +33,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'weight' => 4,
     'customized' => 1,
   );
-  // Exported menu link: beekeeper-menu_messages:messages.
-  $menu_links['beekeeper-menu_messages:messages'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'messages',
-    'router_path' => 'messages',
-    'link_title' => 'Messages',
-    'options' => array(
-      'attributes' => array(),
-      'item_attributes' => array(
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'beekeeper-menu_messages:messages',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 5,
-    'customized' => 1,
-  );
   // Exported menu link: beekeeper-menu_orders:admin/commerce/orders.
   $menu_links['beekeeper-menu_orders:admin/commerce/orders'] = array(
     'menu_name' => 'beekeeper-menu',
@@ -257,26 +234,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-  );
-  // Exported menu link: navigation_mass-contact:mass_contact.
-  $menu_links['navigation_mass-contact:mass_contact'] = array(
-    'menu_name' => 'navigation',
-    'link_path' => 'mass_contact',
-    'router_path' => 'mass_contact',
-    'link_title' => 'Mass Contact',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Send an email message to multiple users of this website.',
-      ),
-      'identifier' => 'navigation_mass-contact:mass_contact',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'customized' => 0,
   );
   // Exported menu link: navigation_multiple-tags:notifications/subscription/add/taxonomy_term_multiple.
   $menu_links['navigation_multiple-tags:notifications/subscription/add/taxonomy_term_multiple'] = array(
@@ -705,8 +662,6 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Join - Standard Membership');
   t('Join club');
   t('Log out');
-  t('Mass Contact');
-  t('Messages');
   t('Multiple tags');
   t('Orders');
   t('Renew - Dummy Membership');

@@ -28,6 +28,15 @@ function beekeeper_magazine_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit own field_beekeeper_magazine_expiry'.
+  $permissions['edit own field_beekeeper_magazine_expiry'] = array(
+    'name' => 'edit own field_beekeeper_magazine_expiry',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_beekeeper_magazine_expiry'.
   $permissions['view field_beekeeper_magazine_expiry'] = array(
     'name' => 'view field_beekeeper_magazine_expiry',

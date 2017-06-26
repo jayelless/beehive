@@ -51,7 +51,7 @@ function commons_trusted_contacts_install() {
  * Implements hook_uninstall().
  */
 function commons_trusted_contacts_uninstall() {
-  variable_delete('commons_trusted_contacts_restrict_messaging');
+  variable_del('commons_trusted_contacts_restrict_messaging');
 }
 
 /**

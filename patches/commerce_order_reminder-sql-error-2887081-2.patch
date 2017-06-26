@@ -1,0 +1,15 @@
+diff --git a/commerce_order_reminder.module b/commerce_order_reminder.module
+index 6de6c6d..6e172cf 100644
+--- a/commerce_order_reminder.module
++++ b/commerce_order_reminder.module
+@@ -39,6 +39,10 @@ function commerce_order_reminder_cron() {
+         $allowed_order_statuses[] = $status_machine_name;
+       }
+     }
++    // Stop here if there are no allowed_order_statuses to check
++    if (empty($allowed_order_statuses)) {
++      return;
++    }
+     // Get ids where order age is less than order max age and order wasn't paid.
+     $orders = db_query(
+       'SELECT co.order_id, co.status, co.uid, cor.last_reminded, cor.reminders

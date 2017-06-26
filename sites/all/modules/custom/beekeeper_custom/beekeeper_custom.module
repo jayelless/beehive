@@ -330,7 +330,7 @@ function beekeeper_custom_menu_alter(&$menu_items) {
 function beekeeper_custom_cron() {
 
   // Test if mlmmj is available
-  if ($result = exec('/usr/bin/mlmmj-list -V')) {
+  if (file_exists('/usr/bin/mlmmj-list') && $result = exec('/usr/bin/mlmmj-list -V')) {
     // Go through the registered users and update the mlmmj mail lists
     $rids = db_query('SELECT name, rid from {role}', array())->fetchAllKeyed();
     // TODO - get the role names from a configuration variable

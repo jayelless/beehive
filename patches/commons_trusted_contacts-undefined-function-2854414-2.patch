@@ -1,0 +1,20 @@
+diff --git a/modules/commons/commons_trusted_contacts/commons_trusted_contacts.install b/modules/commons/commons_trusted_contacts/commons_trusted_contacts.install
+index b00c346..1edee4c 100644
+--- a/modules/commons/commons_trusted_contacts/commons_trusted_contacts.install
++++ b/modules/commons/commons_trusted_contacts/commons_trusted_contacts.install
+@@ -51,7 +51,7 @@ function commons_trusted_contacts_install() {
+  * Implements hook_uninstall().
+  */
+ function commons_trusted_contacts_uninstall() {
+-  variable_delete('commons_trusted_contacts_restrict_messaging');
++  variable_del('commons_trusted_contacts_restrict_messaging');
+ }
+ 
+ /**
+@@ -84,4 +84,4 @@ function commons_trusted_contacts_update_3102() {
+ 
+   variable_set('commons_trusted_contacts_limit', 0);
+   return array();
+-}
+\ No newline at end of file
++}

@@ -19,6 +19,10 @@ Commons Codebase
 -------------------------------------------------------------------------------
 Commons Modules
 -------------------------------------------------------------------------------
+=== entityreference_prepopulate ===
+>>> 7.x-1.7
+26 Jun 2017: notice_fix_0.patch (2368137)
+
 === commons_trusted_contacts ===
 >>> 7.x-3.44
 17 Jun 2017: commons_trusted_contacts-undefined-function-2854414-2.patch

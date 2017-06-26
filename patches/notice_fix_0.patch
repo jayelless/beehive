@@ -1,0 +1,19 @@
+diff --git a/entityreference_prepopulate.module b/entityreference_prepopulate.module
+index 9c06140..c6faf80 100644
+--- a/entityreference_prepopulate.module
++++ b/entityreference_prepopulate.module
+@@ -333,7 +333,13 @@ function entityreference_prepopulate_get_values($field, $instance, $validate = T
+  */
+ function entityreference_prepopulate_get_values_from_cache($field, $instance) {
+   // Try to get the form out of cache.
+-  if (!$form_build_id = isset($_GET['form_build_id']) ? $_GET['form_build_id'] : isset($_POST['form_build_id']) ? $_POST['form_build_id'] : NULL) {
++  if(isset($_GET['form_build_id'])){
++    $form_build_id = $_GET['form_build_id'];
++  }
++  elseif(isset($_POST['form_build_id'])){
++    $form_build_id = $_POST['form_build_id'];
++  }
++  else{
+     return;
+   }
+

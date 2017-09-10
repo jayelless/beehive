@@ -79,10 +79,14 @@ function apachesolr_index_user_solr_document(ApacheSolrDocument $document, $acco
     if (sizeof($field_index) > 1) {
       $slr_key = str_replace('field_', 'tm_', $key);
       $document->$slr_key = $field_index;
+      $smlr_key = str_replace('field_', 'sm_', $key);
+      $document->$smlr_key = $field_index;
     }
     elseif (sizeof($field_index) == 1) {
       $slr_key = str_replace('field_', 'ts_', $key);
       $document->$slr_key = $field_index[0];
+      $sslr_key = str_replace('field_', 'ss_', $key);
+      $document->$sslr_key = $field_index[0];
     }
   }
   // Build the user body.
@@ -100,6 +104,7 @@ function apachesolr_index_user_solr_document(ApacheSolrDocument $document, $acco
   $document->im_rids = array_keys($account->roles);
   //  Generic usecase for future reference. Callbacks can
   //  allow you to send back multiple documents
+  drupal_alter('apachesolr_index_user_solr_document', $document);
   $documents = array();
   $documents[] = $document;
   return $documents;
@@ -108,10 +113,12 @@ function apachesolr_index_user_solr_document(ApacheSolrDocument $document, $acco
 /**
  * Reindexing callback for ApacheSolr, for users.
  */
-function apachesolr_user_solr_reindex() {
+function apachesolr_user_solr_reindex($env_id = NULL, $bundle = NULL) {
   $indexer_table = apachesolr_get_indexer_table('user');
   $transaction = db_transaction();
-  $env_id = apachesolr_default_environment();
+  if (empty($env_id)) {
+    $env_id = apachesolr_default_environment();
+  }
   try {
     db_delete($indexer_table)
       ->condition('entity_type', 'user')

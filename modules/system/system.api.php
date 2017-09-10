@@ -4250,11 +4250,12 @@ function hook_date_formats_alter(&$formats) {
  * Called by drupal_deliver_page() to allow modules to alter how the
  * page is delivered to the browser.
  *
- * This hook is intended for altering the delivery callback based on
+ * This hook is generally intended for altering the delivery callback based on
  * information unrelated to the path of the page accessed. For example,
  * it can be used to set the delivery callback based on a HTTP request
  * header (as shown in the code sample). To specify a delivery callback
- * based on path information, use hook_menu() or hook_menu_alter().
+ * based on path information, the use hook_menu() or hook_menu_alter() is
+ * recommended.
  *
  * This hook can also be used as an API function that can be used to explicitly
  * set the delivery callback from some other function. For example, for a module
@@ -4277,10 +4278,16 @@ function hook_date_formats_alter(&$formats) {
  *
  * @param $callback
  *   The name of a function.
+ * @param $page_callback_result
+ *   The result of a page callback. Can be one of:
+ *   - NULL: to indicate no content.
+ *   - An integer menu status constant: to indicate an error condition.
+ *   - A string of HTML content.
+ *   - A renderable array of content.
  *
  * @see drupal_deliver_page()
  */
-function hook_page_delivery_callback_alter(&$callback) {
+function hook_page_delivery_callback_alter(&$callback, $page_callback_result) {
   // jQuery sets a HTTP_X_REQUESTED_WITH header of 'XMLHttpRequest'.
   // If a page would normally be delivered as an html page, and it is called
   // from jQuery, deliver it instead as an Ajax response.

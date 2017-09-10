@@ -507,6 +507,23 @@ function drupal_rebuild_form($form_id, &$form_state, $old_form = NULL) {
   // re-rendering the form.
   $form_state['groups'] = array();
 
+  // drupal_html_id() maintains a cache of element IDs it has seen, so it can
+  // prevent duplicates. We want to be sure we reset that cache when a form is
+  // rebuilt, so that the second form processing does not result in needlessly
+  // incremented IDs. So the form element IDs of a rebuilt form match with
+  // the ones of the previously processed form build.
+  // Note that it is safe to reset the html IDs here as the previously processed
+  // form build won't be rendered anyway.
+  if (array_key_exists('form_html_ids', $form_state['rebuild_info'])) {
+    if (isset($form_state['rebuild_info']['form_html_ids'])) {
+      $seen_ids = &drupal_static('drupal_html_id');
+      $seen_ids = $form_state['rebuild_info']['form_html_ids'];
+    }
+    else {
+      // If the seen IDs are NULL, reset the static to its default value.
+      drupal_static_reset('drupal_html_id');
+    }
+  }
   // Return a fully built form that is ready for rendering.
   return form_builder($form_id, $form, $form_state);
 }
@@ -878,6 +895,9 @@ function drupal_process_form($form_id, &$form, &$form_state) {
     }
   }
 
+  // Keep a copy of the html IDs for rebuilding.
+  $form_state['rebuild_info']['form_html_ids'] = drupal_static('drupal_html_id');
+
   // form_builder() finishes building the form by calling element #process
   // functions and mapping user input, if any, to #value properties, and also
   // storing the values in $form_state['values']. We need to retain the
@@ -888,16 +908,6 @@ function drupal_process_form($form_id, &$form, &$form_state) {
   // Only process the input if we have a correct form submission.
   if ($form_state['process_input']) {
     drupal_validate_form($form_id, $form, $form_state);
-
-    // drupal_html_id() maintains a cache of element IDs it has seen,
-    // so it can prevent duplicates. We want to be sure we reset that
-    // cache when a form is processed, so scenarios that result in
-    // the form being built behind the scenes and again for the
-    // browser don't increment all the element IDs needlessly.
-    if (!form_get_errors()) {
-      // In case of errors, do not break HTML IDs of other forms.
-      drupal_static_reset('drupal_html_id');
-    }
 
     if ($form_state['submitted'] && !form_get_errors() && !$form_state['rebuild']) {
       // Execute form submit handlers.

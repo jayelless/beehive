@@ -2661,7 +2661,9 @@ function lingotek_get_advanced_vocabularies() {
  */
 function lingotek_get_paragraphs_item_source($entity_id) {
   if (!module_exists('entity_translation')) {
-    drupal_set_message(t('The Entity Translation module is required for translation of Paragraphs module types.'), 'warning', FALSE);
+    if (variable_get('lingotek_translate_paragraphs', FALSE)) {
+      drupal_set_message(t('The Entity Translation module is required for translation of Paragraphs module types.'), 'warning', FALSE);
+    }
     return language_default()->language;
   }
 
@@ -2685,7 +2687,9 @@ function lingotek_get_paragraphs_item_source($entity_id) {
  */
 function lingotek_get_file_source($entity_id) {
   if (!module_exists('entity_translation')) {
-    drupal_set_message(t('The Entity Translation module is required for translation of Paragraphs module types.'), 'warning', FALSE);
+    if (variable_get('lingotek_translate_files', FALSE)) {
+      drupal_set_message(t('The Entity Translation module is required for translation of File Entity module types.'), 'warning', FALSE);
+    }
     return language_default()->language;
   }
 

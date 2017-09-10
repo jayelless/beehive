@@ -1613,7 +1613,7 @@ function lingotek_admin_prefs_form_submit($form, &$form_state) {
     }
 
     if (!db_table_exists('entity_translation')) {
-      drupal_set_message(t('For Paragraphs translation, make sure you\'ve installed the <i>Entity Translation</i> module.'), 'warning', FALSE);
+      drupal_set_message(t('For File Entity translation, make sure you\'ve installed the <i>Entity Translation</i> module.'), 'warning', FALSE);
     }
   }
   if (!module_exists('entity_menu_links') && $form_state['values']['lingotek_advanced_menu_links'] == TRUE) {

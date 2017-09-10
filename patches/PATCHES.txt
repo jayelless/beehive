@@ -32,6 +32,7 @@ Commons Modules
 19 Feb 2017: old_flag_table-2551485-8.patch
 10 Mar 2017: old_flag_table-2551485-10.patch
 05 May 2017: old_flag_table-2551485-13.patch
+10 Sep 2017: old_flag_table-2551485-13.patch
 
 === views_bulk_operations ===
 >>> 7.x-3.3

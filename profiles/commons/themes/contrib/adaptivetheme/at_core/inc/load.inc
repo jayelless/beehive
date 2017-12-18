@@ -67,7 +67,7 @@ function at_load_layout_css($path, $theme_name) {
       );
     }
     else {
-      at_load_failure($filepath, $theme_name);
+      at_load_failure($filepath.'(1)', $theme_name);
     }
   }
 
@@ -261,7 +261,7 @@ function at_load_fonts($path, $theme_name) {
     );
   }
   else {
-    at_load_failure($filepath, $theme_name);
+    at_load_failure($filepath.'(2)', $theme_name);
   }
 }
 
@@ -284,7 +284,7 @@ function at_load_custom_css($path, $theme_name) {
     );
   }
   else {
-    at_load_failure($filepath, $theme_name);
+    at_load_failure($filepath.'(3)', $theme_name);
   }
 }
 
@@ -476,7 +476,7 @@ function at_load_subtheme_conditional_styles($theme_name) {
 
     // General IE stylesheets from the info file
     if (array_key_exists('ie_stylesheets', $info)) {
-      $ie_style = '';
+      $ie_style = array();
       foreach ($info['ie_stylesheets'] as $media => $stylesheets) {
         // Set default value for media in case the themer forgets, all is an
         // "assumed" value and not printed in the output.
@@ -523,7 +523,7 @@ function at_load_conditional_styles($filepath, $ie_style, $theme_name, $weight =
     );
   }
   else {
-    at_load_failure($filepath, $theme_name);
+    at_load_failure($filepath.'(4)', $theme_name);
   }
 }
 
@@ -756,7 +756,7 @@ function load_subtheme_media_queries($files, $theme_name) {
       );
     }
     else {
-      at_load_failure($filepath, $theme_name);
+      at_load_failure($filepath.'(5)', $theme_name);
     }
   }
 }
@@ -779,7 +779,7 @@ function load_subtheme_ie_styles($files, $theme_name) {
       );
     }
     else {
-      at_load_failure($filepath, $theme_name);
+      at_load_failure($filepath.'(6)', $theme_name);
     }
   }
 }

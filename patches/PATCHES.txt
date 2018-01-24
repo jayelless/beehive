@@ -27,6 +27,10 @@ Commons Modules
 >>> 7.x-3.44
 17 Jun 2017: commons_trusted_contacts-undefined-function-2854414-2.patch
 
+=== memcache ===
+>>> 7.x-1.6
+24 Jan 2018: notice_trying_to_get-2864659-4.patch
+
 === message_subscribe ===
 >>> 7.x-1.0-rc2
 19 Feb 2017: old_flag_table-2551485-8.patch

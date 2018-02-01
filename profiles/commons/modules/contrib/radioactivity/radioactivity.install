@@ -110,7 +110,7 @@ function radioactivity_schema() {
       'enable_decay' => array(
         'type' => 'int',
         'not null' => TRUE,
-        'default' => '1',
+        'default' => 1,
         'description' => 'Is the energy decay active',
       ),
       'granularity' => array(
@@ -124,14 +124,14 @@ function radioactivity_schema() {
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
-        'default' => "21600",
+        'default' => 21600,
         'description' => 'Half life',
       ),
       'cut_off' => array(
         'type' => 'float',
         'size' => 'big',
         'not null' => TRUE,
-        'default' => "0.1",
+        'default' => 0.1,
         'description' => 'Cut off',
       ),
       'storage' => array(
@@ -190,6 +190,8 @@ function radioactivity_schema() {
         'type' => 'float',
         'unsigned' => TRUE,
         'not null' => TRUE,
+        'precision' => 0,
+        'scale' => 0,
         'description' => 'Energy',
       ),
     ),

@@ -45,8 +45,7 @@ function beekeeper_memberships_default_membership_entity_type() {
       "tz_handling" : "site",
       "timezone_db" : "UTC",
       "available_term_lengths" : [ "1 year" ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   $items['junior_membership'] = entity_import('membership_entity_type', '{
     "label" : "Junior Membership",
@@ -68,8 +67,7 @@ function beekeeper_memberships_default_membership_entity_type() {
       "tz_handling" : "site",
       "timezone_db" : "UTC",
       "available_term_lengths" : [ "1 year" ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   $items['life_membership'] = entity_import('membership_entity_type', '{
     "label" : "Life Membership",
@@ -91,8 +89,7 @@ function beekeeper_memberships_default_membership_entity_type() {
       "tz_handling" : "site",
       "timezone_db" : "UTC",
       "available_term_lengths" : [ "lifetime" ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   $items['membership'] = entity_import('membership_entity_type', '{
     "label" : "Dummy Membership",
@@ -114,8 +111,7 @@ function beekeeper_memberships_default_membership_entity_type() {
       "tz_handling" : "site",
       "timezone_db" : "UTC",
       "available_term_lengths" : [ "1 day" ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   $items['standard_membership'] = entity_import('membership_entity_type', '{
     "label" : "Standard Membership",
@@ -137,8 +133,7 @@ function beekeeper_memberships_default_membership_entity_type() {
       "tz_handling" : "site",
       "timezone_db" : "UTC",
       "available_term_lengths" : [ "1 year" ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   return $items;
 }

@@ -10,66 +10,6 @@
 function beekeeper_navigation_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: beekeeper-menu_calendar:calendar/events.
-  $menu_links['beekeeper-menu_calendar:calendar/events'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'calendar/events',
-    'router_path' => 'calendar/events',
-    'link_title' => 'Calendar',
-    'options' => array(
-      'identifier' => 'beekeeper-menu_calendar:calendar/events',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'customized' => 0,
-  );
-  // Exported menu link: beekeeper-menu_club-info:node/14.
-  $menu_links['beekeeper-menu_club-info:node/14'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'node/14',
-    'router_path' => 'node/%',
-    'link_title' => 'Club info',
-    'options' => array(
-      'attributes' => array(),
-      'item_attributes' => array(
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'beekeeper-menu_club-info:node/14',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 4,
-    'customized' => 1,
-  );
-  // Exported menu link: beekeeper-menu_join-club:beekeeper/membership/join.
-  $menu_links['beekeeper-menu_join-club:beekeeper/membership/join'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'beekeeper/membership/join',
-    'router_path' => 'beekeeper/membership/join',
-    'link_title' => 'Join club',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Join the Wellington Beekeepers Association',
-      ),
-      'identifier' => 'beekeeper-menu_join-club:beekeeper/membership/join',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 10,
-    'customized' => 0,
-  );
   // Exported menu link: beekeeper-menu_messages:messages.
   $menu_links['beekeeper-menu_messages:messages'] = array(
     'menu_name' => 'beekeeper-menu',
@@ -92,26 +32,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 5,
     'customized' => 1,
-  );
-  // Exported menu link: beekeeper-menu_newsletters:newsletters.
-  $menu_links['beekeeper-menu_newsletters:newsletters'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'newsletters',
-    'router_path' => 'newsletters',
-    'link_title' => 'Newsletters',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Recent club newsletters',
-      ),
-      'identifier' => 'beekeeper-menu_newsletters:newsletters',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 2,
-    'customized' => 0,
   );
   // Exported menu link: beekeeper-menu_orders:admin/commerce/orders.
   $menu_links['beekeeper-menu_orders:admin/commerce/orders'] = array(
@@ -136,49 +56,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'weight' => 6,
     'customized' => 1,
   );
-  // Exported menu link: beekeeper-menu_renew-membership:beekeeper/membership/renew.
-  $menu_links['beekeeper-menu_renew-membership:beekeeper/membership/renew'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'beekeeper/membership/renew',
-    'router_path' => 'beekeeper/membership/renew',
-    'link_title' => 'Renew membership',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Renew membership of the Wellington Beekeepers Association',
-      ),
-      'identifier' => 'beekeeper-menu_renew-membership:beekeeper/membership/renew',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 11,
-    'customized' => 0,
-  );
-  // Exported menu link: beekeeper-menu_swarms:node/19.
-  $menu_links['beekeeper-menu_swarms:node/19'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'node/19',
-    'router_path' => 'node/%',
-    'link_title' => 'Swarms',
-    'options' => array(
-      'attributes' => array(),
-      'item_attributes' => array(
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'beekeeper-menu_swarms:node/19',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 1,
-    'customized' => 1,
-  );
   // Exported menu link: main-menu_forums:forum.
   $menu_links['main-menu_forums:forum'] = array(
     'menu_name' => 'main-menu',
@@ -200,29 +77,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'has_children' => 0,
     'expanded' => 0,
     'weight' => 0,
-    'customized' => 1,
-  );
-  // Exported menu link: navigation_2016-nucs:node/140.
-  $menu_links['navigation_2016-nucs:node/140'] = array(
-    'menu_name' => 'navigation',
-    'link_path' => 'node/140',
-    'router_path' => 'node/%',
-    'link_title' => '2016 Nucs',
-    'options' => array(
-      'attributes' => array(),
-      'item_attributes' => array(
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'navigation_2016-nucs:node/140',
-    ),
-    'module' => 'menu',
-    'hidden' => 1,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -48,
     'customized' => 1,
   );
   // Exported menu link: navigation_add-content:node/add.
@@ -747,12 +601,9 @@ function beekeeper_navigation_menu_default_menu_links() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('2016 Nucs');
   t('Add content');
   t('Add file');
   t('Add subscription');
-  t('Calendar');
-  t('Club info');
   t('Content type');
   t('Content type and term');
   t('Forums');
@@ -765,7 +616,6 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Log out');
   t('Messages');
   t('Multiple tags');
-  t('Newsletters');
   t('Orders');
   t('Renew - Dummy Membership');
   t('Renew - Honorary Membership');
@@ -775,7 +625,6 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Renew membership');
   t('Swarm collectors');
   t('Swarm recipients');
-  t('Swarms');
   t('Tag');
   t('Thread');
   t('User account');

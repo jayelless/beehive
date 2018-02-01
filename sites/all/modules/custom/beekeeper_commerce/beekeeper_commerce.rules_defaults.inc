@@ -52,7 +52,6 @@ function beekeeper_commerce_default_rules_configuration() {
   $items['commerce_payment_bank_transfer'] = entity_import('rules_config', '{ "commerce_payment_bank_transfer" : {
       "LABEL" : "Bank Transfer",
       "PLUGIN" : "reaction rule",
-      "ACTIVE" : false,
       "OWNER" : "rules",
       "TAGS" : [ "Commerce Payment" ],
       "REQUIRES" : [ "commerce_payment" ],
@@ -60,7 +59,15 @@ function beekeeper_commerce_default_rules_configuration() {
       "DO" : [
         { "commerce_payment_enable_bank_transfer" : {
             "commerce_order" : [ "commerce-order" ],
-            "payment_method" : "bank_transfer"
+            "payment_method" : { "value" : {
+                "method_id" : "bank_transfer",
+                "settings" : { "information" : {
+                    "value" : "\\u003Cp\\u003E\\u003Cstrong\\u003EPlease make payment to:\\u003C\\/strong\\u003E\\u003C\\/p\\u003E\\r\\n\\r\\n\\u003Cp\\u003EWellington Beekeepers Association Incorporated\\u003Cbr \\/\\u003E\\r\\nAccount number:\\u0026nbsp;\\u003Cstrong\\u003E03-1534-0009311-000\\u003C\\/strong\\u003E\\u003C\\/p\\u003E\\r\\n\\r\\n\\u003Cp\\u003E(Please use your name in the particulars field, and the order number in the reference field).\\u003C\\/p\\u003E\\r\\n",
+                    "format" : "filtered_html"
+                  }
+                }
+              }
+            }
           }
         }
       ]
@@ -76,7 +83,15 @@ function beekeeper_commerce_default_rules_configuration() {
       "DO" : [
         { "commerce_payment_enable_commerce_cheque" : {
             "commerce_order" : [ "commerce-order" ],
-            "payment_method" : "commerce_cheque"
+            "payment_method" : { "value" : {
+                "method_id" : "commerce_cheque",
+                "settings" : { "information" : {
+                    "value" : "Please either hand to the treasurer John Burnet, or post to:\\r\\nThe Treasurer\\r\\nWellington Beekeepers Association\\r\\nC\\/- John Burnet\\r\\n21 Kiwi Crescent\\r\\nTawa\\r\\nWellington 5028",
+                    "format" : "plain_text"
+                  }
+                }
+              }
+            }
           }
         }
       ]
@@ -92,7 +107,15 @@ function beekeeper_commerce_default_rules_configuration() {
       "DO" : [
         { "commerce_payment_enable_in_person" : {
             "commerce_order" : [ "commerce-order" ],
-            "payment_method" : "in_person"
+            "payment_method" : { "value" : {
+                "method_id" : "in_person",
+                "settings" : { "information" : {
+                    "value" : "Please hand the payment to the treasurer, John Burnet. This can be at a monthly meeting or any other arranged occasion.",
+                    "format" : "plain_text"
+                  }
+                }
+              }
+            }
           }
         }
       ]

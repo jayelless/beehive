@@ -942,11 +942,11 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Newsletter date (field_newsletter_date) */
+  $handler->display->display_options['sorts']['field_newsletter_date_value']['id'] = 'field_newsletter_date_value';
+  $handler->display->display_options['sorts']['field_newsletter_date_value']['table'] = 'field_data_field_newsletter_date';
+  $handler->display->display_options['sorts']['field_newsletter_date_value']['field'] = 'field_newsletter_date_value';
+  $handler->display->display_options['sorts']['field_newsletter_date_value']['order'] = 'DESC';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -962,8 +962,8 @@ function beekeeper_users_views_default_views() {
     'newsletter' => 'newsletter',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Teasers */
+  $handler = $view->new_display('page', 'Teasers', 'page');
   $handler->display->display_options['path'] = 'newsletters';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Newsletters';
@@ -972,6 +972,79 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'beekeeper-menu';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Table */
+  $handler = $view->new_display('page', 'Table', 'page_1');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '100';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'title' => 'title',
+    'field_newsletter_date' => 'field_newsletter_date',
+    'field_pdf_file' => 'field_pdf_file',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'title' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_newsletter_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_pdf_file' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Newsletter date */
+  $handler->display->display_options['fields']['field_newsletter_date']['id'] = 'field_newsletter_date';
+  $handler->display->display_options['fields']['field_newsletter_date']['table'] = 'field_data_field_newsletter_date';
+  $handler->display->display_options['fields']['field_newsletter_date']['field'] = 'field_newsletter_date';
+  $handler->display->display_options['fields']['field_newsletter_date']['settings'] = array(
+    'format_type' => 'custom',
+    'custom_date_format' => 'M Y',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_remaining_days' => 0,
+  );
+  /* Field: Content: Path */
+  $handler->display->display_options['fields']['path']['id'] = 'path';
+  $handler->display->display_options['fields']['path']['table'] = 'node';
+  $handler->display->display_options['fields']['path']['field'] = 'path';
+  /* Field: Content: PDF file */
+  $handler->display->display_options['fields']['field_pdf_file']['id'] = 'field_pdf_file';
+  $handler->display->display_options['fields']['field_pdf_file']['table'] = 'field_data_field_pdf_file';
+  $handler->display->display_options['fields']['field_pdf_file']['field'] = 'field_pdf_file';
+  $handler->display->display_options['fields']['field_pdf_file']['click_sort_column'] = 'fid';
+  $handler->display->display_options['path'] = 'newsletters/table-view';
   $export['newsletters'] = $view;
 
   $view = new view();

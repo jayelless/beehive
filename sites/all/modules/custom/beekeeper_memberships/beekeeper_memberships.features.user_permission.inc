@@ -162,8 +162,6 @@ function beekeeper_memberships_user_default_permissions() {
     'name' => 'junior_membership join',
     'roles' => array(
       'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
     ),
     'module' => 'membership_entity_type',
   );

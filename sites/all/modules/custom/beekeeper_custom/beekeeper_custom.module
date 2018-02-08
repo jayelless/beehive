@@ -360,31 +360,36 @@ function beekeeper_custom_cron() {
 
       if ($new_subscribers) {
         watchdog('beekeeper', 'Members - New subscribers: @new', array('@new' => print_r($new_subscribers, TRUE)), WATCHDOG_INFO);
-      }
-      if ($old_subscribers) {
-        watchdog('beekeeper', 'Members - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
+
+        foreach ($new_subscribers as $tosubscribe) {
+          $command = '/usr/bin/mlmmj-sub -L ' . $mlmmj_members_list . ' -qs -a ' . $tosubscribe;
+          $output = array();
+          $result = NULL;
+          exec($command, $output, $result);
+          if ($result !== 0) {
+            watchdog('beekeeper','Error subscribing address %adr to members list (Result=@res, @out)',
+              array('%adr' => $tosubscribe, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+          }
+        }
+
       }
 
-      foreach ($new_subscribers as $tosubscribe) {
-        $command = '/usr/bin/mlmmj-sub -L ' . $mlmmj_members_list . ' -qs -a ' . $tosubscribe;
-        $output = array();
-        $result = NULL;
-        exec($command, $output, $result);
-        if ($result !== 0) {
-          watchdog('beekeeper','Error subscribing address %adr to members list (Result=@res, @out)',
-            array('%adr' => $tosubscribe, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+      if ($old_subscribers) {
+        watchdog('beekeeper', 'Members - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
+
+        foreach ($old_subscribers as $unsubscribed) {
+          $command = '/usr/bin/mlmmj-unsub -L ' . $mlmmj_members_list . ' -qs -a ' . $unsubscribed;
+          $output = array();
+          $result = NULL;
+          exec($command, $output, $result);
+          if ($result !== 0) {
+            watchdog('beekeeper','Error unsubscribing address %adr to members list (Result=@res, @out)',
+              array('%adr' => $unsubscribed, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+          }
         }
+
       }
-      foreach ($old_subscribers as $unsubscribed) {
-        $command = '/usr/bin/mlmmj-unsub -L ' . $mlmmj_members_list . ' -qs -a ' . $unsubscribed;
-        $output = array();
-        $result = NULL;
-        exec($command, $output, $result);
-        if ($result !== 0) {
-          watchdog('beekeeper','Error unsubscribing address %adr to members list (Result=@res, @out)',
-            array('%adr' => $unsubscribed, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
-        }
-      }
+
     }
 
     // Update the committee mailing list
@@ -407,31 +412,36 @@ function beekeeper_custom_cron() {
 
       if ($new_subscribers) {
         watchdog('beekeeper', 'Committee - New subscribers: @new', array('@new' => print_r($new_subscribers, TRUE)), WATCHDOG_INFO);
-      }
-      if ($old_subscribers) {
-        watchdog('beekeeper', 'Committee - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
+
+        foreach ($new_subscribers as $tosubscribe) {
+          $command = '/usr/bin/mlmmj-sub -L ' . $mlmmj_committee_list . ' -qs -a ' . $tosubscribe;
+          $output = array();
+          $result = NULL;
+          exec($command, $output, $result);
+          if ($result !== 0) {
+            watchdog('beekeeper','Error subscribing address %adr to committee list (Result=@res, @out)',
+              array('%adr' => $tosubscribe, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+          }
+        }
+
       }
 
-      foreach ($new_subscribers as $tosubscribe) {
-        $command = '/usr/bin/mlmmj-sub -L ' . $mlmmj_committee_list . ' -qs -a ' . $tosubscribe;
-        $output = array();
-        $result = NULL;
-        exec($command, $output, $result);
-        if ($result !== 0) {
-          watchdog('beekeeper','Error subscribing address %adr to committee list (Result=@res, @out)',
-            array('%adr' => $tosubscribe, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+      if ($old_subscribers) {
+        watchdog('beekeeper', 'Committee - Old subscribers: @old', array('@old' => print_r($old_subscribers, TRUE)), WATCHDOG_INFO);
+
+        foreach ($old_subscribers as $unsubscribed) {
+          $command = '/usr/bin/mlmmj-unsub -L ' . $mlmmj_committee_list . ' -qs -a ' . $unsubscribed;
+          $output = array();
+          $result = NULL;
+          exec($command, $output, $result);
+          if ($result !== 0) {
+            watchdog('beekeeper','Error unsubscribing address %adr to committee list (Result=@res, @out)',
+              array('%adr' => $unsubscribed, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
+          }
         }
+
       }
-      foreach ($old_subscribers as $unsubscribed) {
-        $command = '/usr/bin/mlmmj-unsub -L ' . $mlmmj_committee_list . ' -qs -a ' . $unsubscribed;
-        $output = array();
-        $result = NULL;
-        exec($command, $output, $result);
-        if ($result !== 0) {
-          watchdog('beekeeper','Error unsubscribing address %adr to committee list (Result=@res, @out)',
-            array('%adr' => $unsubscribed, '@res'=>$result, '@out'=>print_r($output, TRUE)), WATCHDOG_WARNING);
-        }
-      }
+
     }
 
   }

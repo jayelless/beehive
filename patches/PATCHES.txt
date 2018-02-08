@@ -19,6 +19,9 @@ Commons Codebase
 -------------------------------------------------------------------------------
 Commons Modules
 -------------------------------------------------------------------------------
+=== date ===
+>>> 7.x-2.10
+08 Feb 2018: uninitialized_string_offset_in_date_entity_metadata_struct_getter-2074457-9.patch
 === entityreference_prepopulate ===
 >>> 7.x-1.7
 26 Jun 2017: notice_fix_0.patch (2368137)

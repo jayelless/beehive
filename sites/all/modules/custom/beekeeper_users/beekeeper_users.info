@@ -54,4 +54,5 @@ features[views_view][] = member_lists
 features[views_view][] = newsletters
 features[views_view][] = user_admin
 features[views_view][] = user_bulk_update
+features[views_view][] = user_details_list
 project path = sites/default/files/features

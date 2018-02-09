@@ -79,5 +79,6 @@ features[user_permission][] = standard_membership renew own membership
 features[user_permission][] = standard_membership view any membership
 features[user_permission][] = standard_membership view own membership
 features[views_view][] = buy_membership
+features[views_view][] = membership_details
 features_exclude[dependencies][beekeeper_custom] = beekeeper_custom
 project path = sites/default/files/features

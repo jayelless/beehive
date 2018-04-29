@@ -2,6 +2,7 @@ This files describes the patches applied to the Commons codebase and the
 contributed modules
 
 10 Mar 2017: Updated to Commons-7.x-3.43
+29 Apr 2018: Updated to Commons-7.x-3.49
 
 -------------------------------------------------------------------------------
 Commons Codebase
@@ -15,6 +16,9 @@ Commons Codebase
 >>> 7.x-3.44
 05 May 2017: commons-fix-private_groups.patch (issue #2399695)
 05 May 2017: message_notify-2381465-could-not-send-message-5.patch
+>>> 7.x-3.49
+29 Apr 2018: commons-fix-private_groups.patch (issue #2399695)
+29 Apr 2018: message_notify-2381465-could-not-send-message-5.patch
 
 -------------------------------------------------------------------------------
 Commons Modules
@@ -22,17 +26,22 @@ Commons Modules
 === date ===
 >>> 7.x-2.10
 08 Feb 2018: uninitialized_string_offset_in_date_entity_metadata_struct_getter-2074457-9.patch
+29 Apr 2018: uninitialized_string_offset_in_date_entity_metadata_struct_getter-2074457-9.patch
+
 === entityreference_prepopulate ===
 >>> 7.x-1.7
 26 Jun 2017: notice_fix_0.patch (2368137)
+29 Apr 2018: notice_fix_0.patch (2368137)
 
 === commons_trusted_contacts ===
 >>> 7.x-3.44
 17 Jun 2017: commons_trusted_contacts-undefined-function-2854414-2.patch
+29 Apr 2018: n/a
 
 === memcache ===
 >>> 7.x-1.6
 24 Jan 2018: notice_trying_to_get-2864659-4.patch
+29 Apr 2018: notice_trying_to_get-2864659-4.patch
 
 === message_subscribe ===
 >>> 7.x-1.0-rc2
@@ -40,6 +49,7 @@ Commons Modules
 10 Mar 2017: old_flag_table-2551485-10.patch
 05 May 2017: old_flag_table-2551485-13.patch
 10 Sep 2017: old_flag_table-2551485-13.patch
+29 Apr 2018: old_flag_table-2551485-13.patch
 
 === views_bulk_operations ===
 >>> 7.x-3.3
@@ -47,6 +57,7 @@ Commons Modules
 >>> 7.x-3.4
 10 Mar 2017: views_bulk_operations-no_default_action-2254871-42.patch
 05 May 2017: views_bulk_operations-no_default_action-2254871-54.patch
+29 Apr 2018: views_bulk_operations-no_default_action-2254871-54.patch (updated patch!)
 
 -------------------------------------------------------------------------------
 Contrib Modules

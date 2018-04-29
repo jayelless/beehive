@@ -41,7 +41,7 @@ index 968921f..7f26cc1 100644
 +++ b/plugins/operation_types/base.class.php
 @@ -128,6 +128,59 @@ abstract class ViewsBulkOperationsBaseOperation {
    }
- 
+
    /**
 +   * Checks the account's permission to execute the operation on the entity.
 +   *
@@ -104,7 +104,7 @@ index f5865a2..aa0e93f 100644
 --- a/views_bulk_operations.module
 +++ b/views_bulk_operations.module
 @@ -1088,7 +1088,7 @@ function views_bulk_operations_queue_item_process($queue_item_data, &$log = NULL
- 
+
      // If the current entity can't be accessed, skip it and log a notice.
      $skip_permission_check = $operation->getAdminOption('skip_permission_check');
 -    if (!$skip_permission_check && !_views_bulk_operations_entity_access($operation, $entity_type, $entity, $account)) {
@@ -116,7 +116,7 @@ index f5865a2..aa0e93f 100644
      $skip_permission_check = $operation->getAdminOption('skip_permission_check');
      // Filter out entities that can't be accessed.
      foreach ($entities as $id => $entity) {
--      if (!$skip_permission_check && !_views_bulk_operations_entity_access($operation, $entity_type, $entity, $user)) {
+-      if (!$skip_permission_check && !_views_bulk_operations_entity_access($operation, $entity_type, $entity, $account)) {
 +      if (!$skip_permission_check && !$operation->entity_access($entity_type, $entity)) {
          $context['results']['log'][] = t('Skipped %operation on @type %title due to insufficient permissions.', array(
            '%operation' => $operation->label(),

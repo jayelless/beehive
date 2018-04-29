@@ -283,7 +283,8 @@ class LingotekOAuthRequestLogger
 			$headers = apache_request_headers();
 			ksort($headers);
 			return $headers;
-		} else {
+		}
+		else {
 			$headers = array_merge($_ENV, $_SERVER);
 			
 			foreach ($headers as $key => $val) {

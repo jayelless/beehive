@@ -18,6 +18,7 @@ class LingotekSync {
   const STATUS_READY = 'READY';      // The target translation is complete and ready for download
   const STATUS_INTERIM = 'INTERIM'; // Part of the target translation is done and ready for download what has been done
   const STATUS_READY_INTERIM = 'READY_INTERIM';
+  const STATUS_EDITED_INTERIM = 'EDITED_INTERIM';
   const STATUS_TARGET = 'TARGET';    // A target node is being used to store a translation (ignored for upload by Lingotek)
   const STATUS_UNTRACKED = 'UNTRACKED'; // A translation was discovered that is not currently managed by Lingotek
   const STATUS_TARGET_LOCALIZE = 'TARGET_LOCALIZE'; // A localization must be made of the source before uploading to Lingotek
@@ -85,6 +86,7 @@ class LingotekSync {
       'STATUS_READY' => self::STATUS_READY,
       'STATUS_READY_INTERIM' => self::STATUS_READY_INTERIM,
       'STATUS_INTERIM' => self::STATUS_INTERIM,
+      'STATUS_INTERIM' => self::STATUS_EDITED_INTERIM,
       'STATUS_TARGET' => self::STATUS_TARGET,
       'STATUS_UNTRACKED' => self::STATUS_UNTRACKED,
       'STATUS_TARGET_LOCALIZE' => self::STATUS_TARGET_LOCALIZE,
@@ -109,7 +111,7 @@ class LingotekSync {
   }
 
   public static function setAllTargetStatus($entity_type, $entity_id, $status) {
-    if($entity_type === 'config'){
+    if ($entity_type === 'config') {
         $query = db_update('lingotek_config_metadata')
             ->condition('id', $entity_id, "=")
             ->condition('config_key', 'target_sync_status%', 'LIKE')
@@ -127,7 +129,7 @@ class LingotekSync {
   }
 
   public static function bulkSetAllTargetStatus($entity_type, $entity_ids, $status){
-    if($entity_type === 'config'){
+    if ($entity_type === 'config') {
         $query = db_update('lingotek_config_metadata')
             ->condition('id', $entity_ids, "IN")
             ->condition('config_key', 'target_sync_status%', 'LIKE')
@@ -162,7 +164,7 @@ class LingotekSync {
   }
 
   public static function setUploadStatuses($entity_type, $entity_ids, $status) {
-    foreach($entity_ids as $entity_id) {
+    foreach ($entity_ids as $entity_id) {
       return lingotek_keystore($entity_type, $entity_id, 'upload_status', $status);
     }
   }
@@ -654,6 +656,15 @@ class LingotekSync {
     return $result;
   }
 
+  public static function getConfigTargetStatus($sid, $lingotek_locale) {
+    $query = db_select('lingotek_config_metadata', 'lcm')
+      ->fields('lcm', array('value'))
+      ->condition('config_key', 'target_sync_status_' . $lingotek_locale);
+    $target_status = $query->execute()->fetchField();
+
+    return $target_status;
+  }
+
   public static function getETNodeIds() { // get nids for entity_translation nodes that are not lingotek pushed
     $types = lingotek_translatable_node_types(); // get all translatable node types
     $et_content_types = array();
@@ -810,7 +821,8 @@ class LingotekSync {
     $query->addField('l', 'entity_id', 'nid');
     if($source) {
       $query->condition('entity_key', 'upload_status');
-    } else {
+    }
+    else {
       $query->condition('entity_key', 'target_sync_status_%', 'LIKE');
     }
     $query->condition('value', $status);
@@ -1315,6 +1327,59 @@ class LingotekSync {
       ->condition('id', $marked_offset)
       ->condition('config_key', 'marked')
       ->condition('value', $lid)
+      ->execute();
+  }
+
+  /**
+   * Stores failed language-specific targets
+   */
+  public static function lingotek_store_failed_language_specific_targets($entity_type, $entity_id) {
+    $failed_targets = (variable_get('lingotek_failed_language_specific_targets', FALSE))?
+      variable_get('lingotek_failed_language_specific_targets', FALSE) :
+      array();
+    if (!in_array($entity_id, $failed_targets[$entity_type])) {
+      $failed_targets[$entity_type][] = $entity_id;
+    }
+    variable_set('lingotek_failed_language_specific_targets', $failed_targets);
+  }
+
+  /**
+   * Gets the source published setting for entity translation entries
+   */
+  public static function getEntityTranslationPublishedSetting($entity_id) {
+    if (!db_table_exists('entity_translation')) {
+      return '1';
+    }
+    $source_setting = db_select('entity_translation', 'et')
+      ->fields('et', array('status'))
+      ->condition('entity_id', $entity_id)
+      ->condition('source', '')
+      ->execute()
+      ->fetchField();
+
+    if (is_null($source_setting)) {
+      return '1';
+    }
+
+    return $source_setting;
+  }
+
+  /**
+   * Sets the published status for entity translations
+   */
+  public function setEntityTranslationPublishedSetting($entity_id, $entity_type, $language, $new_published_setting) {
+    db_update('entity_translation')
+      ->fields(array('status' => $new_published_setting))
+      ->condition('entity_id', $entity_id)
+      ->condition('entity_type', $entity_type)
+      ->condition('language', $language)
+      ->execute();
+
+    db_update('entity_translation_revision')
+      ->fields(array('status' => $new_published_setting))
+      ->condition('entity_id', $entity_id)
+      ->condition('entity_type', $entity_type)
+      ->condition('language', $language)
       ->execute();
   }
 }

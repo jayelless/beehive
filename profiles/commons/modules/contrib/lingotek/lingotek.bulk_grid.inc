@@ -12,8 +12,12 @@ function lingotek_manage_callback() {
 }
 
 function lingotek_bulk_grid_form($form, $form_state) {
+  if (variable_get('lingotek_use_stage_servers', FALSE)) {
+    $server_url = 'cms.lingotek.com';
+    drupal_set_message(t('Warning: Lingotek\'s sandbox TMS environment (@server) will be discontinued soon. Please plan accordingly.', array('@server' => $server_url)), 'warning');
+  }
   $entity_type = arg(4);
-  if(empty($entity_type)){
+  if (empty($entity_type)) {
     $entity_type = 'node';
   }
 
@@ -39,7 +43,7 @@ function lingotek_bulk_grid_form($form, $form_state) {
       $_SESSION['grid_custom_parameters'] = array();
     }
     $temp = array();
-    foreach ($_GET as $key => $value){
+    foreach ($_GET as $key => $value) {
         $temp[$key] = filter_xss($value);
     }
     $_SESSION['grid_custom_parameters'][$entity_type] = $temp;
@@ -79,11 +83,11 @@ function lingotek_bulk_grid_form($form, $form_state) {
     '#attributes' => array('id' => 'entity-type')
   );
   $form['async_update'] = array(
-    '#markup' => l('', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/async-update/' . $entity_type,
+    '#markup' => l(t(''), LINGOTEK_MENU_MAIN_BASE_URL . '/manage/async-update/' . $entity_type,
         array('html' => TRUE, 'attributes' => array('id' => 'async-update', 'type' => 'hidden')))
   );
   $form['auto_download'] = array(
-    '#markup' => l('', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/auto-download/' . $entity_type,
+    '#markup' => l(t(''), LINGOTEK_MENU_MAIN_BASE_URL . '/manage/auto-download/' . $entity_type,
         array('html' => TRUE, 'attributes' => array('id' => 'auto-download', 'type' => 'hidden')))
   );
 
@@ -119,35 +123,35 @@ function lingotek_bulk_grid_form($form, $form_state) {
 
   $results_first = (($page - 1) * $limit_select) + 1;
   $results_last = $results_first + count($table_data) - 1;
-  if($entity_type === 'config') {
+  if ($entity_type === 'config') {
     $form['lingotek_options'] = array(
       '#markup' => '<i title="More options" class="fa fa-chevron-left fa-2x lingotek-action ltk-options" id="more-options"></i>'
     );
     $form['lingotek_force_down_all'] = array(
-    '#markup' => l('<i class="fa fa-sort-amount-asc fa-2x"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/force-down-all/true', array('html' => TRUE, 'attributes' => array('title' => t('Download all regardless of status'), 'class' => array('lingotek-action ltk-force-down'), 'id' => array('force-down')))),
+    '#markup' => l('<i class="fa fa-sort-amount-asc fa-2x"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/force-down-all/true', array('html' => TRUE, 'attributes' => array('title' => t('Download all regardless of status'), 'class' => array('lingotek-action ltk-force-down'), 'id' => array('force-down')))), // Coder review error: we don't translate font awesome classes
   );
   }
   $form['lingotek_legend'] = array(
-    '#markup' => l('<i class="fa fa-question-circle fa-2x ltk-legend"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/legend', array('html' => TRUE, 'attributes' => array('title' => t('Icon descriptions'), 'class' => array('ctools-use-modal', 'ctools-modal-lingotek-large','lingotek-action'), 'id' => array('legend')))),
+    '#markup' => l('<i class="fa fa-question-circle fa-2x ltk-legend"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/legend', array('html' => TRUE, 'attributes' => array('title' => t('Icon descriptions'), 'class' => array('ctools-use-modal', 'ctools-modal-lingotek-large', 'lingotek-action'), 'id' => array('legend')))), // Coder review error: we don't want to translate font awesome classes or the base URL
   );
   $form['customize'] = array(
-    '#markup' => l('<i class="fa fa-list-alt fa-2x" ></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/customize/' . $entity_type, array('html' => TRUE, 'attributes' => array('title' => t('Customize Table'), 'class' => array('ctools-use-modal', 'ctools-modal-lingotek-large', 'lingotek-action')))),
+    '#markup' => l('<i class="fa fa-list-alt fa-2x" ></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/customize/' . $entity_type, array('html' => TRUE, 'attributes' => array('title' => t('Customize Table'), 'class' => array('ctools-use-modal', 'ctools-modal-lingotek-large', 'lingotek-action')))), // Coder review error: we don't want to translate font awesome classes or the base URL
   );
   $last_updated = variable_get('lingotek_pending_last_updated', NULL);
   $message = t('Check status of In-Progress translations (Last checked @time)', array('@time' => $last_updated ? lingotek_human_readable_timestamp($last_updated) . ' ' . t('ago') : t('Never')));
 
   $form['lingotek_update'] = array(
-    '#markup' => l('<i class="fa fa-filter fa-1x notify-filtered-action"></i>'
+    '#markup' => l('<i class="fa fa-filter fa-1x notify-filtered-action"></i>' // Coder review error: we don't want to translate font awesome classes or the base URL
         . '<i class="fa fa-check-square-o fa-1x notify-checked-action"></i>'
         . '<i class="fa fa-cloud-download fa-2x ltk-download"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/download-ready/' . $entity_type, array('html' => TRUE, 'attributes' => array('title' => t('Download Ready translations'), 'class' => array('lingotek-action'), 'id' => array('download-ready')))),
   );
 
   $form['refresh'] = array(
-    '#markup' => l('<i class="fa fa-refresh fa-2x ltk-refresh"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/update/' . $entity_type, array('html' => TRUE, 'attributes' => array('class' => 'lingotek-action', 'title' => $message, 'id' => array('refresh')))),
+    '#markup' => l('<i class="fa fa-refresh fa-2x ltk-refresh"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/update/' . $entity_type, array('html' => TRUE, 'attributes' => array('class' => 'lingotek-action', 'title' => $message, 'id' => array('refresh')))), // Coder review error: we don't want to translate font awesome classes or the base URL
   );
 
   $form['lingotek_upload'] = array(
-    '#markup' => l('<i class="fa fa-filter fa-1x notify-filtered-action"></i>'
+    '#markup' => l('<i class="fa fa-filter fa-1x notify-filtered-action"></i>' // Coder review error: we don't want to translate font awesome classes or the base URL
         . '<i class="fa fa-check-square-o fa-1x notify-checked-action"></i>'
         . '<i class="fa fa-cloud-upload fa-2x ltk-upload"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/upload-edited/' . $entity_type, array('html' => TRUE, 'attributes' => array('title' => t('Re-upload all edited source content'), 'class' => array('lingotek-action'), 'id' => array('upload-edited')))),
   );
@@ -181,7 +185,7 @@ function lingotek_bulk_grid_form($form, $form_state) {
   if ($entity_type == 'node') {
     $form['node/add'] = array(
       '#markup' => '<div style="">'
-      . l('<i class="fa fa-plus" style="padding-right: 4px;"></i>'
+      . l('<i class="fa fa-plus" style="padding-right: 4px;"></i>' // Coder review error: we don't want to translate the font awesome classes
           . t('Add content')
           . '<div style="margin: 15px 0;"></div>', 'node/add',
             array('html' => TRUE, 'attributes' => array('title' => t('Add content'))))
@@ -191,7 +195,7 @@ function lingotek_bulk_grid_form($form, $form_state) {
 
   $modal_size = $entity_type == 'config' ? 'ctools-modal-lingotek-small' : 'ctools-modal-lingotek-large';
   $modal_classes = array('ctools-use-modal', $modal_size, 'ltk-action');
-  $search_title = l('<i class="fa fa-search"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/filters/' . $entity_type, array('html' => TRUE, 'attributes' => array('title' => t('Advanced Search'), 'class' => $modal_classes)));
+  $search_title = l('<i class="fa fa-search"></i>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/filters/' . $entity_type, array('html' => TRUE, 'attributes' => array('title' => t('Advanced Search'), 'class' => $modal_classes))); // Coder review error: we don't want to translate te font awesome classes
 
   $form['search'] = array(
     '#type' => 'textfield',
@@ -229,7 +233,7 @@ function lingotek_bulk_grid_form($form, $form_state) {
 
   if ($filter_set) {
     $form['filter_message'] = array(
-      '#markup' => '<span style="white-space:nowrap;">' . l('<i class="fa fa-times" style="margin: 0 5px;"></i>' . t('Clear Filters') . '</span>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/clear/filters/' . $entity_type, array('html' => TRUE, 'attributes' => array('id' => array('clear-filters')))) . '</span>',
+      '#markup' => '<span style="white-space:nowrap;">' . l('<i class="fa fa-times" style="margin: 0 5px;"></i>' . t('Clear Filters') . '</span>', LINGOTEK_MENU_MAIN_BASE_URL . '/manage/clear/filters/' . $entity_type, array('html' => TRUE, 'attributes' => array('id' => array('clear-filters')))) . '</span>', // Coder review error: we don't want to translate the font awesome classes
     );
   }
 
@@ -349,7 +353,7 @@ function lingotek_filter_set_check($entity_type) {
   $filter_set = FALSE;
   if (isset($_SESSION['grid_filters'][$entity_type])) {
     foreach ($_SESSION['grid_filters'][$entity_type] as $key => $value) {
-      if($key === 'filtered_ids' || $key === 'filtered_config_lids') {//these keys are filter metadata
+      if ($key === 'filtered_ids' || $key === 'filtered_config_lids') {//these keys are filter metadata
         continue;
       }
       if (is_array($value)) {
@@ -386,10 +390,10 @@ function lingotek_grid_action_options($entity_type) {
     'marked' => t('Mark content'),
     'unmarked' => t('Unmark content')
   );
-	$api = LingotekApi::instance();
-	$workflows = $api->listWorkflows();
-	if (is_array($workflows) && count($workflows) > 1) {
-		$action_options['workflow'] = t('Change workflow');
+  $api = LingotekApi::instance();
+  $workflows = $api->listWorkflows();
+  if (is_array($workflows) && count($workflows) > 1) {
+    $action_options['workflow'] = t('Change workflow');
   }
   if ($entity_type == 'config') {
     $action_options[t('Download')] = array('download_all' => t('Download All Translations'));
@@ -398,6 +402,7 @@ function lingotek_grid_action_options($entity_type) {
   else {
     $action_options['delete_translations'] = t('Delete local translations');
     $action_options['edit'] = t('Edit translation settings');
+    $action_options['add_language_specific_targets'] = t('Request language-specific translations');
     $action_options[t('Download')] = array('download_all' => t('Download All Translations'));
   }
 
@@ -410,11 +415,16 @@ function lingotek_grid_action_options($entity_type) {
 }
 
 function lingotek_grid_search_options($entity_type) {
+  if ($entity_type === 'paragraphs_item') {
+    $title_str = 'Parent Node Title';
+  }
+  else {
+    $title_str = 'Title';
+  }
   $search_options = array(
-    'title' => t('Title'),
+    'title' => t($title_str),
   );
-
-  if ($entity_type != 'fieldable_panels_pane') {
+  if ($entity_type != 'fieldable_panels_pane' && $entity_type != 'paragraphs_item') {
     $search_options['all'] = t('All');
     $search_options['body'] = t('Body');
   }
@@ -593,7 +603,7 @@ function lingotek_grid_legend_form($form, $form_state) {
   $legend_table = "<table class='legend-table'>"
       . "<tr>"
         . '<td><div><i class="fa fa-cloud-upload fa-2x ltk-upload" style="color:#444;"></i></div></td>'
-        . '<td>'. t('Upload content to Lingotek for translation.') .'</td>'
+        . '<td>' . t('Upload content to Lingotek for translation.') . '</td>'
       . "</tr>"
 
       . "<tr>"
@@ -854,6 +864,9 @@ function lingotek_grid_action_submit($form, $form_state) {
         batch_set($batch);
         batch_process($redirect);
       }
+      elseif ($action == 'add_language_specific_targets') {
+        lingotek_add_language_specific_targets_batch_create($entity_type, $entity_ids);
+      }
     }
   }
 }
@@ -885,7 +898,7 @@ function lingotek_update_marked_item_single($entity_id, $entity_type, $marked_va
 * Updates marked value in the lingotek_entity_metadata table
 */
 function lingotek_update_marked_items($entity_type, $entity_id, &$context) {
-  if(empty($context['results'])) {
+  if (empty($context['results'])) {
     $context['results']['marked'] = 1;
     if ($entity_type === 'config') {
       $context['results']['entity_type'] = 'config';
@@ -908,7 +921,7 @@ function lingotek_update_marked_items($entity_type, $entity_id, &$context) {
 * Updates unmarked value in the lingotek_entity_metadata table
 */
 function lingotek_update_unmarked_items($entity_type, $entity_id, &$context) {
-  if(empty($context['results'])) {
+  if (empty($context['results'])) {
     $context['results']['unmarked'] = 1;
     if ($entity_type === 'config') {
       $context['results']['entity_type'] = 'config';
@@ -1037,6 +1050,21 @@ function lingotek_grid_build_column_checkboxes($form_state) {
   }
   if ($entity_type == 'paragraphs_item') {
     unset($column_elements['changed']);
+    $column_elements['title'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Parent Node Title'),
+      '#default_value' => isset($e_grid_custom[$prefix . 'title' . $suffix]) ? $e_grid_custom[$prefix . 'title' . $suffix] : in_array('title', $columns['defaults']),
+    );
+    $column_elements['parent_node_id'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Parent Node ID'),
+      '#default_value' => isset($e_grid_custom[$prefix . 'parent_node_id' . $suffix]) ? $e_grid_custom[$prefix . 'parent_node_id' . $suffix] : in_array('parent_node_id', $columns['defaults']),
+    );
+    $column_elements['paragraph_snippet'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Paragraph Snippet'),
+      '#default_value' => isset($e_grid_custom[$prefix . 'paragraph_snippet' . $suffix]) ? $e_grid_custom[$prefix . 'paragraph_snippet' . $suffix] : in_array('paragraph_snippet', $columns['defaults']),
+    );
   }
   $column_elements = array_intersect_key($column_elements, $columns['columns']); // Reduces the output columns to the defaults specified in 'lingotek_grid_define_columns'
 
@@ -1107,7 +1135,7 @@ function lingotek_config_build_column_checkboxes($form_state) {
     'workflow' => array(
       '#type' => 'checkbox',
       '#title' => t('Workflow'),
-      '#default_value' =>isset($c_grid_custom[$prefix . 'textgroup' . $suffix]) ? $c_grid_custom[$prefix . 'workflow' . $suffix] : in_array('workflow', $columns['defaults']),
+      '#default_value' => isset($c_grid_custom[$prefix . 'textgroup' . $suffix]) ? $c_grid_custom[$prefix . 'workflow' . $suffix] : in_array('workflow', $columns['defaults']),
     ),
   );
 
@@ -1140,13 +1168,13 @@ function lingotek_grid_update($entity_type) {
   }
 }
 
-function lingotek_grid_query_status($entity_type, $comma_separated_ids = ''){
+function lingotek_grid_query_status($entity_type, $comma_separated_ids = '') {
   if (strlen($comma_separated_ids) == 0) {
     return;
   }
   $ids = explode(',', $comma_separated_ids);
   $information = array();
-  foreach($ids as $id) {
+  foreach ($ids as $id) {
     $source_status = LingotekSync::getUploadStatus($entity_type, $id);
     $target_statuses = LingotekSync::getAllTargetStatusForEntity($entity_type, $id);
     $profile = LingotekSync::getProfileByEntityId($entity_type, $id);
@@ -1170,8 +1198,8 @@ function lingotek_grid_query_status($entity_type, $comma_separated_ids = ''){
   echo json_encode($information);
 }
 
-function lingotek_grid_automatic_download($entity_type){
-  $or = db_or()->condition('lem.value','READY')->condition('lem.value','READY_INTERIM');
+function lingotek_grid_automatic_download($entity_type) {
+  $or = db_or()->condition('lem.value', 'READY')->condition('lem.value', 'READY_INTERIM');
   $query = db_select('lingotek_entity_metadata', 'lem');
   $query->addField('lem', 'entity_id');
   $query->addField('lem', 'entity_key');
@@ -1181,19 +1209,19 @@ function lingotek_grid_automatic_download($entity_type){
   $results = $query->execute();
   $ids_to_check = array();
   $translation_status = array();
-  foreach($results as $result){
+  foreach ($results as $result) {
     $entity_id = $result->entity_id;
     $ids_to_check[] = $entity_id;
-    $language_code = substr($result->entity_key,count($result->entity_key) - 6);
+    $language_code = substr($result->entity_key, count($result->entity_key) - 6);
     $translation_status[$entity_id][$language_code] = $language_code;
   }
   $entities = entity_load($entity_type, $ids_to_check);
 
   foreach ($entities as $entity) {
-    if($entity->lingotek['auto_download'] === 1){
+    if ($entity->lingotek['auto_download'] === 1) {
       $id = $entity_type === 'node' ? $entity->nid : $entity->cid;
-      foreach($translation_status[$id] as $lang_code){
-        lingotek_entity_download($entity,$entity_type,$lang_code);
+      foreach ($translation_status[$id] as $lang_code) {
+        lingotek_entity_download($entity, $entity_type, $lang_code);
       }
     }
   }
@@ -1227,11 +1255,11 @@ function lingotek_grid_download_selected($entity_type, $entity_ids, $target_loca
   batch_process($redirect);
 }
 
-function config_download_ready($force_download, $comma_separated_ids = NULL, $entity_type = NULL){
+function config_download_ready($force_download, $comma_separated_ids = NULL, $entity_type = NULL) {
   if ($entity_type === NULL) {
     $entity_type = 'node';
   }
-  if($force_download != NULL){
+  if ($force_download != NULL) {
     $ready_lids = LingotekConfigSet::getSetIdsByStatus(LingotekSync::STATUS_READY);
     $current_lids = LingotekConfigSet::getSetIdsByStatus(LingotekSync::STATUS_CURRENT);
     $interim_current_lids = LingotekConfigSet::getSetIdsByStatus(LingotekSync::STATUS_INTERIM);
@@ -1239,8 +1267,8 @@ function config_download_ready($force_download, $comma_separated_ids = NULL, $en
     $edited_lids = LingotekConfigSet::getSetIdsByStatus(LingotekSync::STATUS_EDITED);
     $set_ids = array_merge($ready_lids, $current_lids, $edited_lids, $interim_current_lids, $interim_ready_lids);
   }
-  elseif(isset($_SESSION['grid_filters'][$entity_type]) || $comma_separated_ids !== NULL){
-    if(isset($_SESSION['grid_filters'][$entity_type])){
+  elseif (isset($_SESSION['grid_filters'][$entity_type]) || $comma_separated_ids !== NULL) {
+    if (isset($_SESSION['grid_filters'][$entity_type])) {
       empty_array_check($_SESSION['grid_filters'][$entity_type]['filtered_config_lids'], $entity_type, "There are no translations ready for download for this filter.");
     }
     $selected_lids = $comma_separated_ids !== NULL ? explode(",", $comma_separated_ids)
@@ -1250,7 +1278,7 @@ function config_download_ready($force_download, $comma_separated_ids = NULL, $en
   else {
     $set_ids = LingotekConfigSet::getSetIdsByStatus(LingotekSync::STATUS_READY);
   }
-  lingotek_config_download_selected('download_all', $set_ids, true);
+  lingotek_config_download_selected('download_all', $set_ids, TRUE);
 }
 
 function lingotek_grid_download_ready($entity_type, $comma_separated_ids = NULL) {
@@ -1260,8 +1288,8 @@ function lingotek_grid_download_ready($entity_type, $comma_separated_ids = NULL)
   }
   $targets = LingotekSync::getTargetsByStatuses($entity_type, array(LingotekSync::STATUS_READY, LingotekSync::STATUS_READY_INTERIM));
   if (!empty($targets)) {
-    if($comma_separated_ids !== NULL || (isset($_SESSION['grid_filters'][$entity_type]) && !empty($_SESSION['grid_filters'][$entity_type]))){
-      if(isset($_SESSION['grid_filters'][$entity_type])){
+    if ($comma_separated_ids !== NULL || (isset($_SESSION['grid_filters'][$entity_type]) && !empty($_SESSION['grid_filters'][$entity_type]))) {
+      if (isset($_SESSION['grid_filters'][$entity_type])) {
         $filtered_ids = isset($_SESSION['grid_filters'][$entity_type]['filtered_ids']) ? isset($_SESSION['grid_filters'][$entity_type]['filtered_ids']) : NULL;
         empty_array_check($filtered_ids, $entity_type, "There are no translations ready for download for this filter.");
       }
@@ -1298,20 +1326,20 @@ function lingotek_grid_download_ready($entity_type, $comma_separated_ids = NULL)
 }
 
 function config_upload_edited($comma_separated_ids, $entity_type) {
-    if($comma_separated_ids !== NULL){
+    if ($comma_separated_ids !== NULL) {
       $lids = explode(",", $comma_separated_ids);
       lingotek_config_upload_selected($lids);
     }
-    elseif(isset($_SESSION['grid_filters'][$entity_type])){
+    elseif (isset($_SESSION['grid_filters'][$entity_type])) {
       empty_array_check($_SESSION['grid_filters'][$entity_type]['filtered_config_lids'], $entity_type, "There are no entities ready for upload for this filter");
       $selected_lids = $_SESSION['grid_filters'][$entity_type]['filtered_config_lids'];
       //check lid selection for dirty statuses
       $edited_lid_map = LingotekConfigSet::getLidsToUpdate(0, $selected_lids);
       $never_lid_map = LingotekConfigSet::findNeverUploadedLids($selected_lids);
       $lid_map = array();
-      if(!empty($edited_lid_map) && !empty($never_lid_map)){
-        foreach($edited_lid_map as $key => $textgroup){
-          if(isset($never_lid_map[$key])){
+      if (!empty($edited_lid_map) && !empty($never_lid_map)) {
+        foreach ($edited_lid_map as $key => $textgroup) {
+          if (isset($never_lid_map[$key])) {
             $lid_map[$key] = array_merge($never_lid_map[$key], $textgroup);
           }
         }
@@ -1333,10 +1361,10 @@ function lingotek_grid_upload_edited($entity_type, $comma_separated_ids = NULL) 
     config_upload_edited($comma_separated_ids, $entity_type);
     return;
   }
-  if($comma_separated_ids !== NULL) {
+  if ($comma_separated_ids !== NULL) {
     $entity_ids = explode(",", $comma_separated_ids);
   }
-  elseif(isset($_SESSION['grid_filters'][$entity_type])){
+  elseif (isset($_SESSION['grid_filters'][$entity_type])) {
     empty_array_check($_SESSION['grid_filters'][$entity_type]['filtered_ids'], $entity_type, "There are no entities ready for upload for this filter");
     $selected_ids = $_SESSION['grid_filters'][$entity_type]['filtered_ids'];
     //check lid selection for dirty statuses
@@ -1367,9 +1395,9 @@ function lingotek_grid_upload_edited($entity_type, $comma_separated_ids = NULL) 
     drupal_goto('admin/settings/lingotek/manage/' . $entity_type);
   }
 }
-function empty_array_check($array, $entity_type, $message){
-  if(empty($array)){
-    drupal_set_message(t(check_plain($message)));
+function empty_array_check($array, $entity_type, $message) {
+  if (empty($array)) {
+    drupal_set_message(filter_xss(t($message)));
     drupal_goto('admin/settings/lingotek/manage/' . $entity_type);
   }
 }
@@ -1452,8 +1480,12 @@ function lingotek_grid_define_columns($entity_type) {
     $columns['columns']['description'] = 'description';
     $columns['defaults']['description'] = 'description';
   }
-  if ($entity_type == 'bean'){
+  if ($entity_type == 'bean') {
     $columns['columns']['label'] = 'label';
+  }
+  if ($entity_type === 'paragraphs_item') {
+    $columns['columns']['parent_node_id'] = 'parent_node_id';
+    $columns['columns']['paragraph_snippet'] = 'paragraph_snippet';
   }
 
   return $columns;
@@ -1555,11 +1587,11 @@ function lingotek_grid_build_filters($form_state) {
       ),
       '#multiple' => FALSE,
     ),
-    'marked_status' => array (
+    'marked_status' => array(
       '#type' => 'select',
       '#default_value' => isset($_SESSION['grid_filters'][$entity_type]['marked_status']) ? $_SESSION['grid_filters'][$entity_type]['marked_status'] : 'all',
       '#title' => t('Marked status'),
-      '#options' => array (
+      '#options' => array(
         'all' => t('All'),
         'marked' => t('Marked'),
         'unmarked' => t('Not marked'),
@@ -1633,11 +1665,11 @@ function lingotek_config_build_filters($form_state) {
       ),
       '#multiple' => FALSE,
     ),
-    'marked_status' => array (
+    'marked_status' => array(
       '#type' => 'select',
       '#default_value' => isset($_SESSION['grid_filters'][$entity_type]['marked_status']) ? $_SESSION['grid_filters'][$entity_type]['marked_status'] : 'all',
       '#title' => t('Marked status'),
-      '#options' => array (
+      '#options' => array(
         'all' => t('All'),
         'marked' => t('Marked'),
         'unmarked' => t('Not marked'),
@@ -1762,7 +1794,9 @@ function lingotek_grid_get_rows($entity_type, $form, &$form_state, $count_only =
     'marked' => array('data' => t('Marked')),
     'nid' => array('data' => t('ID'), 'field' => 'n.' . $entity_id_key),
     'content_type' => array('data' => t('Content Type'), 'field' => 'type'),
+    'parent_node_id' => array('data' => t('Parent Node ID')),
     'title' => array('data' => t('Title'), 'field' => 'n.' . $label_col),
+    'paragraph_snippet' => array('data' => t('Paragraph Snippet')),
     'label' => array('data' => t('Label'), 'field' => 'n.label'),
     'description' => array('data' => t('Description')),
     'language' => array('data' => t('Source')), //, 'field' => 'upload_status'),
@@ -1778,6 +1812,12 @@ function lingotek_grid_get_rows($entity_type, $form, &$form_state, $count_only =
     'last_downloaded' => array('data' => t('Last Downloaded'), 'field' => 'last_downloaded'),
     'translate_link' => array('data' => t('Translate')),
   );
+
+  if ($entity_type == 'paragraphs_item') {
+    $header['title'] = array(
+      'data' => t('Parent Node Title')
+    );
+  }
 
   if (!isset($entity_properties['changed'])) {
     unset($header['changed']);
@@ -1813,14 +1853,13 @@ function lingotek_grid_get_rows($entity_type, $form, &$form_state, $count_only =
   // Execute the query
   $table_data_raw = $query->distinct()->execute()->fetchAllAssoc($entity_id_key);
 
-
   //save filtered id's to session for group download/upload
   if (lingotek_filter_set_check($entity_type)) {
     $no_limit_query = lingotek_bulk_grid_query($form_state, $count_only, $entity_id_key, $label_col, $entity_type, 500000, $bundle_col, $info, $entity_properties, $eid);
     lingotek_bulk_grid_filter_query($no_limit_query, $entity_type, $eid, $label_col, $info);
     $no_limit_query_raw = $no_limit_query->distinct()->execute();
     $all_filtered_entity_ids = array();
-    foreach($no_limit_query_raw as $value){
+    foreach ($no_limit_query_raw as $value) {
       $all_filtered_entity_ids[$value->$entity_id_key] = $value->$entity_id_key;
     }
     $_SESSION['grid_filters'][$entity_type]['filtered_ids'] = $all_filtered_entity_ids;
@@ -1854,7 +1893,7 @@ function lingotek_bulk_grid_query($form_state, $count_only, $entity_id_key, $lab
         ->extend('PagerDefault')
         ->extend('TableSort');
     $query->limit($limit);
-    if($limit <= 5000){//anything greater than 500 is a filtered_id query for the batch filter actions
+    if ($limit <= 5000) {//anything greater than 500 is a filtered_id query for the batch filter actions
       $query->orderByHeader($form_state['values']['grid_header']);
     }
   }
@@ -1910,7 +1949,7 @@ function lingotek_bulk_grid_query_add_entity_specifics($query, $entity_type, $bu
     }
     $query->addField('n', $info['entity keys']['bundle'], 'type');
     // beans have the $bundle_col, and also need the label
-    if ($entity_type == 'bean'){
+    if ($entity_type == 'bean') {
       $query->addField('n', 'label');
     }
     if ($entity_type == 'menu_link') {
@@ -1937,6 +1976,7 @@ function lingotek_bulk_grid_query_add_statuses($query, $entity_type, $eid) {
   $query->addExpression("(SELECT GROUP_CONCAT(SUBSTRING(entity_key, 20, 10)) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key LIKE 'target_sync_status_%' AND value='" . LingotekSync::STATUS_CURRENT . "')", 't_current');
   $query->addExpression("(SELECT GROUP_CONCAT(SUBSTRING(entity_key, 20, 10)) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key LIKE 'target_sync_status_%' AND value='" . LingotekSync::STATUS_INTERIM . "')", 't_interim');
   $query->addExpression("(SELECT GROUP_CONCAT(SUBSTRING(entity_key, 20, 10)) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key LIKE 'target_sync_status_%' AND value='" . LingotekSync::STATUS_READY_INTERIM . "')", 't_ready_interim');
+  $query->addExpression("(SELECT GROUP_CONCAT(SUBSTRING(entity_key, 20, 10)) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key LIKE 'target_sync_status_%' AND value='" . LingotekSync::STATUS_EDITED_INTERIM . "')", 't_edited_interim');
   $query->addExpression("(SELECT GROUP_CONCAT(SUBSTRING(entity_key, 20, 10)) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key LIKE 'target_sync_status_%' AND value='" . LingotekSync::STATUS_EDITED . "')", 't_edited');
   $query->addExpression("(SELECT GROUP_CONCAT(SUBSTRING(entity_key, 20, 10)) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key LIKE 'target_sync_status_%' AND value='" . LingotekSync::STATUS_UNTRACKED . "')", 't_untracked');
   $query->addExpression("(SELECT GROUP_CONCAT(SUBSTRING(entity_key, 20, 10)) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key LIKE 'target_sync_status_%' AND value='" . LingotekSync::STATUS_TARGET_LOCALIZE . "')", 't_target_localize');
@@ -1950,7 +1990,7 @@ function lingotek_bulk_grid_query_add_localized_title($query, $entity_type, $eid
   $localized_label_table = 'field_data_' . $label_col . '_field';
 
   if ($label_col && db_table_exists($localized_label_table)) {
-    $query->addExpression("(SELECT GROUP_CONCAT(" .  $label_col . '_field_value' . ") FROM {" . $localized_label_table . "} WHERE entity_id=" . $eid . " AND entity_type='" . $entity_type . "' AND language = '" . $GLOBALS['language']->language . "')", 'localized_title');
+    $query->addExpression("(SELECT GROUP_CONCAT(" . $label_col . '_field_value' . ") FROM {" . $localized_label_table . "} WHERE entity_id=" . $eid . " AND entity_type='" . $entity_type . "' AND language = '" . $GLOBALS['language']->language . "')", 'localized_title');
   }
 }
 
@@ -1962,7 +2002,7 @@ function lingotek_bulk_grid_query_add_keys($query, $entity_type, $eid) {
   $query->addExpression("(SELECT GROUP_CONCAT(value) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key = 'invalid_xml')", 'invalid_xml');
 
   // Entity Upload Status
-  $query->addExpression("(SELECT GROUP_CONCAT(value) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key = 'upload_status' AND value <> '". LingotekSync::STATUS_TARGET . "' AND value <> '" . LingotekSync::STATUS_DELETED . "')", 'upload_status');
+  $query->addExpression("(SELECT GROUP_CONCAT(value) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key = 'upload_status' AND value <> '" . LingotekSync::STATUS_TARGET . "' AND value <> '" . LingotekSync::STATUS_DELETED . "')", 'upload_status');
 
   // Profile Settings
   $query->addExpression("(SELECT GROUP_CONCAT(value) FROM {lingotek_entity_metadata} WHERE entity_type='" . $entity_type . "' AND entity_id=" . $eid . " AND entity_key = 'profile')", 'profile');
@@ -2004,14 +2044,47 @@ function lingotek_bulk_grid_filter_search_box($query, $filters, $eid, $label_col
   if (isset($filters['search_type']) && $filters['search_type'] == 'all') {
     $filters['title'] = $filters['body'] = $filters['search'];
   }
-
   $title_query = $body_query = array(-1);
-
   if ($entity_type == 'comment') {
     $title_field_table = 'field_data_subject_field';
     $title_field_col = 'subject_field_value';
     $body_field_table = 'field_data_comment_body';
     $body_field_col = 'comment_body_value';
+  } // Paragraphs have a special case in finding parent nodes
+  elseif ($entity_type === 'paragraphs_item') {
+    $title_field_table = 'field_data_title_field';
+    $title_field_col = 'title_field_value';
+    $paragraphs = db_select('paragraphs_item', 'pi')
+      ->distinct()
+      ->fields('pi')
+      ->execute()
+      ->fetchAll();
+    $filtered_paragraphs = array();
+    if (isset($filters['title']) && db_table_exists($title_field_table)) {
+      foreach ($paragraphs as $paragraph) {
+        $item_id = $paragraph->item_id;
+        list($parent_id, $parent_title) = lingotek_get_paragraph_parent_info($entity_type, $item_id);
+        $found_title = db_select($title_field_table, 'tf')
+          ->fields('tf')
+          ->condition('entity_id', $parent_id)
+          ->condition('tf.' . $title_field_col, '%' . $filters['title'] . '%', 'LIKE')
+          ->execute()
+          ->fetchAll();
+        if (!empty($found_title)) {
+          $filtered_paragraphs[$item_id] = $item_id;
+        }
+      }
+    }
+    if (!empty($filtered_paragraphs)) {
+      $query->condition('n.item_id', $filtered_paragraphs, 'IN');
+    }
+    else {
+      if (isset($filters['title'])) {
+        $filtered_paragraphs = array(-1);
+        $query->condition('n.item_id', $filtered_paragraphs, 'IN');
+      }
+    }
+    return;
   }
   else {
     $title_field_table = 'field_data_title_field';
@@ -2090,38 +2163,38 @@ function lingotek_bulk_grid_filter_popup_options($query, $filters, $eid, $info, 
   // Upload Status
   if (isset($filters['upload_status']) && !in_array('all', $filters['upload_status'])) {
     //never uploaded case
-    if(in_array("never", $filters['upload_status'])){
-      $notUploadedQuery = db_select('lingotek_entity_metadata','lingo_em');
-      $notUploadedQuery->distinct();
-      $notUploadedQuery->fields('lingo_em',array('entity_id'));
-      $notUploadedQuery->condition('entity_key', 'last_uploaded');
+    if (in_array("never", $filters['upload_status'])) {
+      $not_uploaded_query = db_select('lingotek_entity_metadata', 'lingo_em');
+      $not_uploaded_query->distinct();
+      $not_uploaded_query->fields('lingo_em', array('entity_id'));
+      $not_uploaded_query->condition('entity_key', 'last_uploaded');
 
-      $query->havingCondition('entity_id_key', $notUploadedQuery, 'NOT IN');
+      $query->havingCondition('entity_id_key', $not_uploaded_query, 'NOT IN');
     }
-    else if(in_array("disassoc", $filters['upload_status'])){
-      $disassocQuery = db_select('lingotek_entity_metadata','lingo_em');
-      $disassocQuery->distinct();
-      $disassocQuery->fields('lingo_em',array('entity_id'));
-      $disassocQuery->condition('entity_key', 'last_uploaded');
+    elseif (in_array("disassoc", $filters['upload_status'])) {
+      $disassoc_query = db_select('lingotek_entity_metadata', 'lingo_em');
+      $disassoc_query->distinct();
+      $disassoc_query->fields('lingo_em', array('entity_id'));
+      $disassoc_query->condition('entity_key', 'last_uploaded');
 
-      $query->havingCondition('entity_id_key', $disassocQuery, 'IN');
+      $query->havingCondition('entity_id_key', $disassoc_query, 'IN');
       $query->havingCondition('upload_status', 'UNTRACKED');
     }
-    elseif(in_array("uploaded", $filters['upload_status'])) {
-      $uploadedQuery = db_select('lingotek_entity_metadata','lingo_em');
-      $uploadedQuery->distinct();
-      $uploadedQuery->fields('lingo_em', array('entity_id'));
-      $uploadedQuery->condition('entity_key', 'document_id');
+    elseif (in_array("uploaded", $filters['upload_status'])) {
+      $uploaded_query = db_select('lingotek_entity_metadata', 'lingo_em');
+      $uploaded_query->distinct();
+      $uploaded_query->fields('lingo_em', array('entity_id'));
+      $uploaded_query->condition('entity_key', 'document_id');
 
-      $query->havingCondition('entity_id_key', $uploadedQuery, 'IN');
+      $query->havingCondition('entity_id_key', $uploaded_query, 'IN');
     }
-    elseif(in_array("upload_failed", $filters['upload_status'])) {
-      $uploadFailedQuery = db_select('lingotek_entity_metadata','lingo_em');
-      $uploadFailedQuery->distinct();
-      $uploadFailedQuery->fields('lingo_em', array('entity_id'));
-      $uploadFailedQuery->condition('entity_key', 'invalid_xml');
+    elseif (in_array("upload_failed", $filters['upload_status'])) {
+      $upload_failed_query = db_select('lingotek_entity_metadata', 'lingo_em');
+      $upload_failed_query->distinct();
+      $upload_failed_query->fields('lingo_em', array('entity_id'));
+      $upload_failed_query->condition('entity_key', 'invalid_xml');
 
-      $query->havingCondition('entity_id_key', $uploadFailedQuery, 'IN');
+      $query->havingCondition('entity_id_key', $upload_failed_query, 'IN');
       $query->havingCondition('invalid_xml', LingotekSync::INVALID_XML_PRESENT);
     }
     //other cases
@@ -2133,24 +2206,24 @@ function lingotek_bulk_grid_filter_popup_options($query, $filters, $eid, $info, 
   // Marked status
   if (isset($filters['marked_status']) && !in_array('all', $filters['marked_status'])) {
     // Marked
-    if(in_array("marked", $filters['marked_status'])){
-      $markedQuery = db_select('lingotek_entity_metadata','lingo_em');
-      $markedQuery->distinct();
-      $markedQuery->fields('lingo_em',array('entity_id'));
-      $markedQuery->condition('entity_key', 'marked');
-      $markedQuery->condition('value', LingotekSync::MARKED);
+    if (in_array("marked", $filters['marked_status'])) {
+      $marked_query = db_select('lingotek_entity_metadata', 'lingo_em');
+      $marked_query->distinct();
+      $marked_query->fields('lingo_em', array('entity_id'));
+      $marked_query->condition('entity_key', 'marked');
+      $marked_query->condition('value', LingotekSync::MARKED);
 
-      $query->havingCondition('entity_id_key', $markedQuery, 'IN');
+      $query->havingCondition('entity_id_key', $marked_query, 'IN');
     }
     // Unmarked
-    else if(in_array("unmarked", $filters['marked_status'])){
-      $unMarkedQuery = db_select('lingotek_entity_metadata','lingo_em');
-      $unMarkedQuery->distinct();
-      $unMarkedQuery->fields('lingo_em',array('entity_id'));
-      $unMarkedQuery->condition('entity_key', 'marked');
-      $unMarkedQuery->condition('value', LingotekSync::MARKED);
+    elseif (in_array("unmarked", $filters['marked_status'])) {
+      $un_marked_query = db_select('lingotek_entity_metadata', 'lingo_em');
+      $un_marked_query->distinct();
+      $un_marked_query->fields('lingo_em', array('entity_id'));
+      $un_marked_query->condition('entity_key', 'marked');
+      $un_marked_query->condition('value', LingotekSync::MARKED);
 
-      $query->havingCondition('entity_id_key', $unMarkedQuery, 'NOT IN');
+      $query->havingCondition('entity_id_key', $un_marked_query, 'NOT IN');
     }
   }
 
@@ -2241,7 +2314,7 @@ function lingotek_bulk_grid_parse_table_data($table_data_raw, $entity_properties
   $node_based_translations = array();
 
   foreach ($table_data_raw as $row) {
-    if($row->language !== $language->language){
+    if ($row->language !== $language->language) {
       $node_based_translations[] = $row->$entity_id_key;
     }
 
@@ -2258,7 +2331,6 @@ function lingotek_bulk_grid_parse_table_data($table_data_raw, $entity_properties
     $disabled_class = $disabled ? ' ltk-disabled-icon' : '';
     $allow_source_overwriting = !empty($row->lingotek['allow_source_overwriting']);
     $allow_target_localization = !empty($row->lingotek['allow_target_localization']);
-
     $translation_icons = lingotek_lang_icons($entity_properties['type'], $languages, $entity_id, $row->lingotek['profile'], $locales_statuses, $disabled, $row->language, $allow_source_overwriting, $allow_target_localization, array()); // show translation statuses
     if (!empty($translation_icons['source'])) {
       $row->overridden_source_target_icon = $translation_icons['source'];
@@ -2291,14 +2363,20 @@ function lingotek_bulk_grid_parse_table_data($table_data_raw, $entity_properties
       'description' => isset($row->description) ? $row->description : '',
     );
 
+    if ($entity_type === 'paragraphs_item') {
+      list($parent_id, $parent_title) = lingotek_get_paragraph_parent_info($entity_type, $entity_id);
+      $data['parent_node_id'] = $parent_id;
+      $data['paragraph_snippet'] = lingotek_get_paragraph_snippet($entity_type, $entity_id);
+    }
+
     if (isset($entity_properties['changed'])) {
       $data['changed'] = $row->changed ? t('@time ago', array('@time' => lingotek_human_readable_timestamp($row->changed))) : t('Never');
     }
     $table_data[$entity_id] = $data;
   }
   $entity_type = $entity_properties['type'];
-  if(!empty($node_based_translations)){
-    if($entity_type === 'node') {
+  if (!empty($node_based_translations)) {
+    if ($entity_type === 'node') {
       $query = db_select('node', 'n');
       $query->addField('n', 'title');
       $query->addField('n', 'tnid');
@@ -2306,14 +2384,38 @@ function lingotek_bulk_grid_parse_table_data($table_data_raw, $entity_properties
       $query->condition('n.tnid', $node_based_translations, 'IN');
       $query->condition('n.language', $language->language);
       $results = $query->execute();
-      foreach($results as $result) {
-         if(isset($table_data[$result->tnid])){
+      foreach ($results as $result) {
+         if (isset($table_data[$result->tnid])) {
            $table_data[$result->tnid]['title'] = l(t($result->title), $entity_properties['type'] . "/$result->nid");
          }
       }
     }
   }
   return $table_data;
+}
+
+function lingotek_get_paragraph_snippet($entity_type, $entity_id) {
+  $fields = field_info_fields();
+  $paragraph = lingotek_entity_load_single($entity_type, $entity_id);
+  $snippet = 'N/A';
+  foreach ($paragraph as $key => $value) {
+    if (strpos($key, 'field_') !== FALSE) {
+      if (!isset($value[language_default()->language][0]['value'])) {
+        continue;
+      }
+      $field_value = $value[language_default()->language][0]['value'];
+      $field_type = $fields[$key]['type'];
+      if (!is_numeric($field_value) && $field_type === 'text') {
+        if (strlen($field_value) > 20) {
+          $field_value = substr($field_value, 0, 20);
+        }
+        $snippet = $field_value;
+        break;
+      }
+    }
+  }
+
+  return $snippet;
 }
 
 function lingotek_truncate_grid_text($string, $truncate_length) {
@@ -2326,7 +2428,7 @@ function lingotek_truncate_grid_text($string, $truncate_length) {
 }
 
 function lingotek_build_locales_statuses($row, $t_prefix = TRUE) {
-  $list_statuses = array('none', 'pending', 'ready', 'current', 'ready_interim', 'interim', 'edited', 'untracked', 'error');
+  $list_statuses = array('none', 'pending', 'ready', 'current', 'ready_interim', 'interim', 'edited_interim', 'edited', 'untracked', 'error');
   $locales_statuses = array();
   foreach ($list_statuses as $status) {
     $key = $t_prefix ? 't_' . $status : $status;
@@ -2379,7 +2481,8 @@ function lingotek_render_title($row, $entity_properties) {
 
   $uri['options']['attributes'] = array('target' => '_blank');
   if ($entity_type == 'paragraphs_item') {
-    $title_to_show = lingotek_clean_paragraphs_title($row->field_name);
+    list($parent_id, $parent_title) = lingotek_get_paragraph_parent_info($entity_type, $row->item_id);
+    $title_to_show = $parent_title;
   }
   elseif ($entity_type == 'file') {
     $title_to_show = $row->filename;
@@ -2397,13 +2500,6 @@ function lingotek_render_title($row, $entity_properties) {
   $title .= ($no_localized_title ? '</span>' : '');
 
   return $title;
-}
-
-function lingotek_clean_paragraphs_title($field_name) {
-  $field_name = ucfirst($field_name);
-  $field_name = str_replace('_', ' ', $field_name);
-
-  return $field_name;
 }
 
 function lingotek_render_source_current_icon_link($row, $entity_properties, $profile) {
@@ -2476,7 +2572,7 @@ function lingotek_render_source($entity_type, $row, $languages, $language_col, $
   elseif ($entity_type == 'config') {
     $id = $row->lid;
   }
-  elseif ($entity_type == 'fieldable_panels_pane'){
+  elseif ($entity_type == 'fieldable_panels_pane') {
     $id = $row->fpid;
   }
   elseif ($entity_type == 'taxonomy_term') {
@@ -2501,6 +2597,9 @@ function lingotek_render_source($entity_type, $row, $languages, $language_col, $
   elseif ($entity_type == 'file') {
     $id = $row->fid;
     $row->language = lingotek_get_file_source($row->fid);
+  }
+  elseif ($entity_type === 'commerce_product') {
+    $id = $row->product_id;
   }
   elseif (!empty($row->id)) {
     $id = $row->id;
@@ -2594,7 +2693,7 @@ function lingotek_render_actions($entity_properties, $entity_id, $disabled_class
   $actions = '';
   $actions .= lingotek_get_entity_edit_link($entity_properties, $entity_id);
   $actions .= empty($disabled_class) ? $pm_link : $pm_icon;
-  $actions .= ' ' . l('<i title="' . t('Set Lingotek Settings') . '" class="fa fa-gear"></i>', '', array('html' => TRUE, 'attributes' => array('onclick' => 'lingotek_perform_action(' . $entity_id . ',"edit"); return false;')));
+  $actions .= ' ' . l('<i title="' . t('Set Lingotek Settings') . '" class="fa fa-gear"></i>', '', array('html' => TRUE, 'attributes' => array('onclick' => 'lingotek_perform_action(' . $entity_id . ',"edit"); return false;'))); // Coder review error: we only want to translate "Set Lingotek Settings"
 
   return $actions;
 }
@@ -2616,17 +2715,18 @@ function lingotek_get_entity_edit_link($entity_properties, $entity_id, $url_only
     case 'menu_link':
       $edit_link = 'admin/structure/menu/item/' . $entity_id;
       break;
-    case 'paragraphs_item';
-      $paragraphs_item = lingotek_entity_load_single($entity_type, $entity_id);
-      $bundle = $paragraphs_item->bundle;
-      $real_path = $entity_properties['info']['bundles'][$bundle]['admin']['real path'];
-      $edit_link = $real_path . '/edit';
+    case 'paragraphs_item':
+      list($parent_id, $parent_title) = lingotek_get_paragraph_parent_info($entity_type, $entity_id);
+      $edit_link = 'node' . '/' . $parent_id . '/edit';
+      break;
+    case 'commerce_product':
+      $edit_link = 'admin/commerce/products/' . $entity_id;
       break;
     default:
       $edit_link = $entity_type . '/' . $entity_id . '/edit';
       break;
   }
-  return $url_only ? url($edit_link, array('query' => $query)) : l('<i title="' . t('Edit') . '" class="fa fa-edit"></i>', $edit_link, array('html' => TRUE, 'attributes' => array('target' => '_blank'), 'query' => $query));
+  return $url_only ? url($edit_link, array('query' => $query)) : l('<i title="' . t('Edit') . '" class="fa fa-edit"></i>', $edit_link, array('html' => TRUE, 'attributes' => array('target' => '_blank'), 'query' => $query)); // Coder review error: we only want to translate "Edit"
 }
 
 function lingotek_lang_icons($entity_type, $languages, $entity_id, $entity_profile = NULL, $locale_statuses = array(), $disabled = FALSE, $source_language = NULL, $allow_source_overwriting = FALSE, $allow_target_localization = FALSE, $non_lingotek_config_translations = array()) {
@@ -2646,6 +2746,7 @@ function lingotek_lang_icons($entity_type, $languages, $entity_id, $entity_profi
     LingotekSync::STATUS_CURRENT => t('Current'),
     LingotekSync::STATUS_READY_INTERIM => t('Ready for Interim Download'),
     LingotekSync::STATUS_INTERIM => t('In-progress (interim translation downloaded)'),
+    LingotekSync::STATUS_EDITED_INTERIM => t('In-progress, edited-source (interim translation downloaded)'),
     LingotekSync::STATUS_EDITED => t('Source Edited'),
     LingotekSync::STATUS_UNTRACKED => t('Translation exists, but it is not being tracked by Lingotek'),
     LingotekSync::STATUS_TARGET_LOCALIZE => t('Pending localization'),
@@ -2665,11 +2766,12 @@ function lingotek_lang_icons($entity_type, $languages, $entity_id, $entity_profi
     LingotekSync::STATUS_READY_INTERIM => $default_link,
     LingotekSync::STATUS_INTERIM => $default_link,
     LingotekSync::STATUS_EDITED => $default_link,
+    LingotekSync::STATUS_EDITED_INTERIM => $default_link,
     LingotekSync::STATUS_UNTRACKED => $untracked_link,
     LingotekSync::STATUS_TARGET_LOCALIZE => $untracked_link,
     LingotekSync::STATUS_TARGET_EDITED => $untracked_link,
     LingotekSync::STATUS_NON_LINGOTEK => $untracked_config_link,
-    LingotekSync::STATUS_ERROR => $default_link,
+    LingotekSync::STATUS_ERROR => $untracked_link,
   );
 
   $lingotek_languages = Lingotek::getLanguages();
@@ -2706,19 +2808,19 @@ function lingotek_lang_icons($entity_type, $languages, $entity_id, $entity_profi
         }
         // link redirects to the translate interface for the config string rather than the Lingotek workbench if is an untracked config item
         if ($entity_type == 'config' && $status == LingotekSync::STATUS_UNTRACKED) {
-          $current_icon = l($lang_code, $untracked_config_link . $lingotek_locale, array('attributes' => array('target' => '_blank', 'title' => $tip, 'class' => array('language-icon', $css_classes))));
+          $current_icon = l($lang_code, $untracked_config_link . $lingotek_locale, array('attributes' => array('target' => '_blank', 'lingotek_locale' => $lingotek_locale, 'title' => $tip, 'class' => array('language-icon', $css_classes))));
         }
         elseif ($status == LingotekSync::STATUS_NONE) {
-          $none_css_classes = 'ltk-target-none';
+          $none_css_classes = 'language-icon ltk-target-none';
           $none_tip = 'No Translation';
-          $current_icon = '<span class = "' . $none_css_classes . '" title="' . $none_tip . '">' . $lang_code . '</span>';
+          $current_icon = '<span class = "' . $none_css_classes . '" title="' . $none_tip . '" lingotek_locale="' . $lingotek_locale . '">' . $lang_code . '</span>';
         }
         else {
-          $current_icon = l($lang_code, $link_map[$status] . $lingotek_locale, array('attributes' => array('target' => '_blank', 'title' => $tip, 'class' => array('language-icon', $css_classes))));
+          $current_icon = l($lang_code, $link_map[$status] . $lingotek_locale, array('attributes' => array('target' => '_blank', 'lingotek_locale' => $lingotek_locale, 'title' => $tip, 'class' => array('language-icon', $css_classes))));
         }
 
         if ($disabled) {
-          $current_icon = '<span class="ltk-target-disabled" title="Disabled, cannot request translation">' . $lang_code . '</span>';
+          $current_icon = '<span class="language-icon ltk-target-disabled" title="Disabled, cannot request translation" lingotek_locale="' . $lingotek_locale . '">' . $lang_code . '</span>';
         }
 
         if (!is_null($source_language) && $lang_code === $source_language) {
@@ -2829,8 +2931,8 @@ function lingotek_edit_nodes($entity_type, $nids) {
  */
 function lingotek_change_workflow($entity_type, $entity_ids) {
   $entity_ids = explode(',', $entity_ids);
-  if($entity_type === 'config'){
-    foreach($entity_ids as $entity_id) {
+  if ($entity_type === 'config') {
+    foreach ($entity_ids as $entity_id) {
       LingotekConfigSet::getSetId($entity_id);
     }
     $entity_ids = LingotekSync::getSetIdsFromLids($entity_ids);
@@ -2873,15 +2975,20 @@ function lingotek_entity_delete_form($form, &$form_state, $nids = array(), $coll
     $entity_ids = array($entity_ids);
   }
   $entity_type = $form_state['entity_type'];
-
   $content_details_string = $entity_type . ' ' . t("entity ids") . ': ' . implode(", ", $entity_ids) . "<br/>";
+  $content_description_message = ($entity_type == 'config')? '<br/>' . $content_details_string : $content_details_string;
+  $prefix_message = t('This action will apply to @count entities.');
+  $config_delete_message = t('Are you sure you want to delete these translations?');
+  $entity_delete_message = t('Are you sure you want to delete these entities?');
+  $message_description = t("Note: this action cannot be undone.");
+  $title_message = ($entity_type == 'config') ? $config_delete_message : $entity_delete_message;
 
   $form['confirm'] = array(
     '#type' => 'fieldset',
-    '#prefix' => format_plural(count($entity_ids), '', '<div class="messages warning">' . t('This action will apply to @count entities.') . '</div>'),
-    '#title' => $entity_type == 'config' ? t('Are you sure you want to delete these translations?') : t('Are you sure you want to delete these entities?'),
-    '#description' => $entity_type == 'config' ? '<br/>'.filter_xss($content_details_string) : filter_xss($content_details_string),
-    '#suffix' => '<i>' . t("Note: this action cannot be undone.") . '</i>',
+    '#prefix' => format_plural(count($entity_ids), '', '<div class="messages warning">' . filter_xss($message_description) . '</div>'),
+    '#title' => filter_xss($title_message),
+    '#description' => filter_xss($content_description_message, array('br')),
+    '#suffix' => '<i>' . filter_xss($message_description . '</i>'),
     '#collapsible' => $collapse_fieldset,
     '#collapsed' => $collapse_fieldset,
   );
@@ -2916,14 +3023,14 @@ function lingotek_entity_delete_translations_form($form, &$form_state, $nids = a
     $entity_ids = array($entity_ids);
   }
   $entity_type = $form_state['entity_type'];
-
-  $content_details_string = $entity_type . ' ' . t("entity ids") . ': ' . implode(", ", $entity_ids) . "<br/>";
+  $content_details_string = "<br/>" . $entity_type . ' ' . t("entity ids") . ': ' . implode(", ", $entity_ids) . "<br/>";
+  $content_delete_message = t('Are you sure you want to delete these translations?' . '<br/>');
 
   $form['confirm'] = array(
     '#type' => 'fieldset',
     '#prefix' => format_plural(count($entity_ids), '', '<div class="messages warning">' . t('This action will apply to @count entities.') . '</div>'),
-    '#title' => t('Are you sure you want to delete these translations?'),
-    '#description' => '<br/>'.filter_xss($content_details_string),
+    '#title' => filter_xss($content_delete_message, array('br')),
+    '#description' => filter_xss($content_details_string, array('br')),
     '#suffix' => '<i>' . t("Note: this action cannot be undone.") . '</i>',
     '#collapsible' => $collapse_fieldset,
     '#collapsed' => $collapse_fieldset,
@@ -3225,21 +3332,19 @@ function lingotek_config_disassociate_form_submit($form, $form_state) {
 
   if (($remove_from_tms || $global_remove_from_tms) && !empty($doc_ids)) { //disassociate on TMS
     $result = lingotek_batch_disassociate_content_worker($api, $doc_ids);
-    //Deletes document data from lingotek_config_metadata table and lingotek_config_metadata table
-    LingotekConfigSet::deleteConfigSetMetadataBySetId($set_ids);
-    LingotekConfigSet::deleteConfigSetMapDataBySetId($set_ids);
-
     if (!$result) {
       drupal_set_message(t('Failed to remove documents from Lingotek TMS.'), 'warning', FALSE);
-      return;
     }
   }
+
+  //Deletes document data from lingotek_config_metadata table and lingotek_config_metadata table
+  LingotekConfigSet::deleteConfigSetMetadataBySetId($set_ids);
+  LingotekConfigSet::deleteConfigSetMapDataBySetId($set_ids);
 
   if (!empty($lids)) {
     LingotekConfigSet::disassociateSegments($lids);
   }
 
-  LingotekConfigSet::removeEmptyConfigSets($set_ids);
   $disassociated_config = '(Config ID\'s: ';
 
   for ($i = 0; $i < count($lids); $i++) {

@@ -34,7 +34,7 @@ function lingotek_notify_url_update($show_messages = TRUE) {
       if ($success === 'success') {
         drupal_set_message(t("Notification callback URL successfully updated."));
       }
-      else if ($success === 'localhost_url') {
+      elseif ($success === 'localhost_url') {
         drupal_set_message(t("Lingotek will not be able to notify Drupal, since the callback URL contains <i>localhost</i>."), 'warning');
       }
     }
@@ -194,7 +194,7 @@ function lingotek_sync_endpoint() {
   switch ($method) {
     case 'GET':
       $temp = array();
-      foreach ($_GET as $key => $value){
+      foreach ($_GET as $key => $value) {
         $temp[$key] = check_plain($value);
       }
       $request['parameters'] = $parameters = $temp;
@@ -278,8 +278,11 @@ function lingotek_get_and_update_target_progress($entity_type, $document_ids, $c
             }
           }
           else { // If the workflow is not complete
-            if ($percent == 0){
+            if ($percent == 0) {
               $to_status = LingotekSync::STATUS_PENDING; // Set it to pending
+            }
+            elseif ($percent > 0) {
+              $to_status = LingotekSync::STATUS_READY_INTERIM;
             }
             else{
               $to_status = $status;
@@ -388,7 +391,15 @@ function lingotek_update_config_progress($document_ids) {
             }
           }
           else { // If the workflow is not complete
-            $to_status = LingotekSync::STATUS_PENDING; // Set it to pending
+            if ($percent == 0) {
+              $to_status = LingotekSync::STATUS_PENDING; // Set it to pending
+            }
+            elseif ($percent > 0) {
+              $to_status = LingotekSync::STATUS_READY_INTERIM;
+            }
+            else{
+              $to_status = $status;
+            }
           }
           $cfg_values[] = array($trans_obj->sid, 'target_sync_status_' . $language, $to_status);
         }

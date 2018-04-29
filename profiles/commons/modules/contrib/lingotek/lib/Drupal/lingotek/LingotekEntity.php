@@ -149,7 +149,8 @@ class LingotekEntity implements LingotekTranslatableEntity {
     }
     elseif (isset($this->entity->$property_name)) {
       $property = $this->entity->$property_name;
-    } else {
+    }
+    else {
       $val = lingotek_keystore($this->getEntityType(), $this->getId(), $property_name);
       $property = ($val !== FALSE) ? $val : $property;
     }
@@ -305,6 +306,10 @@ class LingotekEntity implements LingotekTranslatableEntity {
       LingotekLog::info('Did not find a label for @entity_type #!entity_id, using default label.',
           array('@entity_type' => $this->entity_type, '@entity_id' => $this->entity_id));
       $this->title = $this->entity_type . " #" . $this->entity_id;
+      if ($this->entity_type === 'paragraphs_item') {
+        list($parent_id, $parent_title) = lingotek_get_paragraph_parent_info($this->entity_type, $this->entity_id);
+        $this->title .= ' (Host entity: ' . $parent_title . ')';
+      }
     }
 
     return $this->title;

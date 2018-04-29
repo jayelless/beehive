@@ -95,7 +95,6 @@ function lingotek_field_language_data_cleanup_batch_create($entity_type, $autose
  * Creates the batch operations array.  Downloads first, then uploads.
  */
 function lingotek_sync_batch_create($upload_config = array(), $download_targets = array(), $download_targets_incomplete = array(), $redirect = '', $extra_operations = array()) {
-
   $has_upload_config = !empty($upload_config);
   $has_download = !empty($download_targets);
   $has_download_incomplete = !empty($download_targets_incomplete);
@@ -187,15 +186,27 @@ function lingotek_get_unmarked_batch_elements($entity_type, $entity_ids = array(
 }
 
 /**
+ * Get entity reference updater operations (Re-connect translation parents to translation children)
+ */
+function lingotek_get_entity_reference_updater_batch_elements($entities) {
+  $operations = array();
+  foreach ($entities as $entity) {
+    $operations[] = array('lingotek_update_entity_references', array($entity));
+  }
+
+  return $operations;
+}
+
+/**
  * Sync - Upload Config Batch Elements:  Creates the batch elements for config (ie. menus, taxonomies,
  * etc.), that need to be uploaded.
  */
-function lingotek_get_sync_upload_config_batch_elements($set_ids = array()) {
+function lingotek_get_sync_upload_config_batch_elements($set_ids = array(), $lid_map) {
   $operations = array();
 
   if (is_array($set_ids)) {
     foreach ($set_ids as $sid) {
-      $operations[] = array('lingotek_sync_upload_config_set', array($sid));
+      $operations[] = array('lingotek_sync_upload_config_set', array($sid, $lid_map));
     }
   }
   return $operations;
@@ -303,15 +314,51 @@ function lingotek_sync_upload_node_finished($success, $results, $operations, $co
     $count = isset($results['uploads']) ? $results['uploads'] : 0;
     $node_message = format_plural($count, 'One entity uploaded to Lingotek.', '@count entities uploaded to Lingotek.');
     $config_message = format_plural($count, 'Uploaded one set of config items to Lingotek.', 'Uploaded @count sets of config items to Lingotek.');
-    $message = $config === TRUE ? $config_message : $node_message;
+    if ($config === TRUE) {
+      $message = $config_message;
+      if (isset($results['upload_fails']) && isset($results['upload_fail_cids'])) {
+        $failed_cids = $results['upload_fail_cids'];
+        $cids = 'Config set IDs: ';
+        $pos = 0;
+        foreach ($failed_cids as $cid) {
+          $cids .= $cid;
+          if ($pos !== count($failed_cids) - 1) {
+            $cids .= ', ';
+          }
+          $pos++;
+        }
+        $message = t('Some config items failed to upload because the previous config set didn\'t finish uploading. Please wait and upload again. (' . $cids . ')'); // Coder review error (does not end with a space)
+      }
+    }
+    else {
+      $message = $node_message;
+    }
     $message .= (isset($results['uploaded_nids']) && is_array($results['uploaded_nids'])) ? ' (' . format_plural($count, 'entity id', 'entity ids') . ': ' . implode(", ", $results['uploaded_nids']) . ')' : '';
     $message .= (isset($results['disabled'])) ? ' ' . t("<i>(Note: entities with the Disabled profile must be set to an enabled profile to be uploaded)</i>") : "";
-    $status = (isset($results['disabled'])) ? 'warning' : 'status';
+    $status = (isset($results['disabled']) || isset($results['upload_fails'])) ? 'warning' : 'status';
     drupal_set_message(filter_xss($message), $status);
   }
   else {
     $message = t('Finished with an error.');
     drupal_set_message(filter_xss($message), 'error');
+  }
+}
+
+/**
+ * Entity reference updater finished reporter
+ */
+function lingotek_entity_reference_updater_batch_finished($success, $results) {
+  if (isset($results['entity_reference_fixed'])) {
+    $fixed_message = format_plural($results['entity_reference_fixed'], t('References corrected for one entity.'), t('References corrected for @num entities.', array('@num' => (int) $results['entity_reference_fixed'])));
+    drupal_set_message(filter_xss($fixed_message), 'status');
+  }
+  if (isset($results['entity_reference_not_fixed'])) {
+    $not_fixed_message = format_plural($results['entity_reference_not_fixed'], t('No translation was found for 1 entity.'), t('No reference correction needed for @num entities', array('@num' => (int) $results['entity_reference_not_fixed'])));
+    drupal_set_message(filter_xss($not_fixed_message), 'warning');
+  }
+  if (!isset($results['entity_reference_fixed']) && !isset($results['entity_reference_not_fixed'])) {
+    $message = t('No entity references required correcting.');
+    drupal_set_message(filter_xss($message), 'status');
   }
 }
 
@@ -356,7 +403,7 @@ function lingotek_update_unmarked_items_finished($success, $results) {
 /**
  * Upload Batch Worker Function: Upload Config Set for Translation
  */
-function lingotek_sync_upload_config_set($set_id, &$context) {
+function lingotek_sync_upload_config_set($set_id, $lid_map, &$context) {
   if ($context) {
     $context['message'] = t('Uploading configuration set #@sid for translation', array('@sid' => ($set_id)));
   }
@@ -367,14 +414,14 @@ function lingotek_sync_upload_config_set($set_id, &$context) {
   $query->condition('id', $set_id, '=');
   $query->condition('config_key', 'workflow_id', '=');
   $workflow_id = $query->execute()->fetchField();
-  if($workflow_id !== NULL){
+  if ($workflow_id !== NULL) {
     $set->setWorkflowId($workflow_id);
   }
 
   module_invoke_all('lingotek_pre_upload', $set);
   $existing_document_id = $set->hasLingotekDocId();
-
   if ($existing_document_id) {
+    $is_complete = FALSE;
     $params = array(
       'id' => $existing_document_id
     );
@@ -382,15 +429,24 @@ function lingotek_sync_upload_config_set($set_id, &$context) {
     // There is a race condition here that depends on whether the config document
     // has been uploaded to the TMS before other members of the config set try
     // to update the document. This loop waits for up to 30 seconds for the document
-    // to be uploaded before updating.
+    // to be uploaded before updating. If the response is 'Process not found.',
+    // we assume that the document has finished uploading since there's no process.
     for ($i = 0; $i < 10; $i++) {
       $import_response = $api->request('getDocumentImportStatus', $params);
-      if ($import_response->status === 'COMPLETE') {
+      $import_completed = (!is_null($import_response->status) && $import_response->status === 'COMPLETE');
+      $no_process_found = (!is_null($import_response->error) && $import_response->error === 'Process not found.');
+      if ($import_completed || $no_process_found) {
         $result = $api->updateContentDocument($set);
+        $is_complete = TRUE;
         break;
       }
       else {
         sleep(3);
+      }
+    }
+    if (!$is_complete) {
+      foreach ($lid_map as $group => $lids) {
+        LingotekConfigSet::removeLids($lids);
       }
     }
   }
@@ -554,7 +610,8 @@ function lingotek_field_language_data_cleanup_update_entity($entity_type, $entit
 
   if ($entity_type === 'paragraphs_item') {
     $label_field = $info['entity keys']['field_name'];
-  } else {
+  }
+  else {
     $label_field = $info['entity keys']['label'];
   }
 
@@ -583,7 +640,8 @@ function lingotek_field_language_data_cleanup_update_entity($entity_type, $entit
     $entity->lingotek_upload_override = FALSE;
     if ($entity_type === 'paragraphs_item') {
       $entity->save(TRUE);
-    } else {
+    }
+    else {
       entity_save($entity_type, $entity);
     }
   }
@@ -644,6 +702,54 @@ function lingotek_update_target_progress_batch_create($entity_type, $nids) {
 
   batch_set($batch);
   batch_process($redirect);
+}
+
+/**
+ * Batch worker function for adding language-specific targets
+ */
+function lingotek_add_language_specific_targets_batch_create($entity_type, $entity_ids) {
+  if (!variable_get('lingotek_enable_language_specific_profiles', FALSE)) {
+    return;
+  }
+  $batch = array(
+    'title' => t('Adding language-specific translations'),
+    'finished' => 'lingotek_add_language_specific_targets_finished'
+  );
+  $operations = lingotek_get_add_language_specific_operations($entity_type, $entity_ids);
+  $batch['operations'] = $operations;
+  $redirect = (current_path() === 'lingotek/update-failed-language-specific-targets')? '/' : current_path();
+  batch_set($batch);
+  batch_process($redirect);
+}
+
+/**
+ * Get the operations for the "Add language-specific translations" bulk action
+ */
+function lingotek_get_add_language_specific_operations($entity_type, $entity_ids) {
+  $operations = array();
+
+  if (is_array($entity_ids)) {
+    foreach ($entity_ids as $entity_id) {
+      $operations[] = array('lingotek_add_language_specific_targets', array($entity_type, $entity_id));
+    }
+  }
+  return $operations;
+}
+
+function lingotek_add_language_specific_targets_finished($success, $results) {
+  $message = format_plural($results['language_specific_targets'], t('1 language-specific translation has been added.'), t('@num language-specific translations have been added.', array('@num' => (int) $results['language_specific_targets'])));
+  if ($success) {
+    drupal_set_message(filter_xss($message), 'status');
+  }
+  else {
+    drupal_set_message(filter_xss($message), 'error');
+  }
+  if (isset($result['language_specific_target_errors'])) {
+    $message = format_plural($results['language_specific_target_errors'], t('Failed to add 1 language-specific profile.'), t('Failed to add @num language-specific translations.', array('@num' => (int) $results['language_specific_target_errors'])));
+  }
+  else {
+    variable_delete('lingotek_failed_language_specific_targets');
+  }
 }
 
 /**
@@ -750,7 +856,7 @@ function lingotek_batch_update_entity_languages_by_profile_finished($success, $r
   else {
     drupal_set_message(t('Finished with an error.'));
     $message = t('Finished with an error.');
-    drupal_set_message($message);//xss checks not necessary here. Text only comes from php
+    drupal_set_message(filter_xss($message));//xss checks not necessary here. Text only comes from php
   }
 }
 

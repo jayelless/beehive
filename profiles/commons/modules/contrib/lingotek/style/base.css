@@ -144,7 +144,7 @@ input.lingotek-content-settings-table.form-checkbox {
   border: 1px solid #43A047;
 }
 
-#lingotek-bulk-grid-form a.language-icon {
+#lingotek-bulk-grid-form .language-icon {
   background-color:#80a49e;
   margin-right: 3px;
   padding: 1px;
@@ -347,6 +347,19 @@ a:hover.tooltips span {
 #lingotek-bulk-grid-form .language-icon.target-edited:hover {
   background-color: #FFB300;
   border: 1px solid #FFB300;
+  color: #575757;
+}
+
+#lingotek-bulk-grid-form .language-icon.target-edited_interim {
+  background-color: #FFFFFF;
+  border: 1px solid #FFC107;
+  color: #FFC107;
+}
+
+#lingotek-bulk-grid-form .language-icon.target-edited_interim:hover {
+  background-color: #FFFFFF;
+  border: 1px solid #FFB300;
+  color: #FFB300;
 }
 
 #lingotek-bulk-grid-form .language-icon.target-untracked {

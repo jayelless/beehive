@@ -538,6 +538,13 @@ class LingotekProfile {
     return array();
   }
 
+  public function getAllTargetLocaleOverrides() {
+    if (!empty($this->profile['target_language_overrides'])) {
+      return $this->profile['target_language_overrides'];
+    }
+    return array();
+  }
+
   public function getAttributes($target_locale = NULL) {
     if ($this->getId() == LingotekSync::PROFILE_DISABLED) {
       return array(

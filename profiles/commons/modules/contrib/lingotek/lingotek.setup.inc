@@ -73,8 +73,7 @@ function lingotek_setup_new_account_form() {
     '#value' => t('Create New Lingotek Account') // Create Account
   );
 
-  $form['lingotek_back_button'] = lingotek_connect_account_link('Do you already have a Lingotek account? ', LINGOTEK_MENU_LANG_BASE_URL . '/enterprise-account-settings/0', t('Connect Lingotek Account'));
-  $form['lingotek_sandbox_connect_link'] = lingotek_connect_account_link('Do you have a Lingotek sandbox account? ', LINGOTEK_MENU_LANG_BASE_URL . '/enterprise-account-settings/1', t('Connect Sandbox Account'));
+  $form['lingotek_back_button'] = lingotek_connect_account_link('Do you already have a Lingotek account? ', LINGOTEK_MENU_LANG_BASE_URL . '/account-settings', t('Connect Lingotek Account'));
   $form['lingotek_support_footer'] = lingotek_support_footer();
 
   return $form;
@@ -239,16 +238,14 @@ function lingotek_setup_new_account_form_submit($form, &$form_state) {
  * Account Settings (for Current Users) - Form
  */
 function lingotek_setup_account_settings_form() {
-
-  $sandbox_message = variable_get('lingotek_use_stage_servers', FALSE) ? ' (Sandbox)' : '' ;
-
+  $title_message =  'Account Login';
   $current_login_id = variable_get('lingotek_login_id', '');
   $current_password = variable_get('lingotek_password', '');
 
   $form = array();
   $form['lingotek_user_directions_1'] = array(
     '#type' => 'item',
-    '#title' => 'Account Login' . $sandbox_message,
+    '#title' => filter_xss($title_message),
     '#description' => 'Connect an existing Lingotek account. This option is for users with an active paid TMS subscription.'
   );
 
@@ -404,6 +401,66 @@ function lingotek_community_select_form_submit($form, $form_state) {
 
   drupal_set_message(t('Your site has been securely connected to your community (@community).', array('@community' => $community_selected)));
   drupal_goto(LINGOTEK_MENU_LANG_BASE_URL . '/project-vault-select'); // Move to Project Select Step.
+}
+
+/**
+ * Edit defaults - Form Layout
+ */
+function lingotek_edit_defaults_form() {
+  $form = array();
+  $api = LingotekApi::instance();
+  $project_defaults = variable_get('lingotek_project_defaults', array());
+  asort($project_defaults);
+  $workflow_defaults = variable_get('lingotek_workflow_defaults', array());
+  asort($workflow_defaults);
+  $vault_defaults = variable_get('lingotek_vaults_defaults', array());
+  $default_workflow_id = variable_get('lingotek_workflow', NULL);
+  $curr_workflow = $api->getWorkflow($default_workflow_id);
+  if (!empty($curr_workflow)) {
+    $workflow_defaults = array($default_workflow_id => $curr_workflow->name) + $workflow_defaults;
+  }
+  $form['lingotek_project'] = array(
+    '#type' => 'select',
+    '#title' => t('Default Project'),
+    '#options' => $project_defaults,
+    '#default_value' => variable_get('lingotek_project', NULL),
+    '#required' => TRUE,
+  );
+  $form['lingotek_workflow'] = array(
+    '#type' => 'select',
+    '#title' => t('Default Workflow'),
+    '#options' => $workflow_defaults,
+    '#default_value' => $default_workflow_id,
+    '#required' => TRUE,
+  );
+  $form['lingotek_vault'] = array(
+    '#type' => 'select',
+    '#title' => t('Default Vault'),
+    '#options' => $vault_defaults,
+    '#default_value' => variable_get('lingotek_vault', NULL),
+    '#required' => TRUE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save')
+  );
+  return $form;
+}
+
+/**
+ * Edit defaults - Form Submit
+ */
+function lingotek_edit_defaults_form_submit($form, $form_state) {
+  $new_project_id = $form_state['values']['lingotek_project'];
+  $new_workflow_id = $form_state['values']['lingotek_workflow'];
+  $new_vault_id = $form_state['values']['lingotek_vault'];
+
+  variable_set('lingotek_project', $new_project_id);
+  variable_set('lingotek_workflow', $new_workflow_id);
+  variable_set('lingotek_vault', $new_vault_id);
+
+  drupal_set_message(t('Your Lingotek project, workflow, and vault selections have been saved.'));
+  drupal_goto(LINGOTEK_MENU_MAIN_BASE_URL . '/settings');
 }
 
 /**
@@ -934,24 +991,14 @@ function lingotek_setup_link($path, $text = 'Previous Step') {
 //this covers the case of the link being on the right of a non-default theme button
 function lingotek_setup_link_on_right($path, $text = 'Previous Step') {
   return array(
-    '#markup' => '<span style="margin-left:5px; margin-right: 15px;">'. l($text, $path) . '</span>'
+    '#markup' => '<span style="margin-left:5px; margin-right: 15px;">' . l($text, $path) . '</span>'
   );
 }
 
 function lingotek_connect_account_link($message, $path, $text = 'Previous Step') {
   return array(
-    '#markup' => '<br><span style="margin-left:5px; margin-right: 15px;">'. $message . l($text, $path) . '</span>'
+    '#markup' => '<br><span style="margin-left:5px; margin-right: 15px;">' . $message . l($text, $path) . '</span>'
   );
-}
-
-function lingotek_enterprise_account_setting($is_staging) {
-  if ($is_staging) {
-    variable_set('lingotek_use_stage_servers', TRUE);
-  }
-  else {
-    variable_set('lingotek_use_stage_servers', FALSE);
-  }
-  drupal_goto(LINGOTEK_MENU_LANG_BASE_URL . "/account-settings");
 }
 
 /*

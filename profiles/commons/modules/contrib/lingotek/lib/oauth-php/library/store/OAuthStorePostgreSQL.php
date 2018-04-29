@@ -1374,7 +1374,8 @@ class OAuthStorePostgreSQL extends OAuthStoreAbstract
                            AND ost_token_ttl  >= NOW()
                            AND ost_verifier = \'%s\'
                          ', $new_token, $new_secret, $token, $verifier);
-         } else {
+         }
+         else {
 
              // 1.0
              $this->query('

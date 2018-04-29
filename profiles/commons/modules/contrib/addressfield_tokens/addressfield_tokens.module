@@ -201,7 +201,7 @@ function addressfield_tokens_field_formatter_view($entity_type, $entity, $field,
     case 'addressfield_state':
       foreach ($items as $delta => $item) {
         if (!empty($item['country']) && !empty($item['administrative_area'])) {
-          $state = _addressfield_tokens_state($item['country'], $item['administrative_area']);
+          $state = addressfield_tokens_state($item['country'], $item['administrative_area']);
           $element[$delta] = array(
             '#type' => 'markup',
             '#markup' => filter_xss($state),
@@ -352,7 +352,7 @@ function _addressfield_tokens_country_abbr($country) {
  *   An array of countries. The keys are the 2-letter
  *   abbreviations and the values are the full country names.
  */
-function _addressfield_tokens_states($country) {
+function addressfield_tokens_states($country) {
   global $language;
   $langcode = $language->language;
   $states = &drupal_static(__FUNCTION__);
@@ -388,8 +388,8 @@ function _addressfield_tokens_states($country) {
  * @return string
  *   The name of the state, or FALSE.
  */
-function _addressfield_tokens_state($country, $state) {
-  $states = _addressfield_tokens_states($country);
+function addressfield_tokens_state($country, $state) {
+  $states = addressfield_tokens_states($country);
 
   // State abbreviations will usually be two uppercase letters.
   $state_upper = drupal_strtoupper($state);
@@ -500,4 +500,24 @@ function addressfield_tokens_webform_validator_alter(&$validators) {
   $validators['unique']['component_types'][] = 'addressfield';
   $validators['oneoftwo']['component_types'][] = 'addressfield';
   $validators['oneofseveral']['component_types'][] = 'addressfield';
+}
+
+/**
+ * Implements hook_webform_hints_element_alter().
+ */
+function addressfield_tokens_webform_hints_element_alter(&$element, &$required_label)
+{
+  if ($element['#type'] == 'addressfield_container' || $element['#type'] == 'fieldset') {
+    $addressfield_tokens_fields_info = addressfield_tokens_field_formatter_info();
+    foreach ($addressfield_tokens_fields_info['addressfield_components']['settings']['components'] as $component) {
+      if (isset($element[$component])) {
+        if (isset($element[$component]['#options'])) {
+          $element[$component]['#empty_option'] = '- ' . $element[$component]['#title'] . $required_label . ' -';
+        }
+
+        $element[$component]['#attributes']['placeholder'] = $element[$component]['#title'] . $required_label;
+        $element[$component]['#title_display'] = 'invisible';
+      }
+    }
+  }
 }

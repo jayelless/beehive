@@ -4,7 +4,7 @@ Drupal.behaviors.radioactivity_history = {
   attach: function (context, settings) {
 
     if ($.fn.sparkline) {
-      $('.radioactivity-history').each(function (match) {
+      $('.radioactivity-history').once(function (match) {
         var dataset = $.parseJSON($(this).text());
         if (dataset) {
           $(this).sparkline(dataset.values, {
@@ -15,7 +15,7 @@ Drupal.behaviors.radioactivity_history = {
             tooltipFormat: dataset.tooltipFormat,
             tooltipValueLookups: {
               tooltips: dataset.tooltips
-            } 
+            }
           });
         }
       });

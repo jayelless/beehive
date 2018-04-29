@@ -5,7 +5,7 @@ core = 7.x
 
 projects[acquia_connector][type] = "module"
 projects[acquia_connector][subdir] = "contrib"
-projects[acquia_connector][version] = "3.1"
+projects[acquia_connector][version] = "3.2"
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
@@ -13,11 +13,7 @@ projects[addressfield][version] = "1.2"
 
 projects[addressfield_tokens][type] = "module"
 projects[addressfield_tokens][subdir] = "contrib"
-projects[addressfield_tokens][version] = "1.6"
-
-; Multiple "Undefined index" errors.
-; https://www.drupal.org/node/2902630#comment-12224579
-projects[addressfield_tokens][patch][] = "https://www.drupal.org/files/issues/addressfield_tokens-undefined_index_errors-2902630-3.patch"
+projects[addressfield_tokens][version] = "1.8"
 
 projects[admin_icons][type] = "module"
 projects[admin_icons][subdir] = "contrib"
@@ -28,7 +24,7 @@ projects[admin_icons][download][revision] = "60d9f28801533fecc92216a60d444d89d80
 
 projects[apachesolr][type] = "module"
 projects[apachesolr][subdir] = "contrib"
-projects[apachesolr][version] = "1.8"
+projects[apachesolr][version] = "1.9"
 
 ; Search pages custom pages title setting does nothing.
 ; https://drupal.org/node/1314664#comment-9220599
@@ -51,10 +47,7 @@ projects[apachesolr_proximity][version] = "1.0-rc1"
 
 projects[apachesolr_user][type] = "module"
 projects[apachesolr_user][subdir] = "contrib"
-projects[apachesolr_user][download][type] = "git"
-projects[apachesolr_user][download][url] = "http://git.drupal.org/project/apachesolr_user.git"
-projects[apachesolr_user][download][branch] = "7.x-1.x"
-projects[apachesolr_user][download]revision] = "a419497bccc1f35d48dc3e8524c53f8e77feacb2"
+projects[apachesolr_user][version] = "1.0"
 
 projects[breakpoints][type] = "module"
 projects[breakpoints][subdir] = "contrib"
@@ -74,7 +67,7 @@ projects[ckeditor][patch][] = "https://drupal.org/files/issues/ckeditor-ckeditor
 
 projects[ctools][type] = "module"
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.12"
+projects[ctools][version] = "1.13"
 
 projects[custom_search][type] = "module"
 projects[custom_search][subdir] = "contrib"
@@ -120,7 +113,7 @@ projects[email_registration][version] = "1.3"
 
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.8"
+projects[entity][version] = "1.9"
 
 projects[entitycache][type] = "module"
 projects[entitycache][subdir] = "contrib"
@@ -147,7 +140,7 @@ projects[entityreference_prepopulate][patch][] = "https://drupal.org/files/issue
 
 projects[entity_translation][type] = "module"
 projects[entity_translation][subdir] = "contrib"
-projects[entity_translation][version] = "1.0-beta6"
+projects[entity_translation][version] = "1.0-beta7"
 
 projects[facetapi][type] = "module"
 projects[facetapi][subdir] = "contrib"
@@ -159,7 +152,7 @@ projects[features][version] = "2.10"
 
 projects[file_entity][type] = "module"
 projects[file_entity][subdir] = "contrib"
-projects[file_entity][version] = "2.4"
+projects[file_entity][version] = "2.16"
 
 projects[flag][type] = "module"
 projects[flag][subdir] = "contrib"
@@ -182,7 +175,7 @@ projects[http_client][version] = "2.4"
 
 projects[i18n][type] = "module"
 projects[i18n][subdir] = "contrib"
-projects[i18n][version] = "1.18"
+projects[i18n][version] = "1.22"
 
 projects[i18nviews][type] = "module"
 projects[i18nviews][subdir] = "contrib"
@@ -204,9 +197,13 @@ projects[libraries][type] = "module"
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.3"
 
+; Version Callback functions that pass parameters by reference not permitted in PHP 7.
+; https://drupal.org/node/2779591#comment-12053586
+projects[libraries][patch][] = "https://www.drupal.org/files/issues/libraries-version-callback-reference-parameter-fix-2779591-11.patch"
+
 projects[lingotek][type] = "module"
 projects[lingotek][subdir] = "contrib"
-projects[lingotek][version] = "7.21"
+projects[lingotek][version] = "7.24"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -214,7 +211,7 @@ projects[link][version] = "1.4"
 
 projects[media][type] = "module"
 projects[media][subdir] = "contrib"
-projects[media][version] = "2.10"
+projects[media][version] = "2.16"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
@@ -350,7 +347,7 @@ projects[r4032login][version] = "1.8"
 
 projects[radioactivity][type] = "module"
 projects[radioactivity][subdir] = "contrib"
-projects[radioactivity][version] = "2.10"
+projects[radioactivity][version] = "2.12"
 
 projects[rate][type] = "module"
 projects[rate][subdir] = "contrib"
@@ -437,7 +434,7 @@ projects[variable][version] = "2.5"
 
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.17"
+projects[views][version] = "3.18"
 
 ; Update Views Content access filter per core performance improvements.
 ; https://drupal.org/comment/8516039#comment-8516039
@@ -472,6 +469,10 @@ projects[voting_rules][version] = "1.0-alpha1"
 projects[adaptivetheme][type] = "theme"
 projects[adaptivetheme][subdir] = "contrib"
 projects[adaptivetheme][version] = "3.4"
+
+; PHP 7.1 no longer converts string to arrays the first time a value is assigned with square bracket notation.
+; https://drupal.org/comment/2832900#comment-11810250
+projects[adaptivetheme][patch][] = "https://www.drupal.org/files/issues/adaptivetheme-php_string_cast_array-2832900-1.patch"
 
 projects[ember][type] = "theme"
 projects[ember][subdir] = "contrib"

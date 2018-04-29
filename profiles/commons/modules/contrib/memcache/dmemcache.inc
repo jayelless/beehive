@@ -364,7 +364,7 @@ function _dmemcache_key_piece($key, $id) {
  *   The bin in which the item was stored.
  *
  * @return mixed
- *   The item which was originally saved or an empty array.
+ *   The item which was originally saved or FALSE
  */
 function dmemcache_get_multi($keys, $bin = 'cache', $mc = NULL) {
   $collect_stats = dmemcache_stats_init();
@@ -432,12 +432,6 @@ function dmemcache_get_multi($keys, $bin = 'cache', $mc = NULL) {
     // This is a multi-part value.
     if (is_object($value) && !empty($value->multi_part_data)) {
       $value = _dmemcache_get_pieces($value->data, $value->cid, $bin, $mc);
-    }
-    if (empty($value)) {
-      // One or more pieces are missing, return an empty array.
-      $cid_results = array();
-      _dmemcache_write_debug('getMulti', $bin, $key, FALSE);
-      break;
     }
     $cid_results[$cid_lookup[$key]] = $value;
     _dmemcache_write_debug('getMulti', $bin, $key, TRUE);

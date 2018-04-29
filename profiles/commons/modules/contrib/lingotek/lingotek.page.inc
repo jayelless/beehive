@@ -83,7 +83,7 @@ function lingotek_download_translations_form($form, $form_state, $node, $documen
       $rows [$lang_key] = $lang_row;
       foreach ($phase_rows as $phase_key => $phase_row) {
         unset($phase_row['language_name']);
-        if (strpos($phase_key, $lang_key) !== false) {
+        if (strpos($phase_key, $lang_key) !== FALSE) {
           $rows [$phase_key] = $phase_row;
         }
       }
@@ -357,7 +357,7 @@ function lingotek_pm($node) {
     return $output;
   }
 
-  if((isset($node->lingotek['upload_status']) && $node->lingotek['upload_status'] == LingotekSync::STATUS_NONE) || !isset($node->lingotek['upload_status'])){
+  if ((isset($node->lingotek['upload_status']) && $node->lingotek['upload_status'] == LingotekSync::STATUS_NONE) || !isset($node->lingotek['upload_status'])) {
     $content_push_form = drupal_get_form('lingotek_push_form', $node);
     $output['content_push'] = array(
       '#markup' => drupal_render($content_push_form),
@@ -404,13 +404,13 @@ function lingotek_pm($node) {
         // Import Status (check and report on import status)
         $status = $document->getImportStatus();
 
-        $message = ' <i>' . check_plain($status) . '</i> ' . l('<i class="fa fa-refresh"></i> ' . t('Refresh'), '', array('html' => TRUE, 'attributes' => array('class' => 'ltk-icon', 'title' => t('Refresh'), 'onclick' => array('location.reload();return false;'))));
-        drupal_set_message(t('Content Import Status:') . ' ' . $message, 'status');//xss checks not necessary here. Text relies on html, and content is all generated in php
+        $message = t('Content Import Status:') . ' <i>' . $status . '</i> ' . l('<i class="fa fa-refresh"></i> ' . t('Refresh'), '', array('html' => TRUE, 'attributes' => array('class' => 'ltk-icon', 'title' => t('Refresh'), 'onclick' => array('location.reload();return false;')))); // Coder review error: we don't want to translate font awesome classes.
+        drupal_set_message(filter_xss($message), 'status');
 
         $output['import_status'] = array(
           '#type' => 'fieldset',
           '#title' => t('Content Import Status'),
-          '#description' => $message,
+          '#description' => filter_xss($message),
           '#collapsible' => TRUE,
           '#collapsed' => TRUE,
         );
@@ -714,15 +714,15 @@ function lingotek_entity_view_redirect($entity_type, $entity_id, $lingotek_local
   $drupal_language_code = Lingotek::convertLingotek2Drupal($lingotek_locale, TRUE);
   $language = isset($drupal_languages[$drupal_language_code])? $drupal_languages[$drupal_language_code] : language_default();
   $entity = entity_load_single($entity_type, $entity_id);
-  if(!$entity){
+  if (!$entity) {
     drupal_not_found();
   }
 
   // check for node-based target translation
-  if(lingotek_uses_node_translation($entity)) {
+  if (lingotek_uses_node_translation($entity)) {
     $target_nodes = lingotek_node_get_translations($entity_id);
     foreach ($target_nodes as $langcode => $node_info) {
-      if($drupal_language_code == $langcode){
+      if ($drupal_language_code == $langcode) {
         // re-set entity to the target node instead of the source node
         $entity_id = $target_nodes[$langcode]->nid;
         $entity = entity_load_single($entity_type, $entity_id);

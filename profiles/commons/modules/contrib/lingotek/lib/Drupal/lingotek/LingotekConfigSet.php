@@ -884,9 +884,16 @@ class LingotekConfigSet implements LingotekTranslatableEntity {
     self::restoreDirtyLids($dirty_lids);
     /* END FAST */
 
+    $target_status = LingotekSync::getConfigTargetStatus($this->sid, $lingotek_locale);
+
     // assign set status to current
     $this->setStatus(LingotekSync::STATUS_CURRENT);
-    $this->setTargetsStatus(LingotekSync::STATUS_CURRENT, $lingotek_locale);
+    if ($target_status === LingotekSync::STATUS_READY_INTERIM) {
+      $this->setTargetsStatus(LingotekSync::STATUS_INTERIM, $lingotek_locale);
+    }
+    else {
+      $this->setTargetsStatus(LingotekSync::STATUS_CURRENT, $lingotek_locale);
+    }
     self::markSetsCurrent($this->sid);
 
     return TRUE;
@@ -989,6 +996,16 @@ class LingotekConfigSet implements LingotekTranslatableEntity {
     $query->execute();
   }
 
+  public static function removeLids($lids)
+  {
+    if (empty($lids)) {
+      return;
+    }
+    $query = db_delete('lingotek_config_map')
+      ->condition('lid', $lids, 'IN');
+    $query->execute();
+  }
+
   /**
    * Get all lids marked as current or not, in the lingotek_config_map table
    *
@@ -1017,7 +1034,7 @@ class LingotekConfigSet implements LingotekTranslatableEntity {
     
     $results = $query->execute();
     $lids = array();
-    foreach($results as $result){
+    foreach ($results as $result) {
       $lids[$result->textgroup][$result->lid] = $result->lid; 
     }
     return $lids;
@@ -1081,31 +1098,21 @@ class LingotekConfigSet implements LingotekTranslatableEntity {
   }
 
   public static function deleteConfigSetMetadataBySetId($set_ids) {
+    if (empty($set_ids)) {
+      return;
+    }
     db_delete('lingotek_config_metadata')
       ->condition('id', $set_ids)
       ->execute();
   }
 
   public static function deleteConfigSetMapDataBySetId($set_ids) {
+    if (empty($set_ids)) {
+      return;
+    }
     db_delete('lingotek_config_map')
       ->condition('set_id', $set_ids)
       ->execute();
-  }
-
-  public static function removeEmptyConfigSets($set_ids) {
-    foreach($set_ids as $set_id) {
-      $set_members = db_select('lingotek_config_map', 'lcm')
-        ->fields('lcm', array('lid'))
-        ->condition('set_id', $set_ids, 'IN')
-        ->execute()
-        ->fetchAll();
-
-      if (empty($set_members)) { // The set is empty, so delete it.
-        db_delete('lingotek_config_metadata')
-          ->condition('id', $set_id)
-          ->execute();
-      }
-    }
   }
 
   /**
@@ -1222,7 +1229,7 @@ class LingotekConfigSet implements LingotekTranslatableEntity {
   }
 
   public function getWorkflowId() {
-    if($this->workflow_id !== null){
+    if($this->workflow_id !== NULL && $this->workflow_id !== FALSE) {
       $workflow_id = $this->workflow_id;
     }
     else {

@@ -160,14 +160,14 @@ function lingotek_schema() {
       'config_key' => array(
         'description' => 'The ID for the Lingotek-associated value.',
         'type' => 'varchar',
-        'length' => 255,
+        'length' => 128,
         'not null' => TRUE,
         'default' => '',
       ),
       'value' => array(
         'description' => 'Value for the specified key.',
         'type' => 'varchar',
-        'length' => 255,
+        'length' => 128,
         'not null' => TRUE,
         'default' => '',
       ),
@@ -1056,7 +1056,7 @@ function lingotek_update_7608(&$sandbox) {
     ->execute();
 
   // remove any custom profile settings (no longer relevant)
-  $deprecated_keys = array('allow_community_translation','auto_download','auto_upload','lingotek_nodes_translation_method','url_alias_translation');
+  $deprecated_keys = array('allow_community_translation', 'auto_download', 'auto_upload', 'lingotek_nodes_translation_method', 'url_alias_translation');
   foreach ($deprecated_keys as $key) {
     db_delete('lingotek_entity_metadata')
       ->condition('entity_key', $key)
@@ -1166,4 +1166,53 @@ function lingotek_update_7721(&$sandbox) {
   }
 
   return t($output);
+}
+
+/**
+ * Reduces the size of config_key and value in the lingotek_config_metadata table to 128
+ */
+function lingotek_update_7722(&$sandbox) {
+  if (!db_table_exists('lingotek_config_metadata')) {
+    return t('The lingotek_config_metadata table doesn\'t exist. No update required.');
+  }
+  $table = 'lingotek_config_metadata';
+  $config_key_spec = array(
+    'description' => 'The ID for the Lingotek-associated value.',
+    'type' => 'varchar',
+    'length' => 128,
+    'not null' => TRUE,
+    'default' => '',
+  );
+  $value_spec = array(
+    'description' => 'Value for the specified key.',
+    'type' => 'varchar',
+    'length' => 128,
+    'not null' => TRUE,
+    'default' => '',
+  );
+  $primary_key = array(
+    'id',
+    'config_key',
+  );
+  $indexes = array(
+    'idx_id' => array('id'),
+    'idx_config_key' => array('config_key'),
+    'idx_id_and_config_key_and_value' => array('id', 'config_key', 'value'),
+    'idx_config_key_and_value' => array('config_key', 'value')
+  );
+  // Drop the related keys and indices
+  db_drop_primary_key($table);
+  foreach ($indexes as $index_name => $fields) {
+    db_drop_index($table, $index_name);
+  }
+  // Update the fields to be 128 instead of 255
+  db_change_field($table, 'config_key', 'config_key', $config_key_spec);
+  db_change_field($table, 'value', 'value', $value_spec);
+  // Add back related keys and indices
+  db_add_primary_key($table, $primary_key);
+  foreach ($indexes as $index_name => $fields) {
+    db_add_index($table, $index_name, $fields);
+  }
+
+  return t('Successfully reduced field size for config_key and value within lingotek_config_metadata table');
 }

@@ -373,25 +373,33 @@ function lingotek_perform_action(nid, action) {
     }
 
     //iterate through each target icon and update them
-    $(row).find('a.language-icon').each(function () {
-      var icon_href = $(this).attr('href');
-      //retrieve the language code from the href
-      icon_href = icon_href.split("#")[0];
-
-      var language_code = icon_href.substring(icon_href.length - 'xx_XX'.length);//normal locale code
-      if(data[entity_id][language_code] === undefined){
-        var language_code = icon_href.substring(icon_href.length - 'xx'.length);//language code case
-      }
+    $(row).find('.language-icon').each(function () {
+      var language_code = $(this).attr('lingotek_locale');
       var title = $(this).attr('title');
       var cutoff = title.indexOf('-');
       title = title.substring(0, cutoff + 1);
       var target_status = entity_type !== 'config' ? data[entity_id][language_code]
         : data[entity_id][language_code].toUpperCase();
+      if (entity_profile === 'DISABLED') {
+        var attrs = {
+                      class:'language-icon ltk-target-disabled',
+                      title:'Disabled, cannot request translation',
+                      lingotek_locale: language_code,
+                    };
+        $(this).replaceWith(function () {
+          var new_element = $("<span></span>", attrs).append($(this).contents());
+          return new_element;
+        });
+      }
+      if (target_status === undefined) {
+        target_status = 'NONE';
+      }
       switch (target_status) {
         case "NONE":
           var attrs = {
-                        class:'ltk-target-none',
+                        class:'language-icon ltk-target-none',
                         title:'No Translation',
+                        lingotek_locale: language_code,
                       };
           $(this).replaceWith(function () {
             var new_element = $("<span></span>", attrs).append($(this).contents());
@@ -408,6 +416,10 @@ function lingotek_perform_action(nid, action) {
         case "READY_INTERIM":
           $(this).removeClass().addClass('language-icon target-ready_interim');
           $(this).attr('title', 'Ready for Interim Download');
+          break;
+        case "EDITED_INTERIM":
+          $(this).removeClass().addClass('language-icon target-edited_interim');
+          $(this).attr('title', 'In-progress, edited-source (interim translation downloaded)');
           break;
         case "INTERIM":
           $(this).removeClass().addClass('language-icon target-interim');
@@ -429,16 +441,6 @@ function lingotek_perform_action(nid, action) {
           $(this).removeClass().addClass('language-icon target-error');
           $(this).attr('title', 'Error');
           break;
-      }
-      if (entity_profile === 'DISABLED') {
-        var attrs = {
-                      class:'ltk-target-disabled',
-                      title:'Disabled, cannot request translation',
-                    };
-        $(this).replaceWith(function () {
-          var new_element = $("<span></span>", attrs).append($(this).contents());
-            return new_element;
-          });
       }
     });
   }

@@ -9,6 +9,10 @@
  * Tab:  Dashboard - The main Lingotek dashboard page.
  */
 function lingotek_dashboard() {
+  if (variable_get('lingotek_use_stage_servers', FALSE)) {
+    $server_url = 'cms.lingotek.com';
+    drupal_set_message(t('Warning: Lingotek\'s sandbox TMS environment (@server) will be discontinued soon. Please plan accordingly.', array('@server' => $server_url)), 'warning');
+  }
 
   lingotek_is_module_setup();
   $account = LingotekAccount::instance(); //remove?
@@ -142,7 +146,7 @@ function lingotek_dashboard_command_ajax() {
       $message = 'POST: Insert a new Target Language';
       $lingotek_locale = check_plain($_POST['code']);
       $parameters = array();
-      foreach($_POST as $key => $value){
+      foreach ($_POST as $key => $value) {
         $parameters[$key] = check_plain($value);
       }
       if (strlen($lingotek_locale) > 1) {
@@ -177,7 +181,7 @@ function lingotek_dashboard_command_ajax() {
 
       $parameters = $_GET;
       $temp = array();
-      foreach ($_GET as $key => $value){  
+      foreach ($_GET as $key => $value) {
         $temp[$key] = check_plain($value);
       }
       $response = isset($temp['code']) ? lingotek_get_language_details($temp['code']) : lingotek_get_language_details();

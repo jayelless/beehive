@@ -69,10 +69,9 @@ class LingotekApi {
    */
   public function addContentDocument(LingotekTranslatableEntity $translatable_object, $with_targets = FALSE) {
     $success = FALSE;
-
     $project_id = $translatable_object->getProjectId();
-
     $source_language = $translatable_object->getSourceLocale();
+
     if (empty($source_language)) {
       drupal_set_message('Some entities not uploaded because the source language was language neutral.', 'warning', FALSE);
       LingotekLog::warning('Document @docname not uploaded. Language was language neutral.', array('@docname' => $translatable_object->getDocumentName()));
@@ -93,7 +92,6 @@ class LingotekApi {
       $parameters['workflowId'] = $translatable_object->getWorkflowId();
 
       $this->addAdvancedParameters($parameters, $translatable_object);
-      $has_language_specific_targets = FALSE;
 
       // If the document has invalid characters, return without uploading
       $invalid_xml = lingotek_keystore($translatable_object->getEntityType(), $translatable_object->getId(), 'invalid_xml');
@@ -108,14 +106,16 @@ class LingotekApi {
           // target locales with *custom workflows* separately, and include
           // all the other target locales here.
           $default_targets = array();
+          $language_specific_targets = array();
           foreach ($with_targets as $l => $v) {
             if (empty($v['workflow_id'])) {
               $default_targets[] = $l;
             }
             else {
-              $has_language_specific_targets = TRUE;
+              $language_specific_targets[$l] = $v;
             }
           }
+
           if (!empty($default_targets)) {
             $parameters['targetAsJSON'] = json_encode($default_targets);
             $parameters['applyWorkflow'] = 'true'; // API expects a 'true' string
@@ -155,13 +155,26 @@ class LingotekApi {
           LingotekConfigSet::setSegmentStatusToCurrentById($translatable_object->getId());
         }
         else {
-          // Add targets with custom workflows after the fact, if language-specific profiles are detected
-          if ($has_language_specific_targets) {
-            $this->upload_language_specific_targets($result->id, $with_targets);
-          }
           $entity_type = $translatable_object->getEntityType();
           lingotek_keystore($entity_type, $translatable_object->getId(), 'document_id', $result->id);
           lingotek_keystore($entity_type, $translatable_object->getId(), 'last_uploaded', time());
+
+          if ($with_targets) {
+            if (is_array($with_targets)) {
+              foreach ($default_targets as $default_target) {
+                lingotek_keystore($entity_type, $translatable_object->getId(), 'target_sync_status_' . $default_target, LingotekSync::STATUS_PENDING);
+              }
+              if (!empty($language_specific_targets)) {
+                $this->upload_language_specific_targets($entity_type, $translatable_object->getId(), $result->id, $language_specific_targets);
+              }
+            }
+            else {
+              $target_locales = Lingotek::getLanguagesWithoutSource($source_language);
+              foreach (array_keys($target_locales) as $locale) {
+                lingotek_keystore($entity_type, $translatable_object->getId(), 'target_sync_status_' . $locale, LingotekSync::STATUS_PENDING);
+              }
+            }
+          }
         }
         $success = TRUE;
       }
@@ -171,31 +184,29 @@ class LingotekApi {
 
   /**
    * Waits until document import status is complete, then adds targets, or logs an error
-   * @param string $doc_id
-   * @param string $target_locale
-   * @param string $workflow_id
    */
-  private function upload_language_specific_targets($doc_id, $targets) {
-    $i = 0;
-    $sleep_intervals = array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-    $done_processing = FALSE;
+  private function upload_language_specific_targets($entity_type, $entity_id, $doc_id, $targets) {
     $params = array(
       'id' => $doc_id
     );
 
-    while(!$done_processing) {
+    for ($i = 0; $i <= 10; $i++) {
       $response = $this->request('getDocumentImportStatus', $params);
       if ($response->status === 'COMPLETE') {
-        $done_processing = TRUE;
+        break;
       }
-      elseif($i > count($sleep_intervals) - 1) {
-        drupal_set_message(t('Uploading some language-specific targets failed because of network timeout. Please retry.'), 'warning', FALSE);
-        LingotekLog::error(t('Adding language-specific targets failed: ') . print_r('Document id: ' . $doc_id, TRUE), array());
+      elseif($i > 9) {
+        drupal_set_message(t('Uploading some language-specific targets failed because of network timeout. Please use the "Request language-specific translations" bulk action.'), 'warning', FALSE);
+        LingotekLog::error('Adding language-specific targets failed for document ID  @id.', array('@id' => $doc_id));
+        foreach ($targets as $target_locale => $target_info) {
+          lingotek_keystore($entity_type, $entity_id, 'target_sync_status_' . $target_locale, LingotekSync::STATUS_ERROR);
+        }
+        // Store the failed language-specific targets
+        LingotekSync::lingotek_store_failed_language_specific_targets($entity_type, $entity_id);
         return;
       }
       else {
-        sleep($sleep_intervals[$i]);
-        $i++;
+        sleep(3);
       }
     }
 
@@ -204,6 +215,12 @@ class LingotekApi {
       foreach ($targets as $target_locale => $target_attribs) {
         if (!empty($doc_id) && !empty($target_attribs['workflow_id'])) {
           $tl_result = $this->addTranslationTarget($doc_id, NULL, $target_locale, $target_attribs['workflow_id']);
+          if ($tl_result) {
+            lingotek_keystore($entity_type, $entity_id, 'target_sync_status_' . $target_locale, LingotekSync::STATUS_PENDING);
+          }
+          else {
+            lingotek_keystore($entity_type, $entity_id, 'target_sync_status_' . $target_locale, LingotekSync::STATUS_ERROR);
+          }
         }
       }
     }
@@ -274,6 +291,11 @@ class LingotekApi {
           $translatable_object->setStatus(LingotekSync::STATUS_ERROR);
           $translatable_object->setTargetsStatus(LingotekSync::STATUS_EDITED);
           $translatable_object->setUploadError('Failed to update config item.');
+        }
+      }
+      else {
+        if ($result->results === 'success') {
+          $translatable_object->setTargetsStatus(LingotekSync::STATUS_PENDING);
         }
       }
     }

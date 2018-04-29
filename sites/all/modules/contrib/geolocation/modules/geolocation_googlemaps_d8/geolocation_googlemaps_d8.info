@@ -1,11 +1,7 @@
-
-name = Geolocation
-description = Provides a geolocation field.
+name = Geolocation Google Maps D8
+description = Backport of the new Drupal 8 Google Maps widget for geolocation field.
 package = Geolocation
 core = 7.x
-
-; Migrate handlers
-files[] = migrate/destinations/geolocation.inc
 
 ; Information added by Drupal.org packaging script on 2018-03-11
 version = "7.x-1.7"

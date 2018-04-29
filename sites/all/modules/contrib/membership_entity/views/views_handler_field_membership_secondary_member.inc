@@ -12,7 +12,7 @@ class views_handler_field_membership_secondary_member extends views_handler_fiel
   /**
    * {@inheritdoc}
    */
-  public function init(&$view, $options) {
+  public function init(&$view, &$options) {
     parent::init($view, $options);
     $this->additional_fields['mid'] = array('table' => 'membership_entity', 'field' => 'mid');
   }

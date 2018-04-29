@@ -55,6 +55,10 @@ Contrib Modules
 >>> 7.x-1.0
 17 Jun 2017: commerce_order_reminder-sql-error-2887081-2.patch
 
+=== membership_entity ===
+>>> 7.x-1.0-beta1
+29 Apr 2018: strict_warning_views_handler_field_membership_secondary_member__init-2807521-2.patch
+
 === geolocation_proximity ===
 >>> 7.x-2.0
 12 Mar 2017: geolocation_proximity-2859901-remove-sensor-query-1.patch

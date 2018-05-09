@@ -80,3 +80,7 @@ Contrib Modules
 13 Mar 2017: geolocation_views-2859904-pass-absolute-module-path-3.patch
 >>> 7.x-1.x-dev
 05 May 2017: geolocation_views-2859904-pass-absolute-module-path-3.patch
+
+=== schema ===
+>>> 7.x-1.3
+09May2018: schema-1271620-fix-blank-precision-scale-4.patch

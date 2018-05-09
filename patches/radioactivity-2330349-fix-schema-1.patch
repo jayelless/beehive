@@ -1,0 +1,38 @@
+diff --git a/radioactivity.install b/radioactivity.install
+index a161df0..37623b6 100644
+--- a/radioactivity.install
++++ b/radioactivity.install
+@@ -110,7 +110,7 @@ function radioactivity_schema() {
+       'enable_decay' => array(
+         'type' => 'int',
+         'not null' => TRUE,
+-        'default' => '1',
++        'default' => 1,
+         'description' => 'Is the energy decay active',
+       ),
+       'granularity' => array(
+@@ -124,14 +124,14 @@ function radioactivity_schema() {
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+-        'default' => "21600",
++        'default' => 21600,
+         'description' => 'Half life',
+       ),
+       'cut_off' => array(
+         'type' => 'float',
+         'size' => 'big',
+         'not null' => TRUE,
+-        'default' => "0.1",
++        'default' => 0.1,
+         'description' => 'Cut off',
+       ),
+       'storage' => array(
+@@ -188,6 +188,7 @@ function radioactivity_schema() {
+       ),
+       'energy' => array(
+         'type' => 'float',
++        'size' => 'normal',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+         'description' => 'Energy',

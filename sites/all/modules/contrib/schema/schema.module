@@ -554,7 +554,6 @@ function schema_compare_table($ref, $inspect = NULL) {
           !is_null($col[$key]) &&
           $col[$key] !== FALSE &&
           isset($inspect['fields'][$colname][$key]) &&
-          !empty($inspect['fields'][$colname][$key]) &&
           $inspect['fields'][$colname][$key] !== FALSE &&
           $col[$key] == $inspect['fields'][$colname][$key]
         )

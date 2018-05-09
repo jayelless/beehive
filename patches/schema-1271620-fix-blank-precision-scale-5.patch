@@ -1,8 +1,8 @@
 diff --git a/schema.module b/schema.module
-index ecc3788..a54a5c5 100644
+index ecc3788..7c85862 100644
 --- a/schema.module
 +++ b/schema.module
-@@ -548,13 +548,31 @@ function schema_compare_table($ref, $inspect = NULL) {
+@@ -548,13 +548,30 @@ function schema_compare_table($ref, $inspect = NULL) {
      foreach ($col_keys as $key => $val) {
  
        if (!(
@@ -19,7 +19,6 @@ index ecc3788..a54a5c5 100644
 +          !is_null($col[$key]) &&
 +          $col[$key] !== FALSE &&
 +          isset($inspect['fields'][$colname][$key]) &&
-+          !empty($inspect['fields'][$colname][$key]) &&
 +          $inspect['fields'][$colname][$key] !== FALSE &&
 +          $col[$key] == $inspect['fields'][$colname][$key]
 +        )

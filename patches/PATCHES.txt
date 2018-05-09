@@ -88,3 +88,4 @@ Contrib Modules
 === schema ===
 >>> 7.x-1.3
 09May2018: schema-1271620-fix-blank-precision-scale-4.patch
+09May2018: schema-1271620-fix-blank-precision-scale-5.patch

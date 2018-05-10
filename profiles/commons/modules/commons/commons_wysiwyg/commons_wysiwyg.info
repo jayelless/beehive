@@ -21,8 +21,8 @@ features[user_permission][] = use text format filtered_html
 features_exclude[dependencies][media_wysiwyg] = entity_embed
 features_exclude[dependencies][entity_embed] = media_wysiwyg
 
-; Information added by Drupal.org packaging script on 2018-04-25
-version = "7.x-3.49"
+; Information added by Drupal.org packaging script on 2018-05-09
+version = "7.x-3.50"
 core = "7.x"
 project = "commons"
-datestamp = "1524687910"
+datestamp = "1525879535"

@@ -22,8 +22,8 @@ features[views_view][] = commons_homepage_content
 
 features_exclude[dependencies][views_content] = views_content
 
-; Information added by Drupal.org packaging script on 2018-04-25
-version = "7.x-3.49"
+; Information added by Drupal.org packaging script on 2018-05-09
+version = "7.x-3.50"
 core = "7.x"
 project = "commons"
-datestamp = "1524687910"
+datestamp = "1525879535"

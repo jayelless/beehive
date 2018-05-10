@@ -19,8 +19,8 @@ features[variable][] = sharethis_teaser_option
 features[variable][] = sharethis_weight
 features[variable][] = sharethis_widget_option
 
-; Information added by Drupal.org packaging script on 2018-04-25
-version = "7.x-3.49"
+; Information added by Drupal.org packaging script on 2018-05-09
+version = "7.x-3.50"
 core = "7.x"
 project = "commons"
-datestamp = "1524687910"
+datestamp = "1525879535"

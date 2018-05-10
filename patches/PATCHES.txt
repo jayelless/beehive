@@ -3,6 +3,7 @@ contributed modules
 
 10 Mar 2017: Updated to Commons-7.x-3.43
 29 Apr 2018: Updated to Commons-7.x-3.49
+10 May 2018: Updated to Commons-7.x-3.50
 
 -------------------------------------------------------------------------------
 Commons Codebase
@@ -19,6 +20,9 @@ Commons Codebase
 >>> 7.x-3.49
 29 Apr 2018: commons-fix-private_groups.patch (issue #2399695)
 29 Apr 2018: message_notify-2381465-could-not-send-message-5.patch
+>>> 7.x-3.50
+10 May 2018: commons-fix-private_groups.patch (issue #2399695)
+10 May 2018: message_notify-2381465-could-not-send-message-5.patch
 
 -------------------------------------------------------------------------------
 Commons Modules
@@ -44,6 +48,10 @@ Commons Modules
 >>> 7.x-1.6
 24 Jan 2018: notice_trying_to_get-2864659-4.patch
 29 Apr 2018: notice_trying_to_get-2864659-4.patch
+
+=== message_notify ===
+>>> 7.x-2.5
+10 May 2018: [message_notify/plugins/notifier/abstract.inc]
 
 === message_subscribe ===
 >>> 7.x-1.0-rc2

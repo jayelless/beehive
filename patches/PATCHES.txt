@@ -28,6 +28,7 @@ Commons Modules
 08 Feb 2018: uninitialized_string_offset_in_date_entity_metadata_struct_getter-2074457-9.patch
 29 Apr 2018: uninitialized_string_offset_in_date_entity_metadata_struct_getter-2074457-9.patch
 10 May 2018: error_with-2457423-14.patch
+10 May 2018: 1741062-1.patch
 
 === entityreference_prepopulate ===
 >>> 7.x-1.7

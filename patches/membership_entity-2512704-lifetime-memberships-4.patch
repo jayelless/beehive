@@ -1,0 +1,30 @@
+diff --git a/modules/membership_entity_term/membership_entity_term.module b/modules/membership_entity_term/membership_entity_term.module
+index f4ee520..19a6a78 100644
+--- a/modules/membership_entity_term/membership_entity_term.module
++++ b/modules/membership_entity_term/membership_entity_term.module
+@@ -794,7 +794,7 @@ function membership_entity_term_get_current($mid) {
+     $mid = $mid->mid;
+   }
+ 
+-  if ($id = db_query('SELECT id FROM {membership_entity_term} t WHERE mid = :mid AND (start <= :now AND end >= :now) LIMIT 1',
++  if ($id = db_query('SELECT id FROM {membership_entity_term} t WHERE mid = :mid AND (start <= :now AND (end >= :now OR end IS NULL)) LIMIT 1',
+     array(
+       ':mid' => $mid,
+       ':now' => date_format_date(date_now('UTC'), 'custom', DATE_FORMAT_DATETIME),
+diff --git a/modules/membership_entity_term/views/views_handler_field_membership_term_datetime.inc b/modules/membership_entity_term/views/views_handler_field_membership_term_datetime.inc
+index 8047c14..1c6279c 100644
+--- a/modules/membership_entity_term/views/views_handler_field_membership_term_datetime.inc
++++ b/modules/membership_entity_term/views/views_handler_field_membership_term_datetime.inc
+@@ -37,8 +37,10 @@ class views_handler_field_membership_term_datetime extends views_handler_field_d
+   public function get_value($values, $field = NULL) { // @codingStandardsIgnoreLine, Views override compliant
+     $value = parent::get_value($values, $field);
+     if (empty($field) || $field == $this->real_field) {
+-      $date = new DateObject($value, 'UTC');
+-      return $date->format('U');
++      if ($value) {
++        $date = new DateObject($value, 'UTC');
++        return $date->format('U');
++      }
+     }
+     return $value;
+   }

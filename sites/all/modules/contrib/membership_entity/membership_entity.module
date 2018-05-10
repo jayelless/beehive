@@ -822,7 +822,7 @@ function membership_entity_get_bundles($bundle = NULL) {
 function membership_entity_get_bundle_settings($bundle = 'membership') {
   if (module_exists('membership_entity_type')) {
     $type = membership_entity_type_load($bundle);
-    $data = $type->data;
+    $data = isset($type->data) ? $type->data : array();
   }
   else {
     $data = variable_get('membership_entity_settings', array());

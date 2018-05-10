@@ -1,0 +1,13 @@
+diff --git a/membership_entity.module b/membership_entity.module
+index 9d42a51..8d5424e 100644
+--- a/membership_entity.module
++++ b/membership_entity.module
+@@ -824,7 +824,7 @@ function membership_entity_get_bundles($bundle = NULL) {
+ function membership_entity_get_bundle_settings($bundle = 'membership') {
+   if (module_exists('membership_entity_type')) {
+     $type = membership_entity_type_load($bundle);
+-    $data = $type->data;
++    $data = isset($type->data) ? $type->data : array();
+   }
+   else {
+     $data = variable_get('membership_entity_settings', array());

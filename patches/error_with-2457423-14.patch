@@ -1,0 +1,24 @@
+From 8121e29cbe3fabf9aba01b99a283dd21aa7a7f38 Mon Sep 17 00:00:00 2001
+From: M Parker <mparker17@536298.no-reply.drupal.org>
+Date: Mon, 11 May 2015 15:10:36 -0400
+Subject: [PATCH] 2457423-14
+
+---
+ date_api/date_api.module | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/date_api/date_api.module b/date_api/date_api.module
+index 2a973cc..8f30019 100644
+--- a/date_api/date_api.module
++++ b/date_api/date_api.module
+@@ -203,6 +203,7 @@ class DateObject extends DateTime {
+    *   large years, which php's parser fails on.
+    */
+   public function __construct($time = 'now', $tz = NULL, $format = NULL) {
++    parent::__construct();
+     $this->timeOnly = FALSE;
+     $this->dateOnly = FALSE;
+ 
+-- 
+2.4.0
+

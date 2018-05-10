@@ -203,6 +203,7 @@ class DateObject extends DateTime {
    *   large years, which php's parser fails on.
    */
   public function __construct($time = 'now', $tz = NULL, $format = NULL) {
+    parent::__construct();
     $this->timeOnly = FALSE;
     $this->dateOnly = FALSE;
 

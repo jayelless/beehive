@@ -74,6 +74,7 @@ Contrib Modules
 === membership_entity ===
 >>> 7.x-1.0-beta1
 29 Apr 2018: strict_warning_views_handler_field_membership_secondary_member__init-2807521-2.patch
+10 May 2018: membership_entity-load-lifetime-terms-2512704-1-D7.patch
 
 === geolocation_proximity ===
 >>> 7.x-2.0

@@ -778,7 +778,7 @@ function membership_entity_term_get_current($mid) {
     $mid = $mid->mid;
   }
 
-  if ($id = db_query('SELECT id FROM {membership_entity_term} t WHERE mid = :mid AND (start <= :now AND end >= :now) LIMIT 1', array(
+  if ($id = db_query('SELECT id FROM {membership_entity_term} t WHERE mid = :mid AND (start <= :now AND (end >= :now OR end IS NULL)) LIMIT 1', array(
       ':mid' => $mid,
       ':now' => date_format_date(date_now('UTC'), 'custom', DATE_FORMAT_DATETIME),
     ))->fetchField()) {

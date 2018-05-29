@@ -149,7 +149,7 @@ function beekeeper_navigation_menu_default_menu_links() {
       'identifier' => 'beekeeper-menu_renew-membership:beekeeper/membership/renew',
     ),
     'module' => 'system',
-    'hidden' => 1,
+    'hidden' => 0,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
@@ -179,23 +179,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'weight' => 1,
     'customized' => 1,
   );
-  // Exported menu link: main-menu_events:events.
-  $menu_links['main-menu_events:events'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'events',
-    'router_path' => 'events',
-    'link_title' => 'Events',
-    'options' => array(
-      'identifier' => 'main-menu_events:events',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 1,
-    'customized' => 0,
-  );
   // Exported menu link: main-menu_forums:forum.
   $menu_links['main-menu_forums:forum'] = array(
     'menu_name' => 'main-menu',
@@ -218,77 +201,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-  );
-  // Exported menu link: main-menu_groups:groups.
-  $menu_links['main-menu_groups:groups'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'groups',
-    'router_path' => 'groups',
-    'link_title' => 'Groups',
-    'options' => array(
-      'identifier' => 'main-menu_groups:groups',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -1,
-    'customized' => 0,
-  );
-  // Exported menu link: main-menu_help:user-guides.
-  $menu_links['main-menu_help:user-guides'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'user-guides',
-    'router_path' => 'user-guides',
-    'link_title' => 'Help',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'User guides providing help and advice',
-      ),
-      'identifier' => 'main-menu_help:user-guides',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'customized' => 0,
-  );
-  // Exported menu link: main-menu_home:home.
-  $menu_links['main-menu_home:home'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'home',
-    'router_path' => 'home',
-    'link_title' => 'Home',
-    'options' => array(
-      'identifier' => 'main-menu_home:home',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -10,
-    'customized' => 0,
-  );
-  // Exported menu link: main-menu_search:search.
-  $menu_links['main-menu_search:search'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'search',
-    'router_path' => 'search',
-    'link_title' => 'Search',
-    'options' => array(
-      'identifier' => 'main-menu_search:search',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 3,
-    'customized' => 0,
   );
   // Exported menu link: navigation_add-content:node/add.
   $menu_links['navigation_add-content:node/add'] = array(
@@ -1650,13 +1562,9 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Content type and term');
   t('Document');
   t('Event');
-  t('Events');
   t('Forum topic');
   t('Forums');
   t('Group');
-  t('Groups');
-  t('Help');
-  t('Home');
   t('Join');
   t('Join - Dummy Membership');
   t('Join - Honorary Membership');
@@ -1694,7 +1602,6 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Renew - Life Membership');
   t('Renew - Standard Membership');
   t('Renew membership');
-  t('Search');
   t('Shopping cart');
   t('Shopping cart (# items)');
   t('Swarm collectors');

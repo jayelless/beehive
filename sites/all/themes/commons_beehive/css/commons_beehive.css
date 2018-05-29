@@ -1,5 +1,21 @@
 /* Custom styles for commons_beehive */
 
+/* Pull the main menu back into the page */
+#branding {
+  margin-right: -40em;
+}
+
+/* Make product price bold on product displays */
+.product-price .field-item {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Remove the space at the top of the body field */
+.field-name-body {
+  margin-top: 0;
+}
+
 /* Style the user_menu in the lower header region */
 .region-lower-header nav.block-menu {
   margin-left: 212px;
@@ -27,4 +43,41 @@
   font-weight: 500;
   padding: 0;
   margin: 0;
+}
+
+/* Style the commerce cart elements */
+/* membership join form "add to cart" button */
+#membership-entity-join-form input#edit-submit {
+  font-weight: 700;
+  color: #6a513b;
+  border: #6a513b solid 2px;
+  background: rgba(0,0,0,0) linear-gradient(#e6b756,#e0a32a);
+}
+/* Cart checkout button */
+#views-form-commerce-cart-form-default input#edit-checkout {
+  font-weight: 700;
+  color: #6a513b;
+  border: #6a513b solid 2px;
+  background: rgba(0,0,0,0) linear-gradient(#e6b756,#e0a32a);
+}
+/* Highlight the continue / next buttons on checkout form */
+#commerce-checkout-form-checkout .checkout-buttons input.checkout-continue,
+#commerce-checkout-form-review .checkout-buttons input.checkout-continue {
+  font-weight: 700;
+  color: #6a513b;
+  border: #6a513b solid 2px;
+  background: rgba(0, 0, 0, 0) linear-gradient(#e6b756, #e0a32a) repeat scroll 0 0;
+}
+
+/* Style the commons utility links */
+.palette-brown-yellow .region-header .block-commons-utility-links ul.commons-utility-links li {
+  border-left: 1px solid #9c773d;
+  margin-left: 0;
+  margin-right: 5px;
+}
+.palette-brown-yellow .region-header .block-commons-utility-links ul.commons-utility-links li.first {
+  border-left: none;
+}
+.palette-brown-yellow .region-header .block-commons-utility-links ul.commons-utility-links li a {
+  margin-left: 5px;
 }

@@ -242,7 +242,7 @@ function beekeeper_custom_menu() {
     'title' => 'Join club',
     'description' => 'Join the Wellington Beekeepers Association',
     'access callback' => 'beekeeper_custom_accesscheck',
-    'access arguments' => array('membership', 'join'),
+    'access arguments' => array('membership-join'),
     'page callback' => 'beekeeper_custom_menu_join_club',
     'page arguments' => '',
     'file' => 'beekeeper_custom.menu.inc',
@@ -253,7 +253,7 @@ function beekeeper_custom_menu() {
     'title' => 'Renew membership',
     'description' => 'Renew membership of the Wellington Beekeepers Association',
     'access callback' => 'beekeeper_custom_accesscheck',
-    'access arguments' => array('membership', 'renew'),
+    'access arguments' => array('membership-renew'),
     'page callback' => 'beekeeper_custom_menu_renew_membership',
     'page arguments' => '',
     'file' => 'beekeeper_custom.menu.inc',
@@ -267,13 +267,12 @@ function beekeeper_custom_menu() {
 /**
  * Custom access callback function
  */
-function beekeeper_custom_accesscheck() {
-  $args = func_get_args();
+function beekeeper_custom_accesscheck($code, $type = NULL) {
   global $user;
   if ($user->uid == 1) { return TRUE; }
 
   // Show the "Join" menu item
-  if ($args[0] == 'membership' && $args[1] == 'join') {
+  if ($code == 'membership-join') {
     if (empty($user->uid)) {
       return TRUE;
     }
@@ -284,18 +283,22 @@ function beekeeper_custom_accesscheck() {
   }
 
   // Show the "Renew membership" menu item
-  if ($args[0] == 'membership' && $args[1] == 'renew') {
-    // Check if the user has a renewable membership and date is after 31 Mar
+  if ($code == 'membership-renew') {
+    // Check if the user has a renewable membership and date is after 31 May
     $month_day = date('md');
-    $membership_type = isset($args[2]) ? array($args[2]) : array('standard_membership','junior_membership');
-    if ($user->uid && $month_day > '0331') {
-      $result = db_query('SELECT mid FROM {membership_entity} WHERE uid = :uid AND type IN (:type)',
-        array(':uid' => $user->uid, ':type' => $membership_type))->rowCount();
-      return (bool) $result;
+    $membership_type = $type ? array($type) : array('standard_membership','junior_membership');
+    if ($user->uid) {
+      $sql = 'SELECT mid FROM {membership_entity} WHERE uid = :uid AND type IN (:type) ORDER BY mid DESC LIMIT 1';
+      $mid = db_query($sql, array(':uid' => $user->uid, ':type' => $membership_type))->fetchField();
+      if ($mid) {
+        $sql = 'SELECT status FROM {membership_entity_term} WHERE mid = :mid ORDER BY id DESC LIMIT 1';
+        $status = db_query($sql, array(':mid' => $mid))->fetchField();
+        if ($status == 0 || $month_day >= variable_get('beekeeper-membership-renewal-open','0531')) {
+          return TRUE;
+        }
+      }
     }
-    else {
-      return FALSE;
-    }
+    return FALSE;
   }
 
 }
@@ -322,6 +325,19 @@ function beekeeper_custom_menu_alter(&$menu_items) {
     if ($key == 'user/%user/notification-settings') { $item['weight'] = 18; }
     if ($key == 'user/%user/devel') { $item['weight'] = 19; }
   }
+}
+
+/**
+ * Implements hook_membership_entity_access().
+ */
+function beekeeper_custom_membership_entity_access($op, $membership = NULL, $account = NULL) {
+  // Deny access to the membership renew tab until the agreed date.
+  if ($op == 'renew') {
+    if (!beekeeper_custom_accesscheck('membership-renew')) {
+      return FALSE;
+    }
+  }
+  return NULL;
 }
 
 /**
@@ -446,5 +462,41 @@ function beekeeper_custom_cron() {
 
   }
 
+
+}
+
+/**
+ * Implements hook_commons_utility_links().
+ */
+function beekeeper_custom_commons_utility_links() {
+  $links = array();
+  if (user_is_logged_in()) {
+    global $user;
+    $sql = 'SELECT mid,type FROM {membership_entity} WHERE uid = :uid ORDER BY mid DESC LIMIT 1';
+    $result = db_query($sql, array(':uid' => $user->uid))->fetchAllKeyed();
+    if ($result) {
+      // Use the latest membership available
+      $mid = reset(array_keys($result));
+      if ($mid) {
+        $links['membership'] = array(
+          'href' => 'membership/' . $mid,
+          'title' => t('Membership'),
+          'weight' => -9,
+        );
+      }
+    }
+  }
+  return $links;
+
+}
+
+/**
+ * Implements hook_commons_utility_links_alter().
+ */
+function beekeeper_custom_commons_utility_links_alter(&$links) {
+  // Alter the join link if present
+  if (isset($links['signup'])) {
+    $links['signup']['href'] = 'user/join';
+  }
 
 }

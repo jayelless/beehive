@@ -475,8 +475,9 @@ function beekeeper_custom_commons_utility_links() {
     $sql = 'SELECT mid,type FROM {membership_entity} WHERE uid = :uid ORDER BY mid DESC LIMIT 1';
     $result = db_query($sql, array(':uid' => $user->uid))->fetchAllKeyed();
     if ($result) {
+      $mids = array_keys($result);
       // Use the latest membership available
-      $mid = reset(array_keys($result));
+      $mid = reset($mids);
       if ($mid) {
         $links['membership'] = array(
           'href' => 'membership/' . $mid,

@@ -61,6 +61,10 @@ Commons Modules
 10 Sep 2017: old_flag_table-2551485-13.patch
 29 Apr 2018: old_flag_table-2551485-13.patch
 
+=== og ===
+>>> 7.x-2.9
+24 Sep 2018: og-add_users_and_entities_with_drush-1090438-22.patch
+
 === radioactivity ===
 >>> 7.x-2.12
 09May2018: radioactivity-2330349-fix-schema-1.patch

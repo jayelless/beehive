@@ -599,7 +599,7 @@ function file_field_widget_value($element, $input = FALSE, $form_state) {
     // If the display field is present make sure its unchecked value is saved.
     $field = field_widget_field($element, $form_state);
     if (empty($input['display'])) {
-      $input['display'] = $field['settings']['display_field'] ? 0 : 1;
+      $input['display'] = !empty($field['settings']['display_field']) ? 0 : 1;
     }
   }
 
@@ -1006,30 +1006,6 @@ function file_field_formatter_view($entity_type, $entity, $field, $instance, $la
   }
 
   return $element;
-}
-
-/**
- * Determine whether a field references files stored in {file_managed}.
- *
- * @param array $field
- *   A field array.
- *
- * @return
- *   The field column if the field references {file_managed}.fid, typically
- *   fid, FALSE if it doesn't.
- */
-
-function file_field_find_file_reference_column($field) {
-  foreach ($field['foreign keys'] as $data) {
-    if ($data['table'] == 'file_managed') {
-      foreach ($data['columns'] as $field_column => $column) {
-        if ($column == 'fid') {
-          return $field_column;
-        }
-      }
-    }
-  }
-  return FALSE;
 }
 
 /**

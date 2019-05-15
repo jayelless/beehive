@@ -19,12 +19,16 @@ class ViewsBulkOperationsAction extends ViewsBulkOperationsBaseOperation {
    * Returns the access bitmask for the operation, used for entity access checks.
    */
   public function getAccessMask() {
+    // Assume edit by default.
+    if (empty($this->operationInfo['behavior'])) {
+      $this->operationInfo['behavior'] = array('changes_property');
+    }
+
     $mask = 0;
     if (in_array('views_property', $this->operationInfo['behavior'])) {
       $mask |= VBO_ACCESS_OP_VIEW;
     }
-    // Assume edit by default.
-    if (empty($this->operationInfo['behavior']) || in_array('changes_property', $this->operationInfo['behavior'])) {
+    if (in_array('changes_property', $this->operationInfo['behavior'])) {
       $mask |= VBO_ACCESS_OP_UPDATE;
     }
     if (in_array('creates_property', $this->operationInfo['behavior'])) {
@@ -124,7 +128,12 @@ class ViewsBulkOperationsAction extends ViewsBulkOperationsBaseOperation {
     actions_list();
 
     $submit_callback = $this->operationInfo['callback'] . '_submit';
-    $this->formOptions = $submit_callback($form, $form_state);
+    // If the return value from the callback is an options array, store it for
+    // later union onto the context.
+    $options = $submit_callback($form, $form_state);
+    if ($options && is_array($options)) {
+      $this->formOptions = $options;
+    }
   }
 
   /**

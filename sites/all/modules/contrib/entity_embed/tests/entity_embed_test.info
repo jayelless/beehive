@@ -7,7 +7,9 @@ dependencies[] = entity_embed
 
 hidden = TRUE
 
-; Information added by drush on 2016-09-20
+; Information added by Drupal.org packaging script on 2016-09-20
 version = "7.x-3.x-dev"
+core = "7.x"
 project = "entity_embed"
-datestamp = "1474401691"
+datestamp = "1474401842"
+

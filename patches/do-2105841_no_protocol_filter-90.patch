@@ -1,0 +1,128 @@
+diff --git a/includes/common.inc b/includes/common.inc
+index ceac115..831fb8f 100644
+--- a/includes/common.inc
++++ b/includes/common.inc
+@@ -1571,6 +1571,8 @@ function _filter_xss_attributes($attr) {
+   $attrarr = array();
+   $mode = 0;
+   $attrname = '';
++  $skip = FALSE;
++  $skip_protocol_filtering = FALSE;
+ 
+   while (strlen($attr) != 0) {
+     // Was the last operation successful?
+@@ -1582,6 +1584,20 @@ function _filter_xss_attributes($attr) {
+         if (preg_match('/^([-a-zA-Z]+)/', $attr, $match)) {
+           $attrname = strtolower($match[1]);
+           $skip = ($attrname == 'style' || substr($attrname, 0, 2) == 'on');
++
++          // Values for attributes of type URI should be filtered for
++          // potentially malicious protocols (for example, an href-attribute
++          // starting with "javascript:"). However, for some non-URI
++          // attributes performing this filtering causes valid and safe data
++          // to be mangled. We prevent this by skipping protocol filtering on
++          // such attributes.
++          // @see filter_xss_bad_protocol()
++          // @see http://www.w3.org/TR/html4/index/attributes.html
++          $skip_protocol_filtering = substr($attrname, 0, 5) === 'data-' || in_array($attrname, array(
++            'title',
++            'alt',
++          ));
++
+           $working = $mode = 1;
+           $attr = preg_replace('/^[-a-zA-Z]+/', '', $attr);
+         }
+@@ -1607,7 +1623,7 @@ function _filter_xss_attributes($attr) {
+       case 2:
+         // Attribute value, a URL after href= for instance.
+         if (preg_match('/^"([^"]*)"(\s+|$)/', $attr, $match)) {
+-          $thisval = filter_xss_bad_protocol($match[1]);
++          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
+ 
+           if (!$skip) {
+             $attrarr[] = "$attrname=\"$thisval\"";
+@@ -1619,7 +1635,7 @@ function _filter_xss_attributes($attr) {
+         }
+ 
+         if (preg_match("/^'([^']*)'(\s+|$)/", $attr, $match)) {
+-          $thisval = filter_xss_bad_protocol($match[1]);
++          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
+ 
+           if (!$skip) {
+             $attrarr[] = "$attrname='$thisval'";
+@@ -1630,7 +1646,7 @@ function _filter_xss_attributes($attr) {
+         }
+ 
+         if (preg_match("%^([^\s\"']+)(\s+|$)%", $attr, $match)) {
+-          $thisval = filter_xss_bad_protocol($match[1]);
++          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
+ 
+           if (!$skip) {
+             $attrarr[] = "$attrname=\"$thisval\"";
+@@ -1694,6 +1710,33 @@ function filter_xss_bad_protocol($string, $decode = TRUE) {
+ }
+ 
+ /**
++ * Applies a very permissive XSS/HTML filter to data-attributes.
++ *
++ * @param string $html
++ *   The string to apply the data-attributes filtering to.
++ *
++ * @return string
++ *   The filtered string.
++ */
++function filter_xss_data_attributes($html) {
++  if (stristr($html, 'data-') !== FALSE) {
++    $dom = filter_dom_load($html);
++    $xpath = new \DOMXPath($dom);
++    foreach ($xpath->query('//@*[starts-with(name(.), "data-")]') as $node) {
++      // The data-attributes contain an HTML-encoded value, so we need to
++      // decode the value, apply XSS filtering and then re-save as encoded
++      // value. There is no need to explicitly decode $node->value, since the
++      // DOMAttr::value getter returns the decoded value.
++      $value = filter_xss_admin($node->value);
++      $node->value = check_plain($value);
++    }
++    $html = filter_dom_serialize($dom);
++  }
++
++  return $html;
++}
++
++/**
+  * @} End of "defgroup sanitization".
+  */
+ 
+diff --git a/modules/filter/filter.test b/modules/filter/filter.test
+index ddea6af..b55d215 100644
+--- a/modules/filter/filter.test
++++ b/modules/filter/filter.test
+@@ -1051,6 +1051,28 @@ class FilterUnitTestCase extends DrupalUnitTestCase {
+     $f = filter_xss('<img src=javascript:alert(0)>', array('img'));
+     $this->assertNoNormalized($f, 'javascript', 'HTML scheme clearing evasion -- no quotes.');
+ 
++    // Check that strings in HTML attributes are are correctly processed.
++    $f = filter_xss('<img src="http://example.com/foo.jpg" title="Example: title" alt="Example: alt">', array('img'));
++    $this->assertIdentical($f, '<img src="http://example.com/foo.jpg" title="Example: title" alt="Example: alt">', 'No HTML scheme clearing on allowed attributes.');
++
++    $f = filter_xss('<img src="http://example.com/foo.jpg" data-caption="Example: data-caption.">', array('img'));
++    $this->assertIdentical($f, '<img src="http://example.com/foo.jpg" data-caption="Example: data-caption.">', 'No HTML scheme clearing on allowed data attributes.');
++
++    // Test XSS filtering on data-attributes.
++    $output = filter_xss('<img src="butterfly.jpg" data-caption="&lt;script&gt;alert();&lt;/script&gt;" />', array('img'));
++    $f = filter_xss_data_attributes($output);
++    $this->assertIdentical($f, '<img src="butterfly.jpg" data-caption="alert();" />', 'HTML-encoded value in data-attributes decoded, filtered and re-saved.');
++
++    $output = filter_xss('<img src="butterfly.jpg" data-caption="&lt;EMBED SRC=&quot;http://ha.ckers.org/xss.swf&quot; AllowScriptAccess=&quot;always&quot;&gt;&lt;/EMBED&gt;" />', array('img'));
++    $f = filter_xss_data_attributes($output);
++    $this->assertIdentical($f, '<img src="butterfly.jpg" data-caption="" />', 'HTML-encoded value in data-attributes decoded, filtered and re-saved.');
++
++    // When including HTML-tags as visible content, they are double-escaped.
++    // This test case ensures that we leave that content unchanged.
++    $output = filter_xss('<img src="butterfly.jpg" data-caption="&amp;lt;script&amp;gt;alert();&amp;lt;/script&amp;gt;" />', array('img'));
++    $f = filter_xss_data_attributes($output);
++    $this->assertIdentical($f, '<img src="butterfly.jpg" data-caption="&amp;lt;script&amp;gt;alert();&amp;lt;/script&amp;gt;" />', 'Doubled-escaped HTML-tags left unchanged.');
++
+     // A bit like CVE-2006-0070.
+     $f = filter_xss('<img src="javascript:confirm(0)">', array('img'));
+     $this->assertNoNormalized($f, 'javascript', 'HTML scheme clearing evasion -- no alert ;)');

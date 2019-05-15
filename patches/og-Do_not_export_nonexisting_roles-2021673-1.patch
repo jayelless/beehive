@@ -1,0 +1,48 @@
+From 1f44625e3eafc47957a34f2655d64c73bf596b74 Mon Sep 17 00:00:00 2001
+From: xatoo <xatoo@103227.no-reply.drupal.org>
+Date: Mon, 17 Jun 2013 19:41:26 +0200
+Subject: [PATCH] Issue #2021673 by hefox, xatoo: Do not export non-existing
+ roles.
+
+---
+ includes/og_features_role.features.inc | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/includes/og_features_role.features.inc b/includes/og_features_role.features.inc
+index 7c239af..0d2b6b7 100644
+--- a/includes/og_features_role.features.inc
++++ b/includes/og_features_role.features.inc
+@@ -69,17 +69,19 @@ function og_features_role_features_export_render($module, $data) {
+ 
+   foreach ($data as $name) {
+     list($group_type, $bundle, $rolename) = explode(':', $name);
+-    $role = array(
+-      'gid' => 0,
+-      'group_type' => $group_type,
+-      'group_bundle' => $bundle,
+-      'name' => $rolename,
+-    );
+-    $role_identifier = features_var_export($name);
+-    $role_export = features_var_export($role, '  ');
+-    $code[] = "  // Exported OG Role: {$role_identifier}.";
+-    $code[] = "  \$roles[{$role_identifier}] = ${role_export};";
+-    $code[] = "";
++    if (_og_features_role_exists($rolename, $group_type, $bundle) !== FALSE) {
++      $role = array(
++        'gid' => 0,
++        'group_type' => $group_type,
++        'group_bundle' => $bundle,
++        'name' => $rolename,
++      );
++      $role_identifier = features_var_export($name);
++      $role_export = features_var_export($role, '  ');
++      $code[] = "  // Exported OG Role: {$role_identifier}.";
++      $code[] = "  \$roles[{$role_identifier}] = ${role_export};";
++      $code[] = "";
++    }
+   }
+ 
+   $code[] = '  return $roles;';
+-- 
+1.7.12.1
+

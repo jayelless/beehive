@@ -56,18 +56,11 @@ function realname_menu() {
     'access arguments' => array('access user profiles'),
     'type' => MENU_CALLBACK,
   );
-  $items['realname/autocomplete/single/%/%/%'] = array(
+  $items['realname/autocomplete/%/%/%'] = array(
     'page callback' => 'realname_autocomplete',
-    'page arguments' => array(2, 3, 4, 5),
+    'page arguments' => array(2, 3, 4),
     'access callback' => 'realname_autocomplete_access_callback',
-    'access arguments' => array(2, 3, 4, 5),
-    'type' => MENU_CALLBACK,
-  );
-  $items['realname/autocomplete/tags/%/%/%'] = array(
-    'page callback' => 'realname_autocomplete',
-    'page arguments' => array(2, 3, 4, 5),
-    'access callback' => 'realname_autocomplete_access_callback',
-    'access arguments' => array(2, 3, 4, 5),
+    'access arguments' => array(2, 3, 4),
     'type' => MENU_CALLBACK,
   );
 
@@ -82,7 +75,7 @@ function realname_menu() {
 function realname_menu_alter(&$items) {
   // Implement realname autocomplete.
   $items['user/autocomplete']['page callback'] = 'realname_autocomplete';
-  $items['user/autocomplete']['page arguments'] = array('', '', 'user', 'user', '');
+  $items['user/autocomplete']['page arguments'] = array('', '', 2);
 }
 
 /**
@@ -409,19 +402,7 @@ function realname_delete_all() {
  * Retrieve a JSON object containing autocomplete suggestions
  * for existing users based on their generated real names.
  */
-function realname_autocomplete($type, $field_name, $entity_type, $bundle_name, $entity_id = '', $string = '') {
-  // If the request has a '/' in the search text, then the menu system will have
-  // split it into multiple arguments and $string will only be a partial. We want
-  // to make sure we recover the intended $string.
-  $args = func_get_args();
-  // Shift off the $type, $field_name, $entity_type, $bundle_name, and $entity_id args.
-  array_shift($args);
-  array_shift($args);
-  array_shift($args);
-  array_shift($args);
-  array_shift($args);
-  $string = implode('/', $args);
-
+function realname_autocomplete($field_name, $entity_type, $bundle_name, $string = '') {
   $instance = field_info_instance($entity_type, $field_name, $bundle_name);
   $matches = array();
 
@@ -484,7 +465,7 @@ function realname_autocomplete($type, $field_name, $entity_type, $bundle_name, $
  * @return bool
  *   True if user can access this menu item.
  */
-function realname_autocomplete_access_callback($type, $field_name, $entity_type, $bundle_name) {
+function realname_autocomplete_access_callback($field_name, $entity_type, $bundle_name) {
   $field = field_info_field($field_name);
   $instance = field_info_instance($entity_type, $field_name, $bundle_name);
 
@@ -501,9 +482,9 @@ function realname_autocomplete_access_callback($type, $field_name, $entity_type,
  * of type 'user'.
  */
 function realname_field_widget_form_alter(&$element, &$form_state, $context) {
-  if ($context['field']['type'] == 'entityreference' && $context['instance']['widget']['type'] == 'entityreference_autocomplete') {
+  if ($context['field']['type'] == 'entityreference') {
     if ($context['field']['settings']['target_type'] == 'user') {
-      $element['target_id']['#autocomplete_path'] = str_replace('entityreference/autocomplete', 'realname/autocomplete', $element['target_id']['#autocomplete_path']);
+      $element['target_id']['#autocomplete_path'] = 'realname/autocomplete/' . $context['field']['field_name'] . '/' . $context['instance']['entity_type'] . '/' . $context['instance']['bundle'];
     }
   }
 }

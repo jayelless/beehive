@@ -1,0 +1,14 @@
+diff --git a/og_ui/og_ui.module b/og_ui/og_ui.module
+index fd45bb9..a66652f 100644
+--- a/og_ui/og_ui.module
++++ b/og_ui/og_ui.module
+@@ -452,6 +452,9 @@ function og_ui_admin_paths() {
+     'node/*/group' => TRUE,
+     'group/*/*/admin/*' => TRUE,
+   );
++  if (!variable_get('node_admin_theme')) {
++    $paths['node/add/group'] = FALSE;
++  }
+   return $paths;
+ }
+ 

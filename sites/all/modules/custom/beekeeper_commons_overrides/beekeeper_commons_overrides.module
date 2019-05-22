@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Beekeeper Commons Overrides feature.
- */
-
-include_once 'beekeeper_commons_overrides.features.inc';

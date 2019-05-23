@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * beekeeper_commerce.features.field_base.inc
@@ -368,6 +369,34 @@ function beekeeper_commerce_field_default_field_bases() {
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_nuc_size'.
+  $field_bases['field_nuc_size'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_nuc_size',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'full' => 'Full depth',
+        '3qtr' => '3/4 depth',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_product'.
   $field_bases['field_product'] = array(
     'active' => 1,
@@ -390,6 +419,24 @@ function beekeeper_commerce_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'commerce_product_reference',
+  );
+
+  // Exported field_base: 'field_quantity'.
+  $field_bases['field_quantity'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_quantity',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
   );
 
   // Exported field_base: 'field_tshirt_colour'.

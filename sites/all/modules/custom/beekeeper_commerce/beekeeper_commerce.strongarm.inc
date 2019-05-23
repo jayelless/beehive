@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * beekeeper_commerce.strongarm.inc
@@ -21,7 +22,7 @@ function beekeeper_commerce_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_product_display';
-  $strongarm->value = 'edit-og';
+  $strongarm->value = 'edit-webform';
   $export['additional_settings__active_tab_product_display'] = $strongarm;
 
   $strongarm = new stdClass();

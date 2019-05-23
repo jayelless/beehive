@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * beekeeper_commerce.rules_defaults.inc
@@ -138,13 +139,17 @@ function beekeeper_commerce_default_rules_configuration() {
         { "data_is" : {
             "data" : [ "commerce-line-item:quantity" ],
             "op" : "\\u003E",
-            "value" : "1"
+            "value" : "2"
           }
         }
       ],
       "DO" : [
-        { "data_set" : { "data" : [ "commerce-line-item:quantity" ], "value" : "1" } },
-        { "drupal_message" : { "message" : "You may only order one nuc colony.", "type" : "warning" } }
+        { "data_set" : { "data" : [ "commerce-line-item:quantity" ], "value" : "2" } },
+        { "drupal_message" : {
+            "message" : "Maximum order quantity is two nuc colonies.",
+            "type" : "warning"
+          }
+        }
       ]
     }
   }');

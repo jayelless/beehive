@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * beekeeper_commerce.features.field_instance.inc
@@ -1740,6 +1741,126 @@ function beekeeper_commerce_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'commerce_product-nucleus_colony-field_nuc_size'.
+  $field_instances['commerce_product-nucleus_colony-field_nuc_size'] = array(
+    'bundle' => 'nucleus_colony',
+    'commerce_cart_settings' => array(
+      'attribute_field' => 1,
+      'attribute_widget' => 'radios',
+      'attribute_widget_title' => 'Nuc size required',
+    ),
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
+      ),
+      'line_item' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'membership_entity_commerce' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'node_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'commerce_product',
+    'field_name' => 'field_nuc_size',
+    'label' => 'Nuc size',
+    'required' => 0,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 36,
+    ),
+  );
+
+  // Exported field_instance: 'commerce_product-nucleus_colony-field_quantity'.
+  $field_instances['commerce_product-nucleus_colony-field_quantity'] = array(
+    'bundle' => 'nucleus_colony',
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 2,
+      ),
+      'line_item' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'membership_entity_commerce' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'node_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'commerce_product',
+    'field_name' => 'field_quantity',
+    'label' => 'Quantity',
+    'required' => 0,
+    'settings' => array(
+      'max' => 2,
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'min' => 1,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 37,
+    ),
+  );
+
   // Exported field_instance: 'commerce_product-product-commerce_price'.
   $field_instances['commerce_product-product-commerce_price'] = array(
     'bundle' => 'product',
@@ -2455,6 +2576,7 @@ function beekeeper_commerce_field_default_field_instances() {
         'weight' => 2,
       ),
     ),
+    'display_in_partial_form' => 0,
     'entity_type' => 'node',
     'field_name' => 'field_product',
     'label' => 'Product',
@@ -2471,6 +2593,7 @@ function beekeeper_commerce_field_default_field_instances() {
         'merchandise_transfer' => 0,
         'nucleus_colony' => 'nucleus_colony',
         'product' => 'product',
+        'training_course' => 'training_course',
       ),
       'user_register_form' => FALSE,
     ),
@@ -2565,9 +2688,11 @@ function beekeeper_commerce_field_default_field_instances() {
   t('Image');
   t('Line items');
   t('Membership term');
+  t('Nuc size');
   t('Order total');
   t('Price');
   t('Product');
+  t('Quantity');
   t('Size');
   t('Total');
   t('Unit price');

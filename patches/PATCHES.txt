@@ -85,6 +85,7 @@ Contrib Modules
 >>> 7.x-1.6
 24 Jan 2018: notice_trying_to_get-2864659-4.patch
 29 Apr 2018: notice_trying_to_get-2864659-4.patch
+29 May 2019: memcache-call-to-member-function-on-boolean-fix-2879600-7.patch
 
 === message_notify ===
 >>> 7.x-2.5

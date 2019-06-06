@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_trusted_contacts.strongarm.inc

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_like.strongarm.inc
@@ -54,8 +55,21 @@ function commons_like_strongarm() {
       'tag' => 'commons_like',
       'title' => 'Like',
       'node_types' => array(
+        0 => 'event',
+        1 => 'group',
+        2 => 'poll',
+        3 => 'post',
+        4 => 'question',
+        5 => 'wiki',
       ),
       'comment_types' => array(
+        0 => 'event',
+        1 => 'group',
+        2 => 'poll',
+        3 => 'post',
+        4 => 'question',
+        5 => 'answer',
+        6 => 'wiki',
       ),
       'options' => array(
         0 => array(
@@ -84,6 +98,48 @@ function commons_like_strongarm() {
       'value_type' => 'points',
       'theme' => 'rate_template_commons_like',
       'css' => 'profiles/commons/modules/contrib/commons_like/commons-like.css',
+      'translate' => TRUE,
+      'use_source_translation' => TRUE,
+    ),
+    2 => (object) array(
+      'name' => 'commons_answer',
+      'tag' => 'commons_thumbs_up_down',
+      'title' => 'Answer',
+      'node_types' => array(
+        0 => 'answer',
+      ),
+      'comment_types' => array(),
+      'options' => array(
+        0 => array(
+          0 => 1,
+          1 => 'up',
+        ),
+        1 => array(
+          0 => -1,
+          1 => 'down',
+        ),
+      ),
+      'template' => 'commons_thumbs_up_down',
+      'node_display' => '2',
+      'teaser_display' => FALSE,
+      'comment_display' => '2',
+      'node_display_mode' => '1',
+      'teaser_display_mode' => '1',
+      'comment_display_mode' => '1',
+      'roles' => array(
+        2 => '2',
+        1 => 0,
+      ),
+      'allow_voting_by_author' => 1,
+      'noperm_behaviour' => '3',
+      'displayed' => '1',
+      'displayed_just_voted' => '1',
+      'description' => '',
+      'description_in_compact' => TRUE,
+      'delete_vote_on_second_click' => '1',
+      'value_type' => 'points',
+      'theme' => 'rate_template_commons_thumbs_up_down',
+      'css' => 'profiles/commons/modules/contrib/commons_q_a/commons-thumbs-up-down.css',
       'translate' => TRUE,
       'use_source_translation' => TRUE,
     ),

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_q_a.views_default.inc
@@ -53,13 +54,21 @@ function commons_q_a_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['required'] = TRUE;
+  /* Relationship: Flags: commons_follow_node */
+  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['ui_name'] = 'Following';
+  $handler->display->display_options['relationships']['flag_content_rel']['label'] = 'following';
+  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'commons_follow_node';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['label'] = '';
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
-  /* Sort criterion: Content: Sticky */
+  /* Sort criterion: Content: Sticky status */
   $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
   $handler->display->display_options['sorts']['sticky']['table'] = 'node';
   $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
@@ -71,6 +80,13 @@ function commons_q_a_views_default_views() {
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'most recent';
+  /* Sort criterion: Content: Radioactivity (field_radioactivity:radioactivity_energy) */
+  $handler->display->display_options['sorts']['field_radioactivity_radioactivity_energy']['id'] = 'field_radioactivity_radioactivity_energy';
+  $handler->display->display_options['sorts']['field_radioactivity_radioactivity_energy']['table'] = 'field_data_field_radioactivity';
+  $handler->display->display_options['sorts']['field_radioactivity_radioactivity_energy']['field'] = 'field_radioactivity_radioactivity_energy';
+  $handler->display->display_options['sorts']['field_radioactivity_radioactivity_energy']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['field_radioactivity_radioactivity_energy']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_radioactivity_radioactivity_energy']['expose']['label'] = 'most active';
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
   $handler->display->display_options['arguments']['gid']['table'] = 'og_membership';
@@ -81,7 +97,7 @@ function commons_q_a_views_default_views() {
   $handler->display->display_options['arguments']['gid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['gid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['gid']['break_phrase'] = TRUE;
-  /* Filter criterion: Content: Published */
+  /* Filter criterion: Content: Published status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -103,29 +119,18 @@ function commons_q_a_views_default_views() {
   $handler->display->display_options['filters']['group_type']['value'] = array(
     'node' => 'node',
   );
-  $translatables['commons_bw_q_a'] = array(
-    t('Master'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('No questions have been asked in this group.'),
-    t('OG membership from node'),
-    t('following'),
-    t('most recent'),
-    t('most active'),
-    t('All'),
-    t('Following'),
-  );
+  /* Filter criterion: Following */
+  $handler->display->display_options['filters']['flagged']['id'] = 'flagged';
+  $handler->display->display_options['filters']['flagged']['table'] = 'flagging';
+  $handler->display->display_options['filters']['flagged']['field'] = 'flagged';
+  $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['filters']['flagged']['ui_name'] = 'Following';
+  $handler->display->display_options['filters']['flagged']['value'] = '1';
+  $handler->display->display_options['filters']['flagged']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['flagged']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['flagged']['expose']['label'] = 'Following';
+  $handler->display->display_options['filters']['flagged']['expose']['operator'] = 'flagged_op';
+  $handler->display->display_options['filters']['flagged']['expose']['identifier'] = 'following';
   $export['commons_bw_q_a'] = $view;
 
   $view = new view();
@@ -181,7 +186,7 @@ function commons_q_a_views_default_views() {
   $handler->display->display_options['arguments']['field_related_question_target_id']['validate_options']['types'] = array(
     'question' => 'question',
   );
-  /* Filter criterion: Content: Published */
+  /* Filter criterion: Content: Published status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -212,39 +217,7 @@ function commons_q_a_views_default_views() {
     ),
   );
   $handler->display->display_options['inherit_panels_path'] = '1';
-  $translatables['commons_question_answers'] = array(
-    t('Master'),
-    t('Answers'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('This Empty text is overridden in commons_q_a.module'),
-    t('All'),
-    t('Content pane'),
-    t('Commons'),
-  );
   $export['commons_question_answers'] = $view;
 
   return $export;
-}
-
-/**
- * Implements hook_views_default_views_alter().
- *
- * Display questions on the browsing widget main view.
- */
-function commons_q_a_views_default_views_alter(&$views) {
-  if (!empty($views['commons_bw_all'])) {
-    $views['commons_bw_all']->display['default']->display_options['filters']['type']['value']['question'] = 'question';
-  }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_notices.features.inc
@@ -7,8 +8,7 @@
 /**
  * Implements hook_ctools_plugin_api().
  */
-function commons_notices_ctools_plugin_api() {
-  list($module, $api) = func_get_args();
+function commons_notices_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -17,8 +17,8 @@ function commons_notices_ctools_plugin_api() {
 /**
  * Implements hook_views_api().
  */
-function commons_notices_views_api() {
-  return array("version" => "3.0");
+function commons_notices_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
 }
 
 /**
@@ -29,11 +29,12 @@ function commons_notices_node_info() {
     'notice' => array(
       'name' => t('Notice'),
       'base' => 'node_content',
-      'description' => 'Display an administrative alert for your website users, such as planned system maintenance.',
+      'description' => t('Display an administrative alert for your website users, such as planned system maintenance.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }

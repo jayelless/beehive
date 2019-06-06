@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_like.features.inc
@@ -42,8 +43,7 @@ function commons_like_default_message_type() {
           "safe_value" : "\\u003Ca href=\\u0022[message:user:url:absolute]\\u0022\\u003E[message:user:name]\\u003C\\/a\\u003E liked the [message:field-target-nodes:0:type] \\u003Ca href=\\u0022[message:field-target-nodes:0:url]\\u0022\\u003E[message:field-target-nodes:0:title_field]\\u003C\\/a\\u003E"
         }
       ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   return $items;
 }

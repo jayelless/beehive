@@ -1,22 +1,35 @@
 name = Commons Browsing Widget
 description = Provides a single content area with multiple panels for adding and browsing content by content type.
-package = Commons - Building blocks
 core = 7.x
-
+package = Commons - Building blocks
+version = 7.x-3.50
+project = commons
 dependencies[] = commons_groups
 dependencies[] = features
 dependencies[] = og
 dependencies[] = quicktabs
 dependencies[] = quicktabs_tabstyles
+dependencies[] = text
 dependencies[] = title
-
+datestamp = 1525879535
 features[features_api][] = api:2
 features[field_base][] = title_field
-
+features[field_instance][] = node-answer-title_field
+features[field_instance][] = node-apiary-title_field
+features[field_instance][] = node-book-title_field
+features[field_instance][] = node-document-title_field
+features[field_instance][] = node-event-title_field
+features[field_instance][] = node-forum-title_field
+features[field_instance][] = node-group-title_field
+features[field_instance][] = node-merchandise_display-title_field
+features[field_instance][] = node-newsletter-title_field
+features[field_instance][] = node-notice-title_field
+features[field_instance][] = node-page-title_field
+features[field_instance][] = node-poll-title_field
+features[field_instance][] = node-post-title_field
+features[field_instance][] = node-product_display-title_field
+features[field_instance][] = node-question-title_field
+features[field_instance][] = node-webform-title_field
+features[field_instance][] = node-wiki-title_field
 files[] = includes/views/handlers/commons_bw_handler_node_partial_form.inc
-
-; Information added by Drupal.org packaging script on 2018-05-09
-version = "7.x-3.50"
-core = "7.x"
-project = "commons"
-datestamp = "1525879535"
+project path = sites/default/files/features

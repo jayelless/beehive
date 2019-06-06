@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_wikis.features.inc
@@ -57,8 +58,7 @@ function commons_wikis_default_message_type() {
           "safe_value" : "[commons-groups:in-groups-text]"
         }
       ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   return $items;
 }
@@ -77,5 +77,6 @@ function commons_wikis_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }

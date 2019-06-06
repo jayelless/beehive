@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_polls.strongarm.inc

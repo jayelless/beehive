@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_radioactivity.radioactivity_decay_profile.inc

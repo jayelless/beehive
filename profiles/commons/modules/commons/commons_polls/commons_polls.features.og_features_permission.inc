@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_polls.features.og_features_permission.inc

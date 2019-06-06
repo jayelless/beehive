@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_trusted_contacts.features.field_base.inc
@@ -10,7 +11,7 @@
 function commons_trusted_contacts_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_approving_user'
+  // Exported field_base: 'field_approving_user'.
   $field_bases['field_approving_user'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -43,7 +44,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_confirmation'
+  // Exported field_base: 'field_confirmation'.
   $field_bases['field_confirmation'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -68,7 +69,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_membership_token'
+  // Exported field_base: 'field_membership_token'.
   $field_bases['field_membership_token'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -89,7 +90,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_my_request'
+  // Exported field_base: 'field_my_request'.
   $field_bases['field_my_request'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -114,7 +115,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_original_og_membership'
+  // Exported field_base: 'field_original_og_membership'.
   $field_bases['field_original_og_membership'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -149,7 +150,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_requesting_user'
+  // Exported field_base: 'field_requesting_user'.
   $field_bases['field_requesting_user'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -182,7 +183,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_response_date'
+  // Exported field_base: 'field_response_date'.
   $field_bases['field_response_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -211,7 +212,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'datestamp',
   );
 
-  // Exported field_base: 'og_user_group_ref'
+  // Exported field_base: 'og_user_group_ref'.
   $field_bases['og_user_group_ref'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -245,7 +246,7 @@ function commons_trusted_contacts_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'user_trusted_contacts'
+  // Exported field_base: 'user_trusted_contacts'.
   $field_bases['user_trusted_contacts'] = array(
     'active' => 1,
     'cardinality' => -1,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_q_a.features.inc
@@ -53,8 +54,7 @@ function commons_q_a_default_message_type() {
           "safe_value" : "[commons-groups:in-groups-text]"
         }
       ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   $items['commons_q_a_question_asked'] = entity_import('message_type', '{
     "name" : "commons_q_a_question_asked",
@@ -81,8 +81,7 @@ function commons_q_a_default_message_type() {
           "safe_value" : "[commons-groups:in-groups-text]"
         }
       ]
-    },
-    "rdf_mapping" : []
+    }
   }');
   return $items;
 }
@@ -109,5 +108,6 @@ function commons_q_a_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }

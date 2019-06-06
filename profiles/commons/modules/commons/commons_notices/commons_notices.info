@@ -1,16 +1,16 @@
 name = Commons Notices
 description = Provides a Notice content type for displaying administrative alerts to users, such as planned system maintenance.
-package = Commons - Content types
 core = 7.x
-
+package = Commons - Content types
+version = 7.x-3.50
+project = commons
 dependencies[] = commons_body
 dependencies[] = ctools
 dependencies[] = features
-dependencies[] = node
 dependencies[] = strongarm
 dependencies[] = text
 dependencies[] = views
-
+datestamp = 1525879535
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
@@ -29,9 +29,8 @@ features[variable][] = node_options_notice
 features[variable][] = node_preview_notice
 features[variable][] = node_submitted_notice
 features[views_view][] = commons_notices_latest_notices
-
-; Information added by Drupal.org packaging script on 2018-05-09
-version = "7.x-3.50"
-core = "7.x"
-project = "commons"
-datestamp = "1525879535"
+features_exclude[dependencies][commons_bw] = commons_bw
+features_exclude[field_base][body] = body
+features_exclude[field_base][title_field] = title_field
+features_exclude[field_instance][node-notice-title_field] = node-notice-title_field
+project path = sites/default/files/features

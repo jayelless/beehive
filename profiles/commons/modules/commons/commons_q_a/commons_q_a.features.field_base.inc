@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_q_a.features.field_base.inc
@@ -10,7 +11,7 @@
 function commons_q_a_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_related_question'
+  // Exported field_base: 'field_related_question'.
   $field_bases['field_related_question'] = array(
     'active' => 1,
     'cardinality' => 1,

@@ -1,16 +1,17 @@
 name = Commons Events
 description = Provides an Event content type for hosting events.
-package = Commons - Content types
 core = 7.x
-
+package = Commons - Content types
+version = 7.x-3.50
+project = commons
 dependencies[] = addressfield
 dependencies[] = addressfield_tokens
 dependencies[] = block
 dependencies[] = commons_body
+dependencies[] = commons_follow
 dependencies[] = commons_location
-; @todo Move message- field instances into another module in order to allow
-; Commons Events to function independently of Commons Notify.
 dependencies[] = commons_notify
+dependencies[] = commons_radioactivity
 dependencies[] = commons_topics
 dependencies[] = ctools
 dependencies[] = date
@@ -20,13 +21,13 @@ dependencies[] = date_views
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
-dependencies[] = field_sql_storage
 dependencies[] = image
 dependencies[] = list
 dependencies[] = message
 dependencies[] = node
 dependencies[] = number
 dependencies[] = og
+dependencies[] = og_ui
 dependencies[] = options
 dependencies[] = page_manager
 dependencies[] = radioactivity
@@ -38,7 +39,7 @@ dependencies[] = text
 dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_load_more
-
+datestamp = 1525879535
 features[ctools][] = page_manager:pages_default:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
@@ -51,6 +52,10 @@ features[field_base][] = field_offsite_url
 features[field_base][] = field_organizers
 features[field_base][] = field_registration
 features[field_base][] = field_registration_type
+features[field_instance][] = message-commons_events_event_node_created-field_message_rendered_body
+features[field_instance][] = message-commons_events_event_node_created-field_message_rendered_subject
+features[field_instance][] = message-commons_events_event_node_created-field_target_comments
+features[field_instance][] = message-commons_events_event_node_created-field_target_nodes
 features[field_instance][] = node-event-body
 features[field_instance][] = node-event-field_address
 features[field_instance][] = node-event-field_date
@@ -59,12 +64,13 @@ features[field_instance][] = node-event-field_logo
 features[field_instance][] = node-event-field_number_of_attendees
 features[field_instance][] = node-event-field_offsite_url
 features[field_instance][] = node-event-field_organizers
+features[field_instance][] = node-event-field_radioactivity
 features[field_instance][] = node-event-field_registration
 features[field_instance][] = node-event-field_registration_type
-features[field_instance][] = message-commons_events_event_node_created-field_message_rendered_body
-features[field_instance][] = message-commons_events_event_node_created-field_message_rendered_subject
-features[field_instance][] = message-commons_events_event_node_created-field_target_comments
-features[field_instance][] = message-commons_events_event_node_created-field_target_nodes
+features[field_instance][] = node-event-field_topics
+features[field_instance][] = node-event-group_content_access
+features[field_instance][] = node-event-og_group_ref
+features[field_instance][] = node-event-og_user_group_ref
 features[message_type][] = commons_events_event_node_created
 features[node][] = event
 features[og_features_permission][] = node:group:create event content
@@ -100,16 +106,21 @@ features[views_view][] = commons_events_event_attendee_list
 features[views_view][] = commons_events_organizers
 features[views_view][] = commons_events_upcoming
 features[views_view][] = commons_events_user_upcoming_events
-
-; Manually remove the Commons Follow module as a dependency until
-; https://www.drupal.org/node/766264 is fixed. Commons Follow dynamically adds a
-; views pane for events the user follows which causes Commons Events to appear
-; overridden.
 features_exclude[dependencies][commons_follow] = commons_follow
 features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
-
-; Information added by Drupal.org packaging script on 2018-05-09
-version = "7.x-3.50"
-core = "7.x"
-project = "commons"
-datestamp = "1525879535"
+features_exclude[dependencies][commons_bw] = commons_bw
+features_exclude[field_base][field_target_comments] = field_target_comments
+features_exclude[field_base][field_target_nodes] = field_target_nodes
+features_exclude[field_base][body] = body
+features_exclude[field_base][field_topics] = field_topics
+features_exclude[field_base][group_content_access] = group_content_access
+features_exclude[field_base][og_group_ref] = og_group_ref
+features_exclude[field_base][title_field] = title_field
+features_exclude[field_base][field_address] = field_address
+features_exclude[field_base][field_message_rendered_body] = field_message_rendered_body
+features_exclude[field_base][field_message_rendered_subject] = field_message_rendered_subject
+features_exclude[field_base][field_radioactivity] = field_radioactivity
+features_exclude[field_base][og_user_group_ref] = og_user_group_ref
+features_exclude[field_instance][node-event-title_field] = node-event-title_field
+features_exclude[taxonomy][topics] = topics
+project path = sites/default/files/features

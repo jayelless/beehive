@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_wikis.features.user_permission.inc

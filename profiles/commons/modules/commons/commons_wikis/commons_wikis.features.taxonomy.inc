@@ -2,13 +2,13 @@
 
 /**
  * @file
- * commons_topics.features.taxonomy.inc
+ * commons_wikis.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function commons_topics_taxonomy_default_vocabularies() {
+function commons_wikis_taxonomy_default_vocabularies() {
   return array(
     'topics' => array(
       'name' => 'Topics',

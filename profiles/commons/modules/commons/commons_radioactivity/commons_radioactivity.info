@@ -1,26 +1,26 @@
 name = Commons Radioactivity
 description = Integrates with the Radioactivity module to identify active content.
-package = Commons - Building blocks
 core = 7.x
-
+package = Commons - Building blocks
+version = 7.x-3.50
+project = commons
 dependencies[] = ctools
 dependencies[] = features
-dependencies[] = field_sql_storage
 dependencies[] = radioactivity
 dependencies[] = strongarm
 dependencies[] = views
-
+datestamp = 1525879535
 features[ctools][] = radioactivity:radioactivity_decay_profile:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_base][] = field_radioactivity
+features[field_instance][] = node-document-field_radioactivity
+features[field_instance][] = node-poll-field_radioactivity
+features[field_instance][] = node-post-field_radioactivity
+features[field_instance][] = node-question-field_radioactivity
+features[field_instance][] = node-wiki-field_radioactivity
 features[radioactivity_decay_profile][] = commons_ra_node
 features[variable][] = commons_radioactivity_entity_types
 features[views_view][] = commons_radioactivity_admin
-
-; Information added by Drupal.org packaging script on 2018-05-09
-version = "7.x-3.50"
-core = "7.x"
-project = "commons"
-datestamp = "1525879535"
+project path = sites/default/files/features

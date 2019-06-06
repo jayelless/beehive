@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_documents.features.inc
@@ -34,5 +35,6 @@ function commons_documents_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }

@@ -1,19 +1,21 @@
 name = Commons Topics
 description = Provides a simple taxonomy field for re-use by various Commons content types.
-package = Commons - Building blocks
 core = 7.x
-
+package = Commons - Building blocks
+version = 7.x-3.50
+project = commons
+dependencies[] = ctools
 dependencies[] = features
 dependencies[] = strongarm
 dependencies[] = taxonomy
-
+datestamp = 1525879535
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[field_base][] = field_topics
+features[field_instance][] = node-document-field_topics
+features[field_instance][] = node-poll-field_topics
+features[field_instance][] = node-post-field_topics
+features[field_instance][] = node-question-field_topics
+features[field_instance][] = node-wiki-field_topics
 features[taxonomy][] = topics
-
-; Information added by Drupal.org packaging script on 2018-05-09
-version = "7.x-3.50"
-core = "7.x"
-project = "commons"
-datestamp = "1525879535"
+project path = sites/default/files/features

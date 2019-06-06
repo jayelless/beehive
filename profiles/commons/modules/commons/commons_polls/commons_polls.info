@@ -1,21 +1,25 @@
 name = Commons Polls
 description = Provides a Poll content type for conducting polls.
-package = Commons - Content types
 core = 7.x
-
+package = Commons - Content types
+version = 7.x-3.50
+project = commons
 dependencies[] = commons_body
+dependencies[] = commons_groups
 dependencies[] = commons_topics
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = features
+dependencies[] = node
 dependencies[] = og
 dependencies[] = og_ui
 dependencies[] = poll
 dependencies[] = radioactivity
 dependencies[] = strongarm
+dependencies[] = text
 dependencies[] = views
 dependencies[] = views_litepager
-
+datestamp = 1525879535
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
@@ -46,9 +50,5 @@ features[variable][] = node_options_poll
 features[variable][] = node_preview_poll
 features[variable][] = node_submitted_poll
 features[views_view][] = commons_bw_polls
-
-; Information added by Drupal.org packaging script on 2018-05-09
-version = "7.x-3.50"
-core = "7.x"
-project = "commons"
-datestamp = "1525879535"
+features_exclude[field_base][body] = body
+project path = sites/default/files/features

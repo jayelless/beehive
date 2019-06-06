@@ -11,23 +11,6 @@
 function beekeeper_navigation_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: beekeeper-menu_calendar:calendar/events.
-  $menu_links['beekeeper-menu_calendar:calendar/events'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'calendar/events',
-    'router_path' => 'calendar/events',
-    'link_title' => 'Calendar',
-    'options' => array(
-      'identifier' => 'beekeeper-menu_calendar:calendar/events',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'customized' => 0,
-  );
   // Exported menu link: beekeeper-menu_club-info:node/1014.
   $menu_links['beekeeper-menu_club-info:node/1014'] = array(
     'menu_name' => 'beekeeper-menu',
@@ -50,46 +33,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 4,
     'customized' => 1,
-  );
-  // Exported menu link: beekeeper-menu_join-club:beekeeper/membership/join.
-  $menu_links['beekeeper-menu_join-club:beekeeper/membership/join'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'beekeeper/membership/join',
-    'router_path' => 'beekeeper/membership/join',
-    'link_title' => 'Join club',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Join the Wellington Beekeepers Association',
-      ),
-      'identifier' => 'beekeeper-menu_join-club:beekeeper/membership/join',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 10,
-    'customized' => 0,
-  );
-  // Exported menu link: beekeeper-menu_newsletters:newsletters.
-  $menu_links['beekeeper-menu_newsletters:newsletters'] = array(
-    'menu_name' => 'beekeeper-menu',
-    'link_path' => 'newsletters',
-    'router_path' => 'newsletters',
-    'link_title' => 'Newsletters',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Recent club newsletters',
-      ),
-      'identifier' => 'beekeeper-menu_newsletters:newsletters',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 2,
-    'customized' => 0,
   );
   // Exported menu link: beekeeper-menu_orders:admin/commerce/orders.
   $menu_links['beekeeper-menu_orders:admin/commerce/orders'] = array(
@@ -157,23 +100,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'weight' => 1,
     'customized' => 1,
   );
-  // Exported menu link: main-menu_events:events.
-  $menu_links['main-menu_events:events'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'events',
-    'router_path' => 'events',
-    'link_title' => 'Events',
-    'options' => array(
-      'identifier' => 'main-menu_events:events',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 1,
-    'customized' => 0,
-  );
   // Exported menu link: main-menu_forums:forum.
   $menu_links['main-menu_forums:forum'] = array(
     'menu_name' => 'main-menu',
@@ -196,77 +122,6 @@ function beekeeper_navigation_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => 0,
     'customized' => 1,
-  );
-  // Exported menu link: main-menu_groups:groups.
-  $menu_links['main-menu_groups:groups'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'groups',
-    'router_path' => 'groups',
-    'link_title' => 'Groups',
-    'options' => array(
-      'identifier' => 'main-menu_groups:groups',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -1,
-    'customized' => 0,
-  );
-  // Exported menu link: main-menu_help:user-guides.
-  $menu_links['main-menu_help:user-guides'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'user-guides',
-    'router_path' => 'user-guides',
-    'link_title' => 'Help',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'User guides providing help and advice',
-      ),
-      'identifier' => 'main-menu_help:user-guides',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'customized' => 0,
-  );
-  // Exported menu link: main-menu_home:home.
-  $menu_links['main-menu_home:home'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'home',
-    'router_path' => 'home',
-    'link_title' => 'Home',
-    'options' => array(
-      'identifier' => 'main-menu_home:home',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -10,
-    'customized' => 0,
-  );
-  // Exported menu link: main-menu_search:search.
-  $menu_links['main-menu_search:search'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'search',
-    'router_path' => 'search',
-    'link_title' => 'Search',
-    'options' => array(
-      'identifier' => 'main-menu_search:search',
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 3,
-    'customized' => 0,
   );
   // Exported menu link: navigation_add-content:node/add.
   $menu_links['navigation_add-content:node/add'] = array(
@@ -1584,7 +1439,6 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Apiary');
   t('Book page');
   t('Books');
-  t('Calendar');
   t('Club Info');
   t('Club info');
   t('Compose tips');
@@ -1593,13 +1447,9 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Content type and term');
   t('Document');
   t('Event');
-  t('Events');
   t('Forum topic');
   t('Forums');
   t('Group');
-  t('Groups');
-  t('Help');
-  t('Home');
   t('Join');
   t('Join - Dummy Membership');
   t('Join - Honorary Membership');
@@ -1621,7 +1471,6 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Multiple tags');
   t('My apiaries');
   t('Newsletter');
-  t('Newsletters');
   t('Orders');
   t('Page');
   t('Poll');
@@ -1636,7 +1485,6 @@ function beekeeper_navigation_menu_default_menu_links() {
   t('Renew - Life Membership');
   t('Renew - Standard Membership');
   t('Renew membership');
-  t('Search');
   t('Shopping cart');
   t('Swarm collectors');
   t('Swarm recipients');

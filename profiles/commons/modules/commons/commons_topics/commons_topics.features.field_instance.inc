@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_topics.features.field_instance.inc
@@ -10,25 +11,11 @@
 function commons_topics_field_default_field_instances() {
   $field_instances = array();
 
-  // Get a list of content types that should have the field_topics field added.
-  $commons_groups_entity_types = commons_topics_get_entity_types_with_topics();
-  if (!empty($commons_groups_entity_types)) {
-    foreach ($commons_groups_entity_types as $entity_type => $bundles) {
-      foreach(array_keys($bundles) as $bundle) {
-        commons_topics_field_definition($field_instances, $entity_type, $bundle);
-      }
-    }
-  }
-
-  return $field_instances;
-}
-
-function commons_topics_field_definition(&$field_instances, $entity_type, $bundle) {
-  // Exported field_instance: 'ENTITY_TYPE-BUNDLE-field_topics'
-  $field_instances["$entity_type-$bundle-field_topics"] = array(
-    'bundle' => $bundle,
+  // Exported field_instance: 'node-document-field_topics'.
+  $field_instances['node-document-field_topics'] = array(
+    'bundle' => 'document',
     'default_value' => NULL,
-    'deleted' => '0',
+    'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
@@ -36,7 +23,13 @@ function commons_topics_field_definition(&$field_instances, $entity_type, $bundl
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => '6',
+        'weight' => 6,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -45,11 +38,13 @@ function commons_topics_field_definition(&$field_instances, $entity_type, $bundl
         'weight' => 0,
       ),
     ),
-    'entity_type' => $entity_type,
+    'entity_type' => 'node',
     'field_name' => 'field_topics',
     'label' => 'Topics',
     'required' => 0,
     'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -60,7 +55,205 @@ function commons_topics_field_definition(&$field_instances, $entity_type, $bundl
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => '13',
+      'weight' => 13,
     ),
   );
+
+  // Exported field_instance: 'node-poll-field_topics'.
+  $field_instances['node-poll-field_topics'] = array(
+    'bundle' => 'poll',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topics',
+    'label' => 'Topics',
+    'required' => 0,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-post-field_topics'.
+  $field_instances['node-post-field_topics'] = array(
+    'bundle' => 'post',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topics',
+    'label' => 'Topics',
+    'required' => 0,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-question-field_topics'.
+  $field_instances['node-question-field_topics'] = array(
+    'bundle' => 'question',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topics',
+    'label' => 'Topics',
+    'required' => 0,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-wiki-field_topics'.
+  $field_instances['node-wiki-field_topics'] = array(
+    'bundle' => 'wiki',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topics',
+    'label' => 'Topics',
+    'required' => 0,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 13,
+    ),
+  );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Topics');
+
+  return $field_instances;
 }

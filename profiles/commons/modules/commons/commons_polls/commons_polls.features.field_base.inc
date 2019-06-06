@@ -2,22 +2,24 @@
 
 /**
  * @file
- * commons_bw.features.field_base.inc
+ * commons_polls.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function commons_bw_field_default_field_bases() {
+function commons_polls_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'title_field'.
-  $field_bases['title_field'] = array(
+  // Exported field_base: 'body'.
+  $field_bases['body'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'title_field',
+    'entity_types' => array(
+      0 => 'node',
+    ),
+    'field_name' => 'body',
     'field_permissions' => array(
       'type' => 0,
     ),
@@ -28,11 +30,9 @@ function commons_bw_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 1,
-    'type' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_with_summary',
   );
 
   return $field_bases;

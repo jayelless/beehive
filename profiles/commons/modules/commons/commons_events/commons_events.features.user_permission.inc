@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_events.features.user_permission.inc

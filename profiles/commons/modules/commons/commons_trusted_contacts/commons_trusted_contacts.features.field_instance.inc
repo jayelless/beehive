@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_trusted_contacts.features.field_instance.inc
@@ -10,7 +11,8 @@
 function commons_trusted_contacts_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'message-trusted_contact_request_approved-field_approving_user'
+  // Exported field_instance:
+  // 'message-trusted_contact_request_approved-field_approving_user'.
   $field_instances['message-trusted_contact_request_approved-field_approving_user'] = array(
     'bundle' => 'trusted_contact_request_approved',
     'default_value' => NULL,
@@ -22,6 +24,7 @@ function commons_trusted_contacts_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -50,6 +53,8 @@ function commons_trusted_contacts_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -65,7 +70,8 @@ function commons_trusted_contacts_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-trusted_contact_request_pending-field_requesting_user'
+  // Exported field_instance:
+  // 'message-trusted_contact_request_pending-field_requesting_user'.
   $field_instances['message-trusted_contact_request_pending-field_requesting_user'] = array(
     'bundle' => 'trusted_contact_request_pending',
     'default_value' => NULL,
@@ -77,6 +83,7 @@ function commons_trusted_contacts_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -105,6 +112,8 @@ function commons_trusted_contacts_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -120,7 +129,368 @@ function commons_trusted_contacts_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'og_membership-trusted_contacts-field_confirmation'
+  // Exported field_instance: 'node-document-og_user_group_ref'.
+  $field_instances['node-document-og_user_group_ref'] = array(
+    'bundle' => 'document',
+    'default_value' => NULL,
+    'default_value_function' => 'commons_groups_entityreference_default_value',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(),
+        'type' => 'og_list_default',
+        'weight' => 11,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'og_user_group_ref',
+    'label' => 'Visible to trusted contacts of',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'og_widget' => array(
+          'admin' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'default' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'view modes' => array(
+      'full' => array(
+        'custom settings' => FALSE,
+        'label' => 'Full',
+        'type' => 'og_list_default',
+      ),
+      'teaser' => array(
+        'custom settings' => FALSE,
+        'label' => 'Teaser',
+        'type' => 'og_list_default',
+      ),
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'og',
+      'settings' => array(),
+      'type' => 'og_complex',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-poll-og_user_group_ref'.
+  $field_instances['node-poll-og_user_group_ref'] = array(
+    'bundle' => 'poll',
+    'default_value' => NULL,
+    'default_value_function' => 'commons_groups_entityreference_default_value',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(),
+        'type' => 'og_list_default',
+        'weight' => 11,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'og_user_group_ref',
+    'label' => 'Visible to trusted contacts of',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'og_widget' => array(
+          'admin' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'default' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'view modes' => array(
+      'full' => array(
+        'custom settings' => FALSE,
+        'label' => 'Full',
+        'type' => 'og_list_default',
+      ),
+      'teaser' => array(
+        'custom settings' => FALSE,
+        'label' => 'Teaser',
+        'type' => 'og_list_default',
+      ),
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'og',
+      'settings' => array(),
+      'type' => 'og_complex',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-post-og_user_group_ref'.
+  $field_instances['node-post-og_user_group_ref'] = array(
+    'bundle' => 'post',
+    'default_value' => NULL,
+    'default_value_function' => 'commons_groups_entityreference_default_value',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(),
+        'type' => 'og_list_default',
+        'weight' => 11,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'og_user_group_ref',
+    'label' => 'Visible to trusted contacts of',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'og_widget' => array(
+          'admin' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'default' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'view modes' => array(
+      'full' => array(
+        'custom settings' => FALSE,
+        'label' => 'Full',
+        'type' => 'og_list_default',
+      ),
+      'teaser' => array(
+        'custom settings' => FALSE,
+        'label' => 'Teaser',
+        'type' => 'og_list_default',
+      ),
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'og',
+      'settings' => array(),
+      'type' => 'og_complex',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-question-og_user_group_ref'.
+  $field_instances['node-question-og_user_group_ref'] = array(
+    'bundle' => 'question',
+    'default_value' => NULL,
+    'default_value_function' => 'commons_groups_entityreference_default_value',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(),
+        'type' => 'og_list_default',
+        'weight' => 11,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'og_user_group_ref',
+    'label' => 'Visible to trusted contacts of',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'og_widget' => array(
+          'admin' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'default' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'view modes' => array(
+      'full' => array(
+        'custom settings' => FALSE,
+        'label' => 'Full',
+        'type' => 'og_list_default',
+      ),
+      'teaser' => array(
+        'custom settings' => FALSE,
+        'label' => 'Teaser',
+        'type' => 'og_list_default',
+      ),
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'og',
+      'settings' => array(),
+      'type' => 'og_complex',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-wiki-og_user_group_ref'.
+  $field_instances['node-wiki-og_user_group_ref'] = array(
+    'bundle' => 'wiki',
+    'default_value' => NULL,
+    'default_value_function' => 'commons_groups_entityreference_default_value',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(),
+        'type' => 'og_list_default',
+        'weight' => 11,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'og_user_group_ref',
+    'label' => 'Visible to trusted contacts of',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'og_widget' => array(
+          'admin' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'default' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'view modes' => array(
+      'full' => array(
+        'custom settings' => FALSE,
+        'label' => 'Full',
+        'type' => 'og_list_default',
+      ),
+      'teaser' => array(
+        'custom settings' => FALSE,
+        'label' => 'Teaser',
+        'type' => 'og_list_default',
+      ),
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'og',
+      'settings' => array(),
+      'type' => 'og_complex',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'og_membership-trusted_contacts-field_confirmation'.
   $field_instances['og_membership-trusted_contacts-field_confirmation'] = array(
     'bundle' => 'trusted_contacts',
     'default_value' => array(
@@ -144,6 +514,8 @@ function commons_trusted_contacts_field_default_field_instances() {
     'label' => 'Confirmation',
     'required' => 0,
     'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -157,7 +529,8 @@ function commons_trusted_contacts_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'og_membership-trusted_contacts-field_membership_token'
+  // Exported field_instance:
+  // 'og_membership-trusted_contacts-field_membership_token'.
   $field_instances['og_membership-trusted_contacts-field_membership_token'] = array(
     'bundle' => 'trusted_contacts',
     'default_value' => NULL,
@@ -177,6 +550,8 @@ function commons_trusted_contacts_field_default_field_instances() {
     'label' => 'Membership Token',
     'required' => 1,
     'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -191,7 +566,7 @@ function commons_trusted_contacts_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'og_membership-trusted_contacts-field_my_request'
+  // Exported field_instance: 'og_membership-trusted_contacts-field_my_request'.
   $field_instances['og_membership-trusted_contacts-field_my_request'] = array(
     'bundle' => 'trusted_contacts',
     'default_value' => array(
@@ -215,6 +590,8 @@ function commons_trusted_contacts_field_default_field_instances() {
     'label' => 'My request',
     'required' => 0,
     'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -228,7 +605,8 @@ function commons_trusted_contacts_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'og_membership-trusted_contacts-field_original_og_membership'
+  // Exported field_instance:
+  // 'og_membership-trusted_contacts-field_original_og_membership'.
   $field_instances['og_membership-trusted_contacts-field_original_og_membership'] = array(
     'bundle' => 'trusted_contacts',
     'default_value' => NULL,
@@ -240,6 +618,7 @@ function commons_trusted_contacts_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -256,6 +635,8 @@ function commons_trusted_contacts_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -271,7 +652,8 @@ function commons_trusted_contacts_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'og_membership-trusted_contacts-field_response_date'
+  // Exported field_instance:
+  // 'og_membership-trusted_contacts-field_response_date'.
   $field_instances['og_membership-trusted_contacts-field_response_date'] = array(
     'bundle' => 'trusted_contacts',
     'deleted' => 0,
@@ -286,6 +668,7 @@ function commons_trusted_contacts_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 1,
@@ -300,6 +683,8 @@ function commons_trusted_contacts_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -318,7 +703,106 @@ function commons_trusted_contacts_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-user_trusted_contacts'
+  // Exported field_instance: 'user-user-group_access'.
+  $field_instances['user-user-group_access'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 13,
+      ),
+    ),
+    'display_in_partial_form' => 0,
+    'entity_type' => 'user',
+    'field_name' => 'group_access',
+    'label' => 'Group visibility',
+    'required' => 1,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-group_group'.
+  $field_instances['user-user-group_group'] = array(
+    'bundle' => 'user',
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Determine if this is an OG group.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'commons_trusted_contacts',
+        'settings' => array(
+          'allowed_values' => array(
+            0 => 'Not a group',
+            1 => 'Group',
+          ),
+          'allowed_values_function' => '',
+          'field_name' => FALSE,
+        ),
+        'type' => 'trusted_contact',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'display_label' => 1,
+    'entity_type' => 'user',
+    'field_name' => 'group_group',
+    'label' => 'Group',
+    'required' => FALSE,
+    'settings' => array(
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'view modes' => array(
+      'full' => array(
+        'custom settings' => FALSE,
+        'label' => 'Full',
+        'type' => 'og_group_subscribe',
+      ),
+      'teaser' => array(
+        'custom settings' => FALSE,
+        'label' => 'Teaser',
+        'type' => 'og_group_subscribe',
+      ),
+    ),
+    'widget' => array(
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+        'og_hide' => TRUE,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-user_trusted_contacts'.
   $field_instances['user-user-user_trusted_contacts'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -355,6 +839,8 @@ function commons_trusted_contacts_field_default_field_instances() {
           'status' => TRUE,
         ),
       ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -373,221 +859,24 @@ function commons_trusted_contacts_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => '2',
+      'weight' => 2,
     ),
   );
-
-  // Exported field_instance: 'user-user-group_group'
-  $field_instances['user-user-group_group'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => '0',
-    'description' => 'Determine if this is an OG group.',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'commons_trusted_contacts',
-        'settings' => array(
-          'allowed_values' => array(
-            0 => 'Not a group',
-            1 => 'Group',
-          ),
-          'allowed_values_function' => '',
-        ),
-        'type' => 'trusted_contact',
-        'weight' => '3',
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'display_label' => 1,
-    'entity_type' => 'user',
-    'field_name' => 'group_group',
-    'label' => 'Group',
-    'required' => FALSE,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'view modes' => array(
-      'full' => array(
-        'custom settings' => FALSE,
-        'label' => 'Full',
-        'type' => 'og_group_subscribe',
-      ),
-      'teaser' => array(
-        'custom settings' => FALSE,
-        'label' => 'Teaser',
-        'type' => 'og_group_subscribe',
-      ),
-    ),
-    'widget' => array(
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-        'og_hide' => TRUE,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance: 'user-user-group_access'
-  $field_instances['user-user-group_access'] = array(
-    'bundle' => 'user',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 13,
-      ),
-    ),
-    'display_in_partial_form' => 0,
-    'entity_type' => 'user',
-    'field_name' => 'group_access',
-    'label' => 'Group visibility',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 13,
-    ),
-  );
-  // Provide appropriate settings for our fields when users are
-  // indexed by Solr. ApacheSolr_User uses the 'search_index' view mode
-  // to render the user document for indexing. Since this view mode doesn't
-  // exist in Commons, the 'default' view mode is used. We need to ensure
-  // that this does not include the names of the user's trusted contacts, so
-  // that a search for users named "Jane Smith" doesn't include a result for
-  // each user who calls Jane a contact.
-  if (module_exists('commons_search_solr_user')) {
-    $field_instances['user-user-group_group']['view modes']['search_results'] = array(
-      'label' => 'hidden',
-      'module' => 'commons_trusted_contacts',
-      'settings' => array(),
-      'type' => 'trusted_contact',
-    );
-    $field_instances['user-user-group_group']['display']['search_results'] = array(
-      'label' => 'hidden',
-      'module' => 'commons_trusted_contacts',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => 'Not a group',
-          1 => 'Group',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'type' => 'trusted_contact',
-      'weight' => 17,
-    );
-    $field_instances['user-user-user_trusted_contacts']['display']['search_results'] = array(
-      'label' => 'hidden',
-      'custom settings' => TRUE,
-      'type' => 'hidden',
-      'weight' => 16,
-    );
-  }
-
-  if ($group_content_entity_types = commons_groups_get_group_content_entity_types(FALSE)) {
-    foreach (array_keys($group_content_entity_types['node']) as $type) {
-      commons_trusted_contacts_field_definition_group($field_instances, 'node', $type);
-    }
-  }
 
   // Translatables
   // Included for use with string extractors like potx.
   t('Approving user');
   t('Confirmation');
+  t('Determine if this is an OG group.');
+  t('Group');
+  t('Group visibility');
   t('Membership Token');
   t('My request');
   t('Original OG Membership');
   t('Requesting User');
   t('Response date');
   t('User Trusted Contacts');
+  t('Visible to trusted contacts of');
 
   return $field_instances;
-}
-
-function commons_trusted_contacts_field_definition_group(&$field_instances, $entity_type, $bundle) {
-  // Exported field_instance: 'node-post-og_user_group_ref'
-  $field_instances["$entity_type-$bundle-og_user_group_ref"] = array(
-    'bundle' => $bundle,
-    'default_value' => NULL,
-    'default_value_function' => 'commons_groups_entityreference_default_value',
-    'deleted' => '0',
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'og_ui',
-        'settings' => array(),
-        'type' => 'og_list_default',
-        'weight' => 11,
-      ),
-      'teaser' => array(
-        'label' => 'inline',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => $entity_type,
-    'field_name' => 'og_user_group_ref',
-    'label' => 'Visible to trusted contacts of',
-    'required' => 0,
-    'settings' => array(
-      'behaviors' => array(
-        'og_widget' => array(
-          'admin' => array(
-            'widget_type' => 'entityreference_autocomplete_tags',
-          ),
-          'default' => array(
-            'widget_type' => 'entityreference_autocomplete_tags',
-          ),
-          'status' => TRUE,
-        ),
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'view modes' => array(
-      'full' => array(
-        'custom settings' => FALSE,
-        'label' => 'Full',
-        'type' => 'og_list_default',
-      ),
-      'teaser' => array(
-        'custom settings' => FALSE,
-        'label' => 'Teaser',
-        'type' => 'og_list_default',
-      ),
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'og',
-      'settings' => array(),
-      'type' => 'og_complex',
-      'weight' => 5,
-    ),
-  );
-
 }

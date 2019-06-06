@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_radioactivity.views_default.inc
@@ -85,7 +86,7 @@ function commons_radioactivity_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Relationship: Content: Author */
+  /* Relationship: Content: Content author */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
@@ -132,7 +133,7 @@ function commons_radioactivity_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: Content: Published */
+  /* Filter criterion: Content: Published status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -150,60 +151,7 @@ function commons_radioactivity_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'commons-radioactivity-admin';
-  $translatables['commons_radioactivity_admin'] = array(
-    t('Master'),
-    t('Commons Radioactivity Administrative page'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('author'),
-    t('Title'),
-    t('Type'),
-    t('Author'),
-    t('Radioactivity'),
-    t('Created'),
-    t('Last update/comment'),
-    t('Page'),
-  );
   $export['commons_radioactivity_admin'] = $view;
 
   return $export;
-}
-
-/**
- * Implements hook_views_default_views_alter().
- */
-function commons_radioactivity_views_default_views_alter(&$views) {
-  // Add a "most active" exposed sort to Commons BW views.
-  foreach ($views as $view_id => $view) {
-    if (strpos($view_id, 'commons_bw_') === 0) {
-      $views[$view_id]->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['id'] = 'field_radioactivity_radioactivity_energy';
-      $views[$view_id]->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['table'] = 'field_data_field_radioactivity';
-      $views[$view_id]->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['field'] = 'field_radioactivity_radioactivity_energy';
-      $views[$view_id]->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['order'] = 'DESC';
-      $views[$view_id]->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['exposed'] = TRUE;
-      $views[$view_id]->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['expose']['label'] = 'most active';
-    }
-  }
-
-  // Add a 'most active' exposed sort to the homepage content view.
-  if (!empty($views['commons_homepage_content'])) {
-    /* Sort criterion: Content: Radioactivity (field_radioactivity:radioactivity_energy) */
-    $views['commons_homepage_content']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['id'] = 'field_radioactivity_radioactivity_energy';
-    $views['commons_homepage_content']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['table'] = 'field_data_field_radioactivity';
-    $views['commons_homepage_content']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['field'] = 'field_radioactivity_radioactivity_energy';
-    $views['commons_homepage_content']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['order'] = 'DESC';
-    $views['commons_homepage_content']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['exposed'] = TRUE;
-    $views['commons_homepage_content']->display['default']->display_options['sorts']['field_radioactivity_radioactivity_energy']['expose']['label'] = 'most active';
-  }
 }

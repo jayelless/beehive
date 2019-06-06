@@ -1,9 +1,12 @@
 name = Commons Documents
 description = Provides a Document content type for sharing files.
-package = Commons - Content types
 core = 7.x
-
+package = Commons - Content types
+version = 7.x-3.50
+project = commons
 dependencies[] = commons_body
+dependencies[] = commons_events
+dependencies[] = commons_radioactivity
 dependencies[] = commons_topics
 dependencies[] = ctools
 dependencies[] = entity
@@ -13,12 +16,13 @@ dependencies[] = file
 dependencies[] = node
 dependencies[] = og
 dependencies[] = og_ui
+dependencies[] = radioactivity
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
 dependencies[] = views
 dependencies[] = views_litepager
-
+datestamp = 1525879535
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
@@ -43,6 +47,9 @@ features[variable][] = comment_document
 features[variable][] = comment_form_location_document
 features[variable][] = comment_preview_document
 features[variable][] = comment_subject_field_document
+features[variable][] = diff_enable_revisions_page_node_document
+features[variable][] = diff_show_preview_changes_node_document
+features[variable][] = diff_view_mode_preview_node_document
 features[variable][] = field_bundle_settings_node__document
 features[variable][] = menu_options_document
 features[variable][] = menu_parent_document
@@ -50,11 +57,20 @@ features[variable][] = node_options_document
 features[variable][] = node_preview_document
 features[variable][] = node_submitted_document
 features[views_view][] = commons_bw_documents
-
 features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
-
-; Information added by Drupal.org packaging script on 2018-05-09
-version = "7.x-3.50"
-core = "7.x"
-project = "commons"
-datestamp = "1525879535"
+features_exclude[dependencies][commons_bw] = commons_bw
+features_exclude[field_base][body] = body
+features_exclude[field_base][field_topics] = field_topics
+features_exclude[field_base][group_content_access] = group_content_access
+features_exclude[field_base][og_group_ref] = og_group_ref
+features_exclude[field_base][title_field] = title_field
+features_exclude[field_base][field_radioactivity] = field_radioactivity
+features_exclude[field_base][og_user_group_ref] = og_user_group_ref
+features_exclude[field_instance][node-document-field_radioactivity] = node-document-field_radioactivity
+features_exclude[field_instance][node-document-field_topics] = node-document-field_topics
+features_exclude[field_instance][node-document-group_content_access] = node-document-group_content_access
+features_exclude[field_instance][node-document-og_group_ref] = node-document-og_group_ref
+features_exclude[field_instance][node-document-og_user_group_ref] = node-document-og_user_group_ref
+features_exclude[field_instance][node-document-title_field] = node-document-title_field
+features_exclude[taxonomy][topics] = topics
+project path = sites/default/files/features

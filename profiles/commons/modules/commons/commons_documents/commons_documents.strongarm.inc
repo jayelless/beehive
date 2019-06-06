@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * commons_documents.strongarm.inc
@@ -58,6 +59,27 @@ function commons_documents_strongarm() {
   $strongarm->name = 'comment_subject_field_document';
   $strongarm->value = 1;
   $export['comment_subject_field_document'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_enable_revisions_page_node_document';
+  $strongarm->value = 1;
+  $export['diff_enable_revisions_page_node_document'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_show_preview_changes_node_document';
+  $strongarm->value = 1;
+  $export['diff_show_preview_changes_node_document'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_view_mode_preview_node_document';
+  $strongarm->value = 'full';
+  $export['diff_view_mode_preview_node_document'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

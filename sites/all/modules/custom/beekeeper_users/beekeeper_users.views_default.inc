@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * beekeeper_users.views_default.inc
@@ -87,7 +88,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'users';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -156,7 +157,7 @@ function beekeeper_users_views_default_views() {
   );
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -325,7 +326,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['type']['label'] = 'Membership Type';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -613,7 +614,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['type']['label'] = 'Membership-type';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -747,7 +748,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['type']['label'] = 'Membership Type';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -947,7 +948,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['sorts']['field_newsletter_date_value']['table'] = 'field_data_field_newsletter_date';
   $handler->display->display_options['sorts']['field_newsletter_date_value']['field'] = 'field_newsletter_date_value';
   $handler->display->display_options['sorts']['field_newsletter_date_value']['order'] = 'DESC';
-  /* Filter criterion: Content: Published */
+  /* Filter criterion: Content: Published status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1123,7 +1124,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'users';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1141,7 +1142,7 @@ function beekeeper_users_views_default_views() {
   );
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1201,7 +1202,7 @@ function beekeeper_users_views_default_views() {
   );
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1313,7 +1314,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['field_postal_address_locality']['label'] = 'Town/City';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1332,24 +1333,16 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['realname']['id'] = 'realname';
   $handler->display->display_options['filters']['realname']['table'] = 'realname';
   $handler->display->display_options['filters']['realname']['field'] = 'realname';
+  $handler->display->display_options['filters']['realname']['operator'] = 'contains';
   $handler->display->display_options['filters']['realname']['group'] = 1;
   $handler->display->display_options['filters']['realname']['exposed'] = TRUE;
   $handler->display->display_options['filters']['realname']['expose']['operator_id'] = 'realname_op';
   $handler->display->display_options['filters']['realname']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['realname']['expose']['operator'] = 'realname_op';
   $handler->display->display_options['filters']['realname']['expose']['identifier'] = 'realname';
+  $handler->display->display_options['filters']['realname']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['realname']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-    10 => 0,
-    11 => 0,
   );
   /* Filter criterion: User: Name (raw) */
   $handler->display->display_options['filters']['name']['id'] = 'name';
@@ -1365,14 +1358,6 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
   );
   /* Filter criterion: User: E-mail */
   $handler->display->display_options['filters']['mail']['id'] = 'mail';
@@ -1388,14 +1373,6 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['mail']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['mail']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
   );
   /* Filter criterion: User: Postal address - Dependent locality */
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
@@ -1407,18 +1384,9 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['label'] = 'Suburb';
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['operator'] = 'field_postal_address_dependent_locality_op';
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['identifier'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    11 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-    10 => 0,
   );
   /* Filter criterion: User: Postal address - Locality (i.e. City) */
   $handler->display->display_options['filters']['field_postal_address_locality']['id'] = 'field_postal_address_locality';
@@ -1430,18 +1398,9 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['label'] = 'Town/City';
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['operator'] = 'field_postal_address_locality_op';
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['identifier'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    11 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-    10 => 0,
   );
   $handler->display->display_options['path'] = 'users/list';
   $handler->display->display_options['menu']['type'] = 'normal';
@@ -1542,7 +1501,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['rid']['field'] = 'rid';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1582,18 +1541,9 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Login';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  $handler->display->display_options['filters']['name']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-    10 => 0,
-    11 => 0,
   );
   /* Filter criterion: User: E-mail */
   $handler->display->display_options['filters']['mail']['id'] = 'mail';
@@ -1609,14 +1559,6 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['mail']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['mail']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
   );
   /* Filter criterion: User: Postal address - Dependent locality */
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['id'] = 'field_postal_address_dependent_locality';
@@ -1628,18 +1570,9 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['label'] = 'Suburb';
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['operator'] = 'field_postal_address_dependent_locality_op';
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['identifier'] = 'field_postal_address_dependent_locality';
+  $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['field_postal_address_dependent_locality']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    11 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-    10 => 0,
   );
   /* Filter criterion: User: Postal address - Locality (i.e. City) */
   $handler->display->display_options['filters']['field_postal_address_locality']['id'] = 'field_postal_address_locality';
@@ -1651,18 +1584,9 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['label'] = 'Town/City';
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['operator'] = 'field_postal_address_locality_op';
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['identifier'] = 'field_postal_address_locality';
+  $handler->display->display_options['filters']['field_postal_address_locality']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['field_postal_address_locality']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
-    3 => 0,
-    11 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-    10 => 0,
   );
   $handler->display->display_options['path'] = 'users/list-all';
   $handler->display->display_options['menu']['type'] = 'normal';
@@ -1971,7 +1895,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'users';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -2190,7 +2114,7 @@ function beekeeper_users_views_default_views() {
   $handler->display->display_options['fields']['name_1']['label'] = 'Login';
   $handler->display->display_options['fields']['name_1']['link_to_user'] = FALSE;
   $handler->display->display_options['fields']['name_1']['format_username'] = FALSE;
-  /* Field: User: Active */
+  /* Field: User: Active status */
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'users';
   $handler->display->display_options['fields']['status']['field'] = 'status';
@@ -2262,7 +2186,7 @@ function beekeeper_users_views_default_views() {
     10 => 0,
     3 => 0,
   );
-  /* Filter criterion: User: Active */
+  /* Filter criterion: User: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -2363,8 +2287,8 @@ function beekeeper_users_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'admin/people/details';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'User details';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Details';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;

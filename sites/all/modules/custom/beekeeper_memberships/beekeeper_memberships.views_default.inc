@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * beekeeper_memberships.views_default.inc
@@ -80,10 +81,10 @@ function beekeeper_memberships_views_default_views() {
 
   $view = new view();
   $view->name = 'membership_details';
-  $view->description = 'Display a list of all memberships on the site.';
+  $view->description = 'Display details of all memberships on the site.';
   $view->tag = 'membership_entity';
   $view->base_table = 'membership_entity';
-  $view->human_name = 'Membership details';
+  $view->human_name = 'Administration: Membership details';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -96,6 +97,7 @@ function beekeeper_memberships_views_default_views() {
   $handler->display->display_options['access']['perm'] = 'administer memberships';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -375,7 +377,7 @@ function beekeeper_memberships_views_default_views() {
 
   /* Display: Admin Details */
   $handler = $view->new_display('page', 'Admin Details', 'details');
-  $handler->display->display_options['display_description'] = 'A list of membership for administrators.';
+  $handler->display->display_options['display_description'] = 'A list of memberships for administrators.';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Last Term */
   $handler->display->display_options['relationships']['membership_entity_term_representative']['id'] = 'membership_entity_term_representative';
@@ -600,14 +602,13 @@ function beekeeper_memberships_views_default_views() {
     5 => 0,
   );
   $handler->display->display_options['path'] = 'admin/memberships/details';
-  $handler->display->display_options['menu']['type'] = 'default tab';
-  $handler->display->display_options['menu']['title'] = 'List';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Details';
   $handler->display->display_options['menu']['description'] = 'A list of all memberships';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['weight'] = '1';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'normal';
   $handler->display->display_options['tab_options']['title'] = 'Memberships';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'management';

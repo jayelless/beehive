@@ -349,6 +349,82 @@ function commons_q_a_field_default_field_instances() {
     'widget_type' => 'options_select',
   );
 
+  // Exported field_instance: 'node-answer-og_group_ref'.
+  $field_instances['node-answer-og_group_ref'] = array(
+    'bundle' => 'answer',
+    'default_value' => NULL,
+    'default_value_function' => 'commons_groups_entityreference_default_value',
+    'deleted' => 0,
+    'description' => 'Separate group names with commas',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'og_ui',
+        'settings' => array(),
+        'type' => 'og_list_default',
+        'weight' => 11,
+      ),
+      'notifications' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'og_group_ref',
+    'label' => 'Groups',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'og_widget' => array(
+          'admin' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'default' => array(
+            'widget_type' => 'entityreference_autocomplete_tags',
+          ),
+          'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'action' => 'none',
+          'fallback' => 'none',
+          'og_context' => 0,
+          'skip_perm' => 0,
+          'status' => 1,
+        ),
+      ),
+      'membership_entity_join_form' => FALSE,
+      'membership_entity_term_renew_form' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'view modes' => array(
+      'full' => array(
+        'custom settings' => FALSE,
+        'label' => 'Full',
+        'type' => 'og_list_default',
+      ),
+      'teaser' => array(
+        'custom settings' => FALSE,
+        'label' => 'Teaser',
+        'type' => 'og_list_default',
+      ),
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'og',
+      'settings' => array(),
+      'type' => 'og_complex',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-answer-og_user_group_ref'.
   $field_instances['node-answer-og_user_group_ref'] = array(
     'bundle' => 'answer',
@@ -552,9 +628,11 @@ function commons_q_a_field_default_field_instances() {
   t('Attach an image or video.');
   t('Body');
   t('Group content visibility');
+  t('Groups');
   t('Media');
   t('Radioactivity');
   t('Related question');
+  t('Separate group names with commas');
   t('Target nodes');
   t('Visible to trusted contacts of');
 

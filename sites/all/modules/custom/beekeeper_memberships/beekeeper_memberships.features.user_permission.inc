@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * beekeeper_memberships.features.user_permission.inc

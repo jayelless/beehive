@@ -761,6 +761,10 @@ function beekeeper_commerce_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['links'] = FALSE;
+  /* Relationship: Content: Referenced products */
+  $handler->display->display_options['relationships']['field_product_product_id']['id'] = 'field_product_product_id';
+  $handler->display->display_options['relationships']['field_product_product_id']['table'] = 'field_data_field_product';
+  $handler->display->display_options['relationships']['field_product_product_id']['field'] = 'field_product_product_id';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -786,10 +790,18 @@ function beekeeper_commerce_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'product_display' => 'product_display',
   );
+  /* Filter criterion: Commerce Product: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'nucleus_colony' => 'nucleus_colony',
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'nucleus-colonies';
+  $handler->display->display_options['path'] = 'product/nucleus-colonies';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Nucleus colonies';
   $handler->display->display_options['menu']['name'] = 'devel';

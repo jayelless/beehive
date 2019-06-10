@@ -29,7 +29,7 @@ function beekeeper_custom_rules_condition_info() {
  */
 function beekeeper_custom_rules_condition_send_renewal_notifications() {
   $today = date('z');
-  $renewal_date = date('z', strtotime("1 June this year"));
+  $renewal_date = date('z', strtotime("11 June this year"));
   if($today==$renewal_date){
     if(strcmp(variable_get('renewal_notifications_sent'), 'true')!=0){
       variable_set('renewal_notifications_sent', 'true');

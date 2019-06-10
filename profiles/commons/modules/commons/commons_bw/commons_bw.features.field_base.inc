@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_bw.features.field_base.inc
@@ -11,16 +10,13 @@
 function commons_bw_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'title_field'.
+  // Exported field_base: 'title_field'
   $field_bases['title_field'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'title_field',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',

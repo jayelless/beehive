@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_polls.features.user_permission.inc

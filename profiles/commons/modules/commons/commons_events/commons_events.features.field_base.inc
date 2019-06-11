@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_events.features.field_base.inc
@@ -11,7 +10,7 @@
 function commons_events_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_date'.
+  // Exported field_base: 'field_date'
   $field_bases['field_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -40,7 +39,7 @@ function commons_events_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_location'.
+  // Exported field_base: 'field_location'
   $field_bases['field_location'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -66,7 +65,7 @@ function commons_events_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_logo'.
+  // Exported field_base: 'field_logo'
   $field_bases['field_logo'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -88,7 +87,7 @@ function commons_events_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_number_of_attendees'.
+  // Exported field_base: 'field_number_of_attendees'
   $field_bases['field_number_of_attendees'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -103,7 +102,7 @@ function commons_events_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_offsite_url'.
+  // Exported field_base: 'field_offsite_url'
   $field_bases['field_offsite_url'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -124,7 +123,7 @@ function commons_events_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_organizers'.
+  // Exported field_base: 'field_organizers'
   $field_bases['field_organizers'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -157,7 +156,7 @@ function commons_events_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_registration'.
+  // Exported field_base: 'field_registration'
   $field_bases['field_registration'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -176,7 +175,7 @@ function commons_events_field_default_field_bases() {
     'type' => 'registration',
   );
 
-  // Exported field_base: 'field_registration_type'.
+  // Exported field_base: 'field_registration_type'
   $field_bases['field_registration_type'] = array(
     'active' => 1,
     'cardinality' => 1,

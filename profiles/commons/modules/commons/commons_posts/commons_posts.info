@@ -1,20 +1,14 @@
 name = Commons Posts
 description = Provides a Post content type for creating blog, article or general status updates.
-core = 7.x
 package = Commons - Content types
-version = 7.x-3.50
-project = commons
+core = 7.x
+
 dependencies[] = commons_body
-dependencies[] = commons_follow
-dependencies[] = commons_media
-dependencies[] = commons_radioactivity
 dependencies[] = commons_topics
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
-dependencies[] = file_entity
-dependencies[] = media
 dependencies[] = message
 dependencies[] = node
 dependencies[] = og
@@ -25,13 +19,12 @@ dependencies[] = taxonomy
 dependencies[] = text
 dependencies[] = views
 dependencies[] = views_litepager
-datestamp = 1525879535
+
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_instance][] = message-commons_posts_post_created-field_target_nodes
 features[field_instance][] = node-post-body
-features[field_instance][] = node-post-field_media
 features[message_type][] = commons_posts_post_created
 features[node][] = post
 features[og_features_permission][] = node:group:create post content
@@ -59,22 +52,11 @@ features[variable][] = node_options_post
 features[variable][] = node_preview_post
 features[variable][] = node_submitted_post
 features[views_view][] = commons_bw_posts
+
 features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
-features_exclude[dependencies][commons_bw] = commons_bw
-features_exclude[field_base][field_target_nodes] = field_target_nodes
-features_exclude[field_base][body] = body
-features_exclude[field_base][field_topics] = field_topics
-features_exclude[field_base][group_content_access] = group_content_access
-features_exclude[field_base][og_group_ref] = og_group_ref
-features_exclude[field_base][title_field] = title_field
-features_exclude[field_base][field_media] = field_media
-features_exclude[field_base][field_radioactivity] = field_radioactivity
-features_exclude[field_base][og_user_group_ref] = og_user_group_ref
-features_exclude[field_instance][node-post-field_radioactivity] = node-post-field_radioactivity
-features_exclude[field_instance][node-post-field_topics] = node-post-field_topics
-features_exclude[field_instance][node-post-group_content_access] = node-post-group_content_access
-features_exclude[field_instance][node-post-og_group_ref] = node-post-og_group_ref
-features_exclude[field_instance][node-post-og_user_group_ref] = node-post-og_user_group_ref
-features_exclude[field_instance][node-post-title_field] = node-post-title_field
-features_exclude[taxonomy][topics] = topics
-project path = sites/default/files/features
+
+; Information added by Drupal.org packaging script on 2018-05-09
+version = "7.x-3.50"
+core = "7.x"
+project = "commons"
+datestamp = "1525879535"

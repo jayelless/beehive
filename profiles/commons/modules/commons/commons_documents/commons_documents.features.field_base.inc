@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_documents.features.field_base.inc
@@ -11,7 +10,7 @@
 function commons_documents_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_document_file'.
+  // Exported field_base: 'field_document_file'
   $field_bases['field_document_file'] = array(
     'active' => 1,
     'cardinality' => -1,

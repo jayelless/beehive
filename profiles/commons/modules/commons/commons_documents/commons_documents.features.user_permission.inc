@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_documents.features.user_permission.inc

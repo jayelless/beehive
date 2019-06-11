@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_events.strongarm.inc

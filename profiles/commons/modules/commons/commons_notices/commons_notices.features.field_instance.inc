@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_notices.features.field_instance.inc
@@ -11,11 +10,11 @@
 function commons_notices_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-notice-body'.
+  // Exported field_instance: 'node-notice-body'
   $field_instances['node-notice-body'] = array(
     'bundle' => 'notice',
     'default_value' => NULL,
-    'deleted' => 0,
+    'deleted' => '0',
     'description' => '',
     'display' => array(
       'default' => array(
@@ -24,12 +23,6 @@ function commons_notices_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => -49,
-      ),
-      'notifications' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -47,8 +40,6 @@ function commons_notices_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => FALSE,
-      'membership_entity_join_form' => FALSE,
-      'membership_entity_term_renew_form' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_radioactivity.features.field_base.inc
@@ -11,7 +10,7 @@
 function commons_radioactivity_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_radioactivity'.
+  // Exported field_base: 'field_radioactivity'
   $field_bases['field_radioactivity'] = array(
     'active' => 1,
     'cardinality' => 1,

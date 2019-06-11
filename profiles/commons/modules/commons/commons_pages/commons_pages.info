@@ -1,21 +1,18 @@
 name = Commons Pages
 description = Provides a Page content type for creating static content.
-core = 7.x
 package = Commons - Content types
-version = 7.x-3.50
-project = commons
+core = 7.x
+
 dependencies[] = commons_body
 dependencies[] = ctools
 dependencies[] = features
-dependencies[] = file
+dependencies[] = node
 dependencies[] = strongarm
 dependencies[] = text
-datestamp = 1525879535
+
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
-features[field_base][] = field_attachment
 features[field_instance][] = node-page-body
-features[field_instance][] = node-page-field_attachment
 features[node][] = page
 features[variable][] = comment_anonymous_page
 features[variable][] = comment_default_mode_page
@@ -24,15 +21,15 @@ features[variable][] = comment_form_location_page
 features[variable][] = comment_page
 features[variable][] = comment_preview_page
 features[variable][] = comment_subject_field_page
-features[variable][] = field_bundle_settings_node__page
 features[variable][] = menu_options_page
 features[variable][] = menu_parent_page
 features[variable][] = node_options_page
 features[variable][] = node_preview_page
 features[variable][] = node_submitted_page
 features[variable][] = pathauto_node_page_pattern
-features_exclude[dependencies][commons_bw] = commons_bw
-features_exclude[field_base][body] = body
-features_exclude[field_base][title_field] = title_field
-features_exclude[field_instance][node-page-title_field] = node-page-title_field
-project path = sites/default/files/features
+
+; Information added by Drupal.org packaging script on 2018-05-09
+version = "7.x-3.50"
+core = "7.x"
+project = "commons"
+datestamp = "1525879535"

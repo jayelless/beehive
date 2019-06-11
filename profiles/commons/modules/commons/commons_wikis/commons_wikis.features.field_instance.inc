@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_wikis.features.field_instance.inc
@@ -11,8 +10,7 @@
 function commons_wikis_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance:
-  // 'message-commons_wikis_wiki_updated-field_target_nodes'.
+  // Exported field_instance: 'message-commons_wikis_wiki_updated-field_target_nodes'
   $field_instances['message-commons_wikis_wiki_updated-field_target_nodes'] = array(
     'bundle' => 'commons_wikis_wiki_updated',
     'default_value' => NULL,
@@ -49,8 +47,6 @@ function commons_wikis_field_default_field_instances() {
           'status' => 0,
         ),
       ),
-      'membership_entity_join_form' => FALSE,
-      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -66,7 +62,7 @@ function commons_wikis_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-wiki-body'.
+  // Exported field_instance: 'node-wiki-body'
   $field_instances['node-wiki-body'] = array(
     'bundle' => 'wiki',
     'default_value' => NULL,
@@ -79,12 +75,6 @@ function commons_wikis_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => -49,
-      ),
-      'notifications' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -103,8 +93,6 @@ function commons_wikis_field_default_field_instances() {
     'required' => 1,
     'settings' => array(
       'display_summary' => 0,
-      'membership_entity_join_form' => FALSE,
-      'membership_entity_term_renew_form' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_site_homepage.features.inc

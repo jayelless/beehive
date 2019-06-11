@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_notices.strongarm.inc

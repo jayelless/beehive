@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_documents.features.field_instance.inc
@@ -11,7 +10,7 @@
 function commons_documents_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-document-body'.
+  // Exported field_instance: 'node-document-body'
   $field_instances['node-document-body'] = array(
     'bundle' => 'document',
     'default_value' => NULL,
@@ -24,12 +23,6 @@ function commons_documents_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => -49,
-      ),
-      'notifications' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -48,8 +41,6 @@ function commons_documents_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => FALSE,
-      'membership_entity_join_form' => FALSE,
-      'membership_entity_term_renew_form' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -64,7 +55,7 @@ function commons_documents_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-document-field_document_file'.
+  // Exported field_instance: 'node-document-field_document_file'
   $field_instances['node-document-field_document_file'] = array(
     'bundle' => 'document',
     'deleted' => 0,
@@ -76,12 +67,6 @@ function commons_documents_field_default_field_instances() {
         'settings' => array(),
         'type' => 'file_default',
         'weight' => -48,
-      ),
-      'notifications' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -100,24 +85,12 @@ function commons_documents_field_default_field_instances() {
       'file_directory' => '',
       'file_extensions' => 'txt doc docx xls xlsx ppt pptx odt odp ods pdf',
       'max_filesize' => '',
-      'membership_entity_join_form' => FALSE,
-      'membership_entity_term_renew_form' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'file',
       'settings' => array(
-        'insert' => 0,
-        'insert_absolute' => FALSE,
-        'insert_class' => '',
-        'insert_default' => array(
-          0 => 'auto',
-        ),
-        'insert_styles' => array(
-          0 => 'auto',
-        ),
-        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',

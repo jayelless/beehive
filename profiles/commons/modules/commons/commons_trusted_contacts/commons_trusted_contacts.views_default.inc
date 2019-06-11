@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_trusted_contacts.views_default.inc

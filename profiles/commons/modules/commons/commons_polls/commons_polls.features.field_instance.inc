@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_polls.features.field_instance.inc
@@ -11,7 +10,7 @@
 function commons_polls_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-poll-body'.
+  // Exported field_instance: 'node-poll-body'
   $field_instances['node-poll-body'] = array(
     'bundle' => 'poll',
     'default_value' => NULL,
@@ -24,12 +23,6 @@ function commons_polls_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => -49,
-      ),
-      'notifications' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -48,8 +41,6 @@ function commons_polls_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
-      'membership_entity_join_form' => FALSE,
-      'membership_entity_term_renew_form' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),

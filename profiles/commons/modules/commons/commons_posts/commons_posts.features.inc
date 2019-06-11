@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_posts.features.inc
@@ -50,7 +49,8 @@ function commons_posts_default_message_type() {
           "format" : "filtered_html"
         }
       ]
-    }
+    },
+    "rdf_mapping" : []
   }');
   return $items;
 }
@@ -69,6 +69,5 @@ function commons_posts_node_info() {
       'help' => '',
     ),
   );
-  drupal_alter('node_info', $items);
   return $items;
 }

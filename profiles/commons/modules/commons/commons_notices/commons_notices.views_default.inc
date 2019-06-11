@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_notices.views_default.inc
@@ -68,7 +67,7 @@ function commons_notices_views_default_views() {
   $handler->display->display_options['arguments']['gid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['gid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['gid']['summary_options']['items_per_page'] = '25';
-  /* Filter criterion: Content: Published status */
+  /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -89,6 +88,29 @@ function commons_notices_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Latest Notices';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $translatables['commons_notices_latest_notices'] = array(
+    t('Master'),
+    t('Community Notices'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('There are no results.'),
+    t('OG membership from node'),
+    t('Post date'),
+    t('All'),
+    t('Latest Notices Block'),
+    t('Latest Notices'),
+  );
   $export['commons_notices_latest_notices'] = $view;
 
   return $export;

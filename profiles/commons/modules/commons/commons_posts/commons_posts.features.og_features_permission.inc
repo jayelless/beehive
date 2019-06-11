@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * commons_posts.features.og_features_permission.inc

@@ -7,13 +7,19 @@
  * @return DateObject  The amended end date.
  */
 function beekeeper_custom_membership_entity_term_end_date_alter(DateObject &$end, MembershipEntityTerm &$term){
-  // Temp - if this is a dummy membership (type = "membership")
-  // then make the end date 31 May this year
-  if ($term->membership_entity_type == 'membership') {
-    $end = new DateObject(strtotime("31 May this year, 23:59:59"), new DateTimezone($term->timezone));
+  // For new memberships, make the membership term end on 31st May next year (which will give a year and a bit for new
+  // memberships starting after 1st January), otherwise the term ends on then next 31st May.
+  $membership = membership_entity_load($term->mid);
+  $latest_term = end($membership->terms);
+  if (empty($latest_term)) {
+    $end = new DateObject(strtotime("01 June next year, 00:00:00"), new DateTimezone($term->timezone));
   }
   else {
-    $end = new DateObject(strtotime("31 May next year, 23:59:59"), new DateTimezone($term->timezone));
+    $now = new DateObject('now', 'UTC');
+    $end = new DateObject($latest_term->end, 'UTC');
+    while ($end < $now) {
+      $end = _membership_entity_term_modify_date($end, $term->term);
+    }
   }
 }
 
@@ -24,32 +30,29 @@ function beekeeper_custom_membership_entity_term_end_date_alter(DateObject &$end
  * @return DateObject  The amended start date.
  */
 function beekeeper_custom_membership_entity_term_start_date_alter(DateObject &$start, MembershipEntityTerm &$term){
-  // Temp - if this is a dummy membership (type = "membership")
-  // then make the start date 31 May this year
-  if ($term->membership_entity_type == 'membership') {
-    $start = new DateObject(strtotime("31 May this year, 00:00:00"), new DateTimezone($term->timezone));
-  }
-  else {
-    // Find the beginning of the current membership year.  Go back to last year
-    // if now is between 01 Jan and 31 May.
-    $begin = new DateObject(strtotime("01 June this year, 00:00:00"), new DateTimezone($term->timezone));
-    if ($begin > new DateObject(strtotime("now"), new DateTimezone($term->timezone))) {
-      $begin = new DateObject(strtotime("01 June last year, 00:00:00"), new DateTimezone($term->timezone));
-    }
-    // Current membership term cannot start before the beginning of the year.
-    if ($start < $begin) {
-      $start = $begin;
-    }
-    // If membership is being renewed within grace period, then set start to
-    // beginning of membership year.
-    if ($term->is_renewal) {
-      $grace = clone $begin;
-      $grace->add(new DateInterval('P2M'));
-      if ($start < $grace) {
-        $start = $begin;
+  // Set the start date to the end of the last term if renewal is within the grace period, otherwise
+  // the start date remains set to the current date/time.
+  if (!empty($term->is_renewal)) {
+    $membership = membership_entity_load($term->mid);
+    $bundle_settings = membership_entity_get_bundle_settings($membership->type);
+    $latest_term = end($membership->terms);
+
+    if (!empty($latest_term)) {
+      $grace = new DateObject($latest_term->end, 'UTC');
+
+      // Check for grace period and add to the end of the last term.
+      if (preg_match(MEMBERSHIP_ENTITY_TERM_LENGTH_REGEX, $bundle_settings['grace_period'])) {
+        $grace = _membership_entity_term_modify_date($grace, $bundle_settings['grace_period']);
+      }
+
+      // If the renewal is within the grace period there is no lapse in
+      // membership terms. The new term starts when the old term ended.
+      if ($grace > $start) {
+        $start = new DateObject($latest_term->end, 'UTC');
       }
     }
   }
+
 }
 
 /**

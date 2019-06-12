@@ -954,7 +954,7 @@ function commons_beehive_links($variables) {
   global $language_url;
   $output = '';
 
-  if (count($links) > 0) {
+  if (!empty($links)) {
     $output = '';
 
     // Treat the heading first if it is present to prepend it to the

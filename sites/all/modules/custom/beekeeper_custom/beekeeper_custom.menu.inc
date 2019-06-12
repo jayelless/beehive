@@ -36,7 +36,8 @@ function beekeeper_custom_menu_renew_membership() {
       // Check if user has a membership type that can be renewed
       if ($type == 'standard_membership' || $type =='junior_membership') {
         $sql = 'SELECT id,status FROM {membership_entity_term} WHERE mid = :mid ORDER BY id DESC LIMIT 1';
-        $term = reset(db_query($sql, array(':mid' => $mid))->fetchAll());
+        $terms = db_query($sql, array(':mid' => $mid))->fetchAll();
+        $term = reset($terms);
         $month_day = date('md');
         if ($term->status == 0 ||  $month_day >= variable_get('beekeeper-membership-renewal-open','0531')) {
           drupal_goto('membership/' . $mid . '/renew');

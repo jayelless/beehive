@@ -167,14 +167,16 @@ function beekeeper_custom_block_view($delta = '') {
  * Add the user's postal address as the default address in the billing pane
  */
 function beekeeper_custom_form_commerce_checkout_form_checkout_alter(&$form, &$form_state) {
-  $account = user_load_by_mail($form['account']['login']['mail']['#default_value']);
-  if (isset($account->field_postal_address) && !empty($account->field_postal_address)) {
-    // Loop thru user address values and add them as default values
-    $langcode = NULL;
-    $langcode = is_null($langcode) ? LANGUAGE_NONE : $langcode;
-    foreach ($account->field_postal_address[$langcode][0] as $key => $value) {
-      if (isset($form['customer_profile_billing']['commerce_customer_address'][$langcode][0]['#address'][$key])) {
-        $form['customer_profile_billing']['commerce_customer_address'][$langcode][0]['#address'][$key] = $value;
+  if (isset($form['account']['login']['mail']['#default_value'])) {
+    $account = user_load_by_mail($form['account']['login']['mail']['#default_value']);
+    if (isset($account->field_postal_address) && !empty($account->field_postal_address)) {
+      // Loop thru user address values and add them as default values
+      $langcode = NULL;
+      $langcode = is_null($langcode) ? LANGUAGE_NONE : $langcode;
+      foreach ($account->field_postal_address[$langcode][0] as $key => $value) {
+        if (isset($form['customer_profile_billing']['commerce_customer_address'][$langcode][0]['#address'][$key])) {
+          $form['customer_profile_billing']['commerce_customer_address'][$langcode][0]['#address'][$key] = $value;
+        }
       }
     }
   }

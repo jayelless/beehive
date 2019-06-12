@@ -76,3 +76,50 @@ function beekeeper_custom_update_7003(&$sandbox) {
   return t('Processed @num lifetime membership terms', array('@num' => $num));
 
 }
+
+/**
+ * Restore user membership roles
+ */
+function beekeeper_custom_update_7004(&$sandbox) {
+  // Initialise the batch functions
+  $sql = " FROM {membership_entity} me LEFT JOIN {membership_entity_term} met ON met.mid = me.mid";
+  $sql .= " WHERE me.type IN ('standard_membership','junior_membership') AND met.end = '2019-05-31 12:00:00'";
+
+  if (!isset($sandbox['total'])) {
+
+    $sandbox['total'] = db_query('SELECT COUNT(me.uid)' . $sql)->fetchField();
+    $sandbox['count'] = 0;
+    $sandbox['last'] = 0;
+  }
+
+  $sql .= ' AND me.uid > :last ORDER BY me.uid LIMIT 100';
+  $results = db_query('SELECT me.uid, me.type' . $sql, array(':last' => $sandbox['last']))->fetchAll();
+
+  $standard_role = user_role_load_by_name('Standard member');
+  $junior_role = user_role_load_by_name('Junior member');
+
+  foreach ($results as $result) {
+    if ($result->type == 'standard_membership') {
+      $new_role = array($standard_role->rid => $standard_role->name);
+    }
+    else {
+      $new_role = array($junior_role->rid => $junior_role->name);
+    }
+    $account = user_load($result->uid);
+    $account->roles = $account->roles + $new_role;
+    user_save($account);
+
+    $sandbox['last'] = $result->uid;
+    $sandbox['count']++;
+  }
+
+  if ($sandbox['count'] < $sandbox['total']) {
+    $sandbox['#finished'] = round($sandbox['count'] / $sandbox['total'], 2);
+    if ($sandbox['#finished'] > 0.99) { $sandbox['#finished'] = 0.99; }
+    return;
+  }
+
+  watchdog('beekeeper', 'Processed @num accounts for restoration of membership roles',
+    array('@num' => $sandbox['total']), WATCHDOG_INFO);
+
+}

@@ -16,7 +16,7 @@ function notifications_admin_manage_subscriptions($form, &$form_state) {
   }
   $form['filter'] = notifications_manage_subscriptions_filter_form(TRUE);
   $form['#submit'][] = 'notifications_manage_subscriptions_filter_form_submit';
-  $form['#theme'] = 'notifications_manage_subscriptions_filter_form';
+  //$form['#theme'] = 'notifications_manage_subscriptions_filter_form';
   $form['admin']  = notifications_manage_subscriptions_form();
 
   return $form;

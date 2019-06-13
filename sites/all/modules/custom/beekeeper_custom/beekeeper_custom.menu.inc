@@ -31,7 +31,8 @@ function beekeeper_custom_menu_renew_membership() {
     $result = db_query($sql, array(':uid' => $user->uid))->fetchAllKeyed();
     if ($result) {
         // Use the latest membership is available
-       $mid = reset(array_keys($result));
+       $mids = array_keys($result);
+       $mid = reset($mids);
        $type = reset($result);
       // Check if user has a membership type that can be renewed
       if ($type == 'standard_membership' || $type =='junior_membership') {

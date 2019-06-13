@@ -1,0 +1,16 @@
+diff --git a/membership_entity.module b/membership_entity.module
+index f77064f..14a6de8 100644
+--- a/membership_entity.module
++++ b/membership_entity.module
+@@ -1027,7 +1027,10 @@ function membership_entity_member_select_process($element, &$form_state, $comple
+   $multiple = ($element['#cardinality'] > 1 || $element['#cardinality'] == FIELD_CARDINALITY_UNLIMITED);
+   $wrapper_id = drupal_html_id($element['#id'] . '-add-more-wrapper');
+ 
+-  if (empty($form_state['items_count'][$element['#name']])) {
++  // Store a count in $form_state for each of the member select elements,
++  // but do not include elements with a value of FALSE (eg Membership
++  // registration forms for non-members).
++  if ($element['#value'] !== FALSE && empty($form_state['items_count'][$element['#name']])) {
+     $form_state['items_count'][$element['#name']] = count($element['#value']);
+   }
+ 

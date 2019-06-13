@@ -80,6 +80,7 @@ Contrib Modules
 10 May 2018: membership_entity-load-lifetime-terms-2512704-1-D7.patch
 10 May 2018: membership_entity-2512704-lifetime-memberships-4.patch
 10 May 2018: membership_entity-2471859-set-default-data-6.patch
+13 Jun 2019: issue-3041952-2-php_warning_count.patch
 
 === memcache ===
 >>> 7.x-1.6

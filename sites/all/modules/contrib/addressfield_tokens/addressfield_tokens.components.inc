@@ -405,7 +405,11 @@ function _webform_csv_headers_addressfield($component, $export_options) {
     $header[0] = array();
     $header[1] = array();
     $header[2] = array();
-    foreach (addressfield_tokens_property_names() as $key => $name) {
+    $properties = addressfield_tokens_property_names();
+    // Ugly alter to let others decide which columns to include.
+    // @TODO this should be a config option.
+    drupal_alter('addressfield_tokens_download', $properties);
+    foreach ($properties as $key => $name) {
       $header[0][] = '';
       $header[1][] = (empty($header[1])) ? $component['name'] : '';
       $header[2][] = $name;
@@ -443,7 +447,11 @@ function _webform_csv_data_addressfield($component, $export_options, $value) {
   if (!empty($component['extra']['csv_separate']) && $component['extra']['csv_separate'] == 1) {
     // Each address component should be in a separate column.
     $return = array();
-    foreach (addressfield_tokens_property_names() as $key => $name) {
+    $properties = addressfield_tokens_property_names();
+    // Ugly alter to let others decide which columns to include.
+    // @TODO this should be a config option.
+    drupal_alter('addressfield_tokens_download', $properties);
+    foreach ($properties as $key => $name) {
       $return[] = (isset($address[$key])) ? $address[$key] : '';
     }
     return $return;
@@ -474,3 +482,47 @@ function _addressfield_tokens_expand_value($value) {
   return FALSE;
 }
 
+/**
+ * Implements _form_builder_webform_form_builder_types_component().
+ */
+function _form_builder_webform_form_builder_types_addressfield() {
+  drupal_add_css(drupal_get_path('module', 'addressfield_tokens') . '/addressfield_tokens.css');
+
+  $fields = array();
+
+  $component['name'] = t('New address');
+  $fields['addressfield'] = array(
+    'title' => t('Address'),
+    'default' => _form_builder_webform_default('addressfield', array(), $component),
+    'weight' => 0,
+  );
+
+  return $fields;
+}
+
+/**
+ * Implements _form_builder_webform_form_builder_map_component().
+ */
+function _form_builder_webform_form_builder_map_addressfield() {
+  return array(
+    'form_builder_type' => 'addressfield',
+    'properties' => array(
+      'available_countries' => array(
+        'form_parents' => array('extra', 'available_countries'),
+        'storage_parents' => array('extra', 'available_countries'),
+      ),
+      'default_country' => array(
+        'form_parents' => array('extra', 'default_country'),
+        'storage_parents' => array('extra', 'default_country'),
+      ),
+      'format_handlers' => array(
+        'form_parents' => array('extra', 'format_handlers'),
+        'storage_parents' => array('extra', 'format_handlers'),
+      ),
+      'csv_separate' => array(
+        'form_parents' => array('extra', 'csv_separate'),
+        'storage_parents' => array('extra', 'csv_separate'),
+      ),
+    ),
+  );
+}

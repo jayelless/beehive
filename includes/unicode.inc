@@ -479,10 +479,6 @@ function decode_entities($text) {
 function drupal_strlen($text) {
   global $multibyte;
   if ($multibyte == UNICODE_MULTIBYTE) {
-    // JLS debug code
-    if (is_array($text)) {
-      watchdog('beekeeper', 'Array in drupal_strlen: %text', array('%text' => print_r($text, TRUE)), WATCHDOG_DEBUG);
-    }
     return mb_strlen($text);
   }
   else {

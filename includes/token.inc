@@ -99,13 +99,6 @@ function token_replace($text, array $data = array(), array $options = array()) {
   $tokens = array_keys($replacements);
   $values = array_values($replacements);
 
-  // JLS Debug code
-  foreach ($replacements as $token => $value) {
-    if (is_array($token) || is_array($value)) {
-      watchdog('beekeeper', 'Arrays in token replacement: %token => %value', array('%token' => print_r($token, TRUE), '%value' => print_r($value, TRUE)), WATCHDOG_DEBUG);
-    }
-  }
-
   return str_replace($tokens, $values, $text);
 }
 

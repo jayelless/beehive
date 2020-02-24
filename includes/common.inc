@@ -760,9 +760,10 @@ function drupal_access_denied() {
  *   (optional) An array that can have one or more of the following elements:
  *   - headers: An array containing request headers to send as name/value pairs.
  *   - method: A string containing the request method. Defaults to 'GET'.
- *   - data: A string containing the request body, formatted as
- *     'param=value&param=value&...'; to generate this, use http_build_query().
- *     Defaults to NULL.
+ *   - data: An array containing the values for the request body or a string
+ *     containing the request body, formatted as
+ *     'param=value&param=value&...'; to generate this, use
+ *     drupal_http_build_query(). Defaults to NULL.
  *   - max_redirects: An integer representing how many times a redirect
  *     may be followed. Defaults to 3.
  *   - timeout: A float representing the maximum number of seconds the function
@@ -788,7 +789,7 @@ function drupal_access_denied() {
  *     easy access the array keys are returned in lower case.
  *   - data: A string containing the response body that was received.
  *
- * @see http_build_query()
+ * @see drupal_http_build_query()
  */
 function drupal_http_request($url, array $options = array()) {
   // Allow an alternate HTTP client library to replace Drupal's default
@@ -928,6 +929,11 @@ function drupal_http_request($url, array $options = array()) {
   $path = isset($uri['path']) ? $uri['path'] : '/';
   if (isset($uri['query'])) {
     $path .= '?' . $uri['query'];
+  }
+
+  // Convert array $options['data'] to query string.
+  if (is_array($options['data'])) {
+    $options['data'] = drupal_http_build_query($options['data']);
   }
 
   // Only add Content-Length if we actually have any content or if it is a POST
@@ -1599,8 +1605,6 @@ function _filter_xss_attributes($attr) {
   $attrarr = array();
   $mode = 0;
   $attrname = '';
-  $skip = FALSE;
-  $skip_protocol_filtering = FALSE;
 
   while (strlen($attr) != 0) {
     // Was the last operation successful?
@@ -1612,20 +1616,6 @@ function _filter_xss_attributes($attr) {
         if (preg_match('/^([-a-zA-Z]+)/', $attr, $match)) {
           $attrname = strtolower($match[1]);
           $skip = ($attrname == 'style' || substr($attrname, 0, 2) == 'on');
-
-          // Values for attributes of type URI should be filtered for
-          // potentially malicious protocols (for example, an href-attribute
-          // starting with "javascript:"). However, for some non-URI
-          // attributes performing this filtering causes valid and safe data
-          // to be mangled. We prevent this by skipping protocol filtering on
-          // such attributes.
-          // @see filter_xss_bad_protocol()
-          // @see http://www.w3.org/TR/html4/index/attributes.html
-          $skip_protocol_filtering = substr($attrname, 0, 5) === 'data-' || in_array($attrname, array(
-            'title',
-            'alt',
-          ));
-
           $working = $mode = 1;
           $attr = preg_replace('/^[-a-zA-Z]+/', '', $attr);
         }
@@ -1651,7 +1641,7 @@ function _filter_xss_attributes($attr) {
       case 2:
         // Attribute value, a URL after href= for instance.
         if (preg_match('/^"([^"]*)"(\s+|$)/', $attr, $match)) {
-          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
+          $thisval = filter_xss_bad_protocol($match[1]);
 
           if (!$skip) {
             $attrarr[] = "$attrname=\"$thisval\"";
@@ -1663,7 +1653,7 @@ function _filter_xss_attributes($attr) {
         }
 
         if (preg_match("/^'([^']*)'(\s+|$)/", $attr, $match)) {
-          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
+          $thisval = filter_xss_bad_protocol($match[1]);
 
           if (!$skip) {
             $attrarr[] = "$attrname='$thisval'";
@@ -1674,7 +1664,7 @@ function _filter_xss_attributes($attr) {
         }
 
         if (preg_match("%^([^\s\"']+)(\s+|$)%", $attr, $match)) {
-          $thisval = $skip_protocol_filtering ? $match[1] : filter_xss_bad_protocol($match[1]);
+          $thisval = filter_xss_bad_protocol($match[1]);
 
           if (!$skip) {
             $attrarr[] = "$attrname=\"$thisval\"";
@@ -1735,33 +1725,6 @@ function filter_xss_bad_protocol($string, $decode = TRUE) {
     $string = decode_entities($string);
   }
   return check_plain(drupal_strip_dangerous_protocols($string));
-}
-
-/**
- * Applies a very permissive XSS/HTML filter to data-attributes.
- *
- * @param string $html
- *   The string to apply the data-attributes filtering to.
- *
- * @return string
- *   The filtered string.
- */
-function filter_xss_data_attributes($html) {
-  if (stristr($html, 'data-') !== FALSE) {
-    $dom = filter_dom_load($html);
-    $xpath = new \DOMXPath($dom);
-    foreach ($xpath->query('//@*[starts-with(name(.), "data-")]') as $node) {
-      // The data-attributes contain an HTML-encoded value, so we need to
-      // decode the value, apply XSS filtering and then re-save as encoded
-      // value. There is no need to explicitly decode $node->value, since the
-      // DOMAttr::value getter returns the decoded value.
-      $value = filter_xss_admin($node->value);
-      $node->value = check_plain($value);
-    }
-    $html = filter_dom_serialize($dom);
-  }
-
-  return $html;
 }
 
 /**
@@ -2677,7 +2640,7 @@ function drupal_deliver_page($page_callback_result, $default_delivery_callback =
   $delivery_callback = !empty($default_delivery_callback) ? $default_delivery_callback : 'drupal_deliver_html_page';
   // Give modules a chance to alter the delivery callback used, based on
   // request-time context (e.g., HTTP request headers).
-  drupal_alter('page_delivery_callback', $delivery_callback, $page_callback_result);
+  drupal_alter('page_delivery_callback', $delivery_callback);
   if (function_exists($delivery_callback)) {
     $delivery_callback($page_callback_result);
   }
@@ -4484,12 +4447,54 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
     }
   }
 
-  $output = '';
-  // The index counter is used to keep aggregated and non-aggregated files in
-  // order by weight.
-  $index = 1;
-  $processed = array();
-  $files = array();
+  // Sort the JavaScript so that it appears in the correct order.
+  uasort($items, 'drupal_sort_css_js');
+
+  // Provide the page with information about the individual JavaScript files
+  // used, information not otherwise available when aggregation is enabled.
+  $setting['ajaxPageState']['js'] = array_fill_keys(array_keys($items), 1);
+  unset($setting['ajaxPageState']['js']['settings']);
+  drupal_add_js($setting, 'setting');
+
+  // If we're outputting the header scope, then this might be the final time
+  // that drupal_get_js() is running, so add the setting to this output as well
+  // as to the drupal_add_js() cache. If $items['settings'] doesn't exist, it's
+  // because drupal_get_js() was intentionally passed a $javascript argument
+  // stripped off settings, potentially in order to override how settings get
+  // output, so in this case, do not add the setting to this output.
+  if ($scope == 'header' && isset($items['settings'])) {
+    $items['settings']['data'][] = $setting;
+  }
+
+  $elements = array(
+    '#type' => 'scripts',
+    '#items' => $items,
+  );
+
+  return drupal_render($elements);
+}
+
+/**
+ * The #pre_render callback for the "scripts" element.
+ *
+ * This callback adds elements needed for <script> tags to be rendered.
+ *
+ * @param array $elements
+ *   A render array containing:
+ *   - '#items': The JS items as returned by drupal_add_js() and altered by
+ *     drupal_get_js().
+ *
+ * @return array
+ *   The $elements variable passed as argument with two more children keys:
+ *     - "scripts": contains the Javascript items
+ *     - "settings": contains the Javascript settings items.
+ *   If those keys are already existing, then the items will be appended and
+ *   their keys will be preserved.
+ *
+ * @see drupal_get_js()
+ * @see drupal_add_js()
+ */
+function drupal_pre_render_scripts(array $elements) {
   $preprocess_js = (variable_get('preprocess_js', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update'));
 
   // A dummy query-string is added to filenames, to gain control over
@@ -4510,68 +4515,60 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
   // third-party code might require the use of a different query string.
   $js_version_string = variable_get('drupal_js_version_query_string', 'v=');
 
-  // Sort the JavaScript so that it appears in the correct order.
-  uasort($items, 'drupal_sort_css_js');
+  $files = array();
 
-  // Provide the page with information about the individual JavaScript files
-  // used, information not otherwise available when aggregation is enabled.
-  $setting['ajaxPageState']['js'] = array_fill_keys(array_keys($items), 1);
-  unset($setting['ajaxPageState']['js']['settings']);
-  drupal_add_js($setting, 'setting');
+  $scripts = isset($elements['scripts']) ? $elements['scripts'] : array();
+  $scripts += array('#weight' => 0);
 
-  // If we're outputting the header scope, then this might be the final time
-  // that drupal_get_js() is running, so add the setting to this output as well
-  // as to the drupal_add_js() cache. If $items['settings'] doesn't exist, it's
-  // because drupal_get_js() was intentionally passed a $javascript argument
-  // stripped off settings, potentially in order to override how settings get
-  // output, so in this case, do not add the setting to this output.
-  if ($scope == 'header' && isset($items['settings'])) {
-    $items['settings']['data'][] = $setting;
-  }
+  $settings = isset($elements['settings']) ? $elements['settings'] : array();
+  $settings += array('#weight' => $scripts['#weight'] + 10);
+
+  // The index counter is used to keep aggregated and non-aggregated files in
+  // order by weight. Use existing scripts count as a starting point.
+  $index = count(element_children($scripts)) + 1;
 
   // Loop through the JavaScript to construct the rendered output.
   $element = array(
+    '#type' => 'html_tag',
     '#tag' => 'script',
     '#value' => '',
     '#attributes' => array(
       'type' => 'text/javascript',
     ),
   );
-  foreach ($items as $item) {
+
+  foreach ($elements['#items'] as $item) {
     $query_string =  empty($item['version']) ? $default_query_string : $js_version_string . $item['version'];
 
     switch ($item['type']) {
       case 'setting':
         $js_element = $element;
-        $js_element['#attributes'] = !empty($item['attributes']) ? $item['attributes'] : array();
         $js_element['#value_prefix'] = $embed_prefix;
         $js_element['#value'] = 'jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($item['data'])) . ");";
         $js_element['#value_suffix'] = $embed_suffix;
-        $output .= theme('html_tag', array('element' => $js_element));
+        $settings[] = $js_element;
         break;
 
       case 'inline':
         $js_element = $element;
-        $js_element['#attributes'] = !empty($item['attributes']) ? $item['attributes'] : array();
         if ($item['defer']) {
           $js_element['#attributes']['defer'] = 'defer';
         }
         $js_element['#value_prefix'] = $embed_prefix;
         $js_element['#value'] = $item['data'];
         $js_element['#value_suffix'] = $embed_suffix;
-        $processed[$index++] = theme('html_tag', array('element' => $js_element));
+        $scripts[$index++] = $js_element;
         break;
 
       case 'file':
         $js_element = $element;
-        $js_element['#attributes'] = !empty($item['attributes']) ? $item['attributes'] : array();
         if (!$item['preprocess'] || !$preprocess_js) {
           if ($item['defer']) {
             $js_element['#attributes']['defer'] = 'defer';
           }
           $query_string_separator = (strpos($item['data'], '?') !== FALSE) ? '&' : '?';
           $js_element['#attributes']['src'] = file_create_url($item['data']) . $query_string_separator . ($item['cache'] ? $query_string : REQUEST_TIME);
-          $processed[$index++] = theme('html_tag', array('element' => $js_element));
+          $scripts[$index++] = $js_element;
         }
         else {
           // By increasing the index for each aggregated file, we maintain
@@ -4582,7 +4579,7 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
           // leading to better front-end performance of a website as a whole.
           // See drupal_add_js() for details.
           $key = 'aggregate_' . $item['group'] . '_' . $item['every_page'] . '_' . $index;
-          $processed[$key] = '';
+          $scripts[$key] = '';
           $files[$key][$item['data']] = $item;
         }
         break;
@@ -4594,7 +4591,7 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
           $js_element['#attributes']['defer'] = 'defer';
         }
         $js_element['#attributes']['src'] = $item['data'];
-        $processed[$index++] = theme('html_tag', array('element' => $js_element));
+        $scripts[$index++] = $js_element;
         break;
     }
   }
@@ -4609,14 +4606,18 @@ function drupal_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALS
         $preprocess_file = file_create_url($uri);
         $js_element = $element;
         $js_element['#attributes']['src'] = $preprocess_file;
-        $processed[$key] = theme('html_tag', array('element' => $js_element));
+        $scripts[$key] = $js_element;
       }
     }
   }
 
-  // Keep the order of JS files consistent as some are preprocessed and others are not.
-  // Make sure any inline or JS setting variables appear last after libraries have loaded.
-  return implode('', $processed) . $output;
+  // Keep the order of JS files consistent as some are preprocessed and others
+  // are not. Make sure any inline or JS setting variables appear last after
+  // libraries have loaded.
+  $element['scripts'] = $scripts;
+  $element['settings'] = $settings;
+
+  return $element;
 }
 
 /**
@@ -6998,7 +6999,16 @@ function drupal_common_theme() {
       'variables' => array(),
     ),
     'table' => array(
-      'variables' => array('header' => NULL, 'rows' => NULL, 'attributes' => array(), 'caption' => NULL, 'colgroups' => array(), 'sticky' => TRUE, 'empty' => ''),
+      'variables' => array(
+        'header' => NULL,
+        'footer' => NULL,
+        'rows' => NULL,
+        'attributes' => array(),
+        'caption' => NULL,
+        'colgroups' => array(),
+        'sticky' => TRUE,
+        'empty' => '',
+      ),
     ),
     'tablesort_indicator' => array(
       'variables' => array('style' => NULL),

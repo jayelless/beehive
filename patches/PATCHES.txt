@@ -126,6 +126,8 @@ Contrib Modules
 === views ===
 >>> 7.x-3.23
 15 May 2019: views-content_access_filter_per_core_performance-2204257-4_0.patch
+>>> 7.x-3.24
+06 May 2020: update_views_content-2204257-31.patch
 
 === views_bulk_operations ===
 >>> 7.x-3.3

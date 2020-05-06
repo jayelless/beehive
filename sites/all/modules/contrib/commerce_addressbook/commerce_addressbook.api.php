@@ -24,36 +24,3 @@
 function hook_commerce_addressbook_labels_alter(&$labels, $profiles) {
   // No example.
 }
-
-/**
- * Allows modules to alter the AJAX commands when selecting another customer
- * profile.
- *
- * During checkout the user selects the "address on file" from a dropdown list
- * of customer profiles. The response (prefilled fields) is handled using AJAX.
- * By altering the array of AJAX commands, a module can add additional commands
- * to the response.
- *
- * @param array $commands
- *   An array of AJAX commands.
- * @param type $form
- *   Nested array of form elements that comprise the form.
- * @param type $form_state
- *   A keyed array containing the current state of the form.
- */
-function hook_commerce_addressbook_callback_alter(&$commands, $form, $form_state) {
-  // Example.
-  $commands[] = ajax_command_alert('It works!');
-}
-
-/**
- * Allow modules to be called when a default address is added/updated.
- *
- * @param $customer_profile
- *   The customer profile set as default.
- *
- * @see commerce_addressbook_set_default_profile().
- */
-function hook_commerce_addressbook_set_default($customer_profile) {
-  // No example.
-}

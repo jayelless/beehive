@@ -61,7 +61,3 @@ function commerce_addressbook_rules_condition_info() {
 function commerce_addressbook_rules_profile_is_default($customer_profile) {
   return commerce_addressbook_get_default_profile_id($customer_profile->uid,$customer_profile->type) == $customer_profile->profile_id;
 }
-
-/**
- * @}
- */

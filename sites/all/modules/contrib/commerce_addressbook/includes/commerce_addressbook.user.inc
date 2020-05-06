@@ -40,7 +40,7 @@ function commerce_addressbook_profile_options_edit($account, $customer_profile) 
 }
 
 /**
- * Submit handler for commerce_addressbook_customer_profile_form.
+ * Submit handler for commerce_addressbook_customer_profile_form().
  */
 function commerce_addressbook_customer_profile_form_submit($form, &$form_state) {
   $profile = $form_state['customer_profile'];

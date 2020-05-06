@@ -9,14 +9,8 @@ function commerce_addressbook_schema() {
   $schema['commerce_addressbook_defaults'] = array(
     'description' => 'Stores addressbook defaults by customer profile type.',
     'fields' => array(
-      'cad_id' => array(
-        'description' => 'Serial numeric ID of the default customer profile of a specific type.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
       'profile_id' => array(
-        'description' => 'Serial numeric ID of the customer profile in the local database.',
+        'description' => 'Numeric ID of the customer profile in the local database.',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
@@ -35,16 +29,18 @@ function commerce_addressbook_schema() {
         'not null' => TRUE,
       ),
     ),
-    'primary key' => array('cad_id'),
     'foreign keys' => array(
       'profile_id' => array(
         'table' => 'commerce_customer_profile',
-        'columns'=> array('profile_id' => 'profile_id'),
+        'columns' => array('profile_id' => 'profile_id'),
       ),
       'uid' => array(
         'table' => 'users',
-        'columns'=> array('uid' => 'uid'),
+        'columns' => array('uid' => 'uid'),
       ),
+    ),
+    'unique keys' => array(
+      'uid_type' => array('uid', 'type'),
     ),
     'indexes' => array(
       'profile_id' => array('profile_id'),
@@ -53,17 +49,6 @@ function commerce_addressbook_schema() {
   );
 
   return $schema;
-}
-
-/**
- * Implements hook_uninstall().
- */
-function commerce_addressbook_uninstall() {
-  // Ensure the commerce_checkout module is loaded.
-  drupal_load('module', 'commerce_checkout');
-  foreach (commerce_checkout_panes() as $pane_id => $checkout_pane) {
-    variable_del('commerce_' . $pane_id . '_addressbook');
-  }
 }
 
 /**
@@ -79,5 +64,30 @@ function commerce_addressbook_update_7200() {
     commerce_delete_fields('commerce_addressbook_saved_profiles');
 
     return t('Created the commerce_addressbook_defaults table and deleted all saved profile fields.');
+  }
+}
+
+/**
+ * Apply the schema updates from 7.x.2.x to 7.x.3.x.
+ */
+function commerce_addressbook_update_7300() {
+  if (db_field_exists('commerce_addressbook_defaults', 'cad_id')) {
+    // Deleting the field also drops the primary key.
+    db_drop_field('commerce_addressbook_defaults', 'cad_id');
+    db_add_unique_key('commerce_addressbook_defaults', 'uid_type', array('uid', 'type'));
+    db_change_field(
+      'commerce_addressbook_defaults',
+      'profile_id',
+      'profile_id',
+      array(
+        'description' => 'Numeric ID of the customer profile in the local database.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      array(
+        'profile_id' => array('profile_id'),
+      )
+    );
   }
 }

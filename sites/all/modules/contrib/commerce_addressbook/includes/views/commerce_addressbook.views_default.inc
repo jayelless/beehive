@@ -146,6 +146,11 @@ function commerce_addressbook_views_default_views() {
   $handler->display->display_options['filters']['status']['table'] = 'commerce_customer_profile';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
+  /* Filter criterion: Addressbook: Profile ID */
+  $handler->display->display_options['filters']['profile_id']['id'] = 'profile_id';
+  $handler->display->display_options['filters']['profile_id']['table'] = 'commerce_addressbook_defaults';
+  $handler->display->display_options['filters']['profile_id']['field'] = 'profile_id';
+  $handler->display->display_options['filters']['profile_id']['operator'] = 'not empty';
 
   $views['commerce_addressbook_defaults'] = $view;
 

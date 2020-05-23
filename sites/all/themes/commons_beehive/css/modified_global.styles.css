@@ -2905,6 +2905,14 @@ a:hover, a:focus {
   background: url('../images/icons/icon-groups.png?1400601840') no-repeat center 10px;
 }
 
+.main-menu-forum a {
+  background: url('../images/icons/icon-forum.png?1400601840') no-repeat center 10px;
+}
+
+.main-menu-user-guides a {
+  background: url('../images/icons/icon-help.png?1400601840') no-repeat center 10px;
+}
+
 .main-menu-events a {
   background: url('../images/icons/icon-events.png?1400601840') no-repeat center 10px;
 }

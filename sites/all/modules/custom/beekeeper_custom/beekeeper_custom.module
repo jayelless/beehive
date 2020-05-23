@@ -183,6 +183,41 @@ function beekeeper_custom_form_commerce_checkout_form_checkout_alter(&$form, &$f
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function beekeeper_custom_form_system_theme_settings_alter(&$form, &$form_state, $form_id) {
+  $themes_list = list_themes(TRUE);
+
+  // Filter down to just the commons_beehive theme:
+  // If commons_beehive theme exists
+  // If commons_beehive is enabled
+  // If we're not on the general settings tab -- because args aren't set yet
+  // And we're on the commons_origin settings page, then show the color palette
+  if (isset($themes_list['commons_beehive'])
+    && $themes_list['commons_beehive']->status == 1
+    && !empty($form_state['build_info']['args'])
+    && $form_state['build_info']['args'][0] == 'commons_beehive') {
+    // Add the color palette selection form to the apperance settings form.
+    require_once(drupal_get_path('theme', 'commons_beehive') . '/commons_beehive.palettes.inc');
+    commons_beehive_palettes_form($form);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function beekeeper_custom_form_alter(&$form, &$form_state, $form_id) {
+  $temp = 0;
+  switch ($form_id) {
+    case 'membership_entity_join_form':
+      break;
+
+    case 'event_node_form':
+      break;
+  }
+}
+
+/**
  * Implements hook_user_presave
  *
  * Copies the user's name to the name compontnents of the postal address
@@ -228,27 +263,6 @@ function beekeeper_custom_membership_type_list() {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- */
-function beekeeper_custom_form_system_theme_settings_alter(&$form, &$form_state, $form_id) {
-  $themes_list = list_themes(TRUE);
-
-  // Filter down to just the commons_beehive theme:
-  // If commons_beehive theme exists
-  // If commons_beehive is enabled
-  // If we're not on the general settings tab -- because args aren't set yet
-  // And we're on the commons_origin settings page, then show the color palette
-  if (isset($themes_list['commons_beehive'])
-    && $themes_list['commons_beehive']->status == 1
-    && !empty($form_state['build_info']['args'])
-    && $form_state['build_info']['args'][0] == 'commons_beehive') {
-    // Add the color palette selection form to the apperance settings form.
-    require_once(drupal_get_path('theme', 'commons_beehive') . '/commons_beehive.palettes.inc');
-    commons_beehive_palettes_form($form);
-  }
-}
-
-/**
  * Implelemnts hook_block_view_MODULE_DELTA_alter()
  */
 function beekeeper_custom_block_view_commons_site_homepage_commons_site_homepage_alter(&$data) {
@@ -286,6 +300,15 @@ function beekeeper_custom_menu() {
     'file' => 'beekeeper_custom.menu.inc',
     'menu_name' => 'beekeeper-menu',
     'weight' => 11,
+  );
+
+  $menu_items['admin/config/beekeeper/settings'] = array(
+    'title' => 'Beekeeper settings',
+    'description' => 'Configure beekeeper custom settings.',
+    'page arguments' => array('beekeeper_custom_settings_form'),
+    'page callback' => 'drupal_get_form',
+    'access arguments'  => array('administer site configuration'),
+    'file' => 'beekeeper_custom.admin.inc',
   );
 
   return $menu_items;
@@ -528,3 +551,21 @@ function beekeeper_custom_commons_utility_links_alter(&$links) {
   }
 
 }
+
+function beekeeper_custom_stttings_delete() {
+
+  variable_del('beekeeper-membership-renewal-open');
+  variable_del('mlmmj-members-list');
+  variable_del('mlmmj-committee-list');
+
+}
+
+/**
+ * Implements hook_addressfield_address_formats_alter().
+ */
+function beekeeper_custom_addressfield_address_formats_alter(&$address_formats) {
+  $nz = $address_formats['NZ'];
+  // Remove the postal_code from the list of required fields for China.
+  $address_formats['NZ']['required_fields'] = array();
+}
+

@@ -159,10 +159,11 @@
  */
 @media only screen and (min-width: 768px) {
   body.front.not-logged-in {
+    /**
     #content {
       background: image-url('commons-drop.png') right top no-repeat;
     }
-
+    **/
     .region-three-33-top {
       margin-bottom: 24px;
       min-height: 300px;
@@ -178,5 +179,37 @@
         width:40%;
       }
     }
+
+    #signup-or-login ul.inline li a {
+      font-size: 150%;
+    }
+
+    body.front {
+      #quicktabs-commons_bw ul.quicktabs-tabs li a {
+        font-size: 125%;
+        font-weight: bold;
+      }
+      #block-system-main .panel-pane .pane-title {
+        font-weight: bold;
+      }
+    }
+
+    .quicktabs-tabpage .view-header .partial-node-form-title {
+      color: #9c773d;
+      font-weight: bold;
+    }
+
+    body.page-panels {
+      background-image: url('../images/page-background.png');
+      background-repeat: no-repeat;
+      background-position: right top;
+      background-size: 100%;
+      background-attachment: fixed;
+
+      #block-system-main .panel-pane.pane-node-content {
+        padding: 10px;
+      }
+    }
+
   }
 }

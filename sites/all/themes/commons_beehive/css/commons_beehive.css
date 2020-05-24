@@ -81,3 +81,8 @@
 .palette-brown-yellow .region-header .block-commons-utility-links ul.commons-utility-links li a {
   margin-left: 5px;
 }
+
+/* Locate the author image in forum posts */
+.forum-post .author-pane .user-picture {
+  top: 60px;
+}

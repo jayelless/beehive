@@ -96,6 +96,17 @@ function commerce_features_features_api() {
 }
 
 /**
+ * Implements hook_features_api_alter().
+ */
+function commerce_features_features_api_alter(&$components) {
+  if (module_exists('commerce_discount')) {
+    module_load_include('inc', 'entity', 'entity.features');
+    $components['commerce_discount']['file'] = drupal_get_path('module', 'commerce_features') . '/commerce_discount.features.inc';
+    unset($components['commerce_discount']['base']);
+  }
+}
+
+/**
  * Implements hook_menu_alter().
  *
  * Those product types provided by features shall not be deleted.

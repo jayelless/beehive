@@ -61,6 +61,7 @@ function _radioactivity_light_initialization() {
       if (class_exists('Memcache') || class_exists("Memcached")) {
         define("VAR_RADIOACTIVITY_MEMCACHED_HOST", variable_get("radioactivity_memcached_host", "localhost"));
         define("VAR_RADIOACTIVITY_MEMCACHED_PORT", variable_get("radioactivity_memcached_port", "11211"));
+        define("VAR_RADIOACTIVITY_MEMCACHED_PREFIX", variable_get("radioactivity_memcached_prefix", ""));
       }
       if (class_exists("Redis")) {
         define("VAR_RADIOACTIVITY_REDIS_HOST", variable_get("radioactivity_redis_host", "localhost"));

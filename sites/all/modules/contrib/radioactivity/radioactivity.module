@@ -310,6 +310,9 @@ function _radioactivity_update_energy($entity_type, $entity_id, $field_name, $la
     if ($entity_info['field cache']) {
       cache_clear_all("field:$entity_type:$id", 'cache_field');
     }
+    if (module_exists('entitycache')) {
+      entity_get_controller($entity_type)->resetCache(array($entity_id));
+    }
   } else {
     // In case the field uses another type of storage, invoke the field presave and update hooks.
     field_attach_presave($entity_type, $entity);
@@ -513,6 +516,7 @@ function radioactivity_cron() {
             // Invoke rules event for cut off
             $items = db_select($table_name, 't')
                ->fields('t', array('entity_type', 'entity_id'))
+               ->condition("bundle", $bundle)
                ->condition($energy, $cut_off, '<')
                ->condition("deleted", "0")
                ->execute();
@@ -527,6 +531,7 @@ function radioactivity_cron() {
           }
 
           $cuts = db_delete($table_name)
+            ->condition("bundle", $bundle)
             ->condition($energy, $cut_off, '<')
             ->condition("deleted", "0")
             ->execute();
@@ -535,6 +540,7 @@ function radioactivity_cron() {
           $updated = db_update($table_name)
             ->expression($energy, $energy . ' * pow(2, (' . $timestamp . ' * 1.0 - ' . REQUEST_TIME . ') / ' . $half_life . ')')
             ->fields(array($timestamp => REQUEST_TIME))
+            ->condition("bundle", $bundle)
             ->condition($timestamp, REQUEST_TIME, '<')
             ->condition("deleted", "0")
             ->execute();

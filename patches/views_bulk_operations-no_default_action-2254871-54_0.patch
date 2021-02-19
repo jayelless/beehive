@@ -116,7 +116,7 @@ index f5865a2..aa0e93f 100644
      $skip_permission_check = $operation->getAdminOption('skip_permission_check');
      // Filter out entities that can't be accessed.
      foreach ($entities as $id => $entity) {
--      if (!$skip_permission_check && !_views_bulk_operations_entity_access($operation, $entity_type, $entity, $account)) {
+-      if (!$skip_permission_check && !_views_bulk_operations_entity_access($operation, $entity_type, $entity, $user)) {
 +      if (!$skip_permission_check && !$operation->entity_access($entity_type, $entity)) {
          $context['results']['log'][] = t('Skipped %operation on @type %title due to insufficient permissions.', array(
            '%operation' => $operation->label(),

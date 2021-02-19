@@ -17,6 +17,15 @@ Drupal Core
 15 May 2019: drupal-106721-optimize_node_access_queries-81.patch
 15 May 2019: file-get-file-references-is-rather-bogus-1805690-41.patch
 
+>>> 7.78
+20 Feb 2021: 1664602-1.patch
+20 Feb 2021: do-2105841_no_protocol_filter-90.patch
+20 Feb 2021: node_access_grants-static-cache-11.patch
+20 Feb 2021: pass-page-callback-result-897504-2.patch
+20 Feb 2021: drupal-106721-optimize_node_access_queries-81.patch
+20 Feb 2021: file-get-file-references-is-rather-bogus-1805690-41.patch
+20 Feb 2021: d7-form-html-id-1831560-14.patch
+
 -------------------------------------------------------------------------------
 Commons Codebase
 -------------------------------------------------------------------------------
@@ -57,6 +66,7 @@ Contrib Modules
 29 Apr 2018: uninitialized_string_offset_in_date_entity_metadata_struct_getter-2074457-9.patch
 10 May 2018: error_with-2457423-14.patch
 10 May 2018: 1741062-1.patch
+20 feb 2021: php73_compatibility_issue-3070835-1.patch
 
 === entityreference_prepopulate ===
 >>> 7.x-1.7
@@ -85,8 +95,9 @@ Contrib Modules
 === memcache ===
 >>> 7.x-1.6
 24 Jan 2018: notice_trying_to_get-2864659-4.patch
-29 Apr 2018: notice_trying_to_get-2864659-4.patch
 29 May 2019: memcache-call-to-member-function-on-boolean-fix-2879600-7.patch
+>>> 7.x-1.8
+20 feb 2021: notice_trying_to_get-2864659-4.patch
 
 === message_notify ===
 >>> 7.x-2.5
@@ -113,6 +124,8 @@ Contrib Modules
 === radioactivity ===
 >>> 7.x-2.12
 09May2018: radioactivity-2330349-fix-schema-1.patch
+>>> 7.x-2.13
+20 feb 2021: radioactivity-2330349-fix-schema-1.patch
 
 === realname ===
 >>> 7.x-1.4
@@ -138,3 +151,5 @@ Contrib Modules
 29 Apr 2018: views_bulk_operations-no_default_action-2254871-54.patch (updated patch!)
 >>> 7.x-3.5
 15 May 2019: views_bulk_operations-no_default_action-2254871-54.patch
+>>> 7.x-3.6
+20 feb 2021: views_bulk_operations-no_default_action-2254871-54.patch (updated patch)

@@ -63,6 +63,9 @@ function views_bulk_operations_operation_action_list($operation_id = NULL) {
         'behavior' => isset($action['behavior']) ? $action['behavior'] : array(),
         'permissions' => isset($action['permissions']) ? $action['permissions'] : NULL,
         'pass rows' => !empty($action['pass rows']),
+        'entity operations' => !empty($action['entity operations']) ? $action['entity operations'] : array(),
+        'access callback' => isset($action['access callback']) ? $action['access callback'] : NULL,
+        'access arguments' => !empty($action['access arguments']) ? $action['access arguments'] : array(),
       );
     }
   }
